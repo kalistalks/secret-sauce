@@ -1,22 +1,29 @@
 module adder #(
     SIZE ~ 32 : SIZE > 1
 )(
-    input a[SIZE],
-    input b[SIZE],
+    input a[SIZE], // SIGNED input a
+    input b[SIZE], // SIGNED input b
     input alufn_signal[6],
-    output out[SIZE],
-    output z,
-    output v,
-    output n
+    output out[SIZE], // 32-bit output: (S[31:0]) 
+    output z, // Z which is true when the S outputs are all zero
+    // (i.e., NOR(S) == 1 ? Z = 1 : Z = 0)
+    output v, // V which is true when the addition operation overflows
+    // (i.e., the result is too large to be represented in 32 bits)
+    output n // N which is true when the S is negative
+    // S31 == 1 ? N = 1 : N = 0
 ) {
-    
-    
+    rca rca(#SIZE(SIZE))
+    sig xb[SIZE]
     always {
-        // implement adder/subtractor unit logic here
-        out = 0
-        z = 0
-        v = 0 
-        n = 0
+        xb[SIZE-1:0] = b ^ SIZEx{alufn_signal[0]} //b XOR first bit of alufn_signal
+        rca.a = a
+        rca.b = xb
+        rca.cin = alufn_signal[0]
         
+        // implement adder/subtractor unit logic here
+        out = rca.s
+        z = ~| rca.s
+        v = (a[SIZE-1] & xb[SIZE-1] & ~rca.s[SIZE-1]) | (~a[SIZE-1] & ~xb[SIZE-1] & rca.s[SIZE-1])
+        n = rca.s[SIZE-1]
     }
 }
