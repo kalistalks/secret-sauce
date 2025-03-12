@@ -1,0 +1,22 @@
+module adder #(
+    SIZE ~ 32 : SIZE > 1
+)(
+    input a[SIZE],
+    input b[SIZE],
+    input alufn_signal[6],
+    output out[SIZE],
+    output z,
+    output v,
+    output n
+) {
+    
+    
+    always {
+        // implement adder/subtractor unit logic here
+        out = 0
+        z = 0
+        v = 0 
+        n = 0
+        
+    }
+}

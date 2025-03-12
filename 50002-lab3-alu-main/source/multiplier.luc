@@ -1,0 +1,11 @@
+module multiplier (
+    input a[32],
+    input b[32],
+    output mul[32],
+) {
+    
+    always {
+        // implement multiplier unit logic here
+        mul = 0 
+    }
+}

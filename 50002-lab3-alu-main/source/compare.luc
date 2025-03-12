@@ -1,0 +1,14 @@
+module compare (
+    input z,
+    input v,
+    input n,
+    input alufn[6],
+    output cmp
+) {
+    
+    always {
+        
+        cmp = 0
+        
+    }
+}

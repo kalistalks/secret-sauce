@@ -1,0 +1,17 @@
+// A full adder combinational logic unit 
+module fa (
+    input a,
+    input b,
+    input cin,
+    output s,
+    output cout
+) {
+    
+    always {
+        // implement 1-bit full adder logic here
+        s = 0
+        cout = 0 
+        
+    }
+    
+}

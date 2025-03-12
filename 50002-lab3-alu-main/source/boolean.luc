@@ -1,0 +1,17 @@
+module boolean #(
+    SIZE = 32 : SIZE > 0
+)(
+    input a[SIZE],
+    input b[SIZE],
+    input alufn[6],
+    output bool[SIZE]
+) {
+    
+    
+    always {
+        // implement boolean unit logic here
+        bool = 0 
+        
+    }
+    
+}

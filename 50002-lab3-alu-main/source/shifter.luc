@@ -1,0 +1,13 @@
+module shifter (
+    input a[32],
+    input b[5],
+    input alufn[6],
+    output shift[32]
+) {
+
+    always {
+        // implement shifter unit logic here
+        shift = 0
+        
+    } 
+}

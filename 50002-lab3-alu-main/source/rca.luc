@@ -1,0 +1,18 @@
+// A ripple-carry-adder combinational logic unit
+module rca #(
+    SIZE ~ 32 : SIZE > 1
+)(
+    input a[SIZE],
+    input b[SIZE],
+    input cin,
+    output cout,
+    output s[SIZE],
+) {
+    
+    always {
+        // implement ripple-carry-adder logic here 
+        cout = 0
+        s = 0 
+        
+    }
+}

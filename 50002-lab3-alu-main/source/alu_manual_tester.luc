@@ -1,0 +1,25 @@
+module alu_manual_tester#(
+    CLK_FREQ ~ 1000 : CLK_FREQ > 0) 
+(
+    input clk,  // clock
+    input rst,  // reset
+    input io_button[5],
+    input io_dip[3][8],
+    output io_led[3][8],
+    output io_segment[8],
+    output io_select[4]
+) {
+    
+    alu alu
+    
+    always {
+        // implement alu tester logic here
+        alu.a = 0
+        alu.b = 0
+        alu.alufn = 0
+        io_led = 3x{{8h0}}
+        io_segment = 0
+        io_select = 4hF
+        
+    }
+}
