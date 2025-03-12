@@ -20,6 +20,6 @@ module alu (
         v = adder.v
         n = adder.n
         
-        out = adder.cout     
+        out = adder.out     
     }
 }
