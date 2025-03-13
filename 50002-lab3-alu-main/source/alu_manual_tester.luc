@@ -100,9 +100,7 @@ module alu_manual_tester#(
                 b.d[23:16] = io_dip[0] // Read back 8 bits
                 b.d[31:24] = io_dip[1] // Read front 8 bits
                 if (io_button_edge.out[1]) {
-                        b_store[23:16] = io_dip[0]  // Read back 8 bits
-                        b_store[31:24] = io_dip[1]  // Read front 16 bits
-                        states.d = States.END  // Move to States.END
+                        states.d = States.IDLE  // Move to States.END
                 }
         }
     }
