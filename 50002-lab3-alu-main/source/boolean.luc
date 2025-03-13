@@ -7,11 +7,24 @@ module boolean #(
     output bool[SIZE]
 ) {
     
+    sig mux_input[32][4]
+    // declaration of modules utilised in boolean unit 
+    mux_4 mux_4_32[32]
+    
     
     always {
-        // implement boolean unit logic here
-        bool = 0 
+        // create 32 copies of ALUFN signal as input to each mux_4 unit 
+        // the double curly brackets are intentional because
+        // we are creating 2D array: 32 by 4 bits
+        mux_4_32.in = 32x{{alufn_signal[3:0]}} 
         
+        // implement boolean unit logic here
+        bool = 0
+        repeat(i, SIZE, 0, 1) { // loop from i = 0 to SIZE-1            
+            mux_4_32.s0 = a[i]
+            mux_4_32.s1 = b[i]
+        }
+
     }
     
 }

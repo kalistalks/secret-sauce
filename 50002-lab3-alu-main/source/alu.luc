@@ -9,6 +9,8 @@ module alu (
 ) {
     
     adder adder(#SIZE(32)) // instantiate adder 
+    compare compare // instantiate compare
+    
     
     always {
         // code from lab website to connect its input and output into adder
@@ -21,5 +23,7 @@ module alu (
         n = adder.n
         
         out = adder.out     
+        
+ 
     }
 }
