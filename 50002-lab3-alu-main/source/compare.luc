@@ -3,12 +3,23 @@ module compare (
     input v,
     input n,
     input alufn[6],
-    output cmp
+    output cmp[32]
 ) {
+    sig mux[4]
+    
+    mux_4 cmp_mux
     
     always {
+        mux[0] = 0 
+        mux[1] = z
+        mux[2] = n ^ v // n XOR v
+        mux[3] = z | (n ^ v) // z OR (n XOR v)
         
-        cmp = 0
+        cmp_mux.s0 = alufn[1] // s0 is alufn[1]
+        cmp_mux.s1 = alufn[2] // s1 is alufn[2]
+        cmp_mux.in = mux
+        
+        cmp = c{31b0, cmp_mux.out}
         
     }
 }
