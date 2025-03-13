@@ -2,19 +2,14 @@ module alu_manual_tester#(
     CLK_FREQ ~ 1000 : CLK_FREQ > 0
 )(
     input clk,  // clock
-    input rst,
-    // input rst_n,  // reset
+    input rst, // reset
     input io_button[5], // 5 buttons on IO Shield
     input io_dip[3][8], // DIP switches on IO Shield
-    // output led[8], // 8 user controllable LEDs
+    output led[8], // 8 user controllable LEDs
     output io_led[3][8], // LEDs on IO Shield
     output io_segment[8], // 7-Segment LEDs on IO Shield
     output io_select[4] // Digit Select on IO Shield
 ) {
-    // sig rst
-    sig a_store[32]
-    sig b_store[32]
-    
     alu alu
     
     enum States {
@@ -23,17 +18,11 @@ module alu_manual_tester#(
         A2, // enter in front 16 bits of a
         B1, // enter in back 16 bits of b
         B2, // enter in front 16 bits of b
-        END
     }
-    
-    // const SIZE = 32
-    const CLK_FREQ = $is_sim() ? 1000 : 10000000
-    
     
     .clk(clk) {
         // The reset conditioner is used to synchronize the reset signal to the FPGA
         // clock. This ensures the entire FPGA comes out of reset at the same time.
-        // reset_conditioner reset_cond
         
         // instantiate 5 edge detectors, one for each button 
         edge_detector io_button_edge[5](#RISE(5x{{1}}), #FALL(5x{{0}}))
@@ -42,30 +31,27 @@ module alu_manual_tester#(
 
         
         .rst(rst) {
-            // dff counter[2](#INIT(0))
             dff states[$width(States)](#INIT(States.IDLE))
+            dff a[32](#INIT(0))
+            dff b[32](#INIT(0))
         }
     }
 
     
     always {
-        // reset_cond.in = ~rst_n // input raw inverted reset signal
-        // rst = reset_cond.out // conditioned reset
-        
         // condition the buttons, then take rising edges only
         io_button_cond.in = io_button
         io_button_edge.in = io_button_cond.out
         
         // connect state dff
         states.d = states.q
-        // counter.d = counter.q
+        a.d = a.q
+        b.d = b.q
         
-        // implement alu tester logic here
-        
-        // alu connection, initialise a and b as 0
-        alu.a = 0
-        alu.b = 0
-        
+        // alu connection, initialise a and b
+        alu.a = a.q
+        alu.b = b.q
+
         // leftmost section of IO dip switches, from right to left
         alu.alufn = io_dip[2][5:0]
         
@@ -77,55 +63,45 @@ module alu_manual_tester#(
         
         // 4 sections of 7 segment leds
         io_select = 4hF
-        
-        a_store = 0
-        b_store = 0
+
+        // implement alu tester logic here
+        led = alu.out[7:0] // first 8 bits
+        io_led = alu.out[31:8] // next 24 bits
+
         case (states.q){
             States.IDLE:
-                if (io_button_edge.out[1]) {
-                        states.d = States.A1 // Move to States.A1
+                // this takes precedence, placed as the first clause
+                if (io_button_edge.out[0]) {
+                    states.d = States.A1
+                } else if(io_button_edge.out[2]) {
+                    states.d = States.B1
                 }
             States.A1:
-                io_led[0] = 8h1
+                a.d[7:0] = io_dip[0] // Read back 8 bits
+                a.d[15:8] = io_dip[1] // Read front 8 bits
                 if (io_button_edge.out[1]) {
-                        a_store[7:0] = io_dip[0]  // Read back 8 bits
-                        a_store[15:8] = io_dip[1]  // Read front 16 bits
                         states.d = States.A2 // Move to States.A2
                 }
             States.A2:
-                io_led[0] = 8h2
+                a.d[23:16] = io_dip[0] // Read back 8 bits
+                a.d[31:24] = io_dip[1] // Read front 8 bits
                 if (io_button_edge.out[1]) {
-                        a_store[23:16] = io_dip[0]  // Read back 8 bits
-                        a_store[31:24] = io_dip[1]  // Read front 16 bits
-                        states.d = States.B1  // Move to States.B1
+                        states.d = States.IDLE  // Move to States.IDLE
                 }
             States.B1:
-                io_led[0] = 8h3
+                b.d[7:0] = io_dip[0] // Read back 8 bits
+                b.d[15:8] = io_dip[1] // Read front 8 bits
                 if (io_button_edge.out[1]) {
-                        b_store[7:0] = io_dip[0]  // Read back 8 bits
-                        b_store[15:8] = io_dip[1]  // Read front 16 bits
                         states.d = States.B2  // Move to States.B2
                 }
             States.B2:
-                io_led[0] = 8h4
+                b.d[23:16] = io_dip[0] // Read back 8 bits
+                b.d[31:24] = io_dip[1] // Read front 8 bits
                 if (io_button_edge.out[1]) {
                         b_store[23:16] = io_dip[0]  // Read back 8 bits
                         b_store[31:24] = io_dip[1]  // Read front 16 bits
                         states.d = States.END  // Move to States.END
                 }
-            States.END:
-                alu.a = a_store
-                alu.b = b_store
-                alu.alufn = io_dip[2][5:0]
-                
-                io_led[0] = alu.out[7:0]  // Show lower 8 bits of ALU output
-                io_led[1] = alu.out[15:8]  // Show next 8 bits
-                io_led[2] = alu.out[23:16]  // Show next 8 bits
-                
-                if (io_button_edge.out[1]) {
-                    states.d = States.IDLE  // Reset to IDLE
-                }
         }
-        
     }
 }
