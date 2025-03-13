@@ -82,37 +82,37 @@ module alu_manual_tester#(
         b_store = 0
         case (states.q){
             States.IDLE:
-                if (io_button_edge.out[4]) {
-                        states.d = States.A1
-                } else if (io_button_edge.out[3]) {
-                    states.d = States.A2
-                } else if (io_button_edge.out[0]) {
-                    states.d = States.B1
-                } else if (io_button_edge.out[2]) {
-                    states.d = States.B2
-                } else if (io_button_edge.out[1]){
-                    states.d = States.END
+                if (io_button_edge.out[1]) {
+                        states.d = States.A1 // Move to States.A1
                 }
             States.A1:
-                    a_store[7:0] = io_dip[0]  // Read back 8 bits
-                    a_store[15:8] = io_dip[1]  // Read front 16 bits
-                    states.d = States.IDLE  // Move to States.IDLE
-                
+                io_led[0] = 8h1
+                if (io_button_edge.out[1]) {
+                        a_store[7:0] = io_dip[0]  // Read back 8 bits
+                        a_store[15:8] = io_dip[1]  // Read front 16 bits
+                        states.d = States.A2 // Move to States.A2
+                }
             States.A2:
-                    a_store[23:16] = io_dip[0]  // Read back 8 bits
-                    a_store[31:24] = io_dip[1]  // Read front 16 bits
-                    states.d = States.IDLE  // Move to States.IDLE
-            
+                io_led[0] = 8h2
+                if (io_button_edge.out[1]) {
+                        a_store[23:16] = io_dip[0]  // Read back 8 bits
+                        a_store[31:24] = io_dip[1]  // Read front 16 bits
+                        states.d = States.B1  // Move to States.B1
+                }
             States.B1:
-                    b_store[7:0] = io_dip[0]  // Read back 8 bits
-                    b_store[15:8] = io_dip[1]  // Read front 16 bits
-                    states.d = States.IDLE  // Move to States.IDLE
-            
+                io_led[0] = 8h3
+                if (io_button_edge.out[1]) {
+                        b_store[7:0] = io_dip[0]  // Read back 8 bits
+                        b_store[15:8] = io_dip[1]  // Read front 16 bits
+                        states.d = States.B2  // Move to States.B2
+                }
             States.B2:
-                    b_store[23:16] = io_dip[0]  // Read back 8 bits
-                    b_store[31:24] = io_dip[1]  // Read front 16 bits
-                    states.d = States.IDLE  // Move to States.IDLE
-            
+                io_led[0] = 8h4
+                if (io_button_edge.out[1]) {
+                        b_store[23:16] = io_dip[0]  // Read back 8 bits
+                        b_store[31:24] = io_dip[1]  // Read front 16 bits
+                        states.d = States.END  // Move to States.END
+                }
             States.END:
                 alu.a = a_store
                 alu.b = b_store
@@ -122,7 +122,7 @@ module alu_manual_tester#(
                 io_led[1] = alu.out[15:8]  // Show next 8 bits
                 io_led[2] = alu.out[23:16]  // Show next 8 bits
                 
-                if (io_button[1]) {
+                if (io_button_edge.out[1]) {
                     states.d = States.IDLE  // Reset to IDLE
                 }
         }
