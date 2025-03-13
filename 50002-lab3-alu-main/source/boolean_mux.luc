@@ -1,0 +1,21 @@
+// boolean_mux.luc
+module boolean_mux (
+    input s0,  // selectors
+    input s1,
+    input s2, 
+    input s3,
+    input in[4], // inputs 
+    output out
+  ) {
+
+  always {
+    case (c{s1, s0, s2, s3}){
+      b1000: out = in[0];
+      b1110: out = in[1];
+      b0110: out = in[2];
+      b1010: out = in[3];
+      default:
+        out = 0;
+    }
+  }
+}

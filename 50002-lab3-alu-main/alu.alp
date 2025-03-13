@@ -82,6 +82,12 @@
                     "type": "DiskFile",
                     "path": "source/mux_4.luc"
                 }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/boolean_mux.luc"
+                }
             }
         ],
         "constraintFiles": [
