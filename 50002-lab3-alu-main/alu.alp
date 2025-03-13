@@ -76,6 +76,12 @@
                     "type": "DiskFile",
                     "path": "source/alu_manual_tester.luc"
                 }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/mux_4.luc"
+                }
             }
         ],
         "constraintFiles": [
