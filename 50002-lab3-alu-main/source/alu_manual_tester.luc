@@ -11,7 +11,7 @@ module alu_manual_tester#(
     output io_select[4] // Digit Select on IO Shield
 ) {
     alu alu
-    
+    const SEVEN_SEG_DIV = $is_sim() ? 3 : 16 // put 6 for sim, 16 on hardware
     enum States {
         IDLE,
         A1, // enter in back 16 bits of a
@@ -19,7 +19,7 @@ module alu_manual_tester#(
         B1, // enter in back 16 bits of b
         B2 // enter in front 16 bits of b
     }
-    
+    bin_to_dec decimal_renderer(#DIGITS(4), #LEADING_ZEROS(1))
     .clk(clk) {
         // The reset conditioner is used to synchronize the reset signal to the FPGA
         // clock. This ensures the entire FPGA comes out of reset at the same time.
@@ -31,9 +31,11 @@ module alu_manual_tester#(
         
         
         .rst(rst) {
+            multi_seven_seg seg(#DIV(SEVEN_SEG_DIV))
             dff states[$width(States)](#INIT(States.IDLE))
             dff a[32](#INIT(0))
             dff b[32](#INIT(0))
+            dff state_counter[3](#INIT(1))
         }
     }
     
@@ -47,6 +49,7 @@ module alu_manual_tester#(
         states.d = states.q
         a.d = a.q
         b.d = b.q
+        state_counter.d = state_counter.q
         
         // alu connection, initialise a and b
         alu.a = a.q
@@ -59,10 +62,12 @@ module alu_manual_tester#(
         io_led = 3x{{8h0}}
         
         // 7 segment display value
-        io_segment = 0
+        decimal_renderer.value = state_counter.q
+        seg.values = decimal_renderer.digits
+        io_segment = ~seg.seg
         
         // 4 sections of 7 segment leds
-        io_select = 4hF
+        io_select = ~seg.sel
         
         // implement alu tester logic here
         led = alu.out[7:0] // first 8 bits
@@ -73,30 +78,35 @@ module alu_manual_tester#(
         case (states.q){
             States.IDLE:
                 // this takes precedence, placed as the first clause
+                state_counter.d = 1
                 if (io_button_edge.out[0]) {
                     states.d = States.A1
                 } else if(io_button_edge.out[2]) {
                     states.d = States.B1
                 }
             States.A1:
+                state_counter.d = 2
                 a.d[7:0] = io_dip[0] // Read back 8 bits
                 a.d[15:8] = io_dip[1] // Read front 8 bits
                 if (io_button_edge.out[1]) {
                     states.d = States.A2 // Move to States.A2
                 }
             States.A2:
+                state_counter.d = 3
                 a.d[23:16] = io_dip[0] // Read back 8 bits
                 a.d[31:24] = io_dip[1] // Read front 8 bits
                 if (io_button_edge.out[1]) {
                     states.d = States.IDLE  // Move to States.IDLE
                 }
             States.B1:
+                state_counter.d = 4
                 b.d[7:0] = io_dip[0] // Read back 8 bits
                 b.d[15:8] = io_dip[1] // Read front 8 bits
                 if (io_button_edge.out[1]) {
                     states.d = States.B2  // Move to States.B2
                 }
             States.B2:
+                state_counter.d = 5
                 b.d[23:16] = io_dip[0] // Read back 8 bits
                 b.d[31:24] = io_dip[1] // Read front 8 bits
                 if (io_button_edge.out[1]) {
