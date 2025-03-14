@@ -14,7 +14,7 @@ module alu_auto_tester#(
     test_cases test_cases(#SIZE(38))
     sig slow_clock
     const SEVEN_SEG_DIV = $is_sim() ? 2 : 16 // put 6 for sim, 16 on hardware
-    const SLOW_CLOCK_DEFAULT_SPEED = $is_sim() ? 8 : 25 // put 8  for sim, 25 for hardware
+    const SLOW_CLOCK_DEFAULT_SPEED = $is_sim() ? 6 : 25 // put 8  for sim, 25 for hardware
     enum States {
         IDLE,
         RUN,
@@ -42,8 +42,8 @@ module alu_auto_tester#(
             dff states[$width(States)](#INIT(States.IDLE))
             dff state_counter[4](#INIT(1))
             
-            dff test_sel[6](#INIT(5))
-            dff pass_counter[8](#INIT(9))
+            dff test_sel[6](#INIT(0))
+            dff pass_counter[8](#INIT(0))
             dff error_counter[8](#INIT(0))
             
             dff counter[32]
