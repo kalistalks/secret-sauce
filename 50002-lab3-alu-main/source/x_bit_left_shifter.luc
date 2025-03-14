@@ -11,14 +11,26 @@ module x_bit_left_shifter #(
     
     // module declarations
     // instantiate mux_2 (32 of them)
+    mux_2 mux_2_32[32]
     // other useful intermediary signals, e.g: shifted_bits[32] 
-    
+    sig shifted_bits[32]
+
     always {
         // assign value to shifted_bits[32] depending on the value of SHIFT
-        // connect the selector of each mux_2 with shift 
-        // 
-        // use a repeat-loop to: 
-        // connect input[0] of each mux_2 with a[i]
-        // connect input[1] of each mux_2 with the shifted_bits[i] 
+        shifted_bits = c{a[(31-SHIFT):0], SHIFTx{pad}}
+
+        // use a repeat-loop to:
+        repeat(i, 32, 0, 1) {
+            // connect the selector of each mux_2 with shift 
+            mux_2_32.s0[i] = shift
+
+            // connect input[0] of each mux_2 with a[i]
+            mux_2_32.in[i][0] = a[i]
+            // connect input[1] of each mux_2 with the shifted_bits[i] 
+            mux_2_32.in[i][1] = shifted_bits[i]
+
+            // connect out[i] of each mux_2 with the output out[i] 
+            out[i] = mux_2_32.out[i] // assign output value
+        }
     }
 }
