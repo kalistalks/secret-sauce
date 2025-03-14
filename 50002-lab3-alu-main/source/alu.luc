@@ -11,7 +11,7 @@ module alu (
     compare compare // instantiate compare
     boolean boolean // instantiate boolean
     compact_shifter shifter // instantiate shifter
-    // instantiate multiplier
+    multiplier multiplier // instantiate multiplier
     mux_4 mux_4[32]
     mux_2 mux_2[32]
     
