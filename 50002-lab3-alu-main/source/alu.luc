@@ -15,7 +15,6 @@ module alu (
     mux_4 mux_4[32]
     mux_2 mux_2[32]
     
-    
     always {
         // code from lab website to connect its input and output into adder
         adder.a = a
@@ -42,8 +41,45 @@ module alu (
         shifter.b = b[4:0]
         shifter.alufn = alufn
 
-        out = adder.out
+        //multiplier
+        multiplier.a = a
+        multiplier.b = b
+
+        repeat(i, 32, 0, 1) {
+            // S[31:0] from adder into 0-input of 32xMux_2
+            mux_2.in[i][0] = adder.out[i]
+
+            // MUL[31:0] from multiplier into 1-input of 32xMux_2
+            mux_2.in[i][1] = multiplier.mul[i]
+
+            // 32x{ALUFN[1]} into S0 of 32xMux_2
+            mux_2.s0[i] = alufn[1]
+
+            // Store output of 32xMux_2
+            muxout[i] = mux_2.out[i]      
+        }
         
- 
+        repeat(i, 32, 0, 1) {
+            // Output of 32xMux_2 into 0-input of 32xMux_4
+            mux_4.in[i][0] = muxout[i]
+
+            // BOOL[31:0] of boolean into 1-input of 32xMux_4
+            mux_4.in[i][1] = boolean.bool[i]
+
+            // SHIFT[31:0] of shifter into 2-input of 32xMux_4
+            mux_4.in[i][2] = shifter.shift[i]
+
+            // c{31b0, CMP} of comparitor into 3-input of 32xMux_4
+            mux_4.in[i][3] = compare.cmp[i]
+
+            // 32x{ALUFN[4]} into S0 of 32xMux_2
+            mux_4.s0[i] = alufn[4]
+
+            // 32x{ALUFN[5]} into S0 of 32xMux_2
+            mux_4.s1[i] = alufn[5]
+
+            // 32xMux_2 output to ALU[31:0] output
+            out[i] = mux_4.out[i]   
+        }
     }
 }

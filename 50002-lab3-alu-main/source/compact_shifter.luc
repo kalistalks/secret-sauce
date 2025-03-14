@@ -4,14 +4,12 @@ module compact_shifter (
     input alufn[6],
     output shift[32]
 ) {
-    
-    shifter shl
+    shifter left_shifter // 32-bit left shifter
     bit_reverse rev1 // first reverser
     bit_reverse rev2 // second reverser
     mux_2 mux1[32] // first 32-bit mux in diagram
     mux_2 mux2[32] // second 32-bit mux in diagram
     mux_2 padding
-    
     
     always {
         // A input into 32-Bit-Reverse
@@ -28,7 +26,7 @@ module compact_shifter (
             mux1.s0[i] = alufn[0]
 
             // Output of first 32x Mux_2 into A-input of 32-Bit Left Shifter
-            shl.a[i] = mux1.out[i]
+            left_shifter.a[i] = mux1.out[i]
             
         }
         // b0 into 0-input of padder Mux_2
@@ -41,22 +39,26 @@ module compact_shifter (
         padding.s0 = alufn[1]
 
         // B[4:0] into B-input of 32-Bit Left Shifter
-        shl.b = b
+        left_shifter.b = b
 
         // Padder Mux_2 output into GND input of 32-Bit Left Shifter
-        shl.pad = padding.out
+        left_shifter.pad = padding.out
         
-        // 32-Bit Left Shifter output into 32-Bit-Reverse
-        rev2.in = shl.shift
+        // 32-Bit Left Shifter output into second 32-Bit-Reverse
+        rev2.in = left_shifter.shift
         
         repeat(i, 32, 0, 1) {
-            mux2.in[i][0] = shl.shift[i] // when not using shifter
-            mux2.in[i][1] = rev2.reversed[i] // when using shifter
+            // Output of Left-Shifter into 0-input of second 32xMux_2
+            mux2.in[i][0] = left_shifter.shift[i]
+
+            // Output of second 32-Bit-Reverse into 1-input of second 32xMux_2
+            mux2.in[i][1] = rev2.reversed[i]
             
+            // ALUFN[0] into S0-input of second 32x Mux_2
             mux2.s0[i] = alufn[0] // choose which shifter to use
+
+            // Output of second 32xMux_2 as Shif[31:0]
             shift[i] = mux2.out[i] // assign output value
-            
         }
-        
     }
 }
