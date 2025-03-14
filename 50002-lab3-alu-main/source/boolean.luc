@@ -6,7 +6,6 @@ module boolean #(
     input alufn[6],
     output bool[SIZE]
 ) {
-    // sig mux_input[32][4]
     // declaration of modules utilised in boolean unit 
     mux_4 mux_4_32[32]    
     
@@ -17,19 +16,11 @@ module boolean #(
         mux_4_32.in = 32x{{alufn[3:0]}}
         
         // implement boolean unit logic here
-        repeat(i, SIZE, 0, 1) { // loop from i = 0 to SIZE-1    
+        repeat(i, SIZE, 0, 1) { // loop from i = 0 to SIZE    
             // connect alufn to selectors
             mux_4_32.s0[i] = a[i]
             mux_4_32.s1[i] = b[i]
             
-            // connect input to operation 
-            // mux_input[i][0] = alufn[0]
-            // mux_input[i][1] = alufn[1]
-            // mux_input[i][2] = alufn[2]
-            // mux_input[i][3] = alufn[3]
-            
-            // connect separate inputs into mux 
-            // mux_4_32.in[i] = mux_input[i]
             // output from mux
             bool[i] = mux_4_32.out[i]
         }

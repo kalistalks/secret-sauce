@@ -10,7 +10,6 @@ module alu_manual_tester#(
     output io_segment[8], // 7-Segment LEDs on IO Shield
     output io_select[4] // Digit Select on IO Shield
 ) {
-    sig test_var[4][4]
     alu alu
     const SEVEN_SEG_DIV = $is_sim() ? 3 : 16 // put 6 for sim, 16 on hardware
     enum States {
@@ -21,7 +20,6 @@ module alu_manual_tester#(
         B2, // enter in front 16 bits of b
         CALC // display output of ALU
     }
-    bin_to_dec decimal_renderer(#DIGITS(4), #LEADING_ZEROS(1))
     .clk(clk) {
         // The reset conditioner is used to synchronize the reset signal to the FPGA
         // clock. This ensures the entire FPGA comes out of reset at the same time.
@@ -37,7 +35,7 @@ module alu_manual_tester#(
             dff states[$width(States)](#INIT(States.IDLE))
             dff a[32](#INIT(0))
             dff b[32](#INIT(0))
-            dff state_counter[3](#INIT(1))
+            dff state_counter[4](#INIT(1))
         }
     }
     
@@ -54,23 +52,20 @@ module alu_manual_tester#(
         state_counter.d = state_counter.q
         
         // alu connection, initialise a and b
-        alu.a = 0
-        alu.b = 0
+        alu.a = a.q
+        alu.b = b.q
         // leftmost section of IO dip switches, from right to left
-        alu.alufn = 0
-        test_var[0] = decimal_renderer.digits[0]
-        test_var[1] = c{3b0,alu.n}
-        test_var[2] = c{3b0,alu.v}
-        test_var[3] = c{3b0,alu.z}
-        // 7 segment display value
-        decimal_renderer.value = state_counter.q
-        seg.values = test_var
-        io_segment = ~seg.seg
+        alu.alufn = io_dip[2][5:0]
         
+        // 7 segment display value
+        // seg.values takes in 2D 4x4 array, each 4 bit represents number shown on 7 segment
+        // z, v, n, state
+        seg.values = {4b0, 4b0, 4b0, state_counter.q}
+        io_segment = ~seg.seg
         // 4 sections of 7 segment leds
         io_select = ~seg.sel
         
-        // implement alu tester logic here
+        // LEDs set to off
         led = 8h0
         io_led = 3x{{8h0}}
         
@@ -91,68 +86,49 @@ module alu_manual_tester#(
                 }
             States.A1:
                 state_counter.d = 2
-                a.d[7:0] = io_dip[0] // Read back 8 bits
-                a.d[15:8] = io_dip[1] // Read front 8 bits
+                a.d[15:0] = $flatten(io_dip[1:0]) // Read first 16 bits
                 
-                // display 32 bits of a
+                // Display 32 bits of a
                 led = a.q[7:0]
-                io_led[0] = a.q[15:8]
-                io_led[1] = a.q[23:16]
-                io_led[2] = a.q[31:24]
+                io_led = $build(a.q[31:8],3)
                 if (io_button_edge.out[1]) {
                     states.d = States.A2 // Move to States.A2
                 }
             States.A2:
                 state_counter.d = 3
-                a.d[23:16] = io_dip[0] // Read back 8 bits
-                a.d[31:24] = io_dip[1] // Read front 8 bits
+                a.d[31:16] = $flatten(io_dip[1:0]) // Read next 16 bits
                 
                 // display 32 bits of a
                 led = a.q[7:0]
-                io_led[0] = a.q[15:8]
-                io_led[1] = a.q[23:16]
-                io_led[2] = a.q[31:24]
+                io_led = $build(a.q[31:8],3)
                 if (io_button_edge.out[1]) {
                     states.d = States.IDLE  // Move to States.IDLE
                 }
             States.B1:
                 state_counter.d = 4
-                b.d[7:0] = io_dip[0] // Read back 8 bits
-                b.d[15:8] = io_dip[1] // Read front 8 bits
+                b.d[15:0] = $flatten(io_dip[1:0]) // Read first 16 bits
                 
                 // display 32 bits of b
                 led = b.q[7:0]
-                io_led[0] = b.q[15:8]
-                io_led[1] = b.q[23:16]
-                io_led[2] = b.q[31:24]
+                io_led = $build(b.q[31:8],3)
                 if (io_button_edge.out[1]) {
                     states.d = States.B2  // Move to States.B2
                 }
             States.B2:
                 state_counter.d = 5
-                b.d[23:16] = io_dip[0] // Read back 8 bits
-                b.d[31:24] = io_dip[1] // Read front 8 bits
+                b.d[31:16] = $flatten(io_dip[1:0]) // Read next 16 bits
                 
                 // display 32 bits of b
                 led = b.q[7:0]
-                io_led[0] = b.q[15:8]
-                io_led[1] = b.q[23:16]
-                io_led[2] = b.q[31:24]
+                io_led = $build(b.q[31:8],3)
                 if (io_button_edge.out[1]) {
                     states.d = States.IDLE  // Move to States.IDLE
                 }
             States.CALC:
                 state_counter.d = 6
-                // alu connection, initialise a and b
-                alu.a = a.q
-                alu.b = b.q
-                // leftmost section of IO dip switches, from right to left
-                alu.alufn = io_dip[2][5:0]
-                
+                seg.values = {c{3b0,alu.z}, c{3b0,alu.v}, c{3b0,alu.n}, state_counter.q}
                 led = alu.out[7:0] // first 8 bits
-                io_led[0] = alu.out[15:8] //next 8 bits
-                io_led[1] = alu.out[23:16] //next 8 bits
-                io_led[2] = alu.out[31:24] // final 8 bits
+                io_led = $build(alu.out[31:8],3)
                 if (io_button_edge.out[1]) {
                     states.d = States.IDLE  // Move to States.IDLE
                 }

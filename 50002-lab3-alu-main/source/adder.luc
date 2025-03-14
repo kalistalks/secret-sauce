@@ -23,6 +23,7 @@ module adder #(
         // implement adder/subtractor unit logic here
         out = rca.s
         z = ~| rca.s
+        // v = (A[31] and XB[31] and not S[31]) or (not A[31] and not XB[31] and S[31])
         v = (a[SIZE-1] & xb[SIZE-1] & ~rca.s[SIZE-1]) | (~a[SIZE-1] & ~xb[SIZE-1] & rca.s[SIZE-1])
         n = rca.s[SIZE-1]
     }
