@@ -86,12 +86,6 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source\\boolean_mux.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
                     "path": "source\\mux_2.luc"
                 }
             },

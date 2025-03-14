@@ -80,7 +80,7 @@ module alu (
             mux_4.s1[i] = alufn[5]
 
             // 32xMux_2 output to ALU[31:0] output
-            out[i] = mux_4.out[i]   
+            out[i] = mux_4.out[i]
         }
     }
 }
