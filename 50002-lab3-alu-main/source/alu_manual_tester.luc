@@ -10,6 +10,7 @@ module alu_manual_tester#(
     output io_segment[8], // 7-Segment LEDs on IO Shield
     output io_select[4] // Digit Select on IO Shield
 ) {
+    sig test_var[4][4]
     alu alu
     const SEVEN_SEG_DIV = $is_sim() ? 3 : 16 // put 6 for sim, 16 on hardware
     enum States {
@@ -57,10 +58,13 @@ module alu_manual_tester#(
         alu.b = 0
         // leftmost section of IO dip switches, from right to left
         alu.alufn = 0
-        
+        test_var[0] = decimal_renderer.digits[0]
+        test_var[1] = c{3b0,alu.n}
+        test_var[2] = c{3b0,alu.v}
+        test_var[3] = c{3b0,alu.z}
         // 7 segment display value
         decimal_renderer.value = state_counter.q
-        seg.values = decimal_renderer.digits
+        seg.values = test_var
         io_segment = ~seg.seg
         
         // 4 sections of 7 segment leds
