@@ -7,6 +7,7 @@ module alu (
     output v,
     output n
 ) {
+    sig muxout[32]
     adder adder(#SIZE(32)) // instantiate adder 
     compare compare // instantiate compare
     boolean boolean // instantiate boolean

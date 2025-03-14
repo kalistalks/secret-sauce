@@ -26,15 +26,13 @@ module alchitry_top (
         reset_cond.in = ~rst_n  // input raw inverted reset signal
         rst = reset_cond.out    // conditioned reset
         
-        led = 8h00             // turn LEDs off
-        
         usb_tx = usb_rx          // loop serial port
         
-
         // to test ALU 
         io_segment = alu_manual.io_segment
         io_select = alu_manual.io_select         
         io_led = alu_manual.io_led
+        led = alu_manual.led
  
     }
 }
