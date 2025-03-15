@@ -1,5 +1,5 @@
 module alu_auto_tester#(
-    CLK_FREQ ~ 1000 : CLK_FREQ > 0
+    CLK_FREQ ~ 100000000 : CLK_FREQ > 0
 )(
     input clk,  // clock
     input rst, // reset
@@ -13,7 +13,7 @@ module alu_auto_tester#(
     alu alu
     test_cases test_cases(#SIZE(38))
     sig slow_clock
-    const SEVEN_SEG_DIV = $is_sim() ? 2 : 16 // put 6 for sim, 16 on hardware
+    const SEVEN_SEG_DIV = $is_sim() ? 3 : 16 // put 6 for sim, 16 on hardware
     const SLOW_CLOCK_DEFAULT_SPEED = $is_sim() ? 6 : 25 // put 8  for sim, 25 for hardware
     enum States {
         IDLE,
