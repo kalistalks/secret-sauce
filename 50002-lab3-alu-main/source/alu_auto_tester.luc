@@ -35,7 +35,7 @@ module alu_auto_tester#(
         // instantiate 1 edge detector for slow clock
         edge_detector slow_clock_edge(#RISE(1), #FALL(0))
         // instantiate 5 conditioners, one for each button
-        button_conditioner io_button_cond[5](#CLK_FREQ(5x{{1000}})) 
+        button_conditioner io_button_cond[5](#CLK_FREQ(5x{{100000000}})) 
         
         .rst(rst) {
             multi_seven_seg seg(#DIV(SEVEN_SEG_DIV))

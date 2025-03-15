@@ -27,7 +27,7 @@ module alu_manual_tester#(
         // instantiate 5 edge detectors, one for each button 
         edge_detector io_button_edge[5](#RISE(5x{{1}}), #FALL(5x{{0}}))
         // instantiate 5 conditioners, one for each button
-        button_conditioner io_button_cond[5](#CLK_FREQ(5x{{1000}})) 
+        button_conditioner io_button_cond[5](#CLK_FREQ(5x{{100000000}})) 
         
         
         .rst(rst) {
