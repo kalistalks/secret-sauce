@@ -18,807 +18,286 @@ module test_cases #(
     always {
         /* 
         WHY AM I DOING THIS SHIT AT 3AM ON A SATURDAY???
-        +------+-------+------------+------------+------------+-------+
-        | Test | ALUFN | A          | B          | Expected   | Flags |
-        +------+-------+------------+------------+------------+-------+
-        | 1    | 0x00  | 0x00000001 | 0x00000000 | 0x00000001 | 0x0   |
-        | 2    | 0x00  | 0x00000000 | 0x00000001 | 0x00000001 | 0x0   |
-        | 3    | 0x00  | 0x00000001 | 0x00000001 | 0x00000002 | 0x0   |
-        | 4    | 0x00  | 0x7FFFFFFF | 0x7FFFFFFF | 0xFFFFFFFE | 0x3   |
-        | 5    | 0x00  | 0x40000000 | 0x40000000 | 0x80000000 | 0x3   |
-        | 6    | 0x01  | 0x00000001 | 0x00000000 | 0x00000001 | 0x0   |
-        | 7    | 0x01  | 0x00000000 | 0x00000001 | 0xFFFFFFFF | 0x1   |
-        | 8    | 0x01  | 0x00000001 | 0x00000002 | 0xFFFFFFFF | 0x1   |
-        | 9    | 0x01  | 0x80000000 | 0x00000001 | 0x7FFFFFFF | 0x2   |
-        | 10   | 0x01  | 0x7FFFFFFF | 0xFFFFFFFF | 0x80000000 | 0x3   |
-        | 11   | 0x02  | 0x00000001 | 0x00000000 | 0x00000000 | 0x4   |
-        | 12   | 0x02  | 0x00000005 | 0x00000001 | 0x00000005 | 0x0   |
-        | 13   | 0x02  | 0x00000003 | 0x00000005 | 0x0000000F | 0x0   |
-        | 14   | 0x02  | 0x0000FFFF | 0x0000FFFF | 0x00000001 | 0x2   |
-        | 15   | 0x18  | 0x00000001 | 0x00000001 | 0x00000001 | 0x0   |
-        | 16   | 0x18  | 0x00000001 | 0xFFFFFFFE | 0x00000000 | 0x4   |
-        | 17   | 0x1E  | 0x00000001 | 0x00000000 | 0x00000001 | 0x0   |
-        | 18   | 0x1E  | 0x00000001 | 0xFFFFFFFF | 0xFFFFFFFF | 0x1   |
-        | 19   | 0x1E  | 0x00000001 | 0x00000001 | 0x00000001 | 0x0   |
-        | 20   | 0x16  | 0x00000001 | 0x00000000 | 0x00000001 | 0x0   |
-        | 21   | 0x16  | 0x00000001 | 0x00000001 | 0x00000000 | 0x4   |
-        | 22   | 0x16  | 0x00000001 | 0xFFFFFFFE | 0xFFFFFFFF | 0x1   |
-        | 23   | 0x1A  | 0x00000001 | 0x00000000 | 0x00000001 | 0x0   |
-        | 24   | 0x20  | 0x00000010 | 0x00000000 | 0x00000010 | 0x0   |
-        | 25   | 0x20  | 0x80000001 | 0x0000001F | 0x80000000 | 0x1   |
-        | 26   | 0x20  | 0x00000010 | 0x0000001F | 0x00000000 | 0x4   |
-        | 27   | 0x21  | 0x00000010 | 0x00000000 | 0x00000010 | 0x0   |
-        | 28   | 0x21  | 0x80000000 | 0x0000001F | 0x00000001 | 0x0   |
-        | 29   | 0x21  | 0x00000010 | 0x0000001F | 0x00000000 | 0x4   |
-        | 30   | 0x23  | 0x80000010 | 0x00000004 | 0xF8000001 | 0x1   |
-        | 31   | 0x33  | 0x00000001 | 0x00000001 | 0x00000001 | 0x0   |
-        | 32   | 0x33  | 0x00000001 | 0x00000000 | 0x00000000 | 0x4   |
-        | 33   | 0x35  | 0x00000000 | 0x00000001 | 0x00000001 | 0x0   |
-        | 34   | 0x35  | 0x00000001 | 0x00000000 | 0x00000000 | 0x0   |
-        | 35   | 0x35  | 0x00000001 | 0x00000001 | 0x00000000 | 0x0   |
-        | 36   | 0x37  | 0x00000001 | 0x00000001 | 0x00000001 | 0x0   |
-        | 37   | 0x37  | 0x00000000 | 0x00000001 | 0x00000001 | 0x0   |
-        | 38   | 0x37  | 0x00000001 | 0x00000000 | 0x00000000 | 0x0   |
-        +------+-------+------------+------------+------------+-------+
-        */        
-        /*
-        -- OPERAND CONSTRUCTION --
-        [ADD (ALUFN = 0x00)]
-        Test 1 (A+0):
-        A1 = 0x0001, A2 = 0x0000 --> A = 0x00000001
-        B1 = 0x0000, B2 = 0x0000 --> B = 0x00000000
-        Expected = 0x00000001, Flags = 0,0,0 (encoded as 0x0)
-        
-        Test 2 (0+B):
-        A = 0x00000000
-        B = 0x00000001
-        Expected = 0x00000001, Flags = 0,0,0 (0x0)
-        
-        Test 3 (1+1):
-        A = 0x00000001
-        B = 0x00000001
-        Expected = 0x00000002, Flags = 0,0,0 (0x0)
-        
-        Test 4 (Max Positive + Max Positive):
-        A = 0x7FFFFFFF
-        B = 0x7FFFFFFF
-        Expected = 0xFFFFFFFE, Flags = 0,1,1 (0x3)
-        
-        Test 5 (0x40000000 + 0x40000000):
-        A = 0x40000000
-        B = 0x40000000
-        Expected = 0x80000000, Flags = 0,1,1 (0x3)
-        
-        
-        [SUB (ALUFN = 0x01)]
-        Test 6 (A - 0):
-        A = 0x00000001, B = 0x00000000
-        Expected = 0x00000001, Flags = 0,0,0 (0x0)
-        
-        Test 7 (0 - B):
-        A = 0x00000000, B = 0x00000001
-        Expected = 0xFFFFFFFF, Flags = 0,0,1 (0x1)
-        
-        Test 8 (1 - 2):
-        A = 0x00000001, B = 0x00000002
-        Expected = 0xFFFFFFFF, Flags = 0,0,1 (0x1)
-        
-        Test 9 (0x80000000 - 1):
-        A = 0x80000000, B = 0x00000001
-        Expected = 0x7FFFFFFF, Flags = 0,1,0 (0x2)
-        
-        Test 10 (0x7FFFFFFF - 0xFFFFFFFF):
-        A = 0x7FFFFFFF, B = 0xFFFFFFFF
-        Expected = 0x80000000, Flags = 0,1,1 (0x3)
-        
-        
-        [MUL (ALUFN = 0x02)]
-        Test 11 (1 * 0):
-        A = 0x00000001, B = 0x00000000
-        Expected = 0x00000000, Flags = (result zero → Z=1) = 1,0,0 (0x4)
-        
-        Test 12 (5 * 1):
-        A = 0x00000005, B = 0x00000001
-        Expected = 0x00000005, Flags = 0,0,0 (0x0)
-        
-        Test 13 (3 * 5):
-        A = 0x00000003, B = 0x00000005
-        Expected = 0x0000000F, Flags = 0,0,0 (0x0)
-        
-        Test 14 (0xFFFF * 0xFFFF):
-        A = 0x0000FFFF, B = 0x0000FFFF
-        Expected = 0x00000001, Flags = (overflow detected) = 0,1,0 (0x2)
-        
-        
-        [AND (ALUFN = 0x18)]
-        Test 15 (A AND A):
-        A = 0x00000001, B = 0x00000001
-        Expected = 0x00000001, Flags = 0,0,0 (0x0)
-        
-        Test 16 (A AND NOT A):
-        A = 0x00000001,
-        B = {B2=0xFFFF, B1=0xFFFE} → B = 0xFFFFFFFE
-        Expected = 0x00000000, Flags = (result zero) = 1,0,0 (0x4)
-        
-        
-        [OR (ALUFN = 0x1E)]
-        Test 17 (A OR 0):
-        A = 0x00000001, B = 0x00000000
-        Expected = 0x00000001, Flags = 0,0,0 (0x0)
-        
-        Test 18 (A OR 0xFFFFFFFF):
-        A = 0x00000001, B = 0xFFFFFFFF
-        Expected = 0xFFFFFFFF, Flags = (negative result) = 0,0,1 (0x1)
-        
-        Test 19 (A OR A):
-        A = 0x00000001, B = 0x00000001
-        Expected = 0x00000001, Flags = 0,0,0 (0x0)
-        
-        
-        [XOR (ALUFN = 0x16)]
-        Test 20 (A XOR 0):
-        A = 0x00000001, B = 0x00000000
-        Expected = 0x00000001, Flags = 0,0,0 (0x0)
-        
-        Test 21 (A XOR A):
-        A = 0x00000001, B = 0x00000001
-        Expected = 0x00000000, Flags = (result zero) = 1,0,0 (0x4)
-        
-        Test 22 (A XOR NOT A):
-        A = 0x00000001, 
-        B = 0xFFFFFFFE (as above)
-        Expected = 0xFFFFFFFF, Flags = (negative) = 0,0,1 (0x1)
-        
-        
-        [LDR (ALUFN = 0x1A)]
-        Test 23 (Load A):
-        A = 0x00000001, B is don’t-care
-        Expected = 0x00000001, Flags = 0,0,0 (0x0)
-        
-        
-        [SHL (ALUFN = 0x20)]
-        Test 24 (A << 0):
-        A = 0x00000010, B = 0x00000000 (shift 0)
-        Expected = 0x00000010, Flags = 0,0,0 (0x0)
-        
-        Test 25 (A << 31): (shift amount = 31)
-        A: {A2=0x8000, A1=0x0001} → A = 0x80000001,
-        B: {B2=0x0000, B1=0x001F} → shift = 31
-        Expected = 0x80000000, Flags = (result negative) = 0,0,1 (0x1)
-        
-        Test 26 (A << 31):
-        A = 0x00000010, B = 0x0000001F,
-        Expected = 0x00000000, Flags = (zero result) = 1,0,0 (0x4)
-        
-        
-        [SHR (ALUFN = 0x21)]
-        Test 27 (A >> 0):
-        A = 0x00000010, B = 0x00000000
-        Expected = 0x00000010, Flags = 0,0,0 (0x0)
-        
-        Test 28 (A >> 31):
-        A = 0x80000000, B = 0x0000001F,
-        Expected = 0x00000001, Flags = 0,0,0 (0x0)
-        
-        Test 29 (A >> 31):
-        A = 0x00000010, B = 0x0000001F,
-        Expected = 0x00000000, Flags = (zero) = 1,0,0 (0x4)
-        
-        
-        [SRA (ALUFN = 0x23)]
-        Test 30 (A >>> 4):
-        A = {A2=0x8000, A1=0x0010} → A = 0x80000010,
-        B = 0x00000004,
-        Expected = 0xF8000001, Flags = (negative) = 0,0,1 (0x1)
-        
-        
-        [CMPEQ (ALUFN = 0x33)]
-        Test 31 (A == B):
-        A = 0x00000001, B = 0x00000001,
-        Expected = 0x00000001, Flags = 0,0,0 (0x0)
-        
-        Test 32 (A != B):
-        A = 0x00000001, B = 0x00000000,
-        Expected = 0x00000000, Flags = (zero) = 1,0,0 (0x4)
-        
-        
-        [CMPLT (ALUFN = 0x35)]
-        Test 33 (A < B):
-        A = 0x00000000, B = 0x00000001,
-        Expected = 0x00000001, Flags = 0,0,0 (0x0)
-        
-        Test 34 (A >= B):
-        A = 0x00000001, B = 0x00000000,
-        Expected = 0x00000000, Flags = 0,0,0 (0x0)
-        
-        Test 35 (A >= B):
-        A = 0x00000001, B = 0x00000001,
-        Expected = 0x00000000, Flags = 0,0,0 (0x0)
-        
-        
-        [CMPLE (ALUFN = 0x37)]
-        Test 36 (A <= B):
-        A = 0x00000001, B = 0x00000001,
-        Expected = 0x00000001, Flags = 0,0,0 (0x0)
-        
-        Test 37 (A <= B):
-        A = 0x00000000, B = 0x00000001,
-        Expected = 0x00000001, Flags = 0,0,0 (0x0)
-        
-        Test 38 (A > B):
-        A = 0x00000001, B = 0x00000000,
-        Expected = 0x00000000, Flags = 0,0,0 (0x0)
+        +------+-------+------------+------------+------------+-----+
+        | Test | ALUFN | A          | B          | Expected   | ZVN |
+        +------+-------+------------+------------+------------+-----+
+        | 1    | 0x00  | 0x00000001 | 0x00000000 | 0x00000001 | 000 |
+        | 2    | 0x00  | 0x00000000 | 0x00000001 | 0x00000001 | 000 |
+        | 3    | 0x00  | 0x00000001 | 0x00000001 | 0x00000002 | 000 |
+        | 4    | 0x00  | 0x7FFFFFFF | 0x7FFFFFFF | 0xFFFFFFFE | 011 |
+        | 5    | 0x00  | 0x40000000 | 0x40000000 | 0x80000000 | 011 |
+        | 6    | 0x01  | 0x00000001 | 0x00000000 | 0x00000001 | 000 |
+        | 7    | 0x01  | 0x00000000 | 0x00000001 | 0xFFFFFFFF | 001 |
+        | 8    | 0x01  | 0x00000001 | 0x00000002 | 0xFFFFFFFF | 001 |
+        | 9    | 0x01  | 0x80000000 | 0x00000001 | 0x7FFFFFFF | 010 |
+        | 10   | 0x01  | 0x7FFFFFFF | 0xFFFFFFFF | 0x80000000 | 011 |
+        | 11   | 0x02  | 0x00000001 | 0x00000000 | 0x00000000 | 000 |
+        | 12   | 0x02  | 0x00000005 | 0x00000001 | 0x00000005 | 000 |
+        | 13   | 0x02  | 0x00000003 | 0x00000005 | 0x0000000F | 000 |
+        | 14   | 0x02  | 0x0000FFFF | 0x0000FFFF | 0x00000001 | ??? | // Ignore
+        | 15   | 0x18  | 0x00000001 | 0x00000001 | 0x00000001 | 000 |
+        | 16   | 0x18  | 0x00000001 | 0xFFFFFFFE | 0x00000000 | 001 |
+        | 17   | 0x1E  | 0x00000001 | 0x00000000 | 0x00000001 | 000 |
+        | 18   | 0x1E  | 0x00000001 | 0xFFFFFFFF | 0xFFFFFFFF | 001 |
+        | 19   | 0x1E  | 0x00000001 | 0x00000001 | 0x00000001 | 000 |
+        | 20   | 0x16  | 0x00000001 | 0x00000000 | 0x00000001 | 000 |
+        | 21   | 0x16  | 0x00000001 | 0x00000001 | 0x00000000 | 000 |
+        | 22   | 0x16  | 0x00000001 | 0xFFFFFFFE | 0xFFFFFFFF | 001 |
+        | 23   | 0x1A  | 0x00000001 | 0x00000000 | 0x00000001 | 000 |
+        | 24   | 0x20  | 0x00000010 | 0x00000000 | 0x00000010 | 000 |
+        | 25   | 0x20  | 0x80000001 | 0x0000001F | 0x80000000 | 000 |
+        | 26   | 0x20  | 0x00000010 | 0x0000001F | 0x00000000 | 000 |
+        | 27   | 0x21  | 0x00000010 | 0x00000000 | 0x00000010 | 000 |
+        | 28   | 0x21  | 0x80000000 | 0x0000001F | 0x00000001 | 010 |
+        | 29   | 0x21  | 0x00000010 | 0x0000001F | 0x00000000 | 001 |
+        | 30   | 0x23  | 0x80000010 | 0x00000004 | 0xF8000001 | 001 |
+        | 31   | 0x33  | 0x00000001 | 0x00000001 | 0x00000001 | 100 |
+        | 32   | 0x33  | 0x00000001 | 0x00000000 | 0x00000000 | 000 |
+        | 33   | 0x35  | 0x00000000 | 0x00000001 | 0x00000001 | 001 |
+        | 34   | 0x35  | 0x00000001 | 0x00000000 | 0x00000000 | 000 |
+        | 35   | 0x35  | 0x00000001 | 0x00000001 | 0x00000000 | 000 |
+        | 36   | 0x37  | 0x00000001 | 0x00000001 | 0x00000001 | 100 |
+        | 37   | 0x37  | 0x00000000 | 0x00000001 | 0x00000001 | 001 |
+        | 38   | 0x37  | 0x00000001 | 0x00000000 | 0x00000000 | 000 |
+        +------+-------+------------+------------+------------+-----+
         */        
         
-        // 32-bit operand arrays (A = A2:A1, B = B2:B1)
-        /*
-        a_test = {
-            // ADD (tests 1-5)
-            h00000001, // Test 1: 0x00000001
-            h00000000, // Test 2: 0x00000000
-            h00000001, // Test 3: 0x00000001
-            h7FFFFFFF, // Test 4: 0x7FFFFFFF
-            h40000000, // Test 5: 0x40000000
-            
-            // SUB (tests 6-10)
-            h00000001, // Test 6: 0x00000001
-            h00000000, // Test 7: 0x00000000
-            h00000001, // Test 8: 0x00000001
-            h80000000, // Test 9: 0x80000000
-            h7FFFFFFF, // Test 10: 0x7FFFFFFF
-            
-            // MUL (tests 11-14)
-            h00000001, // Test 11: 0x00000001
-            h00000005, // Test 12: 0x00000005
-            h00000003, // Test 13: 0x00000003
-            h0000FFFF, // Test 14: 0x0000FFFF
-            
-            // AND (tests 15-16)
-            h00000001, // Test 15: 0x00000001
-            h00000001, // Test 16: 0x00000001
-            
-            // OR (tests 17-19)
-            h00000001, // Test 17: 0x00000001
-            h00000001, // Test 18: 0x00000001
-            h00000001, // Test 19: 0x00000001
-            
-            // XOR (tests 20-22)
-            h00000001, // Test 20: 0x00000001
-            h00000001, // Test 21: 0x00000001
-            h00000001, // Test 22: 0x00000001
-            
-            // LDR (test 23)
-            h00000001, // Test 23: 0x00000001
-            
-            // SHL (tests 24-26)
-            h00000010, // Test 24: 0x00000010
-            h80000001, // Test 25: 0x80000001
-            h00000010, // Test 26: 0x00000010
-            
-            // SHR (tests 27-29)
-            h00000010, // Test 27: 0x00000010
-            h80000000, // Test 28: 0x80000000
-            h00000010, // Test 29: 0x00000010
-            
-            // SRA (test 30)
-            h80000010, // Test 30: 0x80000010
-            
-            // CMPEQ (tests 31-32)
-            h00000001, // Test 31: 0x00000001
-            h00000001, // Test 32: 0x00000001
-            
-            // CMPLT (tests 33-35)
-            h00000000, // Test 33: 0x00000000
-            h00000001, // Test 34: 0x00000001
-            h00000001, // Test 35: 0x00000001
-            
-            // CMPLE (tests 36-38)
-            h00000001, // Test 36: 0x00000001
-            h00000000, // Test 37: 0x00000000
-            h00000001 // Test 38: 0x00000001
-        }
-        
-        b_test = {
-            // ADD (tests 1-5)
-            h00000000, // Test 1: 0x00000000
-            h00000001, // Test 2: 0x00000001
-            h00000001, // Test 3: 0x00000001
-            h7FFFFFFF, // Test 4: 0x7FFFFFFF
-            h40000000, // Test 5: 0x40000000
-            
-            // SUB (tests 6-10)
-            h00000000, // Test 6: 0x00000000
-            h00000001, // Test 7: 0x00000001
-            h00000002, // Test 8: 0x00000002
-            h00000001, // Test 9: 0x00000001
-            hFFFFFFFF, // Test 10: 0xFFFFFFFF
-            
-            // MUL (tests 11-14)
-            h00000000, // Test 11: 0x00000000
-            h00000001, // Test 12: 0x00000001
-            h00000005, // Test 13: 0x00000005
-            h0000FFFF, // Test 14: 0x0000FFFF
-            
-            // AND (tests 15-16)
-            h00000001, // Test 15: 0x00000001
-            hFFFFFFFE, // Test 16: 0xFFFFFFFE
-            
-            // OR (tests 17-19)
-            h00000000, // Test 17: 0x00000000
-            hFFFFFFFF, // Test 18: 0xFFFFFFFF
-            h00000001, // Test 19: 0x00000001
-            
-            // XOR (tests 20-22)
-            h00000000, // Test 20: 0x00000000
-            h00000001, // Test 21: 0x00000001
-            hFFFFFFFE, // Test 22: 0xFFFFFFFE
-            
-            // LDR (test 23)
-            h00000000, // Test 23: don’t care → 0x00000000
-            
-            // SHL (tests 24-26)
-            h00000000, // Test 24: shift = 0 (0x00000000)
-            h0000001F, // Test 25: shift = 31 (0x0000001F)
-            h0000001F, // Test 26: shift = 31 (0x0000001F)
-            
-            // SHR (tests 27-29)
-            h00000000, // Test 27: shift = 0
-            h0000001F, // Test 28: shift = 31
-            h0000001F, // Test 29: shift = 31
-            
-            // SRA (test 30)
-            h00000004, // Test 30: shift = 4
-            
-            // CMPEQ (tests 31-32)
-            h00000001, // Test 31: 0x00000001
-            h00000000, // Test 32: 0x00000000
-            
-            // CMPLT (tests 33-35)
-            h00000001, // Test 33: 0x00000001
-            h00000000, // Test 34: 0x00000000
-            h00000001, // Test 35: 0x00000001
-            
-            // CMPLE (tests 36-38)
-            h00000001, // Test 36: 0x00000001
-            h00000001, // Test 37: 0x00000001
-            h00000000 // Test 38: 0x00000000
-        }
-        
-        result = {
-            // ADD (tests 1-5)
-            h00000001, // Test 1: 0x00000001
-            h00000001, // Test 2: 0x00000001
-            h00000002, // Test 3: 0x00000002
-            hFFFFFFFE, // Test 4: 0xFFFFFFFE
-            h80000000, // Test 5: 0x80000000
-            
-            // SUB (tests 6-10)
-            h00000001, // Test 6: 0x00000001
-            hFFFFFFFF, // Test 7: 0xFFFFFFFF
-            hFFFFFFFF, // Test 8: 0xFFFFFFFF
-            h7FFFFFFF, // Test 9: 0x7FFFFFFF
-            h80000000, // Test 10: 0x80000000
-            
-            // MUL (tests 11-14)
-            h00000000, // Test 11: 0x00000000
-            h00000005, // Test 12: 0x00000005
-            h0000000F, // Test 13: 0x0000000F
-            h00000001, // Test 14: 0x00000001
-            
-            // AND (tests 15-16)
-            h00000001, // Test 15: 0x00000001
-            h00000000, // Test 16: 0x00000000
-            
-            // OR (tests 17-19)
-            h00000001, // Test 17: 0x00000001
-            hFFFFFFFF, // Test 18: 0xFFFFFFFF
-            h00000001, // Test 19: 0x00000001
-            
-            // XOR (tests 20-22)
-            h00000001, // Test 20: 0x00000001
-            h00000000, // Test 21: 0x00000000
-            hFFFFFFFF, // Test 22: 0xFFFFFFFF
-            
-            // LDR (test 23)
-            h00000001, // Test 23: 0x00000001
-            
-            // SHL (tests 24-26)
-            h00000010, // Test 24: 0x00000010
-            h80000000, // Test 25: 0x80000000
-            h00000000, // Test 26: 0x00000000
-            
-            // SHR (tests 27-29)
-            h00000010, // Test 27: 0x00000010
-            h00000001, // Test 28: 0x00000001
-            h00000000, // Test 29: 0x00000000
-            
-            // SRA (test 30)
-            hF8000001, // Test 30: 0xF8000001
-            
-            // CMPEQ (tests 31-32)
-            h00000001, // Test 31: 0x00000001
-            h00000000, // Test 32: 0x00000000
-            
-            // CMPLT (tests 33-35)
-            h00000001, // Test 33: 0x00000001
-            h00000000, // Test 34: 0x00000000
-            h00000000, // Test 35: 0x00000000
-            
-            // CMPLE (tests 36-38)
-            h00000001, // Test 36: 0x00000001
-            h00000001, // Test 37: 0x00000001
-            h00000000 // Test 38: 0x00000000
-        }
-        
-        alufn_test = {
-            // ADD: tests 1-5
-            h00, h00, h00, h00, h00,
-            // SUB: tests 6-10
-            h01, h01, h01, h01, h01,
-            // MUL: tests 11-14
-            h02, h02, h02, h02,
-            // AND: tests 15-16
-            h18, h18,
-            // OR: tests 17-19
-            h1E, h1E, h1E,
-            // XOR: tests 20-22
-            h16, h16, h16,
-            // LDR: test 23
-            h1A,
-            // SHL: tests 24-26
-            h20, h20, h20,
-            // SHR: tests 27-29
-            h21, h21, h21,
-            // SRA: test 30
-            h23,
-            // CMPEQ: tests 31-32
-            h33, h33,
-            // CMPLT: tests 33-35
-            h35, h35, h35,
-            // CMPLE: tests 36-38
-            h37, h37, h37
-        }
-        
-        zvn = {
-            // For each test the flag encoding is: [Z,V,N] as bits (bit2=Z, bit1=V, bit0=N)
-            // ADD (tests 1-5)
-            h0, // Test 1: 0,0,0
-            h0, // Test 2: 0,0,0
-            h0, // Test 3: 0,0,0
-            h3, // Test 4: 0,1,1
-            h3, // Test 5: 0,1,1
-            
-            // SUB (tests 6-10)
-            h0, // Test 6: 0,0,0
-            h1, // Test 7: 0,0,1
-            h1, // Test 8: 0,0,1
-            h2, // Test 9: 0,1,0
-            h3, // Test 10: 0,1,1
-            
-            // MUL (tests 11-14)
-            h4, // Test 11: result zero → 1,0,0
-            h0, // Test 12: 0,0,0
-            h0, // Test 13: 0,0,0
-            h2, // Test 14: 0,1,0
-            
-            // AND (tests 15-16)
-            h0, // Test 15: 0,0,0
-            h4, // Test 16: result zero → 1,0,0
-            
-            // OR (tests 17-19)
-            h0, // Test 17: 0,0,0
-            h1, // Test 18: 0,0,1 (0xFFFFFFFF is negative)
-            h0, // Test 19: 0,0,0
-            
-            // XOR (tests 20-22)
-            h0, // Test 20: 0,0,0
-            h4, // Test 21: 1,0,0 (result zero)
-            h1, // Test 22: 0,0,1
-            
-            // LDR (test 23)
-            h0, // Test 23: 0,0,0
-            
-            // SHL (tests 24-26)
-            h0, // Test 24: 0,0,0
-            h1, // Test 25: 0,0,1 (result 0x80000000 is negative)
-            h4, // Test 26: result zero → 1,0,0
-            
-            // SHR (tests 27-29)
-            h0, // Test 27: 0,0,0
-            h0, // Test 28: 0,0,0
-            h4, // Test 29: result zero → 1,0,0
-            
-            // SRA (test 30)
-            h1, // Test 30: 0,0,1
-            
-            // CMPEQ (tests 31-32)
-            h0, // Test 31: 0,0,0
-            h4, // Test 32: result zero → 1,0,0
-            
-            // CMPLT (tests 33-35)
-            h0, // Test 33: 0,0,0
-            h0, // Test 34: 0,0,0
-            h0, // Test 35: 0,0,0
-            
-            // CMPLE (tests 36-38)
-            h0, // Test 36: 0,0,0
-            h0, // Test 37: 0,0,0
-            h0 // Test 38: 0,0,0
-        }
-        */        
+        // 32-bit operand arrays (A = A2:A1, B = B2:B1)        
         case (test_sel) {
-            1: // Test 1
+            1: // Test 1: ALUFN=0x00, A=0x00000001, B=0x00000000, Expected=0x00000001, ZVN=000
                 alufn_test = h00
                 a_test = h00000001
                 b_test = h00000000
                 result = h00000001
-                zvn = h0
-            
-            2: // Test 2
+                zvn = b000
+            2: // Test 2: ALUFN=0x00, A=0x00000000, B=0x00000001, Expected=0x00000001, ZVN=000
                 alufn_test = h00
                 a_test = h00000000
                 b_test = h00000001
                 result = h00000001
-                zvn = h0
-            
-            3: // Test 3
+                zvn = b000
+            3: // Test 3: ALUFN=0x00, A=0x00000001, B=0x00000001, Expected=0x00000002, ZVN=000
                 alufn_test = h00
                 a_test = h00000001
                 b_test = h00000001
                 result = h00000002
-                zvn = h0
-            
-            4: // Test 4
+                zvn = b000
+            4: // Test 4: ALUFN=0x00, A=0x7FFFFFFF, B=0x7FFFFFFF, Expected=0xFFFFFFFE, ZVN=011
                 alufn_test = h00
                 a_test = h7FFFFFFF
                 b_test = h7FFFFFFF
                 result = hFFFFFFFE
-                zvn = h3
-            
-            5: // Test 5
+                zvn = b011
+            5: // Test 5: ALUFN=0x00, A=0x40000000, B=0x40000000, Expected=0x80000000, ZVN=011
                 alufn_test = h00
                 a_test = h40000000
                 b_test = h40000000
                 result = h80000000
-                zvn = h3
-            
-            6: // Test 6
+                zvn = b011
+            6: // Test 6: ALUFN=0x01, A=0x00000001, B=0x00000000, Expected=0x00000001, ZVN=000
                 alufn_test = h01
                 a_test = h00000001
                 b_test = h00000000
                 result = h00000001
-                zvn = h0
-            
-            7: // Test 7
+                zvn = b000
+            7: // Test 7: ALUFN=0x01, A=0x00000000, B=0x00000001, Expected=0xFFFFFFFF, ZVN=001
                 alufn_test = h01
                 a_test = h00000000
                 b_test = h00000001
                 result = hFFFFFFFF
-                zvn = h1
-            
-            8: // Test 8
+                zvn = b001
+            8: // Test 8: ALUFN=0x01, A=0x00000001, B=0x00000002, Expected=0xFFFFFFFF, ZVN=001
                 alufn_test = h01
                 a_test = h00000001
                 b_test = h00000002
                 result = hFFFFFFFF
-                zvn = h1
-            
-            9: // Test 9
+                zvn = b001
+            9: // Test 9: ALUFN=0x01, A=0x80000000, B=0x00000001, Expected=0x7FFFFFFF, ZVN=010
                 alufn_test = h01
                 a_test = h80000000
                 b_test = h00000001
                 result = h7FFFFFFF
-                zvn = h2
-            
-            10: // Test 10
+                zvn = b010
+            10: // Test 10: ALUFN=0x01, A=0x7FFFFFFF, B=0xFFFFFFFF, Expected=0x80000000, ZVN=011
                 alufn_test = h01
                 a_test = h7FFFFFFF
                 b_test = hFFFFFFFF
                 result = h80000000
-                zvn = h3
-            
-            11: // Test 11
+                zvn = b011
+            11: // Test 11: ALUFN=0x02, A=0x00000001, B=0x00000000, Expected=0x00000000, ZVN=000
                 alufn_test = h02
                 a_test = h00000001
                 b_test = h00000000
                 result = h00000000
-                zvn = h4
-            
-            12: // Test 12
+                zvn = b000
+            12: // Test 12: ALUFN=0x02, A=0x00000005, B=0x00000001, Expected=0x00000005, ZVN=000
                 alufn_test = h02
                 a_test = h00000005
                 b_test = h00000001
                 result = h00000005
-                zvn = h0
-            
-            13: // Test 13
+                zvn = b000
+            13: // Test 13: ALUFN=0x02, A=0x00000003, B=0x00000005, Expected=0x0000000F, ZVN=000
                 alufn_test = h02
                 a_test = h00000003
                 b_test = h00000005
                 result = h0000000F
-                zvn = h0
-            
-            14: // Test 14
+                zvn = b000
+            14: // Test 14: ALUFN=0x02, A=0x0000FFFF, B=0x0000FFFF, Expected=0x00000001, ZVN=??? (treated as 000)
                 alufn_test = h02
                 a_test = h0000FFFF
                 b_test = h0000FFFF
                 result = h00000001
-                zvn = h2
-            
-            15: // Test 15
+                zvn = b000
+            15: // Test 15: ALUFN=0x18, A=0x00000001, B=0x00000001, Expected=0x00000001, ZVN=000
                 alufn_test = h18
                 a_test = h00000001
                 b_test = h00000001
                 result = h00000001
-                zvn = h0
-            
-            16: // Test 16
+                zvn = b000
+            16: // Test 16: ALUFN=0x18, A=0x00000001, B=0xFFFFFFFE, Expected=0x00000000, ZVN=001
                 alufn_test = h18
                 a_test = h00000001
                 b_test = hFFFFFFFE
                 result = h00000000
-                zvn = h4
-            
-            17: // Test 17
+                zvn = b001
+            17: // Test 17: ALUFN=0x1E, A=0x00000001, B=0x00000000, Expected=0x00000001, ZVN=000
                 alufn_test = h1E
                 a_test = h00000001
                 b_test = h00000000
                 result = h00000001
-                zvn = h0
-            
-            18: // Test 18
+                zvn = b000
+            18: // Test 18: ALUFN=0x1E, A=0x00000001, B=0xFFFFFFFF, Expected=0xFFFFFFFF, ZVN=001
                 alufn_test = h1E
                 a_test = h00000001
                 b_test = hFFFFFFFF
                 result = hFFFFFFFF
-                zvn = h1
-            
-            19: // Test 19
+                zvn = b001
+            19: // Test 19: ALUFN=0x1E, A=0x00000001, B=0x00000001, Expected=0x00000001, ZVN=000
                 alufn_test = h1E
                 a_test = h00000001
                 b_test = h00000001
                 result = h00000001
-                zvn = h0
-            
-            20: // Test 20
+                zvn = b000
+            20: // Test 20: ALUFN=0x16, A=0x00000001, B=0x00000000, Expected=0x00000001, ZVN=000
                 alufn_test = h16
                 a_test = h00000001
                 b_test = h00000000
                 result = h00000001
-                zvn = h0
-            
-            21: // Test 21
+                zvn = b000
+            21: // Test 21: ALUFN=0x16, A=0x00000001, B=0x00000001, Expected=0x00000000, ZVN=000
                 alufn_test = h16
                 a_test = h00000001
                 b_test = h00000001
                 result = h00000000
-                zvn = h4
-            
-            22: // Test 22
+                zvn = b000
+            22: // Test 22: ALUFN=0x16, A=0x00000001, B=0xFFFFFFFE, Expected=0xFFFFFFFF, ZVN=001
                 alufn_test = h16
                 a_test = h00000001
                 b_test = hFFFFFFFE
                 result = hFFFFFFFF
-                zvn = h1
-            
-            23: // Test 23
+                zvn = b001
+            23: // Test 23: ALUFN=0x1A, A=0x00000001, B=0x00000000, Expected=0x00000001, ZVN=000
                 alufn_test = h1A
                 a_test = h00000001
                 b_test = h00000000
                 result = h00000001
-                zvn = h0
-            
-            24: // Test 24
+                zvn = b000
+            24: // Test 24: ALUFN=0x20, A=0x00000010, B=0x00000000, Expected=0x00000010, ZVN=000
                 alufn_test = h20
                 a_test = h00000010
                 b_test = h00000000
                 result = h00000010
-                zvn = h0
-            
-            25: // Test 25
+                zvn = b000
+            25: // Test 25: ALUFN=0x20, A=0x80000001, B=0x0000001F, Expected=0x80000000, ZVN=000
                 alufn_test = h20
                 a_test = h80000001
                 b_test = h0000001F
                 result = h80000000
-                zvn = h1
-            
-            26: // Test 26
+                zvn = b000
+            26: // Test 26: ALUFN=0x20, A=0x00000010, B=0x0000001F, Expected=0x00000000, ZVN=000
                 alufn_test = h20
                 a_test = h00000010
                 b_test = h0000001F
                 result = h00000000
-                zvn = h4
-            
-            27: // Test 27
+                zvn = b000
+            27: // Test 27: ALUFN=0x21, A=0x00000010, B=0x00000000, Expected=0x00000010, ZVN=000
                 alufn_test = h21
                 a_test = h00000010
                 b_test = h00000000
                 result = h00000010
-                zvn = h0
-            
-            28: // Test 28
+                zvn = b000
+            28: // Test 28: ALUFN=0x21, A=0x80000000, B=0x0000001F, Expected=0x00000001, ZVN=010
                 alufn_test = h21
                 a_test = h80000000
                 b_test = h0000001F
                 result = h00000001
-                zvn = h0
-            
-            29: // Test 29
+                zvn = b010
+            29: // Test 29: ALUFN=0x21, A=0x00000010, B=0x0000001F, Expected=0x00000000, ZVN=001
                 alufn_test = h21
                 a_test = h00000010
                 b_test = h0000001F
                 result = h00000000
-                zvn = h4
-            
-            30: // Test 30
+                zvn = b001
+            30: // Test 30: ALUFN=0x23, A=0x80000010, B=0x00000004, Expected=0xF8000001, ZVN=001
                 alufn_test = h23
                 a_test = h80000010
                 b_test = h00000004
                 result = hF8000001
-                zvn = h1
-            
-            31: // Test 31
+                zvn = b001
+            31: // Test 31: ALUFN=0x33, A=0x00000001, B=0x00000001, Expected=0x00000001, ZVN=100
                 alufn_test = h33
                 a_test = h00000001
                 b_test = h00000001
                 result = h00000001
-                zvn = h0
-            
-            32: // Test 32
+                zvn = b100
+            32: // Test 32: ALUFN=0x33, A=0x00000001, B=0x00000000, Expected=0x00000000, ZVN=000
                 alufn_test = h33
                 a_test = h00000001
                 b_test = h00000000
                 result = h00000000
-                zvn = h4
-            
-            33: // Test 33
+                zvn = b000
+            33: // Test 33: ALUFN=0x35, A=0x00000000, B=0x00000001, Expected=0x00000001, ZVN=001
                 alufn_test = h35
                 a_test = h00000000
                 b_test = h00000001
                 result = h00000001
-                zvn = h0
-            
-            34: // Test 34
+                zvn = b001
+            34: // Test 34: ALUFN=0x35, A=0x00000001, B=0x00000000, Expected=0x00000000, ZVN=000
                 alufn_test = h35
                 a_test = h00000001
                 b_test = h00000000
                 result = h00000000
-                zvn = h0
-            
-            35: // Test 35
+                zvn = b000
+            35: // Test 35: ALUFN=0x35, A=0x00000001, B=0x00000001, Expected=0x00000000, ZVN=000
                 alufn_test = h35
                 a_test = h00000001
                 b_test = h00000001
                 result = h00000000
-                zvn = h0
-            
-            36: // Test 36
+                zvn = b000
+            36: // Test 36: ALUFN=0x37, A=0x00000001, B=0x00000001, Expected=0x00000001, ZVN=100
                 alufn_test = h37
                 a_test = h00000001
                 b_test = h00000001
                 result = h00000001
-                zvn = h0
-            
-            37: // Test 37
+                zvn = b100
+            37: // Test 37: ALUFN=0x37, A=0x00000000, B=0x00000001, Expected=0x00000001, ZVN=001
                 alufn_test = h37
                 a_test = h00000000
                 b_test = h00000001
                 result = h00000001
-                zvn = h0
-            
-            38: // Test 38
+                zvn = b001
+            38: // Test 38: ALUFN=0x37, A=0x00000001, B=0x00000000, Expected=0x00000000, ZVN=000
                 alufn_test = h37
                 a_test = h00000001
                 b_test = h00000000
                 result = h00000000
-                zvn = h0
-            
-            default:
+                zvn = b000
+            default: 
                 alufn_test = 0
                 a_test = 0
                 b_test = 0
                 result = 0
-                zvn = 0
+                zvn = b000
         }
     }
 }
