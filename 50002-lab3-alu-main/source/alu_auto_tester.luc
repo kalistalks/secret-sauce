@@ -13,8 +13,10 @@ module alu_auto_tester#(
     alu alu
     test_cases test_cases(#SIZE(38))
     sig slow_clock
+    bin_to_dec pass_renderer(#DIGITS(4), #LEADING_ZEROS(1))
+    bin_to_dec error_renderer(#DIGITS(4), #LEADING_ZEROS(1))
     const SEVEN_SEG_DIV = $is_sim() ? 3 : 16 // put 6 for sim, 16 on hardware
-    const SLOW_CLOCK_DEFAULT_SPEED = $is_sim() ? 6 : 25 // put 8  for sim, 25 for hardware
+    const SLOW_CLOCK_DEFAULT_SPEED = $is_sim() ? 8 : 25 // put 8  for sim, 25 for hardware
     enum States {
         IDLE,
         RUN,
@@ -53,6 +55,8 @@ module alu_auto_tester#(
             dff a[32](#INIT(0))
             dff b[32](#INIT(0))
             dff alufn[6](#INIT(0))
+            
+            dff aluout[32](#INIT(0))
         }
     }
     
@@ -65,27 +69,33 @@ module alu_auto_tester#(
         states.d = states.q
         state_counter.d = state_counter.q
         
+        // test case related dffs
         test_sel.d = test_sel.q
         pass_counter.d = pass_counter.q
+        pass_renderer.value = pass_counter.q
         error_counter.d = error_counter.q
+        error_renderer.value = error_counter.q
         
+        // internal dffs to store a, b and alufn before passing into alu
         a.d = a.q
         b.d = b.q
         alufn.d = alufn.q
+        aluout.d = aluout.q
         
         speed_pointer.d = speed_pointer.q
         counter.d = counter.q + 1 // always increment
         slow_clock_enable.d = slow_clock_enable.q
         
-        // alu connection, initialise a and b and alufn
+        // alu connection, initialise a and b and alufn and store aluout
         alu.a = a.q
         alu.b = b.q
         alu.alufn = alufn.q
+        aluout.d = alu.out
         
         // 7 segment display value
         // seg.values takes in 2D 4x4 array, each 4 bit represents number shown on 7 segment
         // z, v, n, state
-        seg.values = $build(c{pass_counter.q, error_counter.q}, 4)
+        seg.values = c{pass_renderer.digits[1:0], error_renderer.digits[1:0]}
         io_segment = ~seg.seg
         io_select = ~seg.sel
         
@@ -115,7 +125,7 @@ module alu_auto_tester#(
                 // if slow clock rising edge, go to UPDATE state
                 led = 8h0
                 io_led = 3x{{8h0}}
-                seg.values = $build(c{pass_counter.q, error_counter.q}, 4)
+                seg.values = c{pass_renderer.digits[1:0], error_renderer.digits[1:0]}
                 if (slow_clock_edge.out) { // this takes precedence
                     if (test_sel.q == 32) {
                         states.d =States.STOP
@@ -191,8 +201,11 @@ module alu_auto_tester#(
             States.CALC:
                 state_counter.d = 4
                 seg.values = {c{3b0,alu.z}, c{3b0,alu.v}, c{3b0,alu.n}, state_counter.q}
-                led = alu.out[7:0] // first 8 bits
-                io_led = $build(alu.out[31:8],3)
+                if (io_dip[2][7]) {
+                    aluout.d = aluout.q ^ 1
+                }
+                led = aluout.q[7:0] // first 8 bits
+                io_led = $build(aluout.q[31:8],3)
                 if (slow_clock_edge.out) {
                     states.d = States.RESULT  // Move to States.IDLE
                 }
@@ -200,11 +213,13 @@ module alu_auto_tester#(
             States.RESULT:
                 state_counter.d = 5
                 seg.values = {c{3b0,test_cases.zvn[2]}, c{3b0,test_cases.zvn[1]}, c{3b0,test_cases.zvn[0]}, state_counter.q}
-                
+                if (io_dip[2][7]) {
+                    aluout.d = aluout.q ^ 1
+                }
                 led = test_cases.result[7:0] // first 8 bits
                 io_led = $build(test_cases.result[31:8],3) // next 32 bits
                 if (slow_clock_edge.out) {
-                    if ((alu.out == test_cases.result) & (c{b0,alu.z,alu.v,alu.n} == test_cases.zvn)) {
+                    if ((aluout.q == test_cases.result) & (c{alu.z,alu.v,alu.n} == test_cases.zvn)) {
                         pass_counter.d = pass_counter.q + 1
                     } else {
                         error_counter.d = error_counter.q + 1
