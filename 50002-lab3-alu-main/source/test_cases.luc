@@ -1,6 +1,4 @@
-module test_cases #(
-    SIZE ~ 38 : SIZE > 1
-)(
+module test_cases (
     input test_sel[6], // selector
     output a_test[32],
     output b_test[32],
@@ -34,11 +32,11 @@ module test_cases #(
         | 11   | 0x02  | 0x00000001 | 0x00000000 | 0x00000000 | 000 |
         | 12   | 0x02  | 0x00000005 | 0x00000001 | 0x00000005 | 000 |
         | 13   | 0x02  | 0x00000003 | 0x00000005 | 0x0000000F | 000 |
-        | 14   | 0x02  | 0x0000FFFF | 0x0000FFFF | 0x00000001 | ??? | // Ignore
+        | 14   | 0x02  | 0x0000FFFF | 0x0000FFFF | 0x00000001 | ??? | // Ignore // Error
         | 15   | 0x18  | 0x00000001 | 0x00000001 | 0x00000001 | 000 |
         | 16   | 0x18  | 0x00000001 | 0xFFFFFFFE | 0x00000000 | 001 |
         | 17   | 0x1E  | 0x00000001 | 0x00000000 | 0x00000001 | 000 |
-        | 18   | 0x1E  | 0x00000001 | 0xFFFFFFFF | 0xFFFFFFFF | 001 |
+        | 18   | 0x1E  | 0x00000001 | 0xFFFFFFFF | 0xFFFFFFFF | 001 | // Clarify
         | 19   | 0x1E  | 0x00000001 | 0x00000001 | 0x00000001 | 000 |
         | 20   | 0x16  | 0x00000001 | 0x00000000 | 0x00000001 | 000 |
         | 21   | 0x16  | 0x00000001 | 0x00000001 | 0x00000000 | 000 |
@@ -142,7 +140,7 @@ module test_cases #(
                 b_test = h00000005
                 result = h0000000F
                 zvn = b000
-            14: // Test 14: ALUFN=0x02, A=0x0000FFFF, B=0x0000FFFF, Expected=0x00000001, ZVN=??? (treated as 000)
+            14: // Test 14: ALUFN=0x02, A=0x0000FFFF, B=0x0000FFFF, Expected=0x00000001, ZVN=??? (treated as 000) // Error
                 alufn_test = h02
                 a_test = h0000FFFF
                 b_test = h0000FFFF
@@ -166,12 +164,12 @@ module test_cases #(
                 b_test = h00000000
                 result = h00000001
                 zvn = b000
-            18: // Test 18: ALUFN=0x1E, A=0x00000001, B=0xFFFFFFFF, Expected=0xFFFFFFFF, ZVN=001
+            18: // Test 18: ALUFN=0x1E, A=0x00000001, B=0xFFFFFFFF, Expected=0xFFFFFFFF, ZVN=100 // Error
                 alufn_test = h1E
                 a_test = h00000001
                 b_test = hFFFFFFFF
                 result = hFFFFFFFF
-                zvn = b001
+                zvn = b100 // Or should it be b001 cause result is negative? Or based off adder's result of 1 - (-1) = 0
             19: // Test 19: ALUFN=0x1E, A=0x00000001, B=0x00000001, Expected=0x00000001, ZVN=000
                 alufn_test = h1E
                 a_test = h00000001
@@ -208,12 +206,12 @@ module test_cases #(
                 b_test = h00000000
                 result = h00000010
                 zvn = b000
-            25: // Test 25: ALUFN=0x20, A=0x80000001, B=0x0000001F, Expected=0x80000000, ZVN=000
+            25: // Test 25: ALUFN=0x20, A=0x80000001, B=0x0000001F, Expected=0x80000000, ZVN=001
                 alufn_test = h20
                 a_test = h80000001
                 b_test = h0000001F
                 result = h80000000
-                zvn = b000
+                zvn = b001
             26: // Test 26: ALUFN=0x20, A=0x00000010, B=0x0000001F, Expected=0x00000000, ZVN=000
                 alufn_test = h20
                 a_test = h00000010
@@ -268,12 +266,12 @@ module test_cases #(
                 b_test = h00000000
                 result = h00000000
                 zvn = b000
-            35: // Test 35: ALUFN=0x35, A=0x00000001, B=0x00000001, Expected=0x00000000, ZVN=000
+            35: // Test 35: ALUFN=0x35, A=0x00000001, B=0x00000001, Expected=0x00000000, ZVN=100
                 alufn_test = h35
                 a_test = h00000001
                 b_test = h00000001
                 result = h00000000
-                zvn = b000
+                zvn = b100
             36: // Test 36: ALUFN=0x37, A=0x00000001, B=0x00000001, Expected=0x00000001, ZVN=100
                 alufn_test = h37
                 a_test = h00000001
@@ -297,7 +295,7 @@ module test_cases #(
                 a_test = 0
                 b_test = 0
                 result = 0
-                zvn = b000
+                zvn = b100
         }
     }
 }

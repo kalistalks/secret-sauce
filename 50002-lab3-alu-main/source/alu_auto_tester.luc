@@ -11,16 +11,21 @@ module alu_auto_tester#(
     output io_select[4] // Digit Select on IO Shield
 ) {
     alu alu
-    test_cases test_cases(#SIZE(38))
+    test_cases test_cases
     sig slow_clock
     bin_to_dec pass_renderer(#DIGITS(4), #LEADING_ZEROS(1))
     bin_to_dec error_renderer(#DIGITS(4), #LEADING_ZEROS(1))
+    bin_to_dec test_sel_renderer(#DIGITS(4), #LEADING_ZEROS(1))
+    const SIZE = 32
+    const CASES = 38
     const SEVEN_SEG_DIV = $is_sim() ? 3 : 16 // put 6 for sim, 16 on hardware
     const SLOW_CLOCK_DEFAULT_SPEED = $is_sim() ? 8 : 25 // put 8  for sim, 25 for hardware
     enum States {
         IDLE,
         RUN,
-        SCORE,
+        // FASTER,
+        // SLOWER,
+        TESTSEL,
         SHOWA, // show stored value of A
         SHOWB, // show stored value of B
         SHOWALUFN, // show stored value of ALUFN
@@ -44,12 +49,12 @@ module alu_auto_tester#(
             dff states[$width(States)](#INIT(States.IDLE))
             dff state_counter[4](#INIT(1))
             
-            dff test_sel[6](#INIT(0))
-            dff pass_counter[8](#INIT(0))
-            dff error_counter[8](#INIT(0))
+            dff test_sel[$clog2(CASES)](#INIT(0))
+            dff pass_counter[$clog2(CASES)](#INIT(0))
+            dff error_counter[$clog2(CASES)](#INIT(0))
             
-            dff counter[32]
-            dff speed_pointer[$clog2(32)](#INIT(SLOW_CLOCK_DEFAULT_SPEED))
+            dff counter[SIZE]
+            dff speed_pointer[$clog2(SIZE)](#INIT(SLOW_CLOCK_DEFAULT_SPEED))
             dff slow_clock_enable(#INIT(0))
             
             dff a[32](#INIT(0))
@@ -71,6 +76,7 @@ module alu_auto_tester#(
         
         // test case related dffs
         test_sel.d = test_sel.q
+        test_sel_renderer.value = test_sel.q
         pass_counter.d = pass_counter.q
         pass_renderer.value = pass_counter.q
         error_counter.d = error_counter.q
@@ -127,11 +133,11 @@ module alu_auto_tester#(
                 io_led = 3x{{8h0}}
                 seg.values = c{pass_renderer.digits[1:0], error_renderer.digits[1:0]}
                 if (slow_clock_edge.out) { // this takes precedence
-                    if (test_sel.q == 32) {
-                        states.d =States.STOP
+                    if (test_sel.q >= CASES) {
+                        states.d = States.STOP
                     } else {
                         test_sel.d = test_sel.q + 1
-                        states.d = States.SCORE
+                        states.d = States.TESTSEL
                     }
                     // if button[1] is pressed
                 } else if(io_button_edge.out[1]) {
@@ -141,13 +147,19 @@ module alu_auto_tester#(
                     } else { // else, slow clock is currently enabled, stop
                         states.d = States.STOP
                     }
-                }
+                    //if button 0 is pressed down
+                } /* else if(io_button_edge.out[0]) {
+                    states.d = States.FASTER
+                    //if button 2 is pressed down
+                } else if(io_button_edge.out[2]) {
+                    states.d = States.SLOWER
+                } */            
             
-            States.SCORE:
-                seg.values = $build(c{10b0, test_sel.q}, 4)
+            States.TESTSEL:
+                seg.values = test_sel_renderer.digits
                 // return to IDLE
                 if (slow_clock_edge.out) {
-                    states.d = States.SHOWALUFN // Move to States.A2
+                    states.d = States.SHOWALUFN // Move to States.SHOWALUFN
                 }
             
             States.RUN:
@@ -162,40 +174,62 @@ module alu_auto_tester#(
                 // return to IDLE
                 states.d = States.IDLE
             
+            /*
+            States.SLOWER: 
+                // clamp to 31st bit at max using speed pointer
+                if (speed_pointer.q < SIZE-1){
+                    speed_pointer.d = speed_pointer.q + 1
+                }
+                
+                // return to IDLE
+                states.d = States.IDLE
+            
+            States.FASTER:
+                // clamp to 0st bit at min using speed pointer
+                if (speed_pointer.q > 0){
+                    speed_pointer.d = speed_pointer.q - 1
+                }
+                // return to IDLE
+                states.d = States.IDLE
+            */            
+            
             States.SHOWALUFN:
                 state_counter.d = 1
                 seg.values = {4b0, 4b0, 4b0, state_counter.q}
-                // b.d[15:0] = $flatten(io_dip[1:0]) // Read first 16 bits
                 // Display 6 bits of ALUFN
                 alufn.d = test_cases.alufn_test[5:0]
                 led = 8h0
                 io_led[2] = test_cases.alufn_test
                 if (slow_clock_edge.out) {
-                    states.d = States.SHOWA  // Move to States.B2
+                    states.d = States.SHOWA  // Move to States.SHOWA
+                } else if(io_button_edge.out[1]) {
+                    states.d = States.STOP
                 }
             
             States.SHOWA:
                 state_counter.d = 2
                 seg.values = {4b0, 4b0, 4b0, state_counter.q}
-                // a.d[15:0] = $flatten(io_dip[1:0]) // Read first 16 bits
                 a.d = test_cases.a_test
                 // Display 32 bits of a
                 led = a.q[7:0]
                 io_led = $build(a.q[31:8],3)
                 if (slow_clock_edge.out) {
-                    states.d = States.SHOWB // Move to States.A2
+                    states.d = States.SHOWB // Move to States.SHOWB
+                } else if(io_button_edge.out[1]) {
+                    states.d = States.STOP
                 }
             
             States.SHOWB:
                 state_counter.d = 3
                 seg.values = {4b0, 4b0, 4b0, state_counter.q}
-                // b.d[15:0] = $flatten(io_dip[1:0]) // Read first 16 bits
                 // Display 32 bits of b
                 b.d = test_cases.b_test
                 led = b.q[7:0]
                 io_led = $build(b.q[31:8],3)
                 if (slow_clock_edge.out) {
-                    states.d = States.CALC  // Move to States.B2
+                    states.d = States.CALC  // Move to States.CALC
+                } else if(io_button_edge.out[1]) {
+                    states.d = States.STOP
                 }
             
             States.CALC:
@@ -207,7 +241,9 @@ module alu_auto_tester#(
                 led = aluout.q[7:0] // first 8 bits
                 io_led = $build(aluout.q[31:8],3)
                 if (slow_clock_edge.out) {
-                    states.d = States.RESULT  // Move to States.IDLE
+                    states.d = States.RESULT  // Move to States.RESULT
+                } else if(io_button_edge.out[1]) {
+                    states.d = States.STOP
                 }
             
             States.RESULT:
@@ -225,6 +261,8 @@ module alu_auto_tester#(
                         error_counter.d = error_counter.q + 1
                     }
                     states.d = States.IDLE  // Move to States.IDLE
+                } else if(io_button_edge.out[1]) {
+                    states.d = States.STOP
                 }
         }
     }
