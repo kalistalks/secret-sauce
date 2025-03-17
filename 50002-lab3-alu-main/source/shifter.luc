@@ -13,7 +13,7 @@ module shifter (
         // first 16-bit shifter
         shiftmux.a[4] = a
         shiftmux.shift[4] = b[4]
-        shiftmux.pad = pad
+        shiftmux.pad[4] = pad
         
         //chain the other shifters and choose which to use based on no. of bits to shift
         repeat(i, 4, 0, 1) {
