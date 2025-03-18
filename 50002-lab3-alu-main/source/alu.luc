@@ -96,9 +96,9 @@ module alu (
         }
         
         if (alufn[6]) {
-            if (alufn[1]) {
+            if (alufn[0]) {
                 out = clamp.out
-            } else if (alufn[2]) {
+            } else if (alufn[1]) {
                 out = divider.out
             }
         }

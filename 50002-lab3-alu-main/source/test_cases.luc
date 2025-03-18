@@ -147,7 +147,7 @@ module test_cases (
                 b_test = h0000FFFF
                 result = h00000001
                 zvn = b000
-            */
+            */            
             14: // Test 15: ALUFN=0x18, A=0x00000001, B=0x00000001, Expected=0x00000001, ZVN=000
                 alufn_test = h18
                 a_test = h00000001
@@ -288,6 +288,12 @@ module test_cases (
                 zvn = b001
             37: // Test 38: ALUFN=0x37, A=0x00000001, B=0x00000000, Expected=0x00000000, ZVN=000
                 alufn_test = h37
+                a_test = h00000001
+                b_test = h00000000
+                result = h00000000
+                zvn = b000
+            38: 
+                alufn_test = h41
                 a_test = h00000001
                 b_test = h00000000
                 result = h00000000

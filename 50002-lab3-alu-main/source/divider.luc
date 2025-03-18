@@ -5,9 +5,7 @@ module divider (
     output out[32] // a/b
 ) {
     always {
-        if (~|b) {
-            out = 32b0
-        } else if ($signed(b) > $signed(a)){
+        if ((~|b) | (~|a)) {
             out = 32b0
         } else {
             out = a / b
