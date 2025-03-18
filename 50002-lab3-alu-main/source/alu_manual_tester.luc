@@ -55,7 +55,7 @@ module alu_manual_tester#(
         alu.a = a.q
         alu.b = b.q
         // leftmost section of IO dip switches, from right to left
-        alu.alufn = io_dip[2][5:0]
+        alu.alufn = io_dip[2][6:0]
         
         // 7 segment display value
         // seg.values takes in 2D 4x4 array, each 4 bit represents number shown on 7 segment

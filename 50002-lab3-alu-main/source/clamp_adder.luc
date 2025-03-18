@@ -1,0 +1,22 @@
+module clamp_adder #(
+    SIZE ~ 32 : SIZE > 1
+)(
+    input a[32],
+    input b[32],
+    input alufn[7],
+    output out[32]
+) {
+    adder adder(#SIZE(SIZE))
+    always {
+        adder.a = a
+        adder.b = b
+        adder.alufn_signal = alufn[5:0]
+        if (adder.v) {
+            out = SIZEx{b1}
+        } else if (adder.n) {
+            out = SIZEx{b0}
+        } else {
+            out = adder.out
+        }
+    }
+}

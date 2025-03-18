@@ -14,9 +14,14 @@ module alchitry_top (
     sig rst                 // reset signal
     
     .clk(clk) {
+        edge_detector io_button_edge[5](#RISE(5x{{1}}), #FALL(5x{{0}}))
+        button_conditioner io_button_cond[5](#CLK_FREQ(5x{{100000000}})) 
         // The reset conditioner is used to synchronize the reset signal to the FPGA
         // clock. This ensures the entire FPGA comes out of reset at the same time.
         reset_conditioner reset_cond
+        .rst(rst) {
+            dff state[1](#INIT(1))
+        }
     }
     const CLK_FREQ = $is_sim() ? 1000 : 100000000 // put 1000 for sim, 100MHz otherwise in hardware
     
@@ -28,23 +33,34 @@ module alchitry_top (
         
         usb_tx = usb_rx          // loop serial port
         
+        // condition the buttons, then take rising edges only
+        io_button_cond.in = io_button
+        io_button_edge.in = io_button_cond.out
+        state.d = state.q
+        
         // to test ALU 
         //io_segment = alu_manual.io_segment
         //io_select = alu_manual.io_select     
         //io_led = alu_manual.io_led
         //led = alu_manual.led
         
-        //DARREN_TEST
-        if (io_dip[2][6]) {
+        // Toggle between manual and auto
+        if (state.q) {
             io_segment = alu_manual.io_segment
             io_select  = alu_manual.io_select
             io_led     = alu_manual.io_led
             led        = alu_manual.led
+            if (io_button_edge.out[4]) {
+                state.d = 0
+            }
         } else {
             io_segment = alu_auto.io_segment
             io_select  = alu_auto.io_select
             io_led     = alu_auto.io_led
             led        = alu_auto.led
+            if (io_button_edge.out[4]) {
+                state.d = 1
+            }
         }
  
     }
