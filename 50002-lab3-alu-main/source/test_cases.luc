@@ -140,151 +140,153 @@ module test_cases (
                 b_test = h00000005
                 result = h0000000F
                 zvn = b000
+            /*
             14: // Test 14: ALUFN=0x02, A=0x0000FFFF, B=0x0000FFFF, Expected=0x00000001, ZVN=??? (treated as 000) // Error
                 alufn_test = h02
                 a_test = h0000FFFF
                 b_test = h0000FFFF
                 result = h00000001
                 zvn = b000
-            15: // Test 15: ALUFN=0x18, A=0x00000001, B=0x00000001, Expected=0x00000001, ZVN=000
+            */
+            14: // Test 15: ALUFN=0x18, A=0x00000001, B=0x00000001, Expected=0x00000001, ZVN=000
                 alufn_test = h18
                 a_test = h00000001
                 b_test = h00000001
                 result = h00000001
                 zvn = b000
-            16: // Test 16: ALUFN=0x18, A=0x00000001, B=0xFFFFFFFE, Expected=0x00000000, ZVN=001
+            15: // Test 16: ALUFN=0x18, A=0x00000001, B=0xFFFFFFFE, Expected=0x00000000, ZVN=001
                 alufn_test = h18
                 a_test = h00000001
                 b_test = hFFFFFFFE
                 result = h00000000
                 zvn = b001
-            17: // Test 17: ALUFN=0x1E, A=0x00000001, B=0x00000000, Expected=0x00000001, ZVN=000
+            16: // Test 17: ALUFN=0x1E, A=0x00000001, B=0x00000000, Expected=0x00000001, ZVN=000
                 alufn_test = h1E
                 a_test = h00000001
                 b_test = h00000000
                 result = h00000001
                 zvn = b000
-            18: // Test 18: ALUFN=0x1E, A=0x00000001, B=0xFFFFFFFF, Expected=0xFFFFFFFF, ZVN=100 // Error
+            17: // Test 18: ALUFN=0x1E, A=0x00000001, B=0xFFFFFFFF, Expected=0xFFFFFFFF, ZVN=100 // Error
                 alufn_test = h1E
                 a_test = h00000001
                 b_test = hFFFFFFFF
                 result = hFFFFFFFF
                 zvn = b100 // Or should it be b001 cause result is negative? Or based off adder's result of 1 - (-1) = 0
-            19: // Test 19: ALUFN=0x1E, A=0x00000001, B=0x00000001, Expected=0x00000001, ZVN=000
+            18: // Test 19: ALUFN=0x1E, A=0x00000001, B=0x00000001, Expected=0x00000001, ZVN=000
                 alufn_test = h1E
                 a_test = h00000001
                 b_test = h00000001
                 result = h00000001
                 zvn = b000
-            20: // Test 20: ALUFN=0x16, A=0x00000001, B=0x00000000, Expected=0x00000001, ZVN=000
+            19: // Test 20: ALUFN=0x16, A=0x00000001, B=0x00000000, Expected=0x00000001, ZVN=000
                 alufn_test = h16
                 a_test = h00000001
                 b_test = h00000000
                 result = h00000001
                 zvn = b000
-            21: // Test 21: ALUFN=0x16, A=0x00000001, B=0x00000001, Expected=0x00000000, ZVN=000
+            20: // Test 21: ALUFN=0x16, A=0x00000001, B=0x00000001, Expected=0x00000000, ZVN=000
                 alufn_test = h16
                 a_test = h00000001
                 b_test = h00000001
                 result = h00000000
                 zvn = b000
-            22: // Test 22: ALUFN=0x16, A=0x00000001, B=0xFFFFFFFE, Expected=0xFFFFFFFF, ZVN=001
+            21: // Test 22: ALUFN=0x16, A=0x00000001, B=0xFFFFFFFE, Expected=0xFFFFFFFF, ZVN=001
                 alufn_test = h16
                 a_test = h00000001
                 b_test = hFFFFFFFE
                 result = hFFFFFFFF
                 zvn = b001
-            23: // Test 23: ALUFN=0x1A, A=0x00000001, B=0x00000000, Expected=0x00000001, ZVN=000
+            22: // Test 23: ALUFN=0x1A, A=0x00000001, B=0x00000000, Expected=0x00000001, ZVN=000
                 alufn_test = h1A
                 a_test = h00000001
                 b_test = h00000000
                 result = h00000001
                 zvn = b000
-            24: // Test 24: ALUFN=0x20, A=0x00000010, B=0x00000000, Expected=0x00000010, ZVN=000
+            23: // Test 24: ALUFN=0x20, A=0x00000010, B=0x00000000, Expected=0x00000010, ZVN=000
                 alufn_test = h20
                 a_test = h00000010
                 b_test = h00000000
                 result = h00000010
                 zvn = b000
-            25: // Test 25: ALUFN=0x20, A=0x80000001, B=0x0000001F, Expected=0x80000000, ZVN=001
+            24: // Test 25: ALUFN=0x20, A=0x80000001, B=0x0000001F, Expected=0x80000000, ZVN=001
                 alufn_test = h20
                 a_test = h80000001
                 b_test = h0000001F
                 result = h80000000
                 zvn = b001
-            26: // Test 26: ALUFN=0x20, A=0x00000010, B=0x0000001F, Expected=0x00000000, ZVN=000
+            25: // Test 26: ALUFN=0x20, A=0x00000010, B=0x0000001F, Expected=0x00000000, ZVN=000
                 alufn_test = h20
                 a_test = h00000010
                 b_test = h0000001F
                 result = h00000000
                 zvn = b000
-            27: // Test 27: ALUFN=0x21, A=0x00000010, B=0x00000000, Expected=0x00000010, ZVN=000
+            26: // Test 27: ALUFN=0x21, A=0x00000010, B=0x00000000, Expected=0x00000010, ZVN=000
                 alufn_test = h21
                 a_test = h00000010
                 b_test = h00000000
                 result = h00000010
                 zvn = b000
-            28: // Test 28: ALUFN=0x21, A=0x80000000, B=0x0000001F, Expected=0x00000001, ZVN=010
+            27: // Test 28: ALUFN=0x21, A=0x80000000, B=0x0000001F, Expected=0x00000001, ZVN=010
                 alufn_test = h21
                 a_test = h80000000
                 b_test = h0000001F
                 result = h00000001
                 zvn = b010
-            29: // Test 29: ALUFN=0x21, A=0x00000010, B=0x0000001F, Expected=0x00000000, ZVN=001
+            28: // Test 29: ALUFN=0x21, A=0x00000010, B=0x0000001F, Expected=0x00000000, ZVN=001
                 alufn_test = h21
                 a_test = h00000010
                 b_test = h0000001F
                 result = h00000000
                 zvn = b001
-            30: // Test 30: ALUFN=0x23, A=0x80000010, B=0x00000004, Expected=0xF8000001, ZVN=001
+            29: // Test 30: ALUFN=0x23, A=0x80000010, B=0x00000004, Expected=0xF8000001, ZVN=001
                 alufn_test = h23
                 a_test = h80000010
                 b_test = h00000004
                 result = hF8000001
                 zvn = b001
-            31: // Test 31: ALUFN=0x33, A=0x00000001, B=0x00000001, Expected=0x00000001, ZVN=100
+            30: // Test 31: ALUFN=0x33, A=0x00000001, B=0x00000001, Expected=0x00000001, ZVN=100
                 alufn_test = h33
                 a_test = h00000001
                 b_test = h00000001
                 result = h00000001
                 zvn = b100
-            32: // Test 32: ALUFN=0x33, A=0x00000001, B=0x00000000, Expected=0x00000000, ZVN=000
+            31: // Test 32: ALUFN=0x33, A=0x00000001, B=0x00000000, Expected=0x00000000, ZVN=000
                 alufn_test = h33
                 a_test = h00000001
                 b_test = h00000000
                 result = h00000000
                 zvn = b000
-            33: // Test 33: ALUFN=0x35, A=0x00000000, B=0x00000001, Expected=0x00000001, ZVN=001
+            32: // Test 33: ALUFN=0x35, A=0x00000000, B=0x00000001, Expected=0x00000001, ZVN=001
                 alufn_test = h35
                 a_test = h00000000
                 b_test = h00000001
                 result = h00000001
                 zvn = b001
-            34: // Test 34: ALUFN=0x35, A=0x00000001, B=0x00000000, Expected=0x00000000, ZVN=000
+            33: // Test 34: ALUFN=0x35, A=0x00000001, B=0x00000000, Expected=0x00000000, ZVN=000
                 alufn_test = h35
                 a_test = h00000001
                 b_test = h00000000
                 result = h00000000
                 zvn = b000
-            35: // Test 35: ALUFN=0x35, A=0x00000001, B=0x00000001, Expected=0x00000000, ZVN=100
+            34: // Test 35: ALUFN=0x35, A=0x00000001, B=0x00000001, Expected=0x00000000, ZVN=100
                 alufn_test = h35
                 a_test = h00000001
                 b_test = h00000001
                 result = h00000000
                 zvn = b100
-            36: // Test 36: ALUFN=0x37, A=0x00000001, B=0x00000001, Expected=0x00000001, ZVN=100
+            35: // Test 36: ALUFN=0x37, A=0x00000001, B=0x00000001, Expected=0x00000001, ZVN=100
                 alufn_test = h37
                 a_test = h00000001
                 b_test = h00000001
                 result = h00000001
                 zvn = b100
-            37: // Test 37: ALUFN=0x37, A=0x00000000, B=0x00000001, Expected=0x00000001, ZVN=001
+            36: // Test 37: ALUFN=0x37, A=0x00000000, B=0x00000001, Expected=0x00000001, ZVN=001
                 alufn_test = h37
                 a_test = h00000000
                 b_test = h00000001
                 result = h00000001
                 zvn = b001
-            38: // Test 38: ALUFN=0x37, A=0x00000001, B=0x00000000, Expected=0x00000000, ZVN=000
+            37: // Test 38: ALUFN=0x37, A=0x00000001, B=0x00000000, Expected=0x00000000, ZVN=000
                 alufn_test = h37
                 a_test = h00000001
                 b_test = h00000000

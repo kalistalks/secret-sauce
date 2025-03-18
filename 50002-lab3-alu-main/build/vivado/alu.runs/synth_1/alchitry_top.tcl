@@ -72,7 +72,9 @@ OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib -sv {
   C:/Users/littl/Documents/GitHub/secret-sauce/50002-lab3-alu-main/build/vivado/alu.srcs/sources_1/imports/source/adder.sv
   C:/Users/littl/Documents/GitHub/secret-sauce/50002-lab3-alu-main/build/vivado/alu.srcs/sources_1/imports/source/alu.sv
+  C:/Users/littl/Documents/GitHub/secret-sauce/50002-lab3-alu-main/build/vivado/alu.srcs/sources_1/imports/source/alu_auto_tester.sv
   C:/Users/littl/Documents/GitHub/secret-sauce/50002-lab3-alu-main/build/vivado/alu.srcs/sources_1/imports/source/alu_manual_tester.sv
+  C:/Users/littl/Documents/GitHub/secret-sauce/50002-lab3-alu-main/build/vivado/alu.srcs/sources_1/imports/source/bin_to_dec.sv
   C:/Users/littl/Documents/GitHub/secret-sauce/50002-lab3-alu-main/build/vivado/alu.srcs/sources_1/imports/source/bit_reverse.sv
   C:/Users/littl/Documents/GitHub/secret-sauce/50002-lab3-alu-main/build/vivado/alu.srcs/sources_1/imports/source/boolean.sv
   C:/Users/littl/Documents/GitHub/secret-sauce/50002-lab3-alu-main/build/vivado/alu.srcs/sources_1/imports/source/button_conditioner.sv
@@ -91,6 +93,7 @@ read_verilog -library xil_defaultlib -sv {
   C:/Users/littl/Documents/GitHub/secret-sauce/50002-lab3-alu-main/build/vivado/alu.srcs/sources_1/imports/source/reset_conditioner.sv
   C:/Users/littl/Documents/GitHub/secret-sauce/50002-lab3-alu-main/build/vivado/alu.srcs/sources_1/imports/source/seven_seg.sv
   C:/Users/littl/Documents/GitHub/secret-sauce/50002-lab3-alu-main/build/vivado/alu.srcs/sources_1/imports/source/shifter.sv
+  C:/Users/littl/Documents/GitHub/secret-sauce/50002-lab3-alu-main/build/vivado/alu.srcs/sources_1/imports/source/test_cases.sv
   C:/Users/littl/Documents/GitHub/secret-sauce/50002-lab3-alu-main/build/vivado/alu.srcs/sources_1/imports/source/x_bit_left_shifter.sv
   C:/Users/littl/Documents/GitHub/secret-sauce/50002-lab3-alu-main/build/vivado/alu.srcs/sources_1/imports/source/alchitry_top.sv
 }

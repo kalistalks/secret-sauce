@@ -111,90 +111,119 @@ set_property IOSTANDARD LVCMOS33 [get_ports {io_led[2][7]}]
 
 set_property PACKAGE_PIN D6 [get_ports {io_dip[0][0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[0][0]}]
+set_property PULLDOWN true [get_ports {io_dip[0][0]}]
 
 set_property PACKAGE_PIN D5 [get_ports {io_dip[0][1]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[0][1]}]
+set_property PULLDOWN true [get_ports {io_dip[0][1]}]
 
 set_property PACKAGE_PIN F5 [get_ports {io_dip[0][2]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[0][2]}]
+set_property PULLDOWN true [get_ports {io_dip[0][2]}]
 
 set_property PACKAGE_PIN E5 [get_ports {io_dip[0][3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[0][3]}]
+set_property PULLDOWN true [get_ports {io_dip[0][3]}]
 
 set_property PACKAGE_PIN G5 [get_ports {io_dip[0][4]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[0][4]}]
+set_property PULLDOWN true [get_ports {io_dip[0][4]}]
 
 set_property PACKAGE_PIN G4 [get_ports {io_dip[0][5]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[0][5]}]
+set_property PULLDOWN true [get_ports {io_dip[0][5]}]
 
 set_property PACKAGE_PIN D4 [get_ports {io_dip[0][6]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[0][6]}]
+set_property PULLDOWN true [get_ports {io_dip[0][6]}]
 
 set_property PACKAGE_PIN C4 [get_ports {io_dip[0][7]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[0][7]}]
+set_property PULLDOWN true [get_ports {io_dip[0][7]}]
 
 set_property PACKAGE_PIN E3 [get_ports {io_dip[1][0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[1][0]}]
+set_property PULLDOWN true [get_ports {io_dip[1][0]}]
 
 set_property PACKAGE_PIN D3 [get_ports {io_dip[1][1]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[1][1]}]
+set_property PULLDOWN true [get_ports {io_dip[1][1]}]
 
 set_property PACKAGE_PIN C3 [get_ports {io_dip[1][2]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[1][2]}]
+set_property PULLDOWN true [get_ports {io_dip[1][2]}]
 
 set_property PACKAGE_PIN C2 [get_ports {io_dip[1][3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[1][3]}]
+set_property PULLDOWN true [get_ports {io_dip[1][3]}]
 
 set_property PACKAGE_PIN C1 [get_ports {io_dip[1][4]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[1][4]}]
+set_property PULLDOWN true [get_ports {io_dip[1][4]}]
 
 set_property PACKAGE_PIN B1 [get_ports {io_dip[1][5]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[1][5]}]
+set_property PULLDOWN true [get_ports {io_dip[1][5]}]
 
 set_property PACKAGE_PIN M6 [get_ports {io_dip[1][6]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[1][6]}]
+set_property PULLDOWN true [get_ports {io_dip[1][6]}]
 
 set_property PACKAGE_PIN N6 [get_ports {io_dip[1][7]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[1][7]}]
+set_property PULLDOWN true [get_ports {io_dip[1][7]}]
 
 set_property PACKAGE_PIN H5 [get_ports {io_dip[2][0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[2][0]}]
+set_property PULLDOWN true [get_ports {io_dip[2][0]}]
 
 set_property PACKAGE_PIN H4 [get_ports {io_dip[2][1]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[2][1]}]
+set_property PULLDOWN true [get_ports {io_dip[2][1]}]
 
 set_property PACKAGE_PIN J3 [get_ports {io_dip[2][2]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[2][2]}]
+set_property PULLDOWN true [get_ports {io_dip[2][2]}]
 
 set_property PACKAGE_PIN H3 [get_ports {io_dip[2][3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[2][3]}]
+set_property PULLDOWN true [get_ports {io_dip[2][3]}]
 
 set_property PACKAGE_PIN J5 [get_ports {io_dip[2][4]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[2][4]}]
+set_property PULLDOWN true [get_ports {io_dip[2][4]}]
 
 set_property PACKAGE_PIN J4 [get_ports {io_dip[2][5]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[2][5]}]
+set_property PULLDOWN true [get_ports {io_dip[2][5]}]
 
 set_property PACKAGE_PIN K3 [get_ports {io_dip[2][6]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[2][6]}]
+set_property PULLDOWN true [get_ports {io_dip[2][6]}]
 
 set_property PACKAGE_PIN K2 [get_ports {io_dip[2][7]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_dip[2][7]}]
+set_property PULLDOWN true [get_ports {io_dip[2][7]}]
 
 set_property PACKAGE_PIN C6 [get_ports {io_button[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_button[0]}]
+set_property PULLDOWN true [get_ports {io_button[0]}]
 
 set_property PACKAGE_PIN C7 [get_ports {io_button[1]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_button[1]}]
+set_property PULLDOWN true [get_ports {io_button[1]}]
 
 set_property PACKAGE_PIN A7 [get_ports {io_button[2]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_button[2]}]
+set_property PULLDOWN true [get_ports {io_button[2]}]
 
 set_property PACKAGE_PIN B7 [get_ports {io_button[3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_button[3]}]
+set_property PULLDOWN true [get_ports {io_button[3]}]
 
 set_property PACKAGE_PIN P11 [get_ports {io_button[4]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_button[4]}]
+set_property PULLDOWN true [get_ports {io_button[4]}]
 
 set_property PACKAGE_PIN P8 [get_ports {io_select[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_select[0]}]
