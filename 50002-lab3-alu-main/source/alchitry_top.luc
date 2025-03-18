@@ -50,7 +50,7 @@ module alchitry_top (
             io_select  = alu_manual.io_select
             io_led     = alu_manual.io_led
             led        = alu_manual.led
-            if (io_button_edge.out[4]) {
+            if (io_button_edge.out[3]) {
                 state.d = 0
             }
         } else {
@@ -58,10 +58,10 @@ module alchitry_top (
             io_select  = alu_auto.io_select
             io_led     = alu_auto.io_led
             led        = alu_auto.led
-            if (io_button_edge.out[4]) {
+            if (io_button_edge.out[3]) {
                 state.d = 1
             }
         }
- 
+        
     }
 }

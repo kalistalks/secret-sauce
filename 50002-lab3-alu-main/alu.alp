@@ -164,7 +164,13 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source\\clamp_adder.luc"
+                    "path": "source\\clamp.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source\\divider.luc"
                 }
             }
         ],

@@ -1,0 +1,15 @@
+module clamp (
+    input a[32],
+    input b[32],
+    output out[32]
+) {
+    always {
+        if ($signed(a) > $signed(b)) {
+            out = b
+        } else if ($signed(a) < 0) {
+            out = 32b0
+        } else {
+            out = a
+        }
+    }
+}

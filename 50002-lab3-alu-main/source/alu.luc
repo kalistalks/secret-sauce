@@ -16,7 +16,9 @@ module alu (
     mux_4 mux_4[32]
     mux_2 mux_2[32]
     
-    clamp_adder clamp_adder(#SIZE(32))
+    // Extra functions
+    clamp clamp // instantiate clamp
+    divider divider // instantiate clamp
     always {
         // code from lab website to connect its input and output into adder
         adder.a = a
@@ -48,14 +50,13 @@ module alu (
         multiplier.b = b
         
         // Extra functions
-        // clamp adder
-        clamp_adder.a = a
-        clamp_adder.b = b
-        clamp_adder.alufn = alufn
+        // clamp
+        clamp.a = a
+        clamp.b = b
         
-        if (alufn[6]) {
-            out = clamp_adder.out
-        }
+        // divider
+        divider.a = a
+        divider.b = b
         
         repeat(i, 32, 0, 1) {
             // S[31:0] from adder into 0-input of 32xMux_2
@@ -92,6 +93,14 @@ module alu (
             
             // 32xMux_2 output to ALU[31:0] output
             out[i] = mux_4.out[i]
+        }
+        
+        if (alufn[6]) {
+            if (alufn[1]) {
+                out = clamp.out
+            } else if (alufn[2]) {
+                out = divider.out
+            }
         }
     }
 }
