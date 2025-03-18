@@ -4,16 +4,17 @@
     This is a temporary file and any changes made to it will be destroyed.
 */
 
-module fa (
-        input wire a,
-        input wire b,
-        input wire cin,
-        output reg s,
-        output reg cout
+module divider (
+        input wire [31:0] a,
+        input wire [31:0] b,
+        output reg [31:0] out
     );
     always @* begin
-        s = a ^ b ^ cin;
-        cout = (a & b) | (cin & (a ^ b));
+        if ((~(|b)) | (~(|a))) begin
+            out = 32'h0;
+        end else begin
+            out = a / b;
+        end
     end
     
     
