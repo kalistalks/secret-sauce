@@ -6,7 +6,7 @@ module clamp (
     always {
         if ($signed(a) > $signed(b)) {
             out = b
-        } else if ($signed(a) < 0) {
+        } else if ($signed(a) < 0) | ($signed(b) < 0) {
             out = 32b0
         } else {
             out = a
