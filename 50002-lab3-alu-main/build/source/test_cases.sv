@@ -274,6 +274,41 @@ module test_cases (
                 result = 32'h0;
                 zvn = 3'h0;
             end
+            6'h26: begin
+                alufn_test = 8'h42;
+                a_test = 32'h1;
+                b_test = 32'h0;
+                result = 32'h0;
+                zvn = 3'h0;
+            end
+            6'h27: begin
+                alufn_test = 8'h42;
+                a_test = 32'h3;
+                b_test = 32'h5;
+                result = 32'h0;
+                zvn = 3'h0;
+            end
+            6'h28: begin
+                alufn_test = 8'h41;
+                a_test = 32'h5;
+                b_test = 32'h3;
+                result = 32'h3;
+                zvn = 3'h0;
+            end
+            6'h29: begin
+                alufn_test = 8'h41;
+                a_test = 32'h3;
+                b_test = 32'h5;
+                result = 32'h5;
+                zvn = 3'h1;
+            end
+            6'h2a: begin
+                alufn_test = 8'h41;
+                a_test = 32'h3;
+                b_test = 32'h0;
+                result = 32'h0;
+                zvn = 3'h0;
+            end
             default: begin
                 alufn_test = 1'h0;
                 a_test = 1'h0;

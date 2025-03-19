@@ -7,18 +7,18 @@
 module alu (
         input wire [31:0] a,
         input wire [31:0] b,
-        input wire [5:0] alufn,
+        input wire [6:0] alufn,
         output reg [31:0] out,
         output reg z,
         output reg v,
         output reg n
     );
-    logic [31:0] R_5cde406b_i;
-    logic [31:0] RR_5cde406b_i;
-    logic [31:0] R_6ed8df5d_i;
-    logic [31:0] RR_6ed8df5d_i;
+    logic [31:0] R_442ff92b_i;
+    logic [31:0] RR_442ff92b_i;
+    logic [31:0] R_696a6606_i;
+    logic [31:0] RR_696a6606_i;
     logic [31:0] muxout;
-    localparam _MP_SIZE_921974458 = 6'h20;
+    localparam _MP_SIZE_2068778842 = 6'h20;
     logic [31:0] M_adder_a;
     logic [31:0] M_adder_b;
     logic [5:0] M_adder_alufn_signal;
@@ -28,7 +28,7 @@ module alu (
     logic M_adder_n;
     
     adder #(
-        .SIZE(_MP_SIZE_921974458)
+        .SIZE(_MP_SIZE_2068778842)
     ) adder (
         .a(M_adder_a),
         .b(M_adder_b),
@@ -55,14 +55,14 @@ module alu (
     );
     
     
-    localparam _MP_SIZE_2021234276 = 6'h20;
+    localparam _MP_SIZE_1950735455 = 6'h20;
     logic [31:0] M_boolean_a;
     logic [31:0] M_boolean_b;
     logic [5:0] M_boolean_alufn;
     logic [31:0] M_boolean_bool;
     
     boolean #(
-        .SIZE(_MP_SIZE_2021234276)
+        .SIZE(_MP_SIZE_1950735455)
     ) boolean (
         .a(M_boolean_a),
         .b(M_boolean_b),
@@ -100,15 +100,15 @@ module alu (
     logic [31:0][3:0] M_mux_4_in;
     logic [31:0] M_mux_4_out;
     
-    genvar idx_0_488529635;
+    genvar idx_0_1046318232;
     
     generate
-        for (idx_0_488529635 = 0; idx_0_488529635 < 32; idx_0_488529635 = idx_0_488529635 + 1) begin: forLoop_idx_0_488529635
+        for (idx_0_1046318232 = 0; idx_0_1046318232 < 32; idx_0_1046318232 = idx_0_1046318232 + 1) begin: forLoop_idx_0_1046318232
             mux_4 mux_4 (
-                .s0(M_mux_4_s0[idx_0_488529635]),
-                .s1(M_mux_4_s1[idx_0_488529635]),
-                .in(M_mux_4_in[idx_0_488529635]),
-                .out(M_mux_4_out[idx_0_488529635])
+                .s0(M_mux_4_s0[idx_0_1046318232]),
+                .s1(M_mux_4_s1[idx_0_1046318232]),
+                .in(M_mux_4_in[idx_0_1046318232]),
+                .out(M_mux_4_out[idx_0_1046318232])
             );
         end
     endgenerate
@@ -118,54 +118,89 @@ module alu (
     logic [31:0][1:0] M_mux_2_in;
     logic [31:0] M_mux_2_out;
     
-    genvar idx_0_1991243374;
+    genvar idx_0_578323483;
     
     generate
-        for (idx_0_1991243374 = 0; idx_0_1991243374 < 32; idx_0_1991243374 = idx_0_1991243374 + 1) begin: forLoop_idx_0_1991243374
+        for (idx_0_578323483 = 0; idx_0_578323483 < 32; idx_0_578323483 = idx_0_578323483 + 1) begin: forLoop_idx_0_578323483
             mux_2 mux_2 (
-                .s0(M_mux_2_s0[idx_0_1991243374]),
-                .in(M_mux_2_in[idx_0_1991243374]),
-                .out(M_mux_2_out[idx_0_1991243374])
+                .s0(M_mux_2_s0[idx_0_578323483]),
+                .in(M_mux_2_in[idx_0_578323483]),
+                .out(M_mux_2_out[idx_0_578323483])
             );
         end
     endgenerate
     
     
+    logic [31:0] M_clamp_a;
+    logic [31:0] M_clamp_b;
+    logic [31:0] M_clamp_out;
+    
+    clamp clamp (
+        .a(M_clamp_a),
+        .b(M_clamp_b),
+        .out(M_clamp_out)
+    );
+    
+    
+    logic [31:0] M_divider_a;
+    logic [31:0] M_divider_b;
+    logic [31:0] M_divider_out;
+    
+    divider divider (
+        .a(M_divider_a),
+        .b(M_divider_b),
+        .out(M_divider_out)
+    );
+    
+    
     always @* begin
         M_adder_a = a;
         M_adder_b = b;
-        M_adder_alufn_signal = alufn;
+        M_adder_alufn_signal = alufn[3'h5:1'h0];
         z = M_adder_z;
         v = M_adder_v;
         n = M_adder_n;
         M_compare_z = M_adder_z;
         M_compare_v = M_adder_v;
         M_compare_n = M_adder_n;
-        M_compare_alufn = alufn;
+        M_compare_alufn = alufn[3'h5:1'h0];
         M_boolean_a = a;
         M_boolean_b = b;
-        M_boolean_alufn = alufn;
+        M_boolean_alufn = alufn[3'h5:1'h0];
         M_shifter_a = a;
         M_shifter_b = b[3'h4:1'h0];
-        M_shifter_alufn = alufn;
+        M_shifter_alufn = alufn[3'h5:1'h0];
         M_multiplier_a = a;
         M_multiplier_b = b;
-        for (RR_5cde406b_i = 0; RR_5cde406b_i < 6'h20; RR_5cde406b_i = RR_5cde406b_i + 1) begin
-      R_5cde406b_i = (1'h0) + RR_5cde406b_i * (1'h1);
-            M_mux_2_in[R_5cde406b_i][1'h0] = M_adder_out[R_5cde406b_i];
-            M_mux_2_in[R_5cde406b_i][1'h1] = M_multiplier_mul[R_5cde406b_i];
-            M_mux_2_s0[R_5cde406b_i] = alufn[1'h1];
-            muxout[R_5cde406b_i] = M_mux_2_out[R_5cde406b_i];
+        M_clamp_a = a;
+        M_clamp_b = b;
+        M_divider_a = a;
+        M_divider_b = b;
+        for (RR_442ff92b_i = 0; RR_442ff92b_i < 6'h20; RR_442ff92b_i = RR_442ff92b_i + 1) begin
+      R_442ff92b_i = (1'h0) + RR_442ff92b_i * (1'h1);
+            M_mux_2_in[R_442ff92b_i][1'h0] = M_adder_out[R_442ff92b_i];
+            M_mux_2_in[R_442ff92b_i][1'h1] = M_multiplier_mul[R_442ff92b_i];
+            M_mux_2_s0[R_442ff92b_i] = alufn[1'h1];
+            muxout[R_442ff92b_i] = M_mux_2_out[R_442ff92b_i];
         end
-        for (RR_6ed8df5d_i = 0; RR_6ed8df5d_i < 6'h20; RR_6ed8df5d_i = RR_6ed8df5d_i + 1) begin
-      R_6ed8df5d_i = (1'h0) + RR_6ed8df5d_i * (1'h1);
-            M_mux_4_in[R_6ed8df5d_i][1'h0] = muxout[R_6ed8df5d_i];
-            M_mux_4_in[R_6ed8df5d_i][1'h1] = M_boolean_bool[R_6ed8df5d_i];
-            M_mux_4_in[R_6ed8df5d_i][2'h2] = M_shifter_shift[R_6ed8df5d_i];
-            M_mux_4_in[R_6ed8df5d_i][2'h3] = M_compare_cmp[R_6ed8df5d_i];
-            M_mux_4_s0[R_6ed8df5d_i] = alufn[3'h4];
-            M_mux_4_s1[R_6ed8df5d_i] = alufn[3'h5];
-            out[R_6ed8df5d_i] = M_mux_4_out[R_6ed8df5d_i];
+        for (RR_696a6606_i = 0; RR_696a6606_i < 6'h20; RR_696a6606_i = RR_696a6606_i + 1) begin
+      R_696a6606_i = (1'h0) + RR_696a6606_i * (1'h1);
+            M_mux_4_in[R_696a6606_i][1'h0] = muxout[R_696a6606_i];
+            M_mux_4_in[R_696a6606_i][1'h1] = M_boolean_bool[R_696a6606_i];
+            M_mux_4_in[R_696a6606_i][2'h2] = M_shifter_shift[R_696a6606_i];
+            M_mux_4_in[R_696a6606_i][2'h3] = M_compare_cmp[R_696a6606_i];
+            M_mux_4_s0[R_696a6606_i] = alufn[3'h4];
+            M_mux_4_s1[R_696a6606_i] = alufn[3'h5];
+            out[R_696a6606_i] = M_mux_4_out[R_696a6606_i];
+        end
+        if (alufn[3'h6]) begin
+            if (alufn[1'h0]) begin
+                out = M_clamp_out;
+            end else begin
+                if (alufn[1'h1]) begin
+                    out = M_divider_out;
+                end
+            end
         end
     end
     

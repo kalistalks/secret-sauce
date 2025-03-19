@@ -17,12 +17,56 @@ module alchitry_top (
         input wire [2:0][7:0] io_dip
     );
     logic rst;
-    localparam _MP_STAGES_1773350074 = 3'h4;
+    localparam logic [4:0][0:0] _MP_RISE_1631735547 = {{1'h1, 1'h1, 1'h1, 1'h1, 1'h1}};
+    localparam logic [4:0][0:0] _MP_FALL_1631735547 = {{1'h0, 1'h0, 1'h0, 1'h0, 1'h0}};
+    logic [4:0] M_io_button_edge_in;
+    logic [4:0] M_io_button_edge_out;
+    
+    genvar idx_0_1631735547;
+    
+    generate
+        for (idx_0_1631735547 = 0; idx_0_1631735547 < 5; idx_0_1631735547 = idx_0_1631735547 + 1) begin: forLoop_idx_0_1631735547
+            edge_detector #(
+                .RISE(_MP_RISE_1631735547[idx_0_1631735547]),
+                .FALL(_MP_FALL_1631735547[idx_0_1631735547])
+            ) io_button_edge (
+                .clk(clk),
+                .in(M_io_button_edge_in[idx_0_1631735547]),
+                .out(M_io_button_edge_out[idx_0_1631735547])
+            );
+        end
+    endgenerate
+    
+    
+    localparam logic [4:0][26:0] _MP_CLK_FREQ_1953206046 = {{27'h5f5e100, 27'h5f5e100, 27'h5f5e100, 27'h5f5e100, 27'h5f5e100}};
+    localparam _MP_MIN_DELAY_1953206046 = 5'h14;
+    localparam _MP_NUM_SYNC_1953206046 = 2'h2;
+    logic [4:0] M_io_button_cond_in;
+    logic [4:0] M_io_button_cond_out;
+    
+    genvar idx_0_1953206046;
+    
+    generate
+        for (idx_0_1953206046 = 0; idx_0_1953206046 < 5; idx_0_1953206046 = idx_0_1953206046 + 1) begin: forLoop_idx_0_1953206046
+            button_conditioner #(
+                .CLK_FREQ(_MP_CLK_FREQ_1953206046[idx_0_1953206046]),
+                .MIN_DELAY(_MP_MIN_DELAY_1953206046),
+                .NUM_SYNC(_MP_NUM_SYNC_1953206046)
+            ) io_button_cond (
+                .clk(clk),
+                .in(M_io_button_cond_in[idx_0_1953206046]),
+                .out(M_io_button_cond_out[idx_0_1953206046])
+            );
+        end
+    endgenerate
+    
+    
+    localparam _MP_STAGES_2001812379 = 3'h4;
     logic M_reset_cond_in;
     logic M_reset_cond_out;
     
     reset_conditioner #(
-        .STAGES(_MP_STAGES_1773350074)
+        .STAGES(_MP_STAGES_2001812379)
     ) reset_cond (
         .clk(clk),
         .in(M_reset_cond_in),
@@ -30,15 +74,16 @@ module alchitry_top (
     );
     
     
+    logic [0:0] D_state_d, D_state_q = 1'h1;
     localparam CLK_FREQ = 27'h5f5e100;
-    localparam _MP_CLK_FREQ_1401536658 = 27'h5f5e100;
+    localparam _MP_CLK_FREQ_975845460 = 27'h5f5e100;
     logic [7:0] M_alu_auto_led;
     logic [2:0][7:0] M_alu_auto_io_led;
     logic [7:0] M_alu_auto_io_segment;
     logic [3:0] M_alu_auto_io_select;
     
     alu_auto_tester #(
-        .CLK_FREQ(_MP_CLK_FREQ_1401536658)
+        .CLK_FREQ(_MP_CLK_FREQ_975845460)
     ) alu_auto (
         .clk(clk),
         .rst(rst),
@@ -51,14 +96,14 @@ module alchitry_top (
     );
     
     
-    localparam _MP_CLK_FREQ_135221596 = 27'h5f5e100;
+    localparam _MP_CLK_FREQ_2081619404 = 27'h5f5e100;
     logic [7:0] M_alu_manual_led;
     logic [2:0][7:0] M_alu_manual_io_led;
     logic [7:0] M_alu_manual_io_segment;
     logic [3:0] M_alu_manual_io_select;
     
     alu_manual_tester #(
-        .CLK_FREQ(_MP_CLK_FREQ_135221596)
+        .CLK_FREQ(_MP_CLK_FREQ_2081619404)
     ) alu_manual (
         .clk(clk),
         .rst(rst),
@@ -72,21 +117,39 @@ module alchitry_top (
     
     
     always @* begin
+        D_state_d = D_state_q;
+        
         M_reset_cond_in = ~rst_n;
         rst = M_reset_cond_out;
         usb_tx = usb_rx;
-        if (io_dip[2'h2][3'h6]) begin
+        M_io_button_cond_in = io_button;
+        M_io_button_edge_in = M_io_button_cond_out;
+        D_state_d = D_state_q;
+        if (D_state_q) begin
             io_segment = M_alu_manual_io_segment;
             io_select = M_alu_manual_io_select;
             io_led = M_alu_manual_io_led;
             led = M_alu_manual_led;
+            if (M_io_button_edge_out[2'h3]) begin
+                D_state_d = 1'h0;
+            end
         end else begin
             io_segment = M_alu_auto_io_segment;
             io_select = M_alu_auto_io_select;
             io_led = M_alu_auto_io_led;
             led = M_alu_auto_led;
+            if (M_io_button_edge_out[2'h3]) begin
+                D_state_d = 1'h1;
+            end
         end
     end
     
     
+    always @(posedge (clk)) begin
+        if ((rst) == 1'b1) begin
+            D_state_q <= 1'h1;
+        end else begin
+            D_state_q <= D_state_d;
+        end
+    end
 endmodule

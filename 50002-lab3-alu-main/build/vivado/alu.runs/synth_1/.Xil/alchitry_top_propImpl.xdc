@@ -1,4 +1,4 @@
-set_property SRC_FILE_INFO {cfile:C:/Users/littl/Documents/GitHub/secret-sauce/50002-lab3-alu-main/build/constraint/alchitry.xdc rfile:../../../../constraint/alchitry.xdc id:1} [current_design]
+set_property SRC_FILE_INFO {cfile:{C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/50002-lab3-alu-main/build/constraint/alchitry.xdc} rfile:../../../../constraint/alchitry.xdc id:1} [current_design]
 set_property src_info {type:XDC file:1 line:1 export:INPUT save:INPUT read:READ} [current_design]
 set_property PACKAGE_PIN N14 [get_ports {clk}]
 set_property src_info {type:XDC file:1 line:7 export:INPUT save:INPUT read:READ} [current_design]

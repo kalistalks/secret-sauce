@@ -17,7 +17,7 @@ module alu_auto_tester#(
     bin_to_dec error_renderer(#DIGITS(4), #LEADING_ZEROS(1))
     bin_to_dec test_sel_renderer(#DIGITS(4), #LEADING_ZEROS(1))
     const SIZE = 32
-    const CASES = 38
+    const CASES = 42
     const SEVEN_SEG_DIV = $is_sim() ? 3 : 16 // put 6 for sim, 16 on hardware
     const SLOW_CLOCK_DEFAULT_SPEED = $is_sim() ? 8 : 25 // put 8  for sim, 25 for hardware
     enum States {

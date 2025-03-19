@@ -18,7 +18,7 @@ module alu_manual_tester #(
     );
     logic [31:0] M_alu_a;
     logic [31:0] M_alu_b;
-    logic [5:0] M_alu_alufn;
+    logic [6:0] M_alu_alufn;
     logic [31:0] M_alu_out;
     logic M_alu_z;
     logic M_alu_v;
@@ -42,59 +42,59 @@ module alu_manual_tester #(
     localparam E_States_B1 = 3'h3;
     localparam E_States_B2 = 3'h4;
     localparam E_States_CALC = 3'h5;
-    localparam logic [4:0][0:0] _MP_RISE_1249831490 = {{1'h1, 1'h1, 1'h1, 1'h1, 1'h1}};
-    localparam logic [4:0][0:0] _MP_FALL_1249831490 = {{1'h0, 1'h0, 1'h0, 1'h0, 1'h0}};
+    localparam logic [4:0][0:0] _MP_RISE_957442934 = {{1'h1, 1'h1, 1'h1, 1'h1, 1'h1}};
+    localparam logic [4:0][0:0] _MP_FALL_957442934 = {{1'h0, 1'h0, 1'h0, 1'h0, 1'h0}};
     logic [4:0] M_io_button_edge_in;
     logic [4:0] M_io_button_edge_out;
     
-    genvar idx_0_1249831490;
+    genvar idx_0_957442934;
     
     generate
-        for (idx_0_1249831490 = 0; idx_0_1249831490 < 5; idx_0_1249831490 = idx_0_1249831490 + 1) begin: forLoop_idx_0_1249831490
+        for (idx_0_957442934 = 0; idx_0_957442934 < 5; idx_0_957442934 = idx_0_957442934 + 1) begin: forLoop_idx_0_957442934
             edge_detector #(
-                .RISE(_MP_RISE_1249831490[idx_0_1249831490]),
-                .FALL(_MP_FALL_1249831490[idx_0_1249831490])
+                .RISE(_MP_RISE_957442934[idx_0_957442934]),
+                .FALL(_MP_FALL_957442934[idx_0_957442934])
             ) io_button_edge (
                 .clk(clk),
-                .in(M_io_button_edge_in[idx_0_1249831490]),
-                .out(M_io_button_edge_out[idx_0_1249831490])
+                .in(M_io_button_edge_in[idx_0_957442934]),
+                .out(M_io_button_edge_out[idx_0_957442934])
             );
         end
     endgenerate
     
     
-    localparam logic [4:0][26:0] _MP_CLK_FREQ_315224586 = {{27'h5f5e100, 27'h5f5e100, 27'h5f5e100, 27'h5f5e100, 27'h5f5e100}};
-    localparam _MP_MIN_DELAY_315224586 = 5'h14;
-    localparam _MP_NUM_SYNC_315224586 = 2'h2;
+    localparam logic [4:0][26:0] _MP_CLK_FREQ_1474072100 = {{27'h5f5e100, 27'h5f5e100, 27'h5f5e100, 27'h5f5e100, 27'h5f5e100}};
+    localparam _MP_MIN_DELAY_1474072100 = 5'h14;
+    localparam _MP_NUM_SYNC_1474072100 = 2'h2;
     logic [4:0] M_io_button_cond_in;
     logic [4:0] M_io_button_cond_out;
     
-    genvar idx_0_315224586;
+    genvar idx_0_1474072100;
     
     generate
-        for (idx_0_315224586 = 0; idx_0_315224586 < 5; idx_0_315224586 = idx_0_315224586 + 1) begin: forLoop_idx_0_315224586
+        for (idx_0_1474072100 = 0; idx_0_1474072100 < 5; idx_0_1474072100 = idx_0_1474072100 + 1) begin: forLoop_idx_0_1474072100
             button_conditioner #(
-                .CLK_FREQ(_MP_CLK_FREQ_315224586[idx_0_315224586]),
-                .MIN_DELAY(_MP_MIN_DELAY_315224586),
-                .NUM_SYNC(_MP_NUM_SYNC_315224586)
+                .CLK_FREQ(_MP_CLK_FREQ_1474072100[idx_0_1474072100]),
+                .MIN_DELAY(_MP_MIN_DELAY_1474072100),
+                .NUM_SYNC(_MP_NUM_SYNC_1474072100)
             ) io_button_cond (
                 .clk(clk),
-                .in(M_io_button_cond_in[idx_0_315224586]),
-                .out(M_io_button_cond_out[idx_0_315224586])
+                .in(M_io_button_cond_in[idx_0_1474072100]),
+                .out(M_io_button_cond_out[idx_0_1474072100])
             );
         end
     endgenerate
     
     
-    localparam _MP_DIGITS_2118724392 = 3'h4;
-    localparam _MP_DIV_2118724392 = 5'h10;
+    localparam _MP_DIGITS_1309471346 = 3'h4;
+    localparam _MP_DIV_1309471346 = 5'h10;
     logic [3:0][3:0] M_seg_values;
     logic [6:0] M_seg_seg;
     logic [3:0] M_seg_sel;
     
     multi_seven_seg #(
-        .DIGITS(_MP_DIGITS_2118724392),
-        .DIV(_MP_DIV_2118724392)
+        .DIGITS(_MP_DIGITS_1309471346),
+        .DIV(_MP_DIV_1309471346)
     ) seg (
         .clk(clk),
         .rst(rst),
@@ -122,7 +122,7 @@ module alu_manual_tester #(
         D_state_counter_d = D_state_counter_q;
         M_alu_a = D_a_q;
         M_alu_b = D_b_q;
-        M_alu_alufn = io_dip[2'h2][3'h5:1'h0];
+        M_alu_alufn = io_dip[2'h2][3'h6:1'h0];
         M_seg_values = {4'h0, 4'h0, 4'h0, D_state_counter_q};
         io_segment = ~M_seg_seg;
         io_select = ~M_seg_sel;

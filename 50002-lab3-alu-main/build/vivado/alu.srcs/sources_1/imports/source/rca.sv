@@ -12,24 +12,24 @@ module rca #(
         input wire cin,
         output reg [(SIZE)-1:0] s
     );
-    logic [31:0] R_235e4f71_i;
-    logic [31:0] RR_235e4f71_i;
+    logic [31:0] R_119e8e31_i;
+    logic [31:0] RR_119e8e31_i;
     logic [(SIZE)-1:0] M_fa_a;
     logic [(SIZE)-1:0] M_fa_b;
     logic [(SIZE)-1:0] M_fa_cin;
     logic [(SIZE)-1:0] M_fa_s;
     logic [(SIZE)-1:0] M_fa_cout;
     
-    genvar idx_0_1103283030;
+    genvar idx_0_1173378263;
     
     generate
-        for (idx_0_1103283030 = 0; idx_0_1103283030 < SIZE; idx_0_1103283030 = idx_0_1103283030 + 1) begin: forLoop_idx_0_1103283030
+        for (idx_0_1173378263 = 0; idx_0_1173378263 < SIZE; idx_0_1173378263 = idx_0_1173378263 + 1) begin: forLoop_idx_0_1173378263
             fa fa (
-                .a(M_fa_a[idx_0_1103283030]),
-                .b(M_fa_b[idx_0_1103283030]),
-                .cin(M_fa_cin[idx_0_1103283030]),
-                .s(M_fa_s[idx_0_1103283030]),
-                .cout(M_fa_cout[idx_0_1103283030])
+                .a(M_fa_a[idx_0_1173378263]),
+                .b(M_fa_b[idx_0_1173378263]),
+                .cin(M_fa_cin[idx_0_1173378263]),
+                .s(M_fa_s[idx_0_1173378263]),
+                .cout(M_fa_cout[idx_0_1173378263])
             );
         end
     endgenerate
@@ -39,12 +39,12 @@ module rca #(
         M_fa_a = a;
         M_fa_b = b;
         M_fa_cin = 1'h0;
-        for (RR_235e4f71_i = 0; RR_235e4f71_i < SIZE; RR_235e4f71_i = RR_235e4f71_i + 1) begin
-      R_235e4f71_i = (0) + RR_235e4f71_i * (1);
-            if (R_235e4f71_i == 1'h0) begin
+        for (RR_119e8e31_i = 0; RR_119e8e31_i < SIZE; RR_119e8e31_i = RR_119e8e31_i + 1) begin
+      R_119e8e31_i = (0) + RR_119e8e31_i * (1);
+            if (R_119e8e31_i == 1'h0) begin
                 M_fa_cin[1'h0] = cin;
             end else begin
-                M_fa_cin[R_235e4f71_i] = M_fa_cout[R_235e4f71_i - 1'h1];
+                M_fa_cin[R_119e8e31_i] = M_fa_cout[R_119e8e31_i - 1'h1];
             end
         end
         s = M_fa_s;

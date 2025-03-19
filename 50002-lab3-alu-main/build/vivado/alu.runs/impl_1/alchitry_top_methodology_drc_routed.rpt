@@ -1,8 +1,8 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
-| Date         : Tue Mar 18 15:06:39 2025
-| Host         : DarrenLaptop running 64-bit major release  (build 9200)
+| Date         : Wed Mar 19 09:46:21 2025
+| Host         : KABASH running 64-bit major release  (build 9200)
 | Command      : report_methodology -file alchitry_top_methodology_drc_routed.rpt -pb alchitry_top_methodology_drc_routed.pb -rpx alchitry_top_methodology_drc_routed.rpx
 | Design       : alchitry_top
 | Device       : xc7a35tftg256-1
@@ -23,46 +23,15 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max checks: <unlimited>
-             Checks found: 80
+             Checks found: 74
 +-----------+----------+-------------------------------+--------+
 | Rule      | Severity | Description                   | Checks |
 +-----------+----------+-------------------------------+--------+
-| TIMING-16 | Warning  | Large setup violation         | 6      |
 | TIMING-18 | Warning  | Missing input or output delay | 74     |
 +-----------+----------+-------------------------------+--------+
 
 2. REPORT DETAILS
 -----------------
-TIMING-16#1 Warning
-Large setup violation  
-There is a large setup violation of -1.007 ns between alu_auto/D_a_q_reg[1]/C (clocked by clk_0) and alu_auto/D_aluout_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
-Related violations: <none>
-
-TIMING-16#2 Warning
-Large setup violation  
-There is a large setup violation of -1.011 ns between alu_auto/D_a_q_reg[1]/C (clocked by clk_0) and alu_auto/D_aluout_q_reg[21]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
-Related violations: <none>
-
-TIMING-16#3 Warning
-Large setup violation  
-There is a large setup violation of -1.026 ns between alu_auto/D_a_q_reg[1]/C (clocked by clk_0) and alu_auto/D_aluout_q_reg[20]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
-Related violations: <none>
-
-TIMING-16#4 Warning
-Large setup violation  
-There is a large setup violation of -1.034 ns between alu_auto/D_a_q_reg[1]/C (clocked by clk_0) and alu_auto/D_aluout_q_reg[15]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
-Related violations: <none>
-
-TIMING-16#5 Warning
-Large setup violation  
-There is a large setup violation of -1.073 ns between alu_auto/D_a_q_reg[1]/C (clocked by clk_0) and alu_auto/D_aluout_q_reg[22]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
-Related violations: <none>
-
-TIMING-16#6 Warning
-Large setup violation  
-There is a large setup violation of -1.083 ns between alu_auto/D_a_q_reg[1]/C (clocked by clk_0) and alu_auto/D_aluout_q_reg[14]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
-Related violations: <none>
-
 TIMING-18#1 Warning
 Missing input or output delay  
 An input delay is missing on io_button[0] relative to the rising and/or falling clock edge(s) of clk_0.
