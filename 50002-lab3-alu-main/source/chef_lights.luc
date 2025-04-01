@@ -1,0 +1,14 @@
+module chef_lights (
+    input char[2],
+    output segs[8]
+) {
+    always {
+        case (char) {
+            0: segs = 8b11000000 // lane 1
+            1: segs = 8b00110000 // lane 2
+            2: segs = 8b00001100 // lane 3
+            3: segs = 8b00000011 // lane 4
+            default: segs = 8b00000000
+        }
+    }
+}

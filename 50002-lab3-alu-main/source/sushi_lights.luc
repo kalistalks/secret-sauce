@@ -1,0 +1,19 @@
+module sushi_lights (
+    input char[4],
+    output segs[24]
+) {
+    always {
+        case (char) {
+            0: segs = 24b000000000000000000000000 // out of bounds at A side
+            1: segs = 24b111000000000000000000000
+            2: segs = 24b000111000000000000000000
+            3: segs = 24b000000111000000000000000 
+            4: segs = 24b000000000111000000000000 // new sushi spawns
+            5: segs = 24b000000000000111000000000
+            6: segs = 24b000000000000000111000000
+            7: segs = 24b000000000000000000111000
+            8: segs = 24b000000000000000000000000 // out of bounds at B side
+            default: segs = 24b000000000000000000000000
+        }
+    }
+}

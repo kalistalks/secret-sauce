@@ -131,9 +131,62 @@ module alu_auto_tester#(
                 // if slow clock rising edge, go to UPDATE state
                 led = 8h0
                 io_led = 3x{{8h0}}
-                seg.values = c{pass_renderer.digits[1:0], error_renderer.digits[1:0]}
+                seg.values = c{pass_renderer.digits[1:0], error_renderer.digits[1:0]}                 
                 
                 if (slow_clock_edge.out) { // this takes precedence
+                    pos_0.d = pos_0.q + diff_0.q    // update lane 0
+                    pos_1.d = pos_1.q + diff_1.q    // update lane 1
+                    pos_2.d = pos_2.q + diff_2.q    // update lane 2
+                    pos_3.d = pos_3.q + diff_3.q    // update lane 3
+                
+                                                // clamp chef number 0 - 3
+                    chefpos.d = chefpos.q
+                    led = chef_lights.q[7:0]
+                    sushi_pos.d = sushi_pos.q
+                    io_led = sushi_lights.q[23:0]
+                
+                    if (io_button_edge.out[3]) {    // button --> move towards A
+                        if (chefpos.q == 0) {
+                            diff_0.q = -1
+                        }
+                        if (chefpos.q == 1){
+                            diff_1.q = -1
+                        }
+                        if (chefpos.q == 2){
+                            diff_1.q = -1
+                        }
+                        if (chefpos.q == 3){
+                            diff_1.q = -1
+                        }
+                   
+                    }
+                
+                    else if (io_button_edge.out[4]) {    // button --> move towards B
+                        if (chefpos.q == 0) {
+                            diff_0.q = 1
+                        }
+                        if (chefpos.q == 1){
+                            diff_1.q = 1
+                        }
+                        if (chefpos.q == 2){
+                            diff_1.q = 1
+                        }
+                        if (chefpos.q == 3){
+                            diff_1.q = 1
+                        }
+                   
+                    }
+                    
+                    else if (io_button_edge.out[0]) {
+                       chefpos.d = chefpos.q - 1
+                    }
+            
+                    else if (io_button_edge.out[2]) {
+                       chefpos.d = chefpos.q + 1
+                    }
+                              
+                
+                /*
                     if (test_sel.q >= CASES) {
                         states.d = States.STOP
                     } else {

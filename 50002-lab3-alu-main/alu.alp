@@ -172,6 +172,24 @@
                     "type": "DiskFile",
                     "path": "source/divider.luc"
                 }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/sushi_lights.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/chef_lights.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/update_lanes.luc"
+                }
             }
         ],
         "constraintFiles": [
