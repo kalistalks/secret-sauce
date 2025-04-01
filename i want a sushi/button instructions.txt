@@ -1,0 +1,21 @@
+how to do the buttons: 
+
+1. put the pin into io_v1_pulldown inside the:
+    PULL(DOWN) {
+        pin green_button C40 <- specify which pin based on the pinout 
+        // we use SingleEndedIO
+    }
+
+2. copy the button conditioner and edge detectors into clk {}
+    // instantiate 5 edge detectors, one for each button 
+    edge_detector green_io_button_edge[1](#RISE(1x{{1}}), #FALL(1x{{0}}))
+    // instantiate 5 conditioners, one for each button
+    button_conditioner green_io_button_cond[1](#CLK_FREQ(1x{{100000000}})) 
+
+3. connect button 
+    // condition the buttons, then take rising edges only
+    green_io_button_cond.in = green_button
+    green_io_button_edge.in = green_io_button_cond.out
+
+4. use green button to toggle through states
+    green_io_button_edge.out[0]
