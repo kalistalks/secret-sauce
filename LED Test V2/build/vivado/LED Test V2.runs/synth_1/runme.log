@@ -1,6 +1,6 @@
 
 *** Running vivado
-    with args -log manual_mode.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source manual_mode.tcl
+    with args -log alchitry_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source alchitry_top.tcl
 
 
 
@@ -8,23 +8,35 @@
   **** SW Build 5239630 on Fri Nov 08 22:35:27 MST 2024
   **** IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
   **** SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
-  **** Start of session at: Wed Apr  2 17:09:19 2025
+  **** Start of session at: Wed Apr  2 17:53:04 2025
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
     ** Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 
-source manual_mode.tcl -notrace
-Command: synth_design -top manual_mode -part xc7a35tftg256-1
+source alchitry_top.tcl -notrace
+Command: synth_design -top alchitry_top -part xc7a35tftg256-1
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: [Device 21-403] Loading part xc7a35tftg256-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 30268
+INFO: [Synth 8-7075] Helper process launched with PID 23936
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1024.484 ; gain = 466.832
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1023.684 ; gain = 466.973
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-6157] synthesizing module 'manual_mode' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/manual_mode.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'alchitry_top' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/alchitry_top.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'reset_conditioner' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/reset_conditioner.sv:7]
+	Parameter STAGES bound to: 3'b100 
+INFO: [Synth 8-6155] done synthesizing module 'reset_conditioner' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/reset_conditioner.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'sushi_cycle' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/sushi_cycle.sv:7]
+	Parameter COLUMN_DIMENSION bound to: 5'b10101 
+	Parameter ROW_DIMENSION bound to: 1'b1 
+	Parameter PIXEL_COUNT bound to: 10'b0000010101 
+	Parameter BUFFER_SIZE bound to: 11'b10000000000 
+INFO: [Synth 8-6157] synthesizing module 'edge_detector' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/edge_detector.sv:7]
+	Parameter RISE bound to: 1'b1 
+	Parameter FALL bound to: 1'b0 
+INFO: [Synth 8-6155] done synthesizing module 'edge_detector' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/edge_detector.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'button_conditioner' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/button_conditioner.sv:7]
 	Parameter CLK_FREQ bound to: 27'b101111101011110000100000000 
 	Parameter MIN_DELAY bound to: 5'b10100 
@@ -33,108 +45,115 @@ INFO: [Synth 8-6157] synthesizing module 'pipeline' [C:/Users/lolka/Downloads/SU
 	Parameter DEPTH bound to: 2'b10 
 INFO: [Synth 8-6155] done synthesizing module 'pipeline' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/pipeline.sv:7]
 INFO: [Synth 8-6155] done synthesizing module 'button_conditioner' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/button_conditioner.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'edge_detector' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/edge_detector.sv:7]
-	Parameter RISE bound to: 1'b1 
-	Parameter FALL bound to: 1'b0 
-INFO: [Synth 8-6155] done synthesizing module 'edge_detector' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/edge_detector.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'ws2812b_driver' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/ws2812b_driver.sv:7]
-	Parameter PIXEL_COUNT bound to: 16'b0000000100000000 
+	Parameter PIXEL_COUNT bound to: 10'b0000010101 
 INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/ws2812b_driver.sv:59]
 INFO: [Synth 8-6155] done synthesizing module 'ws2812b_driver' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/ws2812b_driver.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'manual_mode' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/manual_mode.sv:7]
-WARNING: [Synth 8-3917] design manual_mode has port led[6] driven by constant 0
-WARNING: [Synth 8-3917] design manual_mode has port led[5] driven by constant 0
-WARNING: [Synth 8-3917] design manual_mode has port led[4] driven by constant 0
-WARNING: [Synth 8-3917] design manual_mode has port led[3] driven by constant 0
-WARNING: [Synth 8-3917] design manual_mode has port led[2] driven by constant 0
-WARNING: [Synth 8-3917] design manual_mode has port led[1] driven by constant 0
-WARNING: [Synth 8-3917] design manual_mode has port led[0] driven by constant 0
-WARNING: [Synth 8-3917] design manual_mode has port io_segment[7] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_segment[6] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_segment[5] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_segment[4] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_segment[3] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_segment[2] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_segment[1] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_segment[0] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_select[3] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_select[2] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_select[1] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_select[0] driven by constant 1
-WARNING: [Synth 8-7129] Port io_button[4] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_button[3] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_button[2] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_dip[2][7] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_dip[2][6] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_dip[2][5] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_dip[2][4] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_dip[2][3] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_dip[2][2] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_dip[2][1] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_dip[2][0] in module manual_mode is either unconnected or has no load
+INFO: [Synth 8-6157] synthesizing module 'sushi_display' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/sushi_display.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'sushi_display' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/sushi_display.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'sushi_cycle' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/sushi_cycle.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'lane_cycle' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/lane_cycle.sv:7]
+	Parameter COLUMN_DIMENSION bound to: 5'b10101 
+	Parameter ROW_DIMENSION bound to: 1'b1 
+	Parameter PIXEL_COUNT bound to: 10'b0000010101 
+	Parameter BUFFER_SIZE bound to: 11'b10000000000 
+INFO: [Synth 8-6157] synthesizing module 'lane_display' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/lane_display.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'lane_display' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/lane_display.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'lane_cycle' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/lane_cycle.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'alchitry_top' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/alchitry_top.sv:7]
+WARNING: [Synth 8-7129] Port io_dip[2][7] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][6] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][5] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][4] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][3] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][2] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][1] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][0] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][7] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][6] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][5] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][4] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][3] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][2] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][1] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][0] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][7] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][6] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][5] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][4] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][3] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][2] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][1] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][0] in module lane_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][7] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][6] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][5] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][4] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][3] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][2] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][1] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][0] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][7] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][6] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][5] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][4] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][3] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][2] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][1] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][0] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][7] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][6] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][5] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][4] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][3] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][2] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][1] in module sushi_cycle is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][0] in module sushi_cycle is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1131.883 ; gain = 574.230
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1133.270 ; gain = 576.559
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1131.883 ; gain = 574.230
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1133.270 ; gain = 576.559
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1131.883 ; gain = 574.230
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1133.270 ; gain = 576.559
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 1131.883 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1133.270 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
 Parsing XDC File [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc]
-WARNING: [Vivado 12-584] No ports matched 'rst_n'. [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc:7]
-CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc:7]
-Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
-WARNING: [Vivado 12-584] No ports matched 'rst_n'. [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc:8]
-CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc:8]
-Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
-WARNING: [Vivado 12-584] No ports matched 'usb_rx'. [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc:34]
-CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc:34]
-Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
-WARNING: [Vivado 12-584] No ports matched 'usb_rx'. [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc:35]
-CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc:35]
-Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
-WARNING: [Vivado 12-584] No ports matched 'usb_tx'. [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc:37]
-CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc:37]
-Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
-WARNING: [Vivado 12-584] No ports matched 'usb_tx'. [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc:38]
-CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc:38]
-Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
 Finished Parsing XDC File [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc]
-INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/manual_mode_propImpl.xdc].
-Resolution: To avoid this warning, move constraints listed in [.Xil/manual_mode_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/alchitry_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/alchitry_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Parsing XDC File [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/au_props.xdc]
 Finished Parsing XDC File [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/au_props.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1225.785 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1221.664 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1225.785 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1221.664 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:06 ; elapsed = 00:00:10 . Memory (MB): peak = 1225.785 ; gain = 668.133
+Finished Constraint Validation : Time (s): cpu = 00:00:06 ; elapsed = 00:00:10 . Memory (MB): peak = 1221.664 ; gain = 664.953
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tftg256-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:06 ; elapsed = 00:00:10 . Memory (MB): peak = 1225.785 ; gain = 668.133
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:06 ; elapsed = 00:00:10 . Memory (MB): peak = 1221.664 ; gain = 664.953
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:06 ; elapsed = 00:00:10 . Memory (MB): peak = 1225.785 ; gain = 668.133
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:06 ; elapsed = 00:00:10 . Memory (MB): peak = 1221.664 ; gain = 664.953
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'D_state_q_reg' in module 'ws2812b_driver'
 ---------------------------------------------------------------------------------------------------
@@ -146,30 +165,35 @@ INFO: [Synth 8-802] inferred FSM for state register 'D_state_q_reg' in module 'w
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'D_state_q_reg' using encoding 'sequential' in module 'ws2812b_driver'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 1225.785 ; gain = 668.133
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:10 . Memory (MB): peak = 1221.664 ; gain = 664.953
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input    8 Bit       Adders := 1     
-	   2 Input    7 Bit       Adders := 1     
-	   2 Input    5 Bit       Adders := 1     
+	   2 Input    7 Bit       Adders := 2     
+	   2 Input    5 Bit       Adders := 6     
+	   2 Input    4 Bit       Adders := 1     
+	   2 Input    2 Bit       Adders := 2     
 +---Registers : 
-	                8 Bit    Registers := 1     
-	                7 Bit    Registers := 1     
-	                5 Bit    Registers := 1     
-	                2 Bit    Registers := 2     
-	                1 Bit    Registers := 5     
+	                7 Bit    Registers := 2     
+	                5 Bit    Registers := 5     
+	                4 Bit    Registers := 1     
+	                2 Bit    Registers := 11    
+	                1 Bit    Registers := 16    
 +---Muxes : 
-	   4 Input   24 Bit        Muxes := 1     
-	   3 Input    8 Bit        Muxes := 1     
-	   2 Input    5 Bit        Muxes := 1     
-	   3 Input    2 Bit        Muxes := 1     
-	   2 Input    2 Bit        Muxes := 1     
-	   2 Input    1 Bit        Muxes := 12    
-	   3 Input    1 Bit        Muxes := 13    
+	   4 Input   20 Bit        Muxes := 2     
+	   2 Input    8 Bit        Muxes := 5     
+	   2 Input    5 Bit        Muxes := 4     
+	   3 Input    5 Bit        Muxes := 2     
+	   2 Input    4 Bit        Muxes := 1     
+	   3 Input    2 Bit        Muxes := 2     
+	   2 Input    2 Bit        Muxes := 11    
+	  10 Input    2 Bit        Muxes := 7     
+	   4 Input    2 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 31    
+	   3 Input    1 Bit        Muxes := 26    
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -186,56 +210,81 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
-WARNING: [Synth 8-3917] design manual_mode has port led[6] driven by constant 0
-WARNING: [Synth 8-3917] design manual_mode has port led[5] driven by constant 0
-WARNING: [Synth 8-3917] design manual_mode has port led[4] driven by constant 0
-WARNING: [Synth 8-3917] design manual_mode has port led[3] driven by constant 0
-WARNING: [Synth 8-3917] design manual_mode has port led[2] driven by constant 0
-WARNING: [Synth 8-3917] design manual_mode has port led[1] driven by constant 0
-WARNING: [Synth 8-3917] design manual_mode has port led[0] driven by constant 0
-WARNING: [Synth 8-3917] design manual_mode has port io_segment[7] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_segment[6] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_segment[5] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_segment[4] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_segment[3] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_segment[2] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_segment[1] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_segment[0] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_select[3] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_select[2] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_select[1] driven by constant 1
-WARNING: [Synth 8-3917] design manual_mode has port io_select[0] driven by constant 1
-WARNING: [Synth 8-7129] Port io_button[4] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_button[3] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_button[2] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_dip[2][7] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_dip[2][6] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_dip[2][5] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_dip[2][4] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_dip[2][3] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_dip[2][2] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_dip[2][1] in module manual_mode is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io_dip[2][0] in module manual_mode is either unconnected or has no load
+WARNING: [Synth 8-3917] design alchitry_top has port led[7] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port led[6] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port led[5] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][6] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][5] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][4] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][3] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][2] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][1] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][0] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][7] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][6] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][5] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][4] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][3] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][2] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][1] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][0] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][7] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][6] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][5] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][4] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][3] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][2] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_segment[7] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_segment[6] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_segment[5] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_segment[4] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_segment[3] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_segment[2] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_segment[1] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_segment[0] driven by constant 1
+WARNING: [Synth 8-7129] Port io_dip[2][7] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][6] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][5] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][4] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][3] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][2] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][1] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][0] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][7] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][6] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][5] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][4] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][3] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][2] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][1] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][0] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][7] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][6] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][5] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][4] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][3] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][2] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][1] in module alchitry_top is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:12 . Memory (MB): peak = 1225.785 ; gain = 668.133
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:07 ; elapsed = 00:00:12 . Memory (MB): peak = 1221.664 ; gain = 664.953
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:10 ; elapsed = 00:00:15 . Memory (MB): peak = 1337.812 ; gain = 780.160
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:10 ; elapsed = 00:00:15 . Memory (MB): peak = 1337.121 ; gain = 780.410
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:10 ; elapsed = 00:00:16 . Memory (MB): peak = 1360.594 ; gain = 802.941
+Finished Timing Optimization : Time (s): cpu = 00:00:10 ; elapsed = 00:00:16 . Memory (MB): peak = 1367.094 ; gain = 810.383
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:10 ; elapsed = 00:00:16 . Memory (MB): peak = 1360.594 ; gain = 802.941
+Finished Technology Mapping : Time (s): cpu = 00:00:10 ; elapsed = 00:00:16 . Memory (MB): peak = 1367.094 ; gain = 810.383
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -253,37 +302,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 1565.527 ; gain = 1007.875
+Finished IO Insertion : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 1569.293 ; gain = 1012.582
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 1565.527 ; gain = 1007.875
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 1569.293 ; gain = 1012.582
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 1565.527 ; gain = 1007.875
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:12 ; elapsed = 00:00:19 . Memory (MB): peak = 1569.293 ; gain = 1012.582
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 1565.527 ; gain = 1007.875
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:12 ; elapsed = 00:00:19 . Memory (MB): peak = 1569.293 ; gain = 1012.582
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 1565.527 ; gain = 1007.875
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:12 ; elapsed = 00:00:19 . Memory (MB): peak = 1569.293 ; gain = 1012.582
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 1565.527 ; gain = 1007.875
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:12 ; elapsed = 00:00:19 . Memory (MB): peak = 1569.293 ; gain = 1012.582
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -300,41 +349,40 @@ Report Cell Usage:
 |      |Cell   |Count |
 +------+-------+------+
 |1     |BUFG   |     1|
-|2     |CARRY4 |    14|
-|3     |LUT1   |     8|
-|4     |LUT2   |    21|
-|5     |LUT3   |     8|
-|6     |LUT4   |    14|
-|7     |LUT5   |    12|
-|8     |LUT6   |    25|
-|9     |FDRE   |    93|
-|10    |FDSE   |     2|
-|11    |IBUF   |    20|
-|12    |OBUF   |    45|
+|2     |CARRY4 |    38|
+|3     |LUT1   |    20|
+|4     |LUT2   |    42|
+|5     |LUT3   |    21|
+|6     |LUT4   |    30|
+|7     |LUT5   |    28|
+|8     |LUT6   |    42|
+|9     |FDRE   |   189|
+|10    |FDSE   |     6|
+|11    |IBUF   |     7|
+|12    |OBUF   |    46|
 +------+-------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 1565.527 ; gain = 1007.875
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:12 ; elapsed = 00:00:19 . Memory (MB): peak = 1569.293 ; gain = 1012.582
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 31 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:08 ; elapsed = 00:00:17 . Memory (MB): peak = 1565.527 ; gain = 913.973
-Synthesis Optimization Complete : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 1565.527 ; gain = 1007.875
+Synthesis finished with 0 errors, 0 critical warnings and 56 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:08 ; elapsed = 00:00:17 . Memory (MB): peak = 1569.293 ; gain = 924.188
+Synthesis Optimization Complete : Time (s): cpu = 00:00:12 ; elapsed = 00:00:19 . Memory (MB): peak = 1569.293 ; gain = 1012.582
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1574.707 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 14 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1569.293 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 38 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1578.422 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1569.293 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Synth Design complete | Checksum: 4c407a2a
+Synth Design complete | Checksum: c1169747
 INFO: [Common 17-83] Releasing license: Synthesis
-28 Infos, 67 Warnings, 6 Critical Warnings and 0 Errors encountered.
+38 Infos, 104 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:13 ; elapsed = 00:00:22 . Memory (MB): peak = 1578.422 ; gain = 1211.887
-INFO: [runtcl-6] Synthesis results are not added to the cache due to CRITICAL_WARNING
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1578.422 ; gain = 0.000
-INFO: [Common 17-1381] The checkpoint 'C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.runs/synth_1/manual_mode.dcp' has been generated.
-INFO: [Vivado 12-24828] Executing command : report_utilization -file manual_mode_utilization_synth.rpt -pb manual_mode_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Wed Apr  2 17:09:44 2025...
+synth_design: Time (s): cpu = 00:00:13 ; elapsed = 00:00:22 . Memory (MB): peak = 1569.293 ; gain = 1203.219
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1569.293 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.runs/synth_1/alchitry_top.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file alchitry_top_utilization_synth.rpt -pb alchitry_top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Wed Apr  2 17:53:29 2025...

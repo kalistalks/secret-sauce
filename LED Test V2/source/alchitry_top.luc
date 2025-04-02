@@ -26,6 +26,9 @@ module alchitry_top (
             sushi_cycle sushi_cycle(.io_button(io_button), .io_dip(io_dip), 
                 #COLUMN_DIMENSION(COLUMN_DIMENSION), #ROW_DIMENSION(ROW_DIMENSION),
                 #PIXEL_COUNT(PIXEL_COUNT))
+            lane_cycle lane_cycle(.io_button(io_button), .io_dip(io_dip), 
+                #COLUMN_DIMENSION(COLUMN_DIMENSION), #ROW_DIMENSION(ROW_DIMENSION),
+                #PIXEL_COUNT(PIXEL_COUNT))
         }
     }
     
@@ -41,12 +44,18 @@ module alchitry_top (
         io_led = 3x{{8h00}}
         
         case (io_dip[0][0]){
-            b1:
+            b0:
                 io_segment = sushi_cycle.io_segment
                 io_select = sushi_cycle.io_select
                 data = sushi_cycle.data
                 led = sushi_cycle.led
                 io_led = sushi_cycle.io_led 
+            b1:
+                io_segment = lane_cycle.io_segment
+                io_select = lane_cycle.io_select
+                data = lane_cycle.data
+                led = lane_cycle.led
+                io_led = lane_cycle.io_led
 
         }
         

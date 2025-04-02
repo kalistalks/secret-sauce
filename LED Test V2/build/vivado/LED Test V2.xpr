@@ -7,7 +7,7 @@
 <Project Product="Vivado" Version="7" Minor="68" Path="C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="00cd00d4d2f14a418d2e8a65540fe12e"/>
+    <Option Name="Id" Val="557dd48fed3e4386b478c1601fdedc24"/>
     <Option Name="Part" Val="xc7a35tftg256-1"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="CompiledLibDirXSim" Val=""/>
@@ -92,7 +92,7 @@
       <File Path="$PSRCDIR/sources_1/imports/source/button_conditioner.sv">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../source/button_conditioner.sv"/>
-          <Attr Name="ImportTime" Val="1743584951"/>
+          <Attr Name="ImportTime" Val="1743587575"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -101,7 +101,25 @@
       <File Path="$PSRCDIR/sources_1/imports/source/edge_detector.sv">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../source/edge_detector.sv"/>
-          <Attr Name="ImportTime" Val="1743584951"/>
+          <Attr Name="ImportTime" Val="1743587575"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/source/lane_cycle.sv">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../source/lane_cycle.sv"/>
+          <Attr Name="ImportTime" Val="1743587575"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/source/lane_display.sv">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../source/lane_display.sv"/>
+          <Attr Name="ImportTime" Val="1743587575"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -110,7 +128,34 @@
       <File Path="$PSRCDIR/sources_1/imports/source/pipeline.sv">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../source/pipeline.sv"/>
-          <Attr Name="ImportTime" Val="1743584951"/>
+          <Attr Name="ImportTime" Val="1743587575"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/source/reset_conditioner.sv">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../source/reset_conditioner.sv"/>
+          <Attr Name="ImportTime" Val="1743587575"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/source/sushi_cycle.sv">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../source/sushi_cycle.sv"/>
+          <Attr Name="ImportTime" Val="1743587575"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/source/sushi_display.sv">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../source/sushi_display.sv"/>
+          <Attr Name="ImportTime" Val="1743587575"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -119,16 +164,7 @@
       <File Path="$PSRCDIR/sources_1/imports/source/ws2812b_driver.sv">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../source/ws2812b_driver.sv"/>
-          <Attr Name="ImportTime" Val="1743584951"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/source/manual_mode.sv">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../source/manual_mode.sv"/>
-          <Attr Name="ImportTime" Val="1743584951"/>
+          <Attr Name="ImportTime" Val="1743587575"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -136,39 +172,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/source/alchitry_top.sv">
         <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/../source/alchitry_top.sv"/>
-          <Attr Name="ImportTime" Val="1743584951"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/source/reset_conditioner.sv">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../source/reset_conditioner.sv"/>
-          <Attr Name="ImportTime" Val="1743584951"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/source/sushi_cycle.sv">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../source/sushi_cycle.sv"/>
-          <Attr Name="ImportTime" Val="1743584951"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/source/sushi_display.sv">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../source/sushi_display.sv"/>
-          <Attr Name="ImportTime" Val="1743584951"/>
+          <Attr Name="ImportTime" Val="1743587575"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -178,7 +183,7 @@
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/../source/lucid_globals.sv"/>
-          <Attr Name="ImportTime" Val="1743584951"/>
+          <Attr Name="ImportTime" Val="1743587575"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -186,7 +191,7 @@
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="manual_mode"/>
+        <Option Name="TopModule" Val="alchitry_top"/>
         <Option Name="TopAutoSet" Val="TRUE"/>
       </Config>
     </FileSet>

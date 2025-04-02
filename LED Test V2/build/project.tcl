@@ -5,7 +5,7 @@ set device xc7a35tftg256-1
 if {[file exists "$projDir"]} { file delete -force "$projDir" }
 create_project $projName "$projDir" -part $device
 set_property design_mode RTL [get_filesets sources_1]
-set verilogSources [list "./source/alchitry_top.sv" "./source/reset_conditioner.sv" "./source/ws2812b_driver.sv" "./source/manual_mode.sv" "./source/pipeline.sv" "./source/button_conditioner.sv" "./source/edge_detector.sv" "./source/sushi_cycle.sv" "./source/sushi_display.sv" "./source/lucid_globals.sv" ]
+set verilogSources [list "./source/alchitry_top.sv" "./source/reset_conditioner.sv" "./source/ws2812b_driver.sv" "./source/pipeline.sv" "./source/button_conditioner.sv" "./source/edge_detector.sv" "./source/sushi_cycle.sv" "./source/sushi_display.sv" "./source/lane_display.sv" "./source/lane_cycle.sv" "./source/lucid_globals.sv" ]
 import_files -fileset [get_filesets sources_1] -force -norecurse $verilogSources
 set xdcSources [list "./constraint/alchitry.xdc" "./constraint/au_props.xdc" ]
 read_xdc $xdcSources
