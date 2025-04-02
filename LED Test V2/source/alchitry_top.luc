@@ -14,16 +14,16 @@ module alchitry_top (
     
     sig rst                 // reset signal
     
-    const COLUMN_DIMENSION = 5d18 // how many "columns"? 
+    const COLUMN_DIMENSION = 5d21 // how many "columns"? 
     const ROW_DIMENSION = 1d1 // how many "rows"?
-    const PIXEL_COUNT = 10d18 // how many LEDs in total? 
+    const PIXEL_COUNT = 10d21 // how many LEDs in total? 
     
     .clk(clk) {
         // The reset conditioner is used to synchronize the reset signal to the FPGA
         // clock. This ensures the entire FPGA comes out of reset at the same time.
         reset_conditioner reset_cond
         .rst(rst){
-            manual_mode manual_mode(.io_button(io_button), .io_dip(io_dip), 
+            sushi_cycle sushi_cycle(.io_button(io_button), .io_dip(io_dip), 
                 #COLUMN_DIMENSION(COLUMN_DIMENSION), #ROW_DIMENSION(ROW_DIMENSION),
                 #PIXEL_COUNT(PIXEL_COUNT))
         }
@@ -40,13 +40,13 @@ module alchitry_top (
         data = 0
         io_led = 3x{{8h00}}
         
-        case (io_dip[2][2:0]){
-            b001:
-                io_segment = manual_mode.io_segment
-                io_select = manual_mode.io_select
-                data = manual_mode.data
-                led = manual_mode.led
-                io_led = manual_mode.io_led 
+        case (io_dip[0][0]){
+            b1:
+                io_segment = sushi_cycle.io_segment
+                io_select = sushi_cycle.io_select
+                data = sushi_cycle.data
+                led = sushi_cycle.led
+                io_led = sushi_cycle.io_led 
 
         }
         

@@ -1,0 +1,116 @@
+module sushi_cycle#(
+    COLUMN_DIMENSION = 16d16 : COLUMN_DIMENSION > 0,
+    ROW_DIMENSION = 16d16 : ROW_DIMENSION > 0,
+    PIXEL_COUNT = 16d256 : PIXEL_COUNT > 0,
+    BUFFER_SIZE = 1024 : BUFFER_SIZE > 0 // ensure this value is larger than PIXEL_COUNT * $clog2(COLOR_ENCODING)
+) (
+    input clk,              // 100MHz clock
+    input rst,            // reset button (active low)
+    output led[8],          // 8 user controllable LEDs
+    output io_led[3][8],    // LEDs on IO Shield
+    output io_segment[8],   // 7-segment LEDs on IO Shield
+    output io_select[4],    // Digit select on IO Shield
+    input io_button[5],     // 5 buttons on IO Shield
+    input io_dip[3][8],      // DIP switches on IO Shield
+    output data
+) {
+    
+    // OFF WHITE (11), DIM BLUE (10), DIM RED (01), OFF(00)
+    const COLOR_ENCODING = {24h0F0F0F, 24h030000, 24h000300, 24h000000}
+    // how many different encodings are used? As example, we use 4 colors, hence ENCODING_AMOUNT is 4
+    // const ENCODING_AMOUNT = $width(COLOR_ENCODING, 0)
+    
+    sig pixel_address[BUFFER_SIZE]
+    // sig current_pixel_color_encoding[$clog2(ENCODING_AMOUNT)]
+
+    const CLK_FREQ = $is_sim() ? 1000 : 100000000
+    
+    enum States {
+        IDLE,
+        UPDATE_RAM,
+        REFRESH
+    }
+    
+    .clk(clk){
+        // user inputs
+        edge_detector io_button_edge[5](#RISE(5x{{1}}), #FALL(5x{{0}}))
+        button_conditioner io_button_cond[5](#CLK_FREQ(5x{{CLK_FREQ}})) 
+        // latch 0
+        // clear 1
+        
+        .rst(rst){
+            dff sushi_pos[$clog2(COLUMN_DIMENSION)](#INIT(0))
+            // dff led_encoding[BUFFER_SIZE](#INIT(2))
+            
+            ws2812b_driver driver(#PIXEL_COUNT(PIXEL_COUNT)) 
+            // dff fsm[$width(States)](#INIT(States.IDLE))
+            
+            dff on_off_toggle(#INIT(0))
+        }
+        
+    }
+    
+    sushi_display display
+   
+    always {
+        
+        led = 8h00            
+        io_led = 3x{{8h00}}
+        io_segment = 8hff
+        io_select = 4hf
+        data = 0
+        
+        io_button_cond.in = io_button
+        io_button_edge.in = io_button_cond.out
+        
+        sushi_pos.d = sushi_pos.q
+        // fsm.d = fsm.q
+        on_off_toggle.d = on_off_toggle.q
+
+        driver.update = on_off_toggle.q 
+        driver.clear = 0
+        
+        // sushi movement
+        if (io_button_edge.out[3]){
+            // clamp at 0
+            if (|sushi_pos.q){
+                sushi_pos.d = sushi_pos.q - 1 // left (because left decreases sushi index in the RAM)
+            }
+        }
+        
+        if (io_button_edge.out[4]){
+            // clamp at 9
+            if (sushi_pos.q < 9){
+                sushi_pos.d = sushi_pos.q + 1 // right (because right increases sushi index in the RAM
+            }
+        }
+        
+        // clear display with middle button
+        if (io_button_edge.out[1]){
+            if (on_off_toggle.q){
+                 driver.clear = 1
+            }
+            on_off_toggle.d = ~on_off_toggle.q
+        }
+        
+        // connect sushi pos to sushi ram
+        display.pos = sushi_pos.q
+        
+        // connect reverser to driver
+        pixel_address = driver.pixel_address
+        
+        // based on the encoding extracted from dff led_encoding, we get the 24bit (8*3) color value
+        driver.color = COLOR_ENCODING[display.out[$resize(pixel_address, $clog2($width(display.out, 0)))]]
+        data = driver.data
+        
+        // debug 
+        // show the current LED color
+        io_led[0] = display.out[$resize(pixel_address, $clog2($width(display.out, 0)))]
+        
+        // io_led[0] = pixel_address[7:0]
+        // io_led[1] = pixel_address[15:8]
+        // io_led[2] = pixel_address[21:16]
+        led = sushi_pos.q
+        io_led[2][7] = on_off_toggle.q
+    }
+}
