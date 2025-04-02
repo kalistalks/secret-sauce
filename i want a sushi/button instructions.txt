@@ -6,16 +6,81 @@ how to do the buttons:
         // we use SingleEndedIO
     }
 
-2. copy the button conditioner and edge detectors into clk {}
-    // instantiate 5 edge detectors, one for each button 
+    and 
+    input green_button into the top of alchitry top
+
+2. copy the button conditioner and edge detectors into clk block
+    // instantiate edge detectors, one for each button 
     edge_detector green_io_button_edge[1](#RISE(1x{{1}}), #FALL(1x{{0}}))
-    // instantiate 5 conditioners, one for each button
+    // instantiate conditioners, one for each button
     button_conditioner green_io_button_cond[1](#CLK_FREQ(1x{{100000000}})) 
 
-3. connect button 
+3. connect button inside the always block
     // condition the buttons, then take rising edges only
     green_io_button_cond.in = green_button
     green_io_button_edge.in = green_io_button_cond.out
 
 4. use green button to toggle through states
     green_io_button_edge.out[0]
+
+For our 6 buttons:
+    - A_LEFT
+    - A_RIGHT 
+    - A_ENTER 
+    - B_LEFT 
+    - B_RIGHT 
+    - B_ENTER 
+
+inside io_v1_pulldown:
+pin A_LEFT XXX // declare pin later 
+pin A_RIGHT XXX 
+pin A_ENTER XXX 
+pin B_LEFT XXX 
+pin B_RIGHT XXX 
+pin B_ENTER XXX 
+
+inside alchitry top:
+input output declaration
+    input A_LEFT
+    input A_RIGHT
+    input A_ENTER  
+    input B_LEFT  
+    input B_RIGHT  
+    input B_ENTER  
+
+inside the clk block
+    // instantiate edge detectors, one for each button 
+    edge_detector A_LEFT_edge[1](#RISE(1x{{1}}), #FALL(1x{{0}}))
+    edge_detector A_RIGHT_edge[1](#RISE(1x{{1}}), #FALL(1x{{0}}))
+    edge_detector A_ENTER_edge[1](#RISE(1x{{1}}), #FALL(1x{{0}}))
+    edge_detector B_LEFT_edge[1](#RISE(1x{{1}}), #FALL(1x{{0}}))
+    edge_detector B_RIGHT_edge[1](#RISE(1x{{1}}), #FALL(1x{{0}}))
+    edge_detector B_ENTER_edge[1](#RISE(1x{{1}}), #FALL(1x{{0}}))
+
+    // instantiate conditioners, one for each button
+    button_conditioner A_LEFT_cond[1](#CLK_FREQ(1x{{100000000}})) 
+    button_conditioner A_RIGHT_cond[1](#CLK_FREQ(1x{{100000000}})) 
+    button_conditioner A_ENTER_cond[1](#CLK_FREQ(1x{{100000000}})) 
+    button_conditioner B_LEFT_cond[1](#CLK_FREQ(1x{{100000000}})) 
+    button_conditioner B_RIGHT_cond[1](#CLK_FREQ(1x{{100000000}})) 
+    button_conditioner B_ENTER_cond[1](#CLK_FREQ(1x{{100000000}})) 
+
+inside the awlays block 
+    // condition the buttons, then take rising edges only
+    A_LEFT_cond.in = A_LEFT
+    A_LEFT_edge.in = A_LEFT_cond.out
+
+    A_RIGHT_cond.in = A_RIGHT
+    A_RIGHT_edge.in = A_RIGHT_cond.out
+
+    A_ENTER_cond.in = A_ENTER
+    A_ENTER_edge.in = A_ENTER_cond.out
+
+    B_LEFT_cond.in = B_LEFT
+    B_LEFT_edge.in = B_LEFT_cond.out
+
+    B_RIGHT_cond.in = B_RIGHT
+    B_RIGHT_edge.in = B_RIGHT_cond.out
+
+    B_ENTER_cond.in = B_ENTER
+    B_ENTER_edge.in = B_ENTER_cond.out
