@@ -1,0 +1,88 @@
+module sequence_checker (    
+    input buttons[2],
+    input clk, // clock
+    input rst, // reset
+    output out_result[2],
+    output out_buttonseq[2]
+) {    
+    const MATCH = {b1, b0} // press button 0, then 1
+    
+    enum States {
+        WAITFIRSTPRESS,
+        WAITSECONDPRESS,
+        CHECKPRESS
+    }
+    
+    .clk(clk) {
+        // instantiate 5 edge detectors, one for each button 
+        edge_detector button_edge[2](#RISE(2x{{1}}), #FALL(2x{{0}}))
+        // instantiate 5 conditioners, one for each button
+        button_conditioner button_cond[2](#CLK_FREQ(2x{{1000}})) // need to change clock frequency?
+        .rst(rst) {
+            dff sequence[2](#INIT(00))
+            dff result[2](#INIT(0))
+            dff states[$width(States)](#INIT(States.WAITFIRSTPRESS))
+        }
+    }
+    always {    
+        // condition the buttons, then take rising edges only
+        button_cond.in = buttons
+        button_edge.in = button_cond.out    
+        case (states.q) { 
+            States.WAITFIRSTPRESS: // wait for player 1 to press enter
+                if (button_edge.out[0] | button_edge.out[1]) {
+                    if (button_edge.out[0]) { 
+                        sequence.d[0] = b0   
+                    }
+                    if (button_edge.out[1]) { 
+                        sequence.d[0] = b1   
+                    }
+                    states.d = States.WAITSECONDPRESS
+                    result.d = b11 
+                           
+                }
+                else { 
+                    states.d = States.WAITFIRSTPRESS // loop back
+                }
+            States.WAITSECONDPRESS: // wait for player 2 to press enter
+                if (button_edge.out[0] | button_edge.out[1]) {
+                    if (button_edge.out[0]) { 
+                        sequence.d[1] = b0   
+                    }
+                    if (button_edge.out[1]) { 
+                        sequence.d[1] = b1   
+                    }
+                    states.d = States.CHECKPRESS
+                    result.d = b00         
+                }
+                else { 
+                    states.d = States.WAITSECONDPRESS
+                }
+            
+            States.CHECKPRESS: // move to game idle state from here 
+                if (sequence.q[0] == MATCH[0] && sequence.q[1] == MATCH[1]){
+                    result.d = b01 //RIGHT
+                }
+                else{
+                    result.d = b10 //WRONG
+                }
+                states.d = States.CHECKPRESS // loops back 
+        }
+        out_result = result.q
+        out_buttonseq = sequence.q
+    }
+}
+
+// documentation for usage later 
+/*
+add this into clk and rst block
+    sequence_checker sc 
+    
+in the always block 
+    sc.buttons = io_button[1:0] // i was using the io buttons to test in simulation
+    io_led[2][1:0] = sc.out_buttonseq //debug
+    io_led[2][7:2] = 000000
+    io_led[1][1:0] = sc.out_result //result
+    io_led[1][7:2] = 000000
+    // can check if the result is right or wrong to transition to game idle state
+*/
