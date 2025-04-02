@@ -25,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 9/LED Test V2/build/vivado/LED Test V2.runs/impl_1'
+HD_PWD='C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -43,6 +43,6 @@ EAStep()
 
 # pre-commands:
 /bin/touch .init_design.begin.rst
-EAStep vivado -log alchitry_top.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source alchitry_top.tcl -notrace
+EAStep vivado -log manual_mode.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source manual_mode.tcl -notrace
 
 

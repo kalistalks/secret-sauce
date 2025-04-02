@@ -15,8 +15,8 @@ module manual_mode#(
     output data
 ) {
     
-    // WHITE (11), BLUE (10), RED (01), GREEN (00)
-    const COLOR_ENCODING = {24hFFFFFF, 24hFF0000, 24h00FF00, 24h0000FF}    
+    // WHITE (11), BLUE (10), RED (01), OFF (00)
+    const COLOR_ENCODING = {24hFFFFFF, 24hFF0000, 24h00FF00, 24h0}    
     const ENCODING_AMOUNT = $width(COLOR_ENCODING, 0)
     
     sig pixel_address[BUFFER_SIZE]

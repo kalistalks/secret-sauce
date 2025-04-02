@@ -7,7 +7,7 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source\\alchitry_top.luc"
+                    "path": "source/alchitry_top.luc"
                 },
                 "top": true
             },
@@ -20,13 +20,13 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source\\ws2812b_driver.luc"
+                    "path": "source/ws2812b_driver.luc"
                 }
             },
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source\\manual_mode.luc"
+                    "path": "source/manual_mode.luc"
                 }
             },
             {
@@ -46,6 +46,18 @@
                     "type": "Component",
                     "path": "Pulses/edge_detector.luc"
                 }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/sushi_cycle.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/sushi_display.luc"
+                }
             }
         ],
         "constraintFiles": [
@@ -58,7 +70,7 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "constraint\\io_v1_pulldown.acf"
+                    "path": "constraint/io_v1_pulldown.acf"
                 }
             }
         ],
