@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
-| Date             : Wed Apr  2 17:54:11 2025
+| Date             : Tue Apr  8 16:51:12 2025
 | Host             : KABASH running 64-bit major release  (build 9200)
 | Command          : report_power -file alchitry_top_power_routed.rpt -pb alchitry_top_power_summary_routed.pb -rpx alchitry_top_power_routed.rpx
 | Design           : alchitry_top
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.080        |
+| Total On-Chip Power (W)  | 0.084        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.008        |
+| Dynamic (W)              | 0.012        |
 | Device Static (W)        | 0.072        |
 | Effective TJA (C/W)      | 4.9          |
 | Max Ambient (C)          | 84.6         |
@@ -53,15 +53,15 @@ Table of Contents
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
 | Clocks         |     0.002 |        3 |       --- |             --- |
-| Slice Logic    |    <0.001 |      456 |       --- |             --- |
-|   LUT as Logic |    <0.001 |      148 |     20800 |            0.71 |
-|   CARRY4       |    <0.001 |       38 |      8150 |            0.47 |
-|   Register     |    <0.001 |      195 |     41600 |            0.47 |
-|   Others       |     0.000 |       40 |       --- |             --- |
-| Signals        |    <0.001 |      334 |       --- |             --- |
-| I/O            |     0.005 |       53 |       170 |           31.18 |
+| Slice Logic    |    <0.001 |      708 |       --- |             --- |
+|   LUT as Logic |    <0.001 |      226 |     20800 |            1.09 |
+|   CARRY4       |    <0.001 |       68 |      8150 |            0.83 |
+|   Register     |    <0.001 |      309 |     41600 |            0.74 |
+|   Others       |     0.000 |       70 |       --- |             --- |
+| Signals        |     0.001 |      534 |       --- |             --- |
+| I/O            |     0.008 |       56 |       170 |           32.94 |
 | Static Power   |     0.072 |          |           |                 |
-| Total          |     0.080 |          |           |                 |
+| Total          |     0.084 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -71,9 +71,9 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.013 |       0.003 |      0.010 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.014 |       0.004 |      0.010 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.013 |       0.000 |      0.013 |       NA    | Unspecified | NA         |
-| Vcco33    |       3.300 |     0.002 |       0.001 |      0.001 |       NA    | Unspecified | NA         |
+| Vcco33    |       3.300 |     0.003 |       0.002 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -140,9 +140,9 @@ Table of Contents
 +---------------+-----------+
 | Name          | Power (W) |
 +---------------+-----------+
-| alchitry_top  |     0.008 |
-|   lane_cycle  |     0.001 |
-|   sushi_cycle |     0.001 |
+| alchitry_top  |     0.012 |
+|   lane_cycle  |     0.002 |
+|   sushi_cycle |     0.002 |
 +---------------+-----------+
 
 

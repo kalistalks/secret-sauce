@@ -17,6 +17,7 @@ module lane_cycle #(
         output reg [7:0] io_segment,
         output reg [3:0] io_select,
         input wire [4:0] io_button,
+        input wire [2:0] ext_button,
         input wire [2:0][7:0] io_dip,
         output reg data
     );
@@ -26,63 +27,107 @@ module lane_cycle #(
     localparam E_States_IDLE = 2'h0;
     localparam E_States_UPDATE_RAM = 2'h1;
     localparam E_States_REFRESH = 2'h2;
-    localparam logic [4:0][0:0] _MP_RISE_1879779102 = {{1'h1, 1'h1, 1'h1, 1'h1, 1'h1}};
-    localparam logic [4:0][0:0] _MP_FALL_1879779102 = {{1'h0, 1'h0, 1'h0, 1'h0, 1'h0}};
-    logic [4:0] M_io_button_edge_in;
-    logic [4:0] M_io_button_edge_out;
+    localparam logic [2:0][0:0] _MP_RISE_2108509628 = {{1'h1, 1'h1, 1'h1}};
+    localparam logic [2:0][0:0] _MP_FALL_2108509628 = {{1'h0, 1'h0, 1'h0}};
+    logic [2:0] M_ext_button_edge_in;
+    logic [2:0] M_ext_button_edge_out;
     
-    genvar idx_0_1879779102;
+    genvar idx_0_2108509628;
     
     generate
-        for (idx_0_1879779102 = 0; idx_0_1879779102 < 5; idx_0_1879779102 = idx_0_1879779102 + 1) begin: forLoop_idx_0_1879779102
+        for (idx_0_2108509628 = 0; idx_0_2108509628 < 3; idx_0_2108509628 = idx_0_2108509628 + 1) begin: forLoop_idx_0_2108509628
             edge_detector #(
-                .RISE(_MP_RISE_1879779102[idx_0_1879779102]),
-                .FALL(_MP_FALL_1879779102[idx_0_1879779102])
-            ) io_button_edge (
+                .RISE(_MP_RISE_2108509628[idx_0_2108509628]),
+                .FALL(_MP_FALL_2108509628[idx_0_2108509628])
+            ) ext_button_edge (
                 .clk(clk),
-                .in(M_io_button_edge_in[idx_0_1879779102]),
-                .out(M_io_button_edge_out[idx_0_1879779102])
+                .in(M_ext_button_edge_in[idx_0_2108509628]),
+                .out(M_ext_button_edge_out[idx_0_2108509628])
             );
         end
     endgenerate
     
     
-    localparam logic [4:0][26:0] _MP_CLK_FREQ_1008150627 = {{27'h5f5e100, 27'h5f5e100, 27'h5f5e100, 27'h5f5e100, 27'h5f5e100}};
-    localparam _MP_MIN_DELAY_1008150627 = 5'h14;
-    localparam _MP_NUM_SYNC_1008150627 = 2'h2;
+    localparam logic [2:0][26:0] _MP_CLK_FREQ_1019905447 = {{27'h5f5e100, 27'h5f5e100, 27'h5f5e100}};
+    localparam _MP_MIN_DELAY_1019905447 = 5'h14;
+    localparam _MP_NUM_SYNC_1019905447 = 2'h2;
+    logic [2:0] M_ext_button_cond_in;
+    logic [2:0] M_ext_button_cond_out;
+    
+    genvar idx_0_1019905447;
+    
+    generate
+        for (idx_0_1019905447 = 0; idx_0_1019905447 < 3; idx_0_1019905447 = idx_0_1019905447 + 1) begin: forLoop_idx_0_1019905447
+            button_conditioner #(
+                .CLK_FREQ(_MP_CLK_FREQ_1019905447[idx_0_1019905447]),
+                .MIN_DELAY(_MP_MIN_DELAY_1019905447),
+                .NUM_SYNC(_MP_NUM_SYNC_1019905447)
+            ) ext_button_cond (
+                .clk(clk),
+                .in(M_ext_button_cond_in[idx_0_1019905447]),
+                .out(M_ext_button_cond_out[idx_0_1019905447])
+            );
+        end
+    endgenerate
+    
+    
+    localparam logic [4:0][0:0] _MP_RISE_182430653 = {{1'h1, 1'h1, 1'h1, 1'h1, 1'h1}};
+    localparam logic [4:0][0:0] _MP_FALL_182430653 = {{1'h0, 1'h0, 1'h0, 1'h0, 1'h0}};
+    logic [4:0] M_io_button_edge_in;
+    logic [4:0] M_io_button_edge_out;
+    
+    genvar idx_0_182430653;
+    
+    generate
+        for (idx_0_182430653 = 0; idx_0_182430653 < 5; idx_0_182430653 = idx_0_182430653 + 1) begin: forLoop_idx_0_182430653
+            edge_detector #(
+                .RISE(_MP_RISE_182430653[idx_0_182430653]),
+                .FALL(_MP_FALL_182430653[idx_0_182430653])
+            ) io_button_edge (
+                .clk(clk),
+                .in(M_io_button_edge_in[idx_0_182430653]),
+                .out(M_io_button_edge_out[idx_0_182430653])
+            );
+        end
+    endgenerate
+    
+    
+    localparam logic [4:0][26:0] _MP_CLK_FREQ_643672040 = {{27'h5f5e100, 27'h5f5e100, 27'h5f5e100, 27'h5f5e100, 27'h5f5e100}};
+    localparam _MP_MIN_DELAY_643672040 = 5'h14;
+    localparam _MP_NUM_SYNC_643672040 = 2'h2;
     logic [4:0] M_io_button_cond_in;
     logic [4:0] M_io_button_cond_out;
     
-    genvar idx_0_1008150627;
+    genvar idx_0_643672040;
     
     generate
-        for (idx_0_1008150627 = 0; idx_0_1008150627 < 5; idx_0_1008150627 = idx_0_1008150627 + 1) begin: forLoop_idx_0_1008150627
+        for (idx_0_643672040 = 0; idx_0_643672040 < 5; idx_0_643672040 = idx_0_643672040 + 1) begin: forLoop_idx_0_643672040
             button_conditioner #(
-                .CLK_FREQ(_MP_CLK_FREQ_1008150627[idx_0_1008150627]),
-                .MIN_DELAY(_MP_MIN_DELAY_1008150627),
-                .NUM_SYNC(_MP_NUM_SYNC_1008150627)
+                .CLK_FREQ(_MP_CLK_FREQ_643672040[idx_0_643672040]),
+                .MIN_DELAY(_MP_MIN_DELAY_643672040),
+                .NUM_SYNC(_MP_NUM_SYNC_643672040)
             ) io_button_cond (
                 .clk(clk),
-                .in(M_io_button_cond_in[idx_0_1008150627]),
-                .out(M_io_button_cond_out[idx_0_1008150627])
+                .in(M_io_button_cond_in[idx_0_643672040]),
+                .out(M_io_button_cond_out[idx_0_643672040])
             );
         end
     endgenerate
     
     
     logic [1:0] D_lane_pos_d, D_lane_pos_q = 1'h0;
-    localparam _MP_PIXEL_COUNT_1057391335 = PIXEL_COUNT;
+    localparam _MP_PIXEL_COUNT_1042290044 = PIXEL_COUNT;
     logic M_driver_update;
     logic [23:0] M_driver_color;
     logic M_driver_clear;
-    logic [($clog2(_MP_PIXEL_COUNT_1057391335))-1:0] M_driver_pixel_address;
+    logic [($clog2(_MP_PIXEL_COUNT_1042290044))-1:0] M_driver_pixel_address;
     logic M_driver_data;
     logic M_driver_next_pixel;
     logic M_driver_reset;
     logic M_driver_done;
     
     ws2812b_driver #(
-        .PIXEL_COUNT(_MP_PIXEL_COUNT_1057391335)
+        .PIXEL_COUNT(_MP_PIXEL_COUNT_1042290044)
     ) driver (
         .clk(clk),
         .rst(rst),
@@ -118,21 +163,23 @@ module lane_cycle #(
         data = 1'h0;
         M_io_button_cond_in = io_button;
         M_io_button_edge_in = M_io_button_cond_out;
+        M_ext_button_cond_in = ext_button;
+        M_ext_button_edge_in = M_ext_button_cond_out;
         D_lane_pos_d = D_lane_pos_q;
         D_on_off_toggle_d = D_on_off_toggle_q;
         M_driver_update = D_on_off_toggle_q;
         M_driver_clear = 1'h0;
-        if (M_io_button_edge_out[2'h3]) begin
+        if (M_ext_button_edge_out[1'h0] | M_io_button_edge_out[2'h3]) begin
             if ((|D_lane_pos_q)) begin
                 D_lane_pos_d = D_lane_pos_q - 1'h1;
             end
         end
-        if (M_io_button_edge_out[3'h4]) begin
+        if (M_ext_button_edge_out[1'h1] | M_io_button_edge_out[3'h4]) begin
             if (D_lane_pos_q < 2'h3) begin
                 D_lane_pos_d = D_lane_pos_q + 1'h1;
             end
         end
-        if (M_io_button_edge_out[1'h1]) begin
+        if (M_ext_button_edge_out[2'h2] | M_io_button_edge_out[1'h1]) begin
             if (D_on_off_toggle_q) begin
                 M_driver_clear = 1'h1;
             end

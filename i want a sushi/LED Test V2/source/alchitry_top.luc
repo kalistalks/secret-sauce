@@ -8,6 +8,7 @@ module alchitry_top (
     output io_segment[8],   // 7-segment LEDs on IO Shield
     output io_select[4],    // Digit select on IO Shield
     input io_button[5],     // 5 buttons on IO Shield
+    input ext_button[3],     // 5 buttons on IO Shield
     input io_dip[3][8],      // DIP switches on IO Shield
     output data
 ) {
@@ -23,10 +24,10 @@ module alchitry_top (
         // clock. This ensures the entire FPGA comes out of reset at the same time.
         reset_conditioner reset_cond
         .rst(rst){
-            sushi_cycle sushi_cycle(.io_button(io_button), .io_dip(io_dip), 
+            sushi_cycle sushi_cycle(.io_button(io_button), .ext_button(ext_button), .io_dip(io_dip), 
                 #COLUMN_DIMENSION(COLUMN_DIMENSION), #ROW_DIMENSION(ROW_DIMENSION),
                 #PIXEL_COUNT(PIXEL_COUNT))
-            lane_cycle lane_cycle(.io_button(io_button), .io_dip(io_dip), 
+            lane_cycle lane_cycle(.io_button(io_button), .ext_button(ext_button), .io_dip(io_dip), 
                 #COLUMN_DIMENSION(COLUMN_DIMENSION), #ROW_DIMENSION(ROW_DIMENSION),
                 #PIXEL_COUNT(PIXEL_COUNT))
         }

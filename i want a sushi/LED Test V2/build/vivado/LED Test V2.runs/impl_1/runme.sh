@@ -25,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.runs/impl_1'
+HD_PWD='C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/vivado/LED Test V2.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

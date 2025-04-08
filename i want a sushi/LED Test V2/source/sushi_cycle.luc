@@ -11,6 +11,7 @@ module sushi_cycle#(
     output io_segment[8],   // 7-segment LEDs on IO Shield
     output io_select[4],    // Digit select on IO Shield
     input io_button[5],     // 5 buttons on IO Shield
+    input ext_button[3],     // 3 external buttons
     input io_dip[3][8],      // DIP switches on IO Shield
     output data
 ) {
@@ -33,6 +34,8 @@ module sushi_cycle#(
     
     .clk(clk){
         // user inputs
+        edge_detector ext_button_edge[3](#RISE(3x{{1}}), #FALL(3x{{0}}))
+        button_conditioner ext_button_cond[3](#CLK_FREQ(3x{{CLK_FREQ}}))
         edge_detector io_button_edge[5](#RISE(5x{{1}}), #FALL(5x{{0}}))
         button_conditioner io_button_cond[5](#CLK_FREQ(5x{{CLK_FREQ}})) 
         // latch 0
@@ -62,6 +65,8 @@ module sushi_cycle#(
         
         io_button_cond.in = io_button
         io_button_edge.in = io_button_cond.out
+        ext_button_cond.in = ext_button
+        ext_button_edge.in = ext_button_cond.out
         
         sushi_pos.d = sushi_pos.q
         // fsm.d = fsm.q
@@ -71,14 +76,14 @@ module sushi_cycle#(
         driver.clear = 0
         
         // sushi movement
-        if (io_button_edge.out[3]){
+        if (ext_button_edge.out[0] | io_button_edge.out[3]){
             // clamp at 0
             if (|sushi_pos.q){
                 sushi_pos.d = sushi_pos.q - 1 // left (because left decreases sushi index in the RAM)
             }
         }
         
-        if (io_button_edge.out[4]){
+        if (ext_button_edge.out[1] | io_button_edge.out[4]){
             // clamp at 9
             if (sushi_pos.q < 9){
                 sushi_pos.d = sushi_pos.q + 1 // right (because right increases sushi index in the RAM
@@ -86,7 +91,7 @@ module sushi_cycle#(
         }
         
         // clear display with middle button
-        if (io_button_edge.out[1]){
+        if (ext_button_edge.out[2] | io_button_edge.out[1]){
             if (on_off_toggle.q){
                  driver.clear = 1
             }

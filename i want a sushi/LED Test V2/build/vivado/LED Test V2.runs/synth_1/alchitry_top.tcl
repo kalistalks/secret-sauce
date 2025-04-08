@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.runs/synth_1/alchitry_top.tcl"
+  variable script "C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/vivado/LED Test V2.runs/synth_1/alchitry_top.tcl"
   variable category "vivado_synth"
 }
 
@@ -62,24 +62,24 @@ create_project -in_memory -part xc7a35tftg256-1
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.cache/wt} [current_project]
-set_property parent.project_path {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.xpr} [current_project]
+set_property webtalk.parent_dir {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/vivado/LED Test V2.cache/wt} [current_project]
+set_property parent.project_path {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/vivado/LED Test V2.xpr} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib -sv {
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/button_conditioner.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/edge_detector.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/lane_cycle.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/lane_display.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/pipeline.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/reset_conditioner.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/sushi_cycle.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/sushi_display.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/ws2812b_driver.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/alchitry_top.sv}
+  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/button_conditioner.sv}
+  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/edge_detector.sv}
+  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/lane_cycle.sv}
+  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/lane_display.sv}
+  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/pipeline.sv}
+  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/reset_conditioner.sv}
+  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/sushi_cycle.sv}
+  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/sushi_display.sv}
+  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/ws2812b_driver.sv}
+  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/vivado/LED Test V2.srcs/sources_1/imports/source/alchitry_top.sv}
 }
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -90,11 +90,11 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc {{C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc}}
-set_property used_in_implementation false [get_files {{C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/alchitry.xdc}}]
+read_xdc {{C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/constraint/alchitry.xdc}}
+set_property used_in_implementation false [get_files {{C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/constraint/alchitry.xdc}}]
 
-read_xdc {{C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/au_props.xdc}}
-set_property used_in_implementation false [get_files {{C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/LED Test V2/build/constraint/au_props.xdc}}]
+read_xdc {{C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/constraint/au_props.xdc}}
+set_property used_in_implementation false [get_files {{C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/LED Test V2/build/constraint/au_props.xdc}}]
 
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]

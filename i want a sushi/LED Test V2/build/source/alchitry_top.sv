@@ -14,6 +14,7 @@ module alchitry_top (
         output reg [7:0] io_segment,
         output reg [3:0] io_select,
         input wire [4:0] io_button,
+        input wire [2:0] ext_button,
         input wire [2:0][7:0] io_dip,
         output reg data
     );
@@ -21,12 +22,12 @@ module alchitry_top (
     localparam COLUMN_DIMENSION = 5'h15;
     localparam ROW_DIMENSION = 1'h1;
     localparam PIXEL_COUNT = 10'h15;
-    localparam _MP_STAGES_1489237353 = 3'h4;
+    localparam _MP_STAGES_1278630066 = 3'h4;
     logic M_reset_cond_in;
     logic M_reset_cond_out;
     
     reset_conditioner #(
-        .STAGES(_MP_STAGES_1489237353)
+        .STAGES(_MP_STAGES_1278630066)
     ) reset_cond (
         .clk(clk),
         .in(M_reset_cond_in),
@@ -34,10 +35,10 @@ module alchitry_top (
     );
     
     
-    localparam _MP_COLUMN_DIMENSION_1689419003 = 5'h15;
-    localparam _MP_ROW_DIMENSION_1689419003 = 1'h1;
-    localparam _MP_PIXEL_COUNT_1689419003 = 10'h15;
-    localparam _MP_BUFFER_SIZE_1689419003 = 11'h400;
+    localparam _MP_COLUMN_DIMENSION_945657464 = 5'h15;
+    localparam _MP_ROW_DIMENSION_945657464 = 1'h1;
+    localparam _MP_PIXEL_COUNT_945657464 = 10'h15;
+    localparam _MP_BUFFER_SIZE_945657464 = 11'h400;
     logic [7:0] M_sushi_cycle_led;
     logic [2:0][7:0] M_sushi_cycle_io_led;
     logic [7:0] M_sushi_cycle_io_segment;
@@ -45,12 +46,13 @@ module alchitry_top (
     logic M_sushi_cycle_data;
     
     sushi_cycle #(
-        .COLUMN_DIMENSION(_MP_COLUMN_DIMENSION_1689419003),
-        .ROW_DIMENSION(_MP_ROW_DIMENSION_1689419003),
-        .PIXEL_COUNT(_MP_PIXEL_COUNT_1689419003),
-        .BUFFER_SIZE(_MP_BUFFER_SIZE_1689419003)
+        .COLUMN_DIMENSION(_MP_COLUMN_DIMENSION_945657464),
+        .ROW_DIMENSION(_MP_ROW_DIMENSION_945657464),
+        .PIXEL_COUNT(_MP_PIXEL_COUNT_945657464),
+        .BUFFER_SIZE(_MP_BUFFER_SIZE_945657464)
     ) sushi_cycle (
         .io_button(io_button),
+        .ext_button(ext_button),
         .io_dip(io_dip),
         .clk(clk),
         .rst(rst),
@@ -62,10 +64,10 @@ module alchitry_top (
     );
     
     
-    localparam _MP_COLUMN_DIMENSION_92919132 = 5'h15;
-    localparam _MP_ROW_DIMENSION_92919132 = 1'h1;
-    localparam _MP_PIXEL_COUNT_92919132 = 10'h15;
-    localparam _MP_BUFFER_SIZE_92919132 = 11'h400;
+    localparam _MP_COLUMN_DIMENSION_557228231 = 5'h15;
+    localparam _MP_ROW_DIMENSION_557228231 = 1'h1;
+    localparam _MP_PIXEL_COUNT_557228231 = 10'h15;
+    localparam _MP_BUFFER_SIZE_557228231 = 11'h400;
     logic [7:0] M_lane_cycle_led;
     logic [2:0][7:0] M_lane_cycle_io_led;
     logic [7:0] M_lane_cycle_io_segment;
@@ -73,12 +75,13 @@ module alchitry_top (
     logic M_lane_cycle_data;
     
     lane_cycle #(
-        .COLUMN_DIMENSION(_MP_COLUMN_DIMENSION_92919132),
-        .ROW_DIMENSION(_MP_ROW_DIMENSION_92919132),
-        .PIXEL_COUNT(_MP_PIXEL_COUNT_92919132),
-        .BUFFER_SIZE(_MP_BUFFER_SIZE_92919132)
+        .COLUMN_DIMENSION(_MP_COLUMN_DIMENSION_557228231),
+        .ROW_DIMENSION(_MP_ROW_DIMENSION_557228231),
+        .PIXEL_COUNT(_MP_PIXEL_COUNT_557228231),
+        .BUFFER_SIZE(_MP_BUFFER_SIZE_557228231)
     ) lane_cycle (
         .io_button(io_button),
+        .ext_button(ext_button),
         .io_dip(io_dip),
         .clk(clk),
         .rst(rst),
