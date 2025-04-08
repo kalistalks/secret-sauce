@@ -7,8 +7,8 @@ module alchitry_top (
     output io_led[3][8],    // LEDs on IO Shield
     output io_segment[8],   // 7-segment LEDs on IO Shield
     output io_select[4],    // Digit select on IO Shield
-    output ext_segment[8],   // External 7-segment LEDs 
-    output ext_select[4],    // External Digit select
+    //output ext_segment[8],   // External 7-segment LEDs 
+    output ext_select[6],    // External Digit select
     input io_button[5],     // 5 buttons on IO Shield
     input io_dip[3][8]      // DIP switches on IO Shield
 ) {
@@ -24,9 +24,9 @@ module alchitry_top (
 
         .rst(rst) {
             // Reduce DIV values for simulation so it doesn't take forever
-            multi_seven_seg seg (#DIV($is_sim() ? 1 : 16), #DIGITS(4))
-            multi_decimal_counter dec_ctr (#DIGITS(4))
-            counter ctr (#SIZE(1), #DIV($is_sim() ? 8 : 24))
+            multi_seven_seg seg (#DIV($is_sim() ? 1 : 16), #DIGITS(6))
+            multi_decimal_counter dec_ctr (#DIGITS(6))
+            counter ctr (#SIZE(1), #DIV($is_sim() ? 8 : 15))
         }
     }
 
@@ -44,8 +44,8 @@ module alchitry_top (
 
         io_segment = ~seg.seg // connect segments to the driver
         io_select = ~seg.sel  // connect digit select to the driver
-        ext_segment = ~seg.seg // connect segments to the driver
-        ext_select = ~seg.sel  // connect digit select to the driver
+        //ext_segment = ~seg.seg // connect segments to the driver
+        ext_select = seg.sel  // connect digit select to the driver
 
         io_led = io_dip       // connect the DIP switches to the LEDs
     }
