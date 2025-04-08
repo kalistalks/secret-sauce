@@ -50,7 +50,7 @@ module game_cu (
         P1_LOSE,
         P2_LOSE,
         END,
-        
+
         // kalista's new states 
         CHECK_LANE_1_DIRECTION,
         BRANCH_LANE_1_DIRECTION,
@@ -803,7 +803,7 @@ module game_cu (
                     regfile_wa = d15 // RC
                     states.d = States.BRANCH_LANE_4_DIRECTION
 
-                States.BRANCH_LANE_3_DIRECTION:
+                States.BRANCH_LANE_4_DIRECTION:
                     // if R15 == 1 then direction is in the blue side
                     regfile_ra2 = d15 
                     if (regfile_ra2[0]){
