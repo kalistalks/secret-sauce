@@ -43,8 +43,12 @@ module game_cu (
         CHECK_P2_LANE,
         UPDATE_BELT_RED,
         CHECK_DRAW,
+        // kalista added stuff
+        BRANCH_DRAW,
         DRAW,
         CHECK_WINNER,
+        // kalista added stuff 
+        BRANCH_WINNER,
         P1_WIN,
         P2_WIN,
         P1_LOSE,
@@ -343,28 +347,31 @@ module game_cu (
                     regfile_we = 1
                     regfile_wa = d6
                     states.d = States.IDLE_GAME
-                                
+
+                // kalista editted from here                 
                 States.CHECK_DRAW:
-                    // check draw or have winner
-                    // if draw
-                    alufn = b110101                             
-                    regfile_ra1 = d2             
-                    bsel = b11                             
-                    asel = b00 
+                    // check draw or have winner and store result into temp register
+                    alufn = b110011                             
+                    regfile_ra1 = d0
+                    regfile_ra2 = d1             
+                    bsel = b00                             
+                    asel = b000 
                     regfile_we = 1
-                    regfile_wa = d6
-                    states.d = States.DRAW
-                    
-                    // if not draw
-                    alufn = b110101                             
-                    regfile_ra1 = d2             
-                    bsel = b11                             
-                    asel = b00 
-                    regfile_we = 1
-                    regfile_wa = d6
-                    states.d = States.CHECK_WINNER
+                    regfile_wa = d15
+                    states.d = States.BRANCH_DRAW
+
+                States.BRANCH_DRAW: 
+                    regfile_ra2 = d15
+                    if (regfile_ra2[0]) { 
+                        // if draw
+                        states.d = States.DRAW
+                    } 
+                    else { 
+                        // if winner
+                        states.d = States.CHECK_WINNER
+                    }
                 
-                States.DRAW:
+                States.DRAW: // not sure about this one
                     // game is drawn, go to END
                     alufn = b110101                             
                     regfile_ra1 = d2             
@@ -375,64 +382,56 @@ module game_cu (
                     states.d = States.END
                 
                 States.CHECK_WINNER:
-                    // check who is winner
-                    // if P1 win
-                    alufn = b110101                             
-                    regfile_ra1 = d2             
-                    bsel = b11                             
-                    asel = b00 
+                    // check winner and store into temp register
+                    alufn = b110101 // compare less than                            
+                    regfile_ra1 = d0
+                    regfile_ra2 = d1             
+                    bsel = b00                             
+                    asel = b000 
                     regfile_we = 1
-                    regfile_wa = d6
-                    states.d = P1_WIN
-                
-                    // if P2 win
-                    alufn = b110101                             
-                    regfile_ra1 = d2             
-                    bsel = b11                             
-                    asel = b00 
-                    regfile_we = 1
-                    regfile_wa = d6
-                    states.d = P2_WIN
-                
+                    regfile_wa = d15
+                    states.d = States.BRANCH_WINNER
+
+                States.BRANCH_WINNER: 
+                    regfile_ra2 = d15
+                    if (regfile_ra2[0]) { 
+                        // P1 wins
+                        states.d = States.P1_WIN
+                    } 
+                    else { 
+                        // P2 wins
+                        states.d = States.P2_WIN
+                    }
+ 
                 States.P1_WIN:
                     // P1 winner
-                    alufn = b110101                             
-                    regfile_ra1 = d2             
-                    bsel = b11                             
-                    asel = b00 
                     regfile_we = 1
-                    regfile_wa = d6
-                    states.d = P2_LOSE
+                    regfile_wa = d0
+                    alu_out_sel = b01 
+                    states.d = States.P2_LOSE
                 
                 States.P2_LOSE:
                     // go to end
-                    alufn = b110101                             
-                    regfile_ra1 = d2             
-                    bsel = b11                             
-                    asel = b00 
                     regfile_we = 1
-                    regfile_wa = d6
+                    regfile_wa = d1
+                    alu_out_sel = b11
                     states.d = States.END
                 
                 States.P2_WIN:
                     // P2 winner
-                    alufn = b110101                             
-                    regfile_ra1 = d2             
-                    bsel = b11                             
-                    asel = b00 
                     regfile_we = 1
-                    regfile_wa = d6
-                    states.d = P1_LOSE
+                    regfile_wa = d1
+                    alu_out_sel = b01
+                    states.d = States.P1_LOSE
                 
                 States.P1_LOSE:
                     // go to end
-                    alufn = b110101                             
-                    regfile_ra1 = d2             
-                    bsel = b11                             
-                    asel = b00 
                     regfile_we = 1
-                    regfile_wa = d6
+                    regfile_wa = d0
+                    alu_out_sel = b01
                     states.d = States.END
+
+                // kalista stopped editting here 
                     
                 States.DECREASE_GAME_TIMER:
                     // decrease game timer by 1
