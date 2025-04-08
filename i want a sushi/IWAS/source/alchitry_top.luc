@@ -8,7 +8,13 @@ module alchitry_top (
     output io_segment[8],        // 7-segment LEDs on IO Shield
     output io_select[4],        // Digit select on IO Shield
     input io_button[5],      // 5 buttons on IO Shield
-    input io_dip[3][8]       // DIP switches on IO Shield
+    input io_dip[3][8],       // DIP switches on IO Shield
+    input p1_button_left,
+    input p1_button_right,
+    input p1_button_flip,
+    input p2_button_left,
+    input p2_button_right,
+    input p2_button_flip
 ) {
     
     sig rst                 // reset signal
@@ -21,12 +27,19 @@ module alchitry_top (
         // The reset conditioner is used to synchronize the reset signal to the FPGA
         // clock. This ensures the entire FPGA comes out of reset at the same time.
         reset_conditioner reset_cond
-        edge_detector edge_dt_btn_p1 (#RISE(1), #FALL(0))
-        edge_detector edge_dt_btn_p2(#RISE(1), #FALL(0))
+        edge_detector edge_dt_p1_button_left (#RISE(1), #FALL(0))
+        edge_detector edge_dt_p1_button_right (#RISE(1), #FALL(0))
+        edge_detector edge_dt_p1_button_flip (#RISE(1), #FALL(0))
+        edge_detector edge_dt_p2_button_left (#RISE(1), #FALL(0))
+        edge_detector edge_dt_p2_button_right (#RISE(1), #FALL(0))
+        edge_detector edge_dt_p2_button_flip (#RISE(1), #FALL(0))
         
-        button_conditioner btn_cond_p1(#CLK_FREQ(CLK_FREQ))
-        button_conditioner btn_cond_p2(#CLK_FREQ(CLK_FREQ)) 
-        
+        button_conditioner btn_cond_p1_button_left(#CLK_FREQ(CLK_FREQ))
+        button_conditioner btn_cond_p1_button_right(#CLK_FREQ(CLK_FREQ))
+        button_conditioner btn_cond_p1_button_flip(#CLK_FREQ(CLK_FREQ))
+        button_conditioner btn_cond_p2_button_left(#CLK_FREQ(CLK_FREQ)) 
+        button_conditioner btn_cond_p2_button_right(#CLK_FREQ(CLK_FREQ))
+        button_conditioner btn_cond_p2_button_flip(#CLK_FREQ(CLK_FREQ)) 
         
         .rst(rst){
             multi_seven_seg seg(#DIV(SEVEN_SEG_DIV))
@@ -35,7 +48,7 @@ module alchitry_top (
         
     }
     
-   
+    
     bin_to_dec bin_to_dec_converter(#DIGITS(4))
     
     always {
@@ -50,19 +63,37 @@ module alchitry_top (
         io_segment = 8hff          // turn segments off
         io_select = 4hf           // select no digits
         
-        btn_cond_p1.in = io_button[4] //to reduce the bouncing effects of your button 
-        btn_cond_p2.in = io_button[3]
-        edge_dt_btn_p1.in = btn_cond_p1.out //get the edge of button press
-        edge_dt_btn_p2.in = btn_cond_p2.out
+        // P1
+        btn_cond_p1_button_left.in = p1_button_left //to reduce the bouncing effects of your button
+        btn_cond_p1_button_right.in = p1_button_right
+        btn_cond_p1_button_flip.in = p1_button_flip
         
-        game_datapath.p1_button = edge_dt_btn_p1.out
-        game_datapath.p2_button = edge_dt_btn_p2.out
+        edge_dt_p1_button_left.in = btn_cond_p1_button_left.out //get the edge of button press
+        edge_dt_p1_button_right.in = btn_cond_p1_button_right.out
+        edge_dt_p1_button_flip.in = btn_cond_p1_button_flip.out
+        
+        // P2
+        btn_cond_p2_button_left.in = p2_button_left //to reduce the bouncing effects of your button
+        btn_cond_p2_button_right.in = p2_button_right
+        btn_cond_p2_button_flip.in = p2_button_flip
+        
+        edge_dt_p2_button_left.in = btn_cond_p2_button_left.out //get the edge of button press
+        edge_dt_p2_button_right.in = btn_cond_p2_button_right.out
+        edge_dt_p2_button_flip.in = btn_cond_p2_button_flip.out
+        
+        game_datapath.p1_button_left = edge_dt_p1_button_left.out
+        game_datapath.p1_button_right = edge_dt_p1_button_right.out
+        game_datapath.p1_button_flip = edge_dt_p1_button_flip.out
+        
+        game_datapath.p2_button_left = edge_dt_p2_button_left.out
+        game_datapath.p2_button_right = edge_dt_p2_button_right.out
+        game_datapath.p2_button_flip = edge_dt_p2_button_flip.out
         
         //update 7segments
         seg.values = 4x{{4b0}} // default to all 0 first
         bin_to_dec_converter.value = game_datapath.current_counter_out
         seg.values = bin_to_dec_converter.digits
-
+        
         io_led[2] = game_datapath.timer_out // timer
         io_led[0] = game_datapath.p1_score_out    // p1 score 
         io_led[1] = game_datapath.p2_score_out    // p2 score

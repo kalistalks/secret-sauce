@@ -2,12 +2,8 @@ module game_datapath#(
     SLOW_CLOCK_DIV ~ 26 : SLOW_CLOCK_DIV > 0,
     FAST_CLOCK_DIV ~ 21 : FAST_CLOCK_DIV > 0
 )(
-    input p1_button_left,
-    input p1_button_right,
-    input p1_button_flip,
-    input p2_button_left,
-    input p2_button_right,
-    input p2_button_flip,
+    input p1_button,
+    input p2_button,
     
     input clk,  // clock
     input rst,  // reset
@@ -41,12 +37,8 @@ module game_datapath#(
         edge_detector edge_detector_game_timer(#RISE(1), #FALL(0), .in(game_timer_clock.value))
         
         game_cu game_cu(
-            .p1_button_left(p1_button_left),
-            .p1_button_right(p1_button_right),
-            .p1_button_flip(p1_button_flip),
-            .p2_button_left(p2_button_left),
-            .p2_button_right(p2_button_right),
-            .p2_button_flip(p2_button_flip),
+            .p1_button(p1_button),
+            .p2_button(p2_button),
             .rst(rst),
             .increase_counter(edge_detector_variable_timer.out),
             .decrease_timer(edge_detector_game_timer.out)

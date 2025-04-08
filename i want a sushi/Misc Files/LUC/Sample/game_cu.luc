@@ -5,12 +5,8 @@ module game_cu (
     input decrease_timer,
     input regfile_rd2[32], //direct reading of regfile data from rd2
     
-    input p1_button_left,
-    input p1_button_right,
-    input p1_button_flip,
-    input p2_button_left,
-    input p2_button_right,
-    input p2_button_flip,
+    input p1_button,
+    input p2_button,
     
     output alufn[6],
     output asel[3],
@@ -24,12 +20,37 @@ module game_cu (
 ) {
     
     enum GameStates {
-        IDLE_GAME,
-        MOVE_P1_UP,
-        MOVE_P1_DOWN
+        START_SET_TIMER,
+        INC_COUNTER, 
+        IDLE, 
+        CHECK_P1BUTTONCOUNT, 
+        BRANCH_P1BUTTON,
+        INCREASE_P1SCORE, 
+        INCREASE_P1BUTTONCOUNT,
+        CHECK_P2BUTTONCOUNT, 
+        BRANCH_P2BUTTON,
+        INCREASE_P2SCORE, 
+        INCREASE_P2BUTTONCOUNT,
+        RESET_COUNTER, 
+        DECREASE_GAMETIMER, 
+        CHECK_GAMETIMER,
+        BRANCH_GAMETIMER,
+        CHECK_P1P2BUTTONCOUNT,
+        BRANCHCHECK_P1P2BUTTONCOUNT,
+        BRANCH_P1BUTTONCOUNT, 
+        CHECK_DRAW,
+        BRANCH_DRAW,
+        DRAW,
+        CHECK_WINNER,
+        BRANCH_WINNER,
+        P1WINS,
+        P2LOSE,
+        P2WINS,
+        P1LOSE,
+        GAMEOVER
     }
     
-    dff game_fsm[$width(GameStates)](#INIT(GameStates.IDLE_GAME), .clk(clk), .rst(rst))
+    dff game_fsm[$width(GameStates)](#INIT(GameStates.START_SET_TIMER), .clk(clk), .rst(rst))
     
     always {
         
@@ -48,27 +69,12 @@ module game_cu (
         
         game_fsm.d = game_fsm.q
         if (rst){
-            game_fsm.d = GameStates.IDLE_GAME
+            game_fsm.d = GameStates.START_SET_TIMER
         }
         else{
             
             case(game_fsm.q){
-                GameStates.IDLE_GAME:
-                    if (decrease_timer){
-                        game_fsm.d = GameStates.CHECK_GAMETIMER
-                    }
-                    else if (increase_counter && ~p1_button && ~p2_button){
-                        game_fsm.d = GameStates.UPDATE_SUSHI
-                    }
-                    else if (p1_button_left && ~p2_button){
-                        game_fsm.d = GameStates.CHECK_P1BUTTONCOUNT
-                    }
-                    else if (p2_button && ~p1_button){
-                        game_fsm.d = GameStates.CHECK_P2BUTTONCOUNT
-                    }
-                    else{
-                        game_fsm.d = GameStates.IDLE_GAME
-                    }
+                
                 GameStates.START_SET_TIMER: 
                     alufn = b011010                             //A
                     asel = b11                                  //30
@@ -314,6 +320,25 @@ module game_cu (
                 
                 GameStates.GAMEOVER:
                     game_fsm.d = GameStates.GAMEOVER           
+                
+                GameStates.IDLE:
+                    if (decrease_timer){
+                        game_fsm.d = GameStates.CHECK_GAMETIMER
+                    }
+                    else if (increase_counter && ~p1_button && ~p2_button){
+                        game_fsm.d = GameStates.INC_COUNTER
+                    }
+                    else if (p1_button && ~p2_button){
+                        game_fsm.d = GameStates.CHECK_P1BUTTONCOUNT
+                    }
+                    else if (p2_button && ~p1_button){
+                        game_fsm.d = GameStates.CHECK_P2BUTTONCOUNT
+                    }
+                    else{
+                        game_fsm.d = GameStates.IDLE
+                    }
+                
+                
             }
         }
         

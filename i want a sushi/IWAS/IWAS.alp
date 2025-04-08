@@ -183,8 +183,8 @@
             },
             {
                 "file": {
-                    "type": "Component",
-                    "path": "Constraints/io_v1_pulldown.acf"
+                    "type": "DiskFile",
+                    "path": "constraint/io_v1_pulldown.acf"
                 }
             }
         ],
