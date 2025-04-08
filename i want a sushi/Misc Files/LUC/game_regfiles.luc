@@ -1,0 +1,135 @@
+module game_regfiles (
+    input clk,  // clock
+    input rst,  // reset
+    input wa[3], // write address
+    input we, // write enable
+    input data[32], // data in
+    
+    input ra1[3], // read address port 1
+    input ra2[3], // read address port 2
+    output rd1[32], // read data port 1
+    output rd2[32], // read data port 1
+    
+    // states
+    output p1_score_out[32],
+    output p2_score_out[32],
+    output current_timer_out[32],
+    output p1_chef_out[32],
+    output p2_chef_out[32],
+    output lane_1_color_out[32],
+    output lane_2_color_out[32],
+    output lane_3_color_out[32],
+    output lane_4_color_out[32],
+    output lane_1_sushi_out[32],
+    output lane_2_sushi_out[32],
+    output lane_3_sushi_out[32],
+    output lane_4_sushi_out[32],
+    output p1_button_press_out[32],
+    output p2_button_press_out[32]    
+    
+) {
+    .clk(clk){
+        .rst(rst){
+            dff p1_score[32](#INIT(0))
+            dff p2_score[32](#INIT(0))
+            dff current_timer[32](#INIT(0))
+            dff p1_chef[32](#INIT(0))
+            dff p2_chef[32](#INIT(0))
+            dff lane_1_color[32](#INIT(0))
+            dff lane_2_color[32](#INIT(0))
+            dff lane_3_color[32](#INIT(0))
+            dff lane_4_color[32](#INIT(0))
+            dff lane_1_sushi[32](#INIT(0))
+            dff lane_2_sushi[32](#INIT(0))
+            dff lane_3_sushi[32](#INIT(0))
+            dff lane_4_sushi[32](#INIT(0))
+            dff p1_button_press[32](#INIT(0))
+            dff p2_button_press[32](#INIT(0))
+            dff temp_var[32](#INIT(0))         
+        }
+    }
+    
+    always {
+        
+        //write port
+        if (we){
+            case(wa){
+                d0 : p1_score.d = data
+                d1 : p2_score.d = data
+                d2 : current_timer.d = data
+                d3 : p1_chef.d = data
+                d4 : p2_chef.d = data
+                d5 : lane_1_color.d = data
+                d6 : lane_2_color.d = data
+                d7 : lane_3_color.d = data
+                d8 : lane_4_color.d = data
+                d9 : lane_1_sushi.d = data
+                d10 : lane_2_sushi.d = data
+                d11 : lane_3_sushi.d = data
+                d12 : lane_4_sushi.d = data
+                d13 : p1_button_press.d = data
+                d14 : p2_button_press.d = data
+                d15 : temp_var.d = data
+            }
+        }
+        
+        //read port a
+        case(ra1){
+            d0 : rd1 = p1_score.q
+            d1 : rd1 = p2_score.q
+            d2 : rd1 = current_timer.q
+            d3 : rd1 = p1_chef.q
+            d4 : rd1 = p2_chef.q
+            d5 : rd1 = lane_1_color.q
+            d6 : rd1 = lane_2_color.q
+            d7 : rd1 = lane_3_color.q
+            d8 : rd1 = lane_4_color.q
+            d9 : rd1 = lane_1_sushi.q
+            d10 : rd1 = lane_2_sushi.q
+            d11 : rd1 = lane_3_sushi.q
+            d12 : rd1 = lane_4_sushi.q
+            d13 : rd1 = p1_button_press.q
+            d14 : rd1 = p2_button_press.q
+            d15 : rd1 = temp_var.q  
+            default : rd1 = 0
+        }
+        
+        //read port b
+        case(ra2){
+            d0 : rd2 = p1_score.q
+            d1 : rd2 = p2_score.q
+            d2 : rd2 = current_timer.q
+            d3 : rd2 = p1_chef.q
+            d4 : rd2 = p2_chef.q
+            d5 : rd2 = lane_1_color.q
+            d6 : rd2 = lane_2_color.q
+            d7 : rd2 = lane_3_color.q
+            d8 : rd2 = lane_4_color.q
+            d9 : rd2 = lane_1_sushi.q
+            d10 : rd2 = lane_2_sushi.q
+            d11 : rd2 = lane_3_sushi.q
+            d12 : rd2 = lane_4_sushi.q
+            d13 : rd2 = p1_button_press.q
+            d14 : rd2 = p2_button_press.q
+            d15 : rd2 = temp_var.q            
+            default : rd2 = 0
+        }
+
+        p1_score_out = p1_score.q
+        p2_score_out = p2_score.q
+        current_timer_out = current_timer.q
+        p1_chef_out = p1_chef.q
+        p2_chef_out = p2_chef.q
+        lane_1_color_out = lane_1_color.q
+        lane_2_color_out = lane_2_color.q
+        lane_3_color_out = lane_3_color.q
+        lane_4_color_out = lane_4_color.q
+        lane_1_sushi_out = lane_1_sushi.q
+        lane_2_sushi_out = lane_2_sushi.q
+        lane_3_sushi_out = lane_3_sushi.q
+        lane_4_sushi_out = lane_4_sushi.q
+        p1_button_press_out = p1_button_press.q[1:0]
+        p2_button_press_out = p2_button_press.q[1:0]
+        
+    }
+}

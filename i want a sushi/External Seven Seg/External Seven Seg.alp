@@ -7,7 +7,7 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source\\alchitry_top.luc"
+                    "path": "source/alchitry_top.luc"
                 },
                 "top": true
             },
@@ -20,19 +20,19 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source\\decimal_counter.luc"
+                    "path": "source/decimal_counter.luc"
                 }
             },
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source\\multi_decimal_counter.luc"
+                    "path": "source/multi_decimal_counter.luc"
                 }
             },
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source\\multi_seven_seg.luc"
+                    "path": "source/multi_seven_seg.luc"
                 }
             },
             {
@@ -50,7 +50,7 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source\\seven_seg.luc"
+                    "path": "source/seven_seg.luc"
                 }
             },
             {
@@ -70,7 +70,7 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "constraint\\io_v1_pulldown.acf"
+                    "path": "constraint/io_v1_pulldown.acf"
                 }
             }
         ],
