@@ -12,22 +12,22 @@ module boolean #(
         input wire [5:0] alufn,
         output reg [(SIZE)-1:0] bool
     );
-    logic [31:0] R_554cefc7_i;
-    logic [31:0] RR_554cefc7_i;
+    logic [31:0] R_6d8b43db_i;
+    logic [31:0] RR_6d8b43db_i;
     logic [31:0] M_mux_4_32_s0;
     logic [31:0] M_mux_4_32_s1;
     logic [31:0][3:0] M_mux_4_32_in;
     logic [31:0] M_mux_4_32_out;
     
-    genvar idx_0_2062453641;
+    genvar idx_0_1811033425;
     
     generate
-        for (idx_0_2062453641 = 0; idx_0_2062453641 < 32; idx_0_2062453641 = idx_0_2062453641 + 1) begin: forLoop_idx_0_2062453641
+        for (idx_0_1811033425 = 0; idx_0_1811033425 < 32; idx_0_1811033425 = idx_0_1811033425 + 1) begin: forLoop_idx_0_1811033425
             mux_4 mux_4_32 (
-                .s0(M_mux_4_32_s0[idx_0_2062453641]),
-                .s1(M_mux_4_32_s1[idx_0_2062453641]),
-                .in(M_mux_4_32_in[idx_0_2062453641]),
-                .out(M_mux_4_32_out[idx_0_2062453641])
+                .s0(M_mux_4_32_s0[idx_0_1811033425]),
+                .s1(M_mux_4_32_s1[idx_0_1811033425]),
+                .in(M_mux_4_32_in[idx_0_1811033425]),
+                .out(M_mux_4_32_out[idx_0_1811033425])
             );
         end
     endgenerate
@@ -35,11 +35,11 @@ module boolean #(
     
     always @* begin
         M_mux_4_32_in = {6'h20{{alufn[2'h3:1'h0]}}};
-        for (RR_554cefc7_i = 0; RR_554cefc7_i < SIZE; RR_554cefc7_i = RR_554cefc7_i + 1) begin
-      R_554cefc7_i = (1'h0) + RR_554cefc7_i * (1'h1);
-            M_mux_4_32_s0[R_554cefc7_i] = a[R_554cefc7_i];
-            M_mux_4_32_s1[R_554cefc7_i] = b[R_554cefc7_i];
-            bool[R_554cefc7_i] = M_mux_4_32_out[R_554cefc7_i];
+        for (RR_6d8b43db_i = 0; RR_6d8b43db_i < SIZE; RR_6d8b43db_i = RR_6d8b43db_i + 1) begin
+      R_6d8b43db_i = (1'h0) + RR_6d8b43db_i * (1'h1);
+            M_mux_4_32_s0[R_6d8b43db_i] = a[R_6d8b43db_i];
+            M_mux_4_32_s1[R_6d8b43db_i] = b[R_6d8b43db_i];
+            bool[R_6d8b43db_i] = M_mux_4_32_out[R_6d8b43db_i];
         end
     end
     

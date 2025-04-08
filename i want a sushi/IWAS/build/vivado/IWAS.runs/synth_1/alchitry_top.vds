@@ -3,8 +3,8 @@
 # SW Build 5239630 on Fri Nov 08 22:35:27 MST 2024
 # IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
 # SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
-# Start of session at: Wed Apr  9 03:07:12 2025
-# Process ID         : 42656
+# Start of session at: Wed Apr  9 05:48:05 2025
+# Process ID         : 31592
 # Current directory  : C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.runs/synth_1
 # Command line       : vivado.exe -log alchitry_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source alchitry_top.tcl
 # Log file           : C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.runs/synth_1/alchitry_top.vds
@@ -19,7 +19,7 @@
 # Host memory        : 33397 MB
 # Swap memory        : 4831 MB
 # Total Virtual      : 38228 MB
-# Available Virtual  : 9815 MB
+# Available Virtual  : 9504 MB
 #-----------------------------------------------------------
 source alchitry_top.tcl -notrace
 Command: synth_design -top alchitry_top -part xc7a35tftg256-1
@@ -29,9 +29,9 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t
 INFO: [Device 21-403] Loading part xc7a35tftg256-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 42544
+INFO: [Synth 8-7075] Helper process launched with PID 3328
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:03 . Memory (MB): peak = 1026.703 ; gain = 467.449
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1026.102 ; gain = 466.652
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'alchitry_top' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alchitry_top.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'reset_conditioner' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/reset_conditioner.sv:7]
@@ -112,43 +112,20 @@ INFO: [Synth 8-6155] done synthesizing module 'compact_shifter' (0#1) [C:/Users/
 INFO: [Synth 8-6157] synthesizing module 'multiplier' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/multiplier.sv:7]
 INFO: [Synth 8-6155] done synthesizing module 'multiplier' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/multiplier.sv:7]
 INFO: [Synth 8-6155] done synthesizing module 'alu' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alu.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'variable_timer' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/variable_timer.sv:7]
-	Parameter SEED bound to: 30'b101000011010110100101110011100 
-	Parameter FAST_CLOCK_DIV bound to: 5'b10101 
 INFO: [Synth 8-6157] synthesizing module 'counter__parameterized0' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
-	Parameter SIZE bound to: 1'b1 
-	Parameter DIV bound to: 5'b10101 
-	Parameter TOP bound to: 1'b0 
-	Parameter UP bound to: 1'b1 
-INFO: [Synth 8-6155] done synthesizing module 'counter__parameterized0' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'counter__parameterized1' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
-	Parameter SIZE bound to: 1'b1 
-	Parameter DIV bound to: 5'b10110 
-	Parameter TOP bound to: 1'b0 
-	Parameter UP bound to: 1'b1 
-INFO: [Synth 8-6155] done synthesizing module 'counter__parameterized1' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'pn_gen' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/pn_gen.sv:7]
-	Parameter SEED bound to: 33'b110010100001100001111010000011000 
-INFO: [Synth 8-6155] done synthesizing module 'pn_gen' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/pn_gen.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'edge_detector__parameterized0' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/edge_detector.sv:7]
-	Parameter RISE bound to: 1'b1 
-	Parameter FALL bound to: 1'b1 
-INFO: [Synth 8-6155] done synthesizing module 'edge_detector__parameterized0' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/edge_detector.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'variable_timer' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/variable_timer.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'counter__parameterized2' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
 	Parameter SIZE bound to: 1'b1 
 	Parameter DIV bound to: 5'b11010 
 	Parameter TOP bound to: 1'b0 
 	Parameter UP bound to: 1'b1 
-INFO: [Synth 8-6155] done synthesizing module 'counter__parameterized2' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'counter__parameterized0' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'game_cu' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_cu.sv:7]
-INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_cu.sv:84]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_cu.sv:142]
 INFO: [Synth 8-6155] done synthesizing module 'game_cu' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_cu.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'game_regfiles' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv:7]
 INFO: [Synth 8-226] default block is never used [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv:119]
 INFO: [Synth 8-226] default block is never used [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv:173]
 INFO: [Synth 8-6155] done synthesizing module 'game_regfiles' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv:7]
-INFO: [Synth 8-226] default block is never used [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_datapath.sv:214]
+INFO: [Synth 8-226] default block is never used [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_datapath.sv:185]
 INFO: [Synth 8-6155] done synthesizing module 'game_datapath' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_datapath.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'ws2812b_driver' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:7]
 	Parameter PIXEL_COUNT bound to: 4'b1100 
@@ -279,18 +256,18 @@ WARNING: [Synth 8-7129] Port io_dip[0][2] in module alchitry_top is either uncon
 WARNING: [Synth 8-7129] Port io_dip[0][1] in module alchitry_top is either unconnected or has no load
 WARNING: [Synth 8-7129] Port io_dip[0][0] in module alchitry_top is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1164.117 ; gain = 604.863
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1165.125 ; gain = 605.676
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1164.117 ; gain = 604.863
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1165.125 ; gain = 605.676
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1164.117 ; gain = 604.863
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1165.125 ; gain = 605.676
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.042 . Memory (MB): peak = 1164.117 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.043 . Memory (MB): peak = 1165.125 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -303,26 +280,26 @@ Parsing XDC File [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Struct
 Finished Parsing XDC File [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/constraint/au_props.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1253.898 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1254.598 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 1253.898 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 1254.598 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:06 ; elapsed = 00:00:11 . Memory (MB): peak = 1253.898 ; gain = 694.645
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:11 . Memory (MB): peak = 1254.598 ; gain = 695.148
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tftg256-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:06 ; elapsed = 00:00:11 . Memory (MB): peak = 1253.898 ; gain = 694.645
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:11 . Memory (MB): peak = 1254.598 ; gain = 695.148
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:06 ; elapsed = 00:00:11 . Memory (MB): peak = 1253.898 ; gain = 694.645
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:07 ; elapsed = 00:00:11 . Memory (MB): peak = 1254.598 ; gain = 695.148
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'D_game_fsm_q_reg' in module 'game_cu'
 INFO: [Synth 8-802] inferred FSM for state register 'D_state_q_reg' in module 'ws2812b_driver'
@@ -330,43 +307,56 @@ INFO: [Synth 8-802] inferred FSM for state register 'D_state_q_reg' in module 'w
 ---------------------------------------------------------------------------------------------------
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
-                 iSTATE0 |                           000000 |                           000000
-                  iSTATE |                           000001 |                           000010
-                iSTATE35 |                           000010 |                           000011
-                iSTATE27 |                           000011 |                           000100
-                iSTATE25 |                           000100 |                           000101
-                iSTATE23 |                           000101 |                           000110
-                iSTATE20 |                           000110 |                           000111
-                iSTATE26 |                           000111 |                           001000
-                iSTATE24 |                           001000 |                           001001
-                iSTATE21 |                           001001 |                           001010
-                iSTATE18 |                           001010 |                           001011
-                iSTATE15 |                           001011 |                           001100
-                iSTATE14 |                           001100 |                           001101
-                iSTATE13 |                           001101 |                           001110
-                iSTATE11 |                           001110 |                           001111
-                iSTATE22 |                           001111 |                           010000
-                iSTATE19 |                           010000 |                           010001
-                iSTATE17 |                           010001 |                           010010
-                iSTATE16 |                           010010 |                           010011
-                 iSTATE8 |                           010011 |                           010101
-                 iSTATE6 |                           010100 |                           010110
-                 iSTATE3 |                           010101 |                           010111
-                 iSTATE9 |                           010110 |                           011000
-                 iSTATE7 |                           010111 |                           011001
-                 iSTATE4 |                           011000 |                           011010
-                 iSTATE1 |                           011001 |                           011011
-                iSTATE33 |                           011010 |                           011100
-                iSTATE31 |                           011011 |                           011101
-                iSTATE29 |                           011100 |                           011110
-                iSTATE28 |                           011101 |                           011111
-                iSTATE12 |                           011110 |                           100000
-                iSTATE10 |                           011111 |                           100001
-                 iSTATE5 |                           100000 |                           100010
-                 iSTATE2 |                           100001 |                           100011
-                iSTATE34 |                           100010 |                           100100
-                iSTATE32 |                           100011 |                           100101
-                iSTATE30 |                           100100 |                           100110
+                iSTATE22 |                           000000 |                          0000000
+                iSTATE21 |                           000001 |                          0000001
+                iSTATE20 |                           000010 |                          0000010
+                iSTATE19 |                           000011 |                          0000011
+                 iSTATE2 |                           000100 |                          0000100
+                 iSTATE1 |                           000101 |                          0000101
+                iSTATE48 |                           000110 |                          0000110
+                iSTATE46 |                           000111 |                          0000111
+                 iSTATE0 |                           001000 |                          0001000
+                iSTATE47 |                           001001 |                          0001010
+                iSTATE43 |                           001010 |                          0001011
+                  iSTATE |                           001011 |                          0001001
+                iSTATE36 |                           001100 |                          0001100
+                iSTATE35 |                           001101 |                          0001101
+                iSTATE31 |                           001110 |                          0001111
+                iSTATE45 |                           001111 |                          0010000
+                iSTATE44 |                           010000 |                          0010001
+                iSTATE40 |                           010001 |                          0010010
+                iSTATE39 |                           010010 |                          0010011
+                iSTATE34 |                           010011 |                          0010100
+                iSTATE32 |                           010100 |                          0010101
+                iSTATE27 |                           010101 |                          0010110
+                iSTATE25 |                           010110 |                          0010111
+                iSTATE30 |                           010111 |                          0011000
+                iSTATE29 |                           011000 |                          0011001
+                iSTATE26 |                           011001 |                          0011010
+                iSTATE23 |                           011010 |                          0011011
+                iSTATE15 |                           011011 |                          0011100
+                iSTATE14 |                           011100 |                          0011101
+                iSTATE11 |                           011101 |                          0011110
+                 iSTATE5 |                           011110 |                          0011111
+                iSTATE33 |                           011111 |                          0100000
+                iSTATE28 |                           100000 |                          0100010
+                iSTATE24 |                           100001 |                          0100011
+                iSTATE18 |                           100010 |                          0100100
+                iSTATE16 |                           100011 |                          0100101
+                iSTATE12 |                           100100 |                          0100110
+                 iSTATE8 |                           100101 |                          0100111
+                iSTATE17 |                           100110 |                          0101000
+                iSTATE13 |                           100111 |                          0101001
+                 iSTATE9 |                           101000 |                          0101010
+                 iSTATE6 |                           101001 |                          0101011
+                iSTATE42 |                           101010 |                          0101100
+                iSTATE41 |                           101011 |                          0101101
+                iSTATE38 |                           101100 |                          0101110
+                iSTATE37 |                           101101 |                          0101111
+                iSTATE10 |                           101110 |                          0110000
+                 iSTATE7 |                           101111 |                          0110001
+                 iSTATE4 |                           110000 |                          0110010
+                 iSTATE3 |                           110001 |                          0110011
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'D_game_fsm_q_reg' using encoding 'sequential' in module 'game_cu'
 ---------------------------------------------------------------------------------------------------
@@ -386,7 +376,7 @@ INFO: [Synth 8-3354] encoded FSM with state register 'D_state_q_reg' using encod
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'D_state_q_reg' using encoding 'sequential' in module 'ws2812b_driver__parameterized0'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:12 . Memory (MB): peak = 1253.898 ; gain = 694.645
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:12 . Memory (MB): peak = 1254.598 ; gain = 695.148
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -398,43 +388,42 @@ Detailed RTL Component Info :
 	   2 Input    5 Bit       Adders := 18    
 	   2 Input    4 Bit       Adders := 2     
 +---XORs : 
-	   2 Input     32 Bit         XORs := 3     
-	   4 Input     32 Bit         XORs := 1     
+	   2 Input     32 Bit         XORs := 1     
 	   2 Input      1 Bit         XORs := 1057  
 +---Registers : 
-	               32 Bit    Registers := 20    
+	               32 Bit    Registers := 16    
 	                7 Bit    Registers := 10    
 	                5 Bit    Registers := 18    
 	                4 Bit    Registers := 3     
 	                2 Bit    Registers := 6     
-	                1 Bit    Registers := 30    
+	                1 Bit    Registers := 27    
 +---Muxes : 
-	   2 Input   32 Bit        Muxes := 2     
 	   4 Input   32 Bit        Muxes := 2     
+	   2 Input   32 Bit        Muxes := 1     
 	   8 Input   32 Bit        Muxes := 1     
 	   4 Input   20 Bit        Muxes := 10    
 	   2 Input   14 Bit        Muxes := 3     
-	  37 Input    6 Bit        Muxes := 1     
-	  56 Input    6 Bit        Muxes := 1     
+	  50 Input    6 Bit        Muxes := 1     
+	  74 Input    6 Bit        Muxes := 1     
 	   2 Input    6 Bit        Muxes := 1     
-	   2 Input    5 Bit        Muxes := 10    
+	   2 Input    5 Bit        Muxes := 11    
 	   3 Input    5 Bit        Muxes := 8     
 	   4 Input    4 Bit        Muxes := 1     
-	  37 Input    4 Bit        Muxes := 2     
+	  50 Input    4 Bit        Muxes := 2     
 	   2 Input    4 Bit        Muxes := 4     
 	   3 Input    4 Bit        Muxes := 2     
-	  37 Input    3 Bit        Muxes := 2     
-	   2 Input    3 Bit        Muxes := 2     
-	  37 Input    2 Bit        Muxes := 1     
-	   2 Input    2 Bit        Muxes := 47    
+	   2 Input    3 Bit        Muxes := 3     
+	  50 Input    3 Bit        Muxes := 2     
+	   2 Input    2 Bit        Muxes := 49    
+	  50 Input    2 Bit        Muxes := 2     
 	   3 Input    2 Bit        Muxes := 10    
 	   4 Input    2 Bit        Muxes := 12    
 	  10 Input    2 Bit        Muxes := 28    
 	  12 Input    2 Bit        Muxes := 2     
 	  21 Input    2 Bit        Muxes := 8     
 	   4 Input    1 Bit        Muxes := 65    
-	   2 Input    1 Bit        Muxes := 390   
-	  37 Input    1 Bit        Muxes := 2     
+	   2 Input    1 Bit        Muxes := 387   
+	  50 Input    1 Bit        Muxes := 2     
 	  16 Input    1 Bit        Muxes := 16    
 	   3 Input    1 Bit        Muxes := 130   
 ---------------------------------------------------------------------------------
@@ -512,25 +501,25 @@ WARNING: [Synth 8-7129] Port regfile_rd2[9] in module game_cu is either unconnec
 WARNING: [Synth 8-7129] Port regfile_rd2[8] in module game_cu is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:16 ; elapsed = 00:00:26 . Memory (MB): peak = 1504.543 ; gain = 945.289
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:24 ; elapsed = 00:00:36 . Memory (MB): peak = 1535.324 ; gain = 975.875
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:18 ; elapsed = 00:00:29 . Memory (MB): peak = 1504.543 ; gain = 945.289
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:26 ; elapsed = 00:00:39 . Memory (MB): peak = 1535.324 ; gain = 975.875
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:19 ; elapsed = 00:00:30 . Memory (MB): peak = 1504.543 ; gain = 945.289
+Finished Timing Optimization : Time (s): cpu = 00:00:39 ; elapsed = 00:00:58 . Memory (MB): peak = 1741.867 ; gain = 1182.418
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:19 ; elapsed = 00:00:31 . Memory (MB): peak = 1504.543 ; gain = 945.289
+Finished Technology Mapping : Time (s): cpu = 00:00:40 ; elapsed = 00:00:59 . Memory (MB): peak = 1741.867 ; gain = 1182.418
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -548,37 +537,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:21 ; elapsed = 00:00:33 . Memory (MB): peak = 1599.043 ; gain = 1039.789
+Finished IO Insertion : Time (s): cpu = 00:00:42 ; elapsed = 00:01:02 . Memory (MB): peak = 1741.867 ; gain = 1182.418
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:21 ; elapsed = 00:00:33 . Memory (MB): peak = 1599.043 ; gain = 1039.789
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:42 ; elapsed = 00:01:02 . Memory (MB): peak = 1741.867 ; gain = 1182.418
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:21 ; elapsed = 00:00:34 . Memory (MB): peak = 1599.043 ; gain = 1039.789
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:42 ; elapsed = 00:01:02 . Memory (MB): peak = 1741.867 ; gain = 1182.418
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:21 ; elapsed = 00:00:34 . Memory (MB): peak = 1599.043 ; gain = 1039.789
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:42 ; elapsed = 00:01:02 . Memory (MB): peak = 1741.867 ; gain = 1182.418
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:21 ; elapsed = 00:00:34 . Memory (MB): peak = 1599.043 ; gain = 1039.789
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:42 ; elapsed = 00:01:02 . Memory (MB): peak = 1741.867 ; gain = 1182.418
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:21 ; elapsed = 00:00:34 . Memory (MB): peak = 1599.043 ; gain = 1039.789
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:42 ; elapsed = 00:01:02 . Memory (MB): peak = 1741.867 ; gain = 1182.418
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -595,41 +584,41 @@ Report Cell Usage:
 |      |Cell   |Count |
 +------+-------+------+
 |1     |BUFG   |     1|
-|2     |CARRY4 |    75|
-|3     |LUT1   |    28|
-|4     |LUT2   |   239|
-|5     |LUT3   |    54|
-|6     |LUT4   |   134|
-|7     |LUT5   |   181|
-|8     |LUT6   |   291|
-|9     |MUXF7  |     3|
-|10    |FDRE   |   646|
-|11    |FDSE   |    26|
+|2     |CARRY4 |    92|
+|3     |LUT1   |    29|
+|4     |LUT2   |   681|
+|5     |LUT3   |   111|
+|6     |LUT4   |   297|
+|7     |LUT5   |   354|
+|8     |LUT6   |  1367|
+|9     |MUXF7  |     2|
+|10    |FDRE   |   829|
+|11    |FDSE   |    27|
 |12    |IBUF   |     9|
 |13    |OBUF   |    55|
 +------+-------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:21 ; elapsed = 00:00:34 . Memory (MB): peak = 1599.043 ; gain = 1039.789
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:42 ; elapsed = 00:01:02 . Memory (MB): peak = 1741.867 ; gain = 1182.418
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 95 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:17 ; elapsed = 00:00:32 . Memory (MB): peak = 1599.043 ; gain = 950.008
-Synthesis Optimization Complete : Time (s): cpu = 00:00:21 ; elapsed = 00:00:34 . Memory (MB): peak = 1599.043 ; gain = 1039.789
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:37 ; elapsed = 00:01:01 . Memory (MB): peak = 1741.867 ; gain = 1092.945
+Synthesis Optimization Complete : Time (s): cpu = 00:00:42 ; elapsed = 00:01:02 . Memory (MB): peak = 1741.867 ; gain = 1182.418
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.013 . Memory (MB): peak = 1608.238 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 78 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.024 . Memory (MB): peak = 1741.867 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 94 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1611.922 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1741.867 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Synth Design complete | Checksum: 90d16884
+Synth Design complete | Checksum: ac772944
 INFO: [Common 17-83] Releasing license: Synthesis
-112 Infos, 167 Warnings, 0 Critical Warnings and 0 Errors encountered.
+102 Infos, 167 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:23 ; elapsed = 00:00:38 . Memory (MB): peak = 1611.922 ; gain = 1246.031
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1611.922 ; gain = 0.000
+synth_design: Time (s): cpu = 00:00:43 ; elapsed = 00:01:06 . Memory (MB): peak = 1741.867 ; gain = 1375.250
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1741.867 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.runs/synth_1/alchitry_top.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file alchitry_top_utilization_synth.rpt -pb alchitry_top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Wed Apr  9 03:07:52 2025...
+INFO: [Common 17-206] Exiting Vivado at Wed Apr  9 05:49:14 2025...

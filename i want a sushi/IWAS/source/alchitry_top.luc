@@ -34,18 +34,11 @@ module alchitry_top (
     const SLOW_CLOCK_DIV = $is_sim() ? 9 : 26 // put 9 for sim, 26 for hardware 
     const FAST_CLOCK_DIV = $is_sim() ? 7 : 21 // put 7 for sim, 21 for hardware 
     
-    const SUSHI_COLUMN_DIMENSION = d21 // how many "columns"? 
-    const SUSHI_ROW_DIMENSION = d1 // how many "rows"?
     const SUSHI_PIXEL_COUNT = d21 // how many LEDs in total?
     
-    const CHEF_COLUMN_DIMENSION = d12 // how many "columns"? 
-    const CHEF_ROW_DIMENSION = d1 // how many "rows"?
     const CHEF_PIXEL_COUNT = d12 // how many LEDs in total?
     
     const COLOR_ENCODING = {24h0F0F0F, 24h030000, 24h000300, 24h000000}
-    
-    const BUFFER_SIZE = 1024
-    sig pixel_address[BUFFER_SIZE]
     
     const CLEAR = 0
     const UPDATE = 1
@@ -147,46 +140,46 @@ module alchitry_top (
         
         // WS2812B LED Connections
         // Chefs
-        p1_chef_rom.pos = game_datapath.p1_chef_out[3:0]
-        p1_chef_driver.color = COLOR_ENCODING[p1_chef_rom.out[$resize(p1_chef_driver.pixel_address, $clog2($width(p1_chef_rom.out, 0)))]]
+        p1_chef_rom.pos = game_datapath.p1_chef_out[2:0]
+        p1_chef_driver.color = COLOR_ENCODING[p1_chef_rom.out[$resize(p1_chef_driver.pixel_address, 4)]]
         p1_chef_data = p1_chef_driver.data
         
-        p2_chef_rom.pos = game_datapath.p2_chef_out[3:0]
-        p2_chef_driver.color = COLOR_ENCODING[p2_chef_rom.out[$resize(p2_chef_driver.pixel_address, $clog2($width(p2_chef_rom.out, 0)))]]
+        p2_chef_rom.pos = game_datapath.p2_chef_out[2:0]
+        p2_chef_driver.color = COLOR_ENCODING[p2_chef_rom.out[$resize(p2_chef_driver.pixel_address, 4)]]
         p2_chef_data = p2_chef_driver.data
         
         // Lane
         lane_1_color_rom.pos = game_datapath.lane_1_color_out[1:0]
-        lane_1_color_driver.color = COLOR_ENCODING[lane_1_color_rom.out[$resize(lane_1_color_driver.pixel_address, $clog2($width(lane_1_color_rom.out, 0)))]]
+        lane_1_color_driver.color = COLOR_ENCODING[lane_1_color_rom.out[$resize(lane_1_color_driver.pixel_address, 5)]]
         lane_1_color_data = lane_1_color_driver.data
         
         lane_2_color_rom.pos = game_datapath.lane_2_color_out[1:0]
-        lane_2_color_driver.color = COLOR_ENCODING[lane_2_color_rom.out[$resize(lane_2_color_driver.pixel_address, $clog2($width(lane_2_color_rom.out, 0)))]]
+        lane_2_color_driver.color = COLOR_ENCODING[lane_2_color_rom.out[$resize(lane_2_color_driver.pixel_address, 5)]]
         lane_2_color_data = lane_2_color_driver.data
         
         lane_3_color_rom.pos = game_datapath.lane_3_color_out[1:0]
-        lane_3_color_driver.color = COLOR_ENCODING[lane_3_color_rom.out[$resize(lane_3_color_driver.pixel_address, $clog2($width(lane_3_color_rom.out, 0)))]]
+        lane_3_color_driver.color = COLOR_ENCODING[lane_3_color_rom.out[$resize(lane_3_color_driver.pixel_address, 5)]]
         lane_3_color_data = lane_3_color_driver.data
         
         lane_4_color_rom.pos = game_datapath.lane_4_color_out[1:0]
-        lane_4_color_driver.color = COLOR_ENCODING[lane_4_color_rom.out[$resize(lane_4_color_driver.pixel_address, $clog2($width(lane_4_color_rom.out, 0)))]]
+        lane_4_color_driver.color = COLOR_ENCODING[lane_4_color_rom.out[$resize(lane_4_color_driver.pixel_address, 5)]]
         lane_4_color_data = lane_4_color_driver.data
-
+        
         // Sushi
         lane_1_sushi_rom.pos = game_datapath.lane_1_sushi_out[4:0]
-        lane_1_sushi_driver.color = COLOR_ENCODING[lane_1_sushi_rom.out[$resize(lane_1_sushi_driver.pixel_address, $clog2($width(lane_1_sushi_rom.out, 0)))]]
+        lane_1_sushi_driver.color = COLOR_ENCODING[lane_1_sushi_rom.out[$resize(lane_1_sushi_driver.pixel_address, 5)]]
         lane_1_sushi_data = lane_1_sushi_driver.data
         
         lane_2_sushi_rom.pos = game_datapath.lane_2_sushi_out[4:0]
-        lane_2_sushi_driver.color = COLOR_ENCODING[lane_2_sushi_rom.out[$resize(lane_2_sushi_driver.pixel_address, $clog2($width(lane_2_sushi_rom.out, 0)))]]
+        lane_2_sushi_driver.color = COLOR_ENCODING[lane_2_sushi_rom.out[$resize(lane_2_sushi_driver.pixel_address, 5)]]
         lane_2_sushi_data = lane_2_sushi_driver.data
         
         lane_3_sushi_rom.pos = game_datapath.lane_3_sushi_out[4:0]
-        lane_3_sushi_driver.color = COLOR_ENCODING[lane_3_sushi_rom.out[$resize(lane_3_sushi_driver.pixel_address, $clog2($width(lane_3_sushi_rom.out, 0)))]]
+        lane_3_sushi_driver.color = COLOR_ENCODING[lane_3_sushi_rom.out[$resize(lane_3_sushi_driver.pixel_address, 5)]]
         lane_3_sushi_data = lane_3_sushi_driver.data
         
         lane_4_sushi_rom.pos = game_datapath.lane_4_sushi_out[4:0]
-        lane_4_sushi_driver.color = COLOR_ENCODING[lane_4_sushi_rom.out[$resize(lane_4_sushi_driver.pixel_address, $clog2($width(lane_4_sushi_rom.out, 0)))]]
+        lane_4_sushi_driver.color = COLOR_ENCODING[lane_4_sushi_rom.out[$resize(lane_4_sushi_driver.pixel_address, 5)]]
         lane_4_sushi_data = lane_4_sushi_driver.data
         
         //update 7segments

@@ -29,7 +29,7 @@ module game_regfiles (
         .rst(rst){
             dff p1_score[32](#INIT(0))
             dff p2_score[32](#INIT(0))
-            dff current_timer[32](#INIT(30))
+            dff current_timer[32](#INIT(2))
             dff p1_chef[32](#INIT(0))
             dff p2_chef[32](#INIT(0))
             dff lane_1_color[32](#INIT(1))

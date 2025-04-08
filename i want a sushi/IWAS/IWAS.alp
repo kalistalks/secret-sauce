@@ -164,18 +164,6 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source/variable_timer.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
-                    "path": "source/pn_gen.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
                     "path": "source/ws2812b_driver.luc"
                 }
             },

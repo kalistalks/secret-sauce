@@ -10,10 +10,10 @@ module compact_shifter (
         input wire [5:0] alufn,
         output reg [31:0] shift
     );
-    logic [31:0] R_3203c50a_i;
-    logic [31:0] RR_3203c50a_i;
-    logic [31:0] R_6cbf6990_i;
-    logic [31:0] RR_6cbf6990_i;
+    logic [31:0] R_7b404cbb_i;
+    logic [31:0] RR_7b404cbb_i;
+    logic [31:0] R_63f34926_i;
+    logic [31:0] RR_63f34926_i;
     logic [31:0] M_left_shifter_a;
     logic [4:0] M_left_shifter_b;
     logic M_left_shifter_pad;
@@ -27,24 +27,24 @@ module compact_shifter (
     );
     
     
-    localparam _MP_SIZE_1420590000 = 6'h20;
+    localparam _MP_SIZE_809647417 = 6'h20;
     logic [31:0] M_rev1_in;
     logic [31:0] M_rev1_reversed;
     
     bit_reverse #(
-        .SIZE(_MP_SIZE_1420590000)
+        .SIZE(_MP_SIZE_809647417)
     ) rev1 (
         .in(M_rev1_in),
         .reversed(M_rev1_reversed)
     );
     
     
-    localparam _MP_SIZE_1027423712 = 6'h20;
+    localparam _MP_SIZE_336311903 = 6'h20;
     logic [31:0] M_rev2_in;
     logic [31:0] M_rev2_reversed;
     
     bit_reverse #(
-        .SIZE(_MP_SIZE_1027423712)
+        .SIZE(_MP_SIZE_336311903)
     ) rev2 (
         .in(M_rev2_in),
         .reversed(M_rev2_reversed)
@@ -55,14 +55,14 @@ module compact_shifter (
     logic [31:0][1:0] M_mux1_in;
     logic [31:0] M_mux1_out;
     
-    genvar idx_0_1807797965;
+    genvar idx_0_1167871183;
     
     generate
-        for (idx_0_1807797965 = 0; idx_0_1807797965 < 32; idx_0_1807797965 = idx_0_1807797965 + 1) begin: forLoop_idx_0_1807797965
+        for (idx_0_1167871183 = 0; idx_0_1167871183 < 32; idx_0_1167871183 = idx_0_1167871183 + 1) begin: forLoop_idx_0_1167871183
             mux_2 mux1 (
-                .s0(M_mux1_s0[idx_0_1807797965]),
-                .in(M_mux1_in[idx_0_1807797965]),
-                .out(M_mux1_out[idx_0_1807797965])
+                .s0(M_mux1_s0[idx_0_1167871183]),
+                .in(M_mux1_in[idx_0_1167871183]),
+                .out(M_mux1_out[idx_0_1167871183])
             );
         end
     endgenerate
@@ -72,14 +72,14 @@ module compact_shifter (
     logic [31:0][1:0] M_mux2_in;
     logic [31:0] M_mux2_out;
     
-    genvar idx_0_1428623144;
+    genvar idx_0_900036119;
     
     generate
-        for (idx_0_1428623144 = 0; idx_0_1428623144 < 32; idx_0_1428623144 = idx_0_1428623144 + 1) begin: forLoop_idx_0_1428623144
+        for (idx_0_900036119 = 0; idx_0_900036119 < 32; idx_0_900036119 = idx_0_900036119 + 1) begin: forLoop_idx_0_900036119
             mux_2 mux2 (
-                .s0(M_mux2_s0[idx_0_1428623144]),
-                .in(M_mux2_in[idx_0_1428623144]),
-                .out(M_mux2_out[idx_0_1428623144])
+                .s0(M_mux2_s0[idx_0_900036119]),
+                .in(M_mux2_in[idx_0_900036119]),
+                .out(M_mux2_out[idx_0_900036119])
             );
         end
     endgenerate
@@ -98,12 +98,12 @@ module compact_shifter (
     
     always @* begin
         M_rev1_in = a;
-        for (RR_3203c50a_i = 0; RR_3203c50a_i < 6'h20; RR_3203c50a_i = RR_3203c50a_i + 1) begin
-      R_3203c50a_i = (1'h0) + RR_3203c50a_i * (1'h1);
-            M_mux1_in[R_3203c50a_i][1'h0] = a[R_3203c50a_i];
-            M_mux1_in[R_3203c50a_i][1'h1] = M_rev1_reversed[R_3203c50a_i];
-            M_mux1_s0[R_3203c50a_i] = alufn[1'h0];
-            M_left_shifter_a[R_3203c50a_i] = M_mux1_out[R_3203c50a_i];
+        for (RR_7b404cbb_i = 0; RR_7b404cbb_i < 6'h20; RR_7b404cbb_i = RR_7b404cbb_i + 1) begin
+      R_7b404cbb_i = (1'h0) + RR_7b404cbb_i * (1'h1);
+            M_mux1_in[R_7b404cbb_i][1'h0] = a[R_7b404cbb_i];
+            M_mux1_in[R_7b404cbb_i][1'h1] = M_rev1_reversed[R_7b404cbb_i];
+            M_mux1_s0[R_7b404cbb_i] = alufn[1'h0];
+            M_left_shifter_a[R_7b404cbb_i] = M_mux1_out[R_7b404cbb_i];
         end
         M_padding_in[1'h0] = 1'h0;
         M_padding_in[1'h1] = a[5'h1f];
@@ -111,12 +111,12 @@ module compact_shifter (
         M_left_shifter_b = b;
         M_left_shifter_pad = M_padding_out;
         M_rev2_in = M_left_shifter_shift;
-        for (RR_6cbf6990_i = 0; RR_6cbf6990_i < 6'h20; RR_6cbf6990_i = RR_6cbf6990_i + 1) begin
-      R_6cbf6990_i = (1'h0) + RR_6cbf6990_i * (1'h1);
-            M_mux2_in[R_6cbf6990_i][1'h0] = M_left_shifter_shift[R_6cbf6990_i];
-            M_mux2_in[R_6cbf6990_i][1'h1] = M_rev2_reversed[R_6cbf6990_i];
-            M_mux2_s0[R_6cbf6990_i] = alufn[1'h0];
-            shift[R_6cbf6990_i] = M_mux2_out[R_6cbf6990_i];
+        for (RR_63f34926_i = 0; RR_63f34926_i < 6'h20; RR_63f34926_i = RR_63f34926_i + 1) begin
+      R_63f34926_i = (1'h0) + RR_63f34926_i * (1'h1);
+            M_mux2_in[R_63f34926_i][1'h0] = M_left_shifter_shift[R_63f34926_i];
+            M_mux2_in[R_63f34926_i][1'h1] = M_rev2_reversed[R_63f34926_i];
+            M_mux2_s0[R_63f34926_i] = alufn[1'h0];
+            shift[R_63f34926_i] = M_mux2_out[R_63f34926_i];
         end
     end
     

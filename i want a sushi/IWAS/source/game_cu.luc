@@ -40,7 +40,7 @@ module game_cu (
         P2_WIN,
         P1_LOSE,
         P2_LOSE,
-        END,
+        GAMEOVER,
         
         // Player 1 Move/Flip lane
         CHECK_P1_POS,
@@ -188,29 +188,166 @@ module game_cu (
                 // Game Timer Logic
                 GameStates.DECREASE_GAMETIMER:
                     alufn = b000001    //SUB
-                    regfile_ra1 = d2    // R5 = timer reg
+                    regfile_ra1 = d2    // R2 = timer reg
                     asel = b00    // pass through ra1 regfile
                     bsel = b001    // constant 1
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d2    // R5 = timer reg
+                    regfile_wa = d2    // R2 = timer reg
                     game_fsm.d = GameStates.IDLE_GAME
-                
                 GameStates.CHECK_GAMETIMER:
                     alufn = b110011    //CMPEQ
-                    regfile_ra1 = d2    // R5 = timer reg
+                    regfile_ra1 = d2    // R2 = timer reg
                     asel = b00    // pass through ra1 regfile
                     bsel = b100    // constant 0
                     regfile_we = 1    // write_enable 1
                     regfile_wa = d15    //temp reg
                     game_fsm.d = GameStates.BRANCH_GAMETIMER
-                
                 GameStates.BRANCH_GAMETIMER:
                     regfile_ra2 = d15    //temp reg
                     if (~regfile_rd2[0]){    //if timer is not zero
                         game_fsm.d = GameStates.DECREASE_GAMETIMER
                     }
                     else{
+                        game_fsm.d = GameStates.CHECK_DRAW
+                    }
+                
+                // Win/Draw/Lose Logic
+                // kalista editted from here
+                // tim checked and edited anything wrong
+                GameStates.CHECK_DRAW:
+                    // check draw or have winner and store result into temp register
+                    alufn = b110011    //CMPEQ                          
+                    regfile_ra1 = d0    // R0 = p1_score
+                    regfile_ra2 = d1    // R1 = p2_score
+                    bsel = b00    // pass through ra1 regfile
+                    asel = b000    // pass through ra2 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    // temp reg
+                    game_fsm.d = GameStates.BRANCH_DRAW
+                GameStates.BRANCH_DRAW: 
+                    regfile_ra2 = d15    // temp reg
+                    if (regfile_rd2[0]) { // if (p1_score == p2_score)
+                        // if draw
+                        game_fsm.d = GameStates.DRAW
+                    } 
+                    else { 
+                        // check for winners
+                        game_fsm.d = GameStates.CHECK_WINNER
+                    }
+                GameStates.DRAW:
+                    // game is drawn, go to GAMEOVER
+                    /*
+                    alufn = b000000    // ADD
+                    asel = b10    // constant 0
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d3    // R3 = p1_chef (Store 4 into p1_chef, light up p1_chef RED)
+                    
+                    alufn = b000000    // ADD
+                    asel = b01    // constant 1
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d4    // R4 = p2_chef (Store 5 into p2_chef, light up p2_chef BLUE)
+                    */                    
+                    alu_out_sel = b10    //draw signal
+                    regfile_we = 1 
+                    regfile_wa = d1    //P2 score reg
+                    game_fsm.d = GameStates.GAMEOVER
+                GameStates.CHECK_WINNER:
+                    // check winner and store into temp register
+                    alufn = b110101    // compare less than/CMPLT
+                    regfile_ra1 = d0    // R0 = p1_score
+                    regfile_ra2 = d1    // R1 = p2_score
+                    bsel = b00    // pass through ra1 regfile                     
+                    asel = b000    // pass through ra2 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    // temp reg
+                    game_fsm.d = GameStates.BRANCH_WINNER
+                GameStates.BRANCH_WINNER: 
+                    regfile_ra2 = d15
+                    if (regfile_rd2[0]) {    // if (p1_score < p2_score) then
+                        // P2 wins
+                        game_fsm.d = GameStates.P2_WIN
+                    } 
+                    else { 
+                        // P1 wins
+                        game_fsm.d = GameStates.P1_WIN
+                    }
+                GameStates.P1_WIN:
+                    // P1 winner
+                    regfile_we = 1
+                    regfile_wa = d0     //P1 score reg
+                    alu_out_sel = b01           //P1 winning signal
+                    /*
+                    alufn = b000000    // ADD
+                    asel = b10    // constant 0
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d3    // R3 = p1_chef (Store 4 into p1_chef, light up p1_chef RED)
+                    */                    
+                    game_fsm.d = GameStates.P2_LOSE
+                GameStates.P2_LOSE:
+                    // P2 loser
+                    regfile_we = 1
+                    regfile_wa = d1     //P2 score reg
+                    alu_out_sel = b11           //P2 losing signal
+                    /*
+                    alufn = b000000    // ADD
+                    asel = b10    // constant 0
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d4    // R4 = p2_chef (Store 4 into p2_chef, light up p2_chef RED)
+                    */                    
+                    game_fsm.d = GameStates.GAMEOVER
+                GameStates.P2_WIN:
+                    // P2 winner
+                    regfile_we = 1
+                    regfile_wa = d1     //P2 score reg
+                    alu_out_sel = b01           //P2 winning signal
+                    /*
+                    alufn = b000000    // ADD
+                    asel = b01    // constant 1
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d4    // R4 = p2_chef (Store 5 into p2_chef, light up p2_chef BLUE)
+                    */                    
+                    game_fsm.d = GameStates.P1_LOSE
+                GameStates.P1_LOSE:
+                    // P1 loser
+                    regfile_we = 1
+                    regfile_wa = d0     //P1 score reg
+                    alu_out_sel = b11           //P1 losing signal
+                    /*
+                    alufn = b000000    // ADD
+                    asel = b01    // constant 1
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d3    // R3 = p1_chef (Store 5 into p1_chef, light up p1_chef BLUE)
+                    */                    
+                    game_fsm.d = GameStates.GAMEOVER
+                GameStates.GAMEOVER:
+                    // Reset Timer
+                    if (decrease_timer){
+                        /*
+                        // Reset P1
+                        alu_out_sel = b11    // constant 0
+                        regfile_we = 1    // write_enable 1
+                        regfile_wa = d3    // R3 = p1_chef (Store 0 into p1_chef)
+                        
+                        // Reset P2
+                        alu_out_sel = b11    // constant 0
+                        regfile_we = 1    // write_enable 1
+                        regfile_wa = d4    // R4 = p2_chef (Store 0 into p1_chef)
+                        */                        
                         game_fsm.d = GameStates.IDLE_GAME
+                    } else {
+                        // Reset Timer
+                        alufn = b011010    // "A"
+                        asel = b11    // constant 30
+                        bsel = b100    // constant 0
+                        regfile_we = 1    // write_enable 1
+                        regfile_wa = d2    // R2 = current_timer (Store 30 into current_timer)
+                        game_fsm.d = GameStates.GAMEOVER
                     }
                 
                 // Check and Move Player 1 Chef Left
@@ -240,7 +377,7 @@ module game_cu (
                     bsel = b001    // constant 1
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1                           
-                    regfile_wa = d3    //P1 score reg
+                    regfile_wa = d3    // R3 = p1 chef pos
                     game_fsm.d = GameStates.IDLE_GAME
                 
                 

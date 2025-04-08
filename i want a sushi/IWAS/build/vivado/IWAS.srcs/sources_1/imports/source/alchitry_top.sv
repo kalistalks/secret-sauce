@@ -37,23 +37,17 @@ module alchitry_top (
     localparam SEVEN_SEG_DIV = 5'h10;
     localparam SLOW_CLOCK_DIV = 5'h1a;
     localparam FAST_CLOCK_DIV = 5'h15;
-    localparam SUSHI_COLUMN_DIMENSION = 5'h15;
-    localparam SUSHI_ROW_DIMENSION = 1'h1;
     localparam SUSHI_PIXEL_COUNT = 5'h15;
-    localparam CHEF_COLUMN_DIMENSION = 4'hc;
-    localparam CHEF_ROW_DIMENSION = 1'h1;
     localparam CHEF_PIXEL_COUNT = 4'hc;
     localparam logic [3:0][23:0] COLOR_ENCODING = {{24'hf0f0f, 24'h30000, 24'h300, 24'h0}};
-    localparam BUFFER_SIZE = 11'h400;
-    logic [1023:0] pixel_address;
     localparam CLEAR = 1'h0;
     localparam UPDATE = 1'h1;
-    localparam _MP_STAGES_101697879 = 3'h4;
+    localparam _MP_STAGES_1743620061 = 3'h4;
     logic M_reset_cond_in;
     logic M_reset_cond_out;
     
     reset_conditioner #(
-        .STAGES(_MP_STAGES_101697879)
+        .STAGES(_MP_STAGES_1743620061)
     ) reset_cond (
         .clk(clk),
         .in(M_reset_cond_in),
@@ -61,14 +55,14 @@ module alchitry_top (
     );
     
     
-    localparam _MP_RISE_530917384 = 1'h1;
-    localparam _MP_FALL_530917384 = 1'h0;
+    localparam _MP_RISE_511751916 = 1'h1;
+    localparam _MP_FALL_511751916 = 1'h0;
     logic M_edge_dt_p1_button_left_in;
     logic M_edge_dt_p1_button_left_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_530917384),
-        .FALL(_MP_FALL_530917384)
+        .RISE(_MP_RISE_511751916),
+        .FALL(_MP_FALL_511751916)
     ) edge_dt_p1_button_left (
         .clk(clk),
         .in(M_edge_dt_p1_button_left_in),
@@ -76,14 +70,14 @@ module alchitry_top (
     );
     
     
-    localparam _MP_RISE_638713150 = 1'h1;
-    localparam _MP_FALL_638713150 = 1'h0;
+    localparam _MP_RISE_1418650884 = 1'h1;
+    localparam _MP_FALL_1418650884 = 1'h0;
     logic M_edge_dt_p1_button_right_in;
     logic M_edge_dt_p1_button_right_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_638713150),
-        .FALL(_MP_FALL_638713150)
+        .RISE(_MP_RISE_1418650884),
+        .FALL(_MP_FALL_1418650884)
     ) edge_dt_p1_button_right (
         .clk(clk),
         .in(M_edge_dt_p1_button_right_in),
@@ -91,14 +85,14 @@ module alchitry_top (
     );
     
     
-    localparam _MP_RISE_1866442524 = 1'h1;
-    localparam _MP_FALL_1866442524 = 1'h0;
+    localparam _MP_RISE_1609362272 = 1'h1;
+    localparam _MP_FALL_1609362272 = 1'h0;
     logic M_edge_dt_p1_button_flip_in;
     logic M_edge_dt_p1_button_flip_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_1866442524),
-        .FALL(_MP_FALL_1866442524)
+        .RISE(_MP_RISE_1609362272),
+        .FALL(_MP_FALL_1609362272)
     ) edge_dt_p1_button_flip (
         .clk(clk),
         .in(M_edge_dt_p1_button_flip_in),
@@ -106,14 +100,14 @@ module alchitry_top (
     );
     
     
-    localparam _MP_RISE_1338936792 = 1'h1;
-    localparam _MP_FALL_1338936792 = 1'h0;
+    localparam _MP_RISE_425826577 = 1'h1;
+    localparam _MP_FALL_425826577 = 1'h0;
     logic M_edge_dt_p2_button_left_in;
     logic M_edge_dt_p2_button_left_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_1338936792),
-        .FALL(_MP_FALL_1338936792)
+        .RISE(_MP_RISE_425826577),
+        .FALL(_MP_FALL_425826577)
     ) edge_dt_p2_button_left (
         .clk(clk),
         .in(M_edge_dt_p2_button_left_in),
@@ -121,14 +115,14 @@ module alchitry_top (
     );
     
     
-    localparam _MP_RISE_1700829522 = 1'h1;
-    localparam _MP_FALL_1700829522 = 1'h0;
+    localparam _MP_RISE_1428563767 = 1'h1;
+    localparam _MP_FALL_1428563767 = 1'h0;
     logic M_edge_dt_p2_button_right_in;
     logic M_edge_dt_p2_button_right_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_1700829522),
-        .FALL(_MP_FALL_1700829522)
+        .RISE(_MP_RISE_1428563767),
+        .FALL(_MP_FALL_1428563767)
     ) edge_dt_p2_button_right (
         .clk(clk),
         .in(M_edge_dt_p2_button_right_in),
@@ -136,14 +130,14 @@ module alchitry_top (
     );
     
     
-    localparam _MP_RISE_1424757519 = 1'h1;
-    localparam _MP_FALL_1424757519 = 1'h0;
+    localparam _MP_RISE_1270722202 = 1'h1;
+    localparam _MP_FALL_1270722202 = 1'h0;
     logic M_edge_dt_p2_button_flip_in;
     logic M_edge_dt_p2_button_flip_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_1424757519),
-        .FALL(_MP_FALL_1424757519)
+        .RISE(_MP_RISE_1270722202),
+        .FALL(_MP_FALL_1270722202)
     ) edge_dt_p2_button_flip (
         .clk(clk),
         .in(M_edge_dt_p2_button_flip_in),
@@ -151,16 +145,16 @@ module alchitry_top (
     );
     
     
-    localparam _MP_CLK_FREQ_7645549 = 27'h5f5e100;
-    localparam _MP_MIN_DELAY_7645549 = 5'h14;
-    localparam _MP_NUM_SYNC_7645549 = 2'h2;
+    localparam _MP_CLK_FREQ_375756105 = 27'h5f5e100;
+    localparam _MP_MIN_DELAY_375756105 = 5'h14;
+    localparam _MP_NUM_SYNC_375756105 = 2'h2;
     logic M_btn_cond_p1_button_left_in;
     logic M_btn_cond_p1_button_left_out;
     
     button_conditioner #(
-        .CLK_FREQ(_MP_CLK_FREQ_7645549),
-        .MIN_DELAY(_MP_MIN_DELAY_7645549),
-        .NUM_SYNC(_MP_NUM_SYNC_7645549)
+        .CLK_FREQ(_MP_CLK_FREQ_375756105),
+        .MIN_DELAY(_MP_MIN_DELAY_375756105),
+        .NUM_SYNC(_MP_NUM_SYNC_375756105)
     ) btn_cond_p1_button_left (
         .clk(clk),
         .in(M_btn_cond_p1_button_left_in),
@@ -168,16 +162,16 @@ module alchitry_top (
     );
     
     
-    localparam _MP_CLK_FREQ_2069213829 = 27'h5f5e100;
-    localparam _MP_MIN_DELAY_2069213829 = 5'h14;
-    localparam _MP_NUM_SYNC_2069213829 = 2'h2;
+    localparam _MP_CLK_FREQ_1279886688 = 27'h5f5e100;
+    localparam _MP_MIN_DELAY_1279886688 = 5'h14;
+    localparam _MP_NUM_SYNC_1279886688 = 2'h2;
     logic M_btn_cond_p1_button_right_in;
     logic M_btn_cond_p1_button_right_out;
     
     button_conditioner #(
-        .CLK_FREQ(_MP_CLK_FREQ_2069213829),
-        .MIN_DELAY(_MP_MIN_DELAY_2069213829),
-        .NUM_SYNC(_MP_NUM_SYNC_2069213829)
+        .CLK_FREQ(_MP_CLK_FREQ_1279886688),
+        .MIN_DELAY(_MP_MIN_DELAY_1279886688),
+        .NUM_SYNC(_MP_NUM_SYNC_1279886688)
     ) btn_cond_p1_button_right (
         .clk(clk),
         .in(M_btn_cond_p1_button_right_in),
@@ -185,16 +179,16 @@ module alchitry_top (
     );
     
     
-    localparam _MP_CLK_FREQ_1154015100 = 27'h5f5e100;
-    localparam _MP_MIN_DELAY_1154015100 = 5'h14;
-    localparam _MP_NUM_SYNC_1154015100 = 2'h2;
+    localparam _MP_CLK_FREQ_1952572131 = 27'h5f5e100;
+    localparam _MP_MIN_DELAY_1952572131 = 5'h14;
+    localparam _MP_NUM_SYNC_1952572131 = 2'h2;
     logic M_btn_cond_p1_button_flip_in;
     logic M_btn_cond_p1_button_flip_out;
     
     button_conditioner #(
-        .CLK_FREQ(_MP_CLK_FREQ_1154015100),
-        .MIN_DELAY(_MP_MIN_DELAY_1154015100),
-        .NUM_SYNC(_MP_NUM_SYNC_1154015100)
+        .CLK_FREQ(_MP_CLK_FREQ_1952572131),
+        .MIN_DELAY(_MP_MIN_DELAY_1952572131),
+        .NUM_SYNC(_MP_NUM_SYNC_1952572131)
     ) btn_cond_p1_button_flip (
         .clk(clk),
         .in(M_btn_cond_p1_button_flip_in),
@@ -202,16 +196,16 @@ module alchitry_top (
     );
     
     
-    localparam _MP_CLK_FREQ_1503643452 = 27'h5f5e100;
-    localparam _MP_MIN_DELAY_1503643452 = 5'h14;
-    localparam _MP_NUM_SYNC_1503643452 = 2'h2;
+    localparam _MP_CLK_FREQ_1108123301 = 27'h5f5e100;
+    localparam _MP_MIN_DELAY_1108123301 = 5'h14;
+    localparam _MP_NUM_SYNC_1108123301 = 2'h2;
     logic M_btn_cond_p2_button_left_in;
     logic M_btn_cond_p2_button_left_out;
     
     button_conditioner #(
-        .CLK_FREQ(_MP_CLK_FREQ_1503643452),
-        .MIN_DELAY(_MP_MIN_DELAY_1503643452),
-        .NUM_SYNC(_MP_NUM_SYNC_1503643452)
+        .CLK_FREQ(_MP_CLK_FREQ_1108123301),
+        .MIN_DELAY(_MP_MIN_DELAY_1108123301),
+        .NUM_SYNC(_MP_NUM_SYNC_1108123301)
     ) btn_cond_p2_button_left (
         .clk(clk),
         .in(M_btn_cond_p2_button_left_in),
@@ -219,16 +213,16 @@ module alchitry_top (
     );
     
     
-    localparam _MP_CLK_FREQ_916104030 = 27'h5f5e100;
-    localparam _MP_MIN_DELAY_916104030 = 5'h14;
-    localparam _MP_NUM_SYNC_916104030 = 2'h2;
+    localparam _MP_CLK_FREQ_1711661616 = 27'h5f5e100;
+    localparam _MP_MIN_DELAY_1711661616 = 5'h14;
+    localparam _MP_NUM_SYNC_1711661616 = 2'h2;
     logic M_btn_cond_p2_button_right_in;
     logic M_btn_cond_p2_button_right_out;
     
     button_conditioner #(
-        .CLK_FREQ(_MP_CLK_FREQ_916104030),
-        .MIN_DELAY(_MP_MIN_DELAY_916104030),
-        .NUM_SYNC(_MP_NUM_SYNC_916104030)
+        .CLK_FREQ(_MP_CLK_FREQ_1711661616),
+        .MIN_DELAY(_MP_MIN_DELAY_1711661616),
+        .NUM_SYNC(_MP_NUM_SYNC_1711661616)
     ) btn_cond_p2_button_right (
         .clk(clk),
         .in(M_btn_cond_p2_button_right_in),
@@ -236,16 +230,16 @@ module alchitry_top (
     );
     
     
-    localparam _MP_CLK_FREQ_1611529874 = 27'h5f5e100;
-    localparam _MP_MIN_DELAY_1611529874 = 5'h14;
-    localparam _MP_NUM_SYNC_1611529874 = 2'h2;
+    localparam _MP_CLK_FREQ_1718028565 = 27'h5f5e100;
+    localparam _MP_MIN_DELAY_1718028565 = 5'h14;
+    localparam _MP_NUM_SYNC_1718028565 = 2'h2;
     logic M_btn_cond_p2_button_flip_in;
     logic M_btn_cond_p2_button_flip_out;
     
     button_conditioner #(
-        .CLK_FREQ(_MP_CLK_FREQ_1611529874),
-        .MIN_DELAY(_MP_MIN_DELAY_1611529874),
-        .NUM_SYNC(_MP_NUM_SYNC_1611529874)
+        .CLK_FREQ(_MP_CLK_FREQ_1718028565),
+        .MIN_DELAY(_MP_MIN_DELAY_1718028565),
+        .NUM_SYNC(_MP_NUM_SYNC_1718028565)
     ) btn_cond_p2_button_flip (
         .clk(clk),
         .in(M_btn_cond_p2_button_flip_in),
@@ -253,15 +247,15 @@ module alchitry_top (
     );
     
     
-    localparam _MP_DIGITS_1656553168 = 3'h4;
-    localparam _MP_DIV_1656553168 = 5'h10;
+    localparam _MP_DIGITS_493521344 = 3'h4;
+    localparam _MP_DIV_493521344 = 5'h10;
     logic [3:0][3:0] M_seg_values;
     logic [6:0] M_seg_seg;
     logic [3:0] M_seg_sel;
     
     multi_seven_seg #(
-        .DIGITS(_MP_DIGITS_1656553168),
-        .DIV(_MP_DIV_1656553168)
+        .DIGITS(_MP_DIGITS_493521344),
+        .DIV(_MP_DIV_493521344)
     ) seg (
         .clk(clk),
         .rst(rst),
@@ -271,8 +265,8 @@ module alchitry_top (
     );
     
     
-    localparam _MP_SLOW_CLOCK_DIV_690502401 = 5'h1a;
-    localparam _MP_FAST_CLOCK_DIV_690502401 = 5'h15;
+    localparam _MP_SLOW_CLOCK_DIV_1927853146 = 5'h1a;
+    localparam _MP_FAST_CLOCK_DIV_1927853146 = 5'h15;
     logic M_game_datapath_p1_button_left;
     logic M_game_datapath_p1_button_right;
     logic M_game_datapath_p1_button_flip;
@@ -295,8 +289,8 @@ module alchitry_top (
     logic [3:0] M_game_datapath_debug_general;
     
     game_datapath #(
-        .SLOW_CLOCK_DIV(_MP_SLOW_CLOCK_DIV_690502401),
-        .FAST_CLOCK_DIV(_MP_FAST_CLOCK_DIV_690502401)
+        .SLOW_CLOCK_DIV(_MP_SLOW_CLOCK_DIV_1927853146),
+        .FAST_CLOCK_DIV(_MP_FAST_CLOCK_DIV_1927853146)
     ) game_datapath (
         .clk(clk),
         .rst(rst),
@@ -323,7 +317,7 @@ module alchitry_top (
     );
     
     
-    localparam _MP_PIXEL_COUNT_744954506 = 4'hc;
+    localparam _MP_PIXEL_COUNT_748238003 = 4'hc;
     logic [23:0] M_p1_chef_driver_color;
     logic [3:0] M_p1_chef_driver_pixel_address;
     logic M_p1_chef_driver_data;
@@ -332,7 +326,7 @@ module alchitry_top (
     logic M_p1_chef_driver_done;
     
     ws2812b_driver #(
-        .PIXEL_COUNT(_MP_PIXEL_COUNT_744954506)
+        .PIXEL_COUNT(_MP_PIXEL_COUNT_748238003)
     ) p1_chef_driver (
         .clk(clk),
         .rst(rst),
@@ -347,7 +341,7 @@ module alchitry_top (
     );
     
     
-    localparam _MP_PIXEL_COUNT_40381721 = 4'hc;
+    localparam _MP_PIXEL_COUNT_1710529641 = 4'hc;
     logic [23:0] M_p2_chef_driver_color;
     logic [3:0] M_p2_chef_driver_pixel_address;
     logic M_p2_chef_driver_data;
@@ -356,7 +350,7 @@ module alchitry_top (
     logic M_p2_chef_driver_done;
     
     ws2812b_driver #(
-        .PIXEL_COUNT(_MP_PIXEL_COUNT_40381721)
+        .PIXEL_COUNT(_MP_PIXEL_COUNT_1710529641)
     ) p2_chef_driver (
         .clk(clk),
         .rst(rst),
@@ -371,7 +365,7 @@ module alchitry_top (
     );
     
     
-    localparam _MP_PIXEL_COUNT_1361361658 = 5'h15;
+    localparam _MP_PIXEL_COUNT_1895775132 = 5'h15;
     logic [23:0] M_lane_1_sushi_driver_color;
     logic [4:0] M_lane_1_sushi_driver_pixel_address;
     logic M_lane_1_sushi_driver_data;
@@ -380,7 +374,7 @@ module alchitry_top (
     logic M_lane_1_sushi_driver_done;
     
     ws2812b_driver #(
-        .PIXEL_COUNT(_MP_PIXEL_COUNT_1361361658)
+        .PIXEL_COUNT(_MP_PIXEL_COUNT_1895775132)
     ) lane_1_sushi_driver (
         .clk(clk),
         .rst(rst),
@@ -395,7 +389,7 @@ module alchitry_top (
     );
     
     
-    localparam _MP_PIXEL_COUNT_960263148 = 5'h15;
+    localparam _MP_PIXEL_COUNT_1199705021 = 5'h15;
     logic [23:0] M_lane_2_sushi_driver_color;
     logic [4:0] M_lane_2_sushi_driver_pixel_address;
     logic M_lane_2_sushi_driver_data;
@@ -404,7 +398,7 @@ module alchitry_top (
     logic M_lane_2_sushi_driver_done;
     
     ws2812b_driver #(
-        .PIXEL_COUNT(_MP_PIXEL_COUNT_960263148)
+        .PIXEL_COUNT(_MP_PIXEL_COUNT_1199705021)
     ) lane_2_sushi_driver (
         .clk(clk),
         .rst(rst),
@@ -419,7 +413,7 @@ module alchitry_top (
     );
     
     
-    localparam _MP_PIXEL_COUNT_756784395 = 5'h15;
+    localparam _MP_PIXEL_COUNT_576422738 = 5'h15;
     logic [23:0] M_lane_3_sushi_driver_color;
     logic [4:0] M_lane_3_sushi_driver_pixel_address;
     logic M_lane_3_sushi_driver_data;
@@ -428,7 +422,7 @@ module alchitry_top (
     logic M_lane_3_sushi_driver_done;
     
     ws2812b_driver #(
-        .PIXEL_COUNT(_MP_PIXEL_COUNT_756784395)
+        .PIXEL_COUNT(_MP_PIXEL_COUNT_576422738)
     ) lane_3_sushi_driver (
         .clk(clk),
         .rst(rst),
@@ -443,7 +437,7 @@ module alchitry_top (
     );
     
     
-    localparam _MP_PIXEL_COUNT_1851293012 = 5'h15;
+    localparam _MP_PIXEL_COUNT_1670202532 = 5'h15;
     logic [23:0] M_lane_4_sushi_driver_color;
     logic [4:0] M_lane_4_sushi_driver_pixel_address;
     logic M_lane_4_sushi_driver_data;
@@ -452,7 +446,7 @@ module alchitry_top (
     logic M_lane_4_sushi_driver_done;
     
     ws2812b_driver #(
-        .PIXEL_COUNT(_MP_PIXEL_COUNT_1851293012)
+        .PIXEL_COUNT(_MP_PIXEL_COUNT_1670202532)
     ) lane_4_sushi_driver (
         .clk(clk),
         .rst(rst),
@@ -467,7 +461,7 @@ module alchitry_top (
     );
     
     
-    localparam _MP_PIXEL_COUNT_450881807 = 5'h15;
+    localparam _MP_PIXEL_COUNT_1789370514 = 5'h15;
     logic [23:0] M_lane_1_color_driver_color;
     logic [4:0] M_lane_1_color_driver_pixel_address;
     logic M_lane_1_color_driver_data;
@@ -476,7 +470,7 @@ module alchitry_top (
     logic M_lane_1_color_driver_done;
     
     ws2812b_driver #(
-        .PIXEL_COUNT(_MP_PIXEL_COUNT_450881807)
+        .PIXEL_COUNT(_MP_PIXEL_COUNT_1789370514)
     ) lane_1_color_driver (
         .clk(clk),
         .rst(rst),
@@ -491,7 +485,7 @@ module alchitry_top (
     );
     
     
-    localparam _MP_PIXEL_COUNT_1076255403 = 5'h15;
+    localparam _MP_PIXEL_COUNT_1034912152 = 5'h15;
     logic [23:0] M_lane_2_color_driver_color;
     logic [4:0] M_lane_2_color_driver_pixel_address;
     logic M_lane_2_color_driver_data;
@@ -500,7 +494,7 @@ module alchitry_top (
     logic M_lane_2_color_driver_done;
     
     ws2812b_driver #(
-        .PIXEL_COUNT(_MP_PIXEL_COUNT_1076255403)
+        .PIXEL_COUNT(_MP_PIXEL_COUNT_1034912152)
     ) lane_2_color_driver (
         .clk(clk),
         .rst(rst),
@@ -515,7 +509,7 @@ module alchitry_top (
     );
     
     
-    localparam _MP_PIXEL_COUNT_824468577 = 5'h15;
+    localparam _MP_PIXEL_COUNT_1125176428 = 5'h15;
     logic [23:0] M_lane_3_color_driver_color;
     logic [4:0] M_lane_3_color_driver_pixel_address;
     logic M_lane_3_color_driver_data;
@@ -524,7 +518,7 @@ module alchitry_top (
     logic M_lane_3_color_driver_done;
     
     ws2812b_driver #(
-        .PIXEL_COUNT(_MP_PIXEL_COUNT_824468577)
+        .PIXEL_COUNT(_MP_PIXEL_COUNT_1125176428)
     ) lane_3_color_driver (
         .clk(clk),
         .rst(rst),
@@ -539,7 +533,7 @@ module alchitry_top (
     );
     
     
-    localparam _MP_PIXEL_COUNT_473636300 = 5'h15;
+    localparam _MP_PIXEL_COUNT_1244725454 = 5'h15;
     logic [23:0] M_lane_4_color_driver_color;
     logic [4:0] M_lane_4_color_driver_pixel_address;
     logic M_lane_4_color_driver_data;
@@ -548,7 +542,7 @@ module alchitry_top (
     logic M_lane_4_color_driver_done;
     
     ws2812b_driver #(
-        .PIXEL_COUNT(_MP_PIXEL_COUNT_473636300)
+        .PIXEL_COUNT(_MP_PIXEL_COUNT_1244725454)
     ) lane_4_color_driver (
         .clk(clk),
         .rst(rst),
@@ -563,21 +557,21 @@ module alchitry_top (
     );
     
     
-    localparam _MP_DIGITS_197719637 = 3'h4;
-    localparam _MP_LEADING_ZEROS_197719637 = 1'h0;
+    localparam _MP_DIGITS_1554475867 = 3'h4;
+    localparam _MP_LEADING_ZEROS_1554475867 = 1'h0;
     logic [13:0] M_bin_to_dec_converter_value;
     logic [3:0][3:0] M_bin_to_dec_converter_digits;
     
     bin_to_dec #(
-        .DIGITS(_MP_DIGITS_197719637),
-        .LEADING_ZEROS(_MP_LEADING_ZEROS_197719637)
+        .DIGITS(_MP_DIGITS_1554475867),
+        .LEADING_ZEROS(_MP_LEADING_ZEROS_1554475867)
     ) bin_to_dec_converter (
         .value(M_bin_to_dec_converter_value),
         .digits(M_bin_to_dec_converter_digits)
     );
     
     
-    logic [3:0] M_p1_chef_rom_pos;
+    logic [2:0] M_p1_chef_rom_pos;
     logic [11:0][1:0] M_p1_chef_rom_out;
     
     chef_rom p1_chef_rom (
@@ -586,7 +580,7 @@ module alchitry_top (
     );
     
     
-    logic [3:0] M_p2_chef_rom_pos;
+    logic [2:0] M_p2_chef_rom_pos;
     logic [11:0][1:0] M_p2_chef_rom_out;
     
     chef_rom p2_chef_rom (
@@ -693,10 +687,10 @@ module alchitry_top (
         M_game_datapath_p2_button_left = M_edge_dt_p2_button_left_out;
         M_game_datapath_p2_button_right = M_edge_dt_p2_button_right_out;
         M_game_datapath_p2_button_flip = M_edge_dt_p2_button_flip_out;
-        M_p1_chef_rom_pos = M_game_datapath_p1_chef_out[2'h3:1'h0];
+        M_p1_chef_rom_pos = M_game_datapath_p1_chef_out[2'h2:1'h0];
         M_p1_chef_driver_color = COLOR_ENCODING[M_p1_chef_rom_out[(3'h4)'(M_p1_chef_driver_pixel_address)]];
         p1_chef_data = M_p1_chef_driver_data;
-        M_p2_chef_rom_pos = M_game_datapath_p2_chef_out[2'h3:1'h0];
+        M_p2_chef_rom_pos = M_game_datapath_p2_chef_out[2'h2:1'h0];
         M_p2_chef_driver_color = COLOR_ENCODING[M_p2_chef_rom_out[(3'h4)'(M_p2_chef_driver_pixel_address)]];
         p2_chef_data = M_p2_chef_driver_data;
         M_lane_1_color_rom_pos = M_game_datapath_lane_1_color_out[1'h1:1'h0];
@@ -724,7 +718,7 @@ module alchitry_top (
         M_lane_4_sushi_driver_color = COLOR_ENCODING[M_lane_4_sushi_rom_out[(3'h5)'(M_lane_4_sushi_driver_pixel_address)]];
         lane_4_sushi_data = M_lane_4_sushi_driver_data;
         M_seg_values = {{4'h0, 4'h0, 4'h0, 4'h0}};
-        M_bin_to_dec_converter_value = M_game_datapath_lane_1_color_out[1'h1:1'h0];
+        M_bin_to_dec_converter_value = M_game_datapath_timer_out[4'hd:1'h0];
         M_seg_values = M_bin_to_dec_converter_digits;
         io_segment = ~M_seg_seg;
         io_select = ~M_seg_sel;

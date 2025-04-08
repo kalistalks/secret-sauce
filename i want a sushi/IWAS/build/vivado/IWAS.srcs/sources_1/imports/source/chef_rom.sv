@@ -5,7 +5,7 @@
 */
 
 module chef_rom (
-        input wire [3:0] pos,
+        input wire [2:0] pos,
         output reg [11:0][1:0] out
     );
     always @* begin

@@ -30,7 +30,7 @@ module game_regfiles (
     );
     logic [31:0] D_p1_score_d, D_p1_score_q = 1'h0;
     logic [31:0] D_p2_score_d, D_p2_score_q = 1'h0;
-    logic [31:0] D_current_timer_d, D_current_timer_q = 1'h0;
+    logic [31:0] D_current_timer_d, D_current_timer_q = 2'h2;
     logic [31:0] D_p1_chef_d, D_p1_chef_q = 1'h0;
     logic [31:0] D_p2_chef_d, D_p2_chef_q = 1'h0;
     logic [31:0] D_lane_1_color_d, D_lane_1_color_q = 1'h1;
@@ -243,7 +243,7 @@ module game_regfiles (
         if ((rst) == 1'b1) begin
             D_p1_score_q <= 1'h0;
             D_p2_score_q <= 1'h0;
-            D_current_timer_q <= 1'h0;
+            D_current_timer_q <= 2'h2;
             D_p1_chef_q <= 1'h0;
             D_p2_chef_q <= 1'h0;
             D_lane_1_color_q <= 1'h1;

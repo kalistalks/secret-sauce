@@ -52,33 +52,17 @@ module game_datapath #(
     );
     
     
-    localparam _MP_SEED_1975567745 = 30'h286b4b9c;
-    localparam _MP_FAST_CLOCK_DIV_1975567745 = FAST_CLOCK_DIV;
-    logic M_variable_timer_clock_out;
-    logic [15:0] M_variable_timer_clock_debug;
-    
-    variable_timer #(
-        .SEED(_MP_SEED_1975567745),
-        .FAST_CLOCK_DIV(_MP_FAST_CLOCK_DIV_1975567745)
-    ) variable_timer_clock (
-        .rst(rst),
-        .clk(clk),
-        .out(M_variable_timer_clock_out),
-        .debug(M_variable_timer_clock_debug)
-    );
-    
-    
-    localparam _MP_SIZE_575533697 = 1'h1;
-    localparam _MP_DIV_575533697 = SLOW_CLOCK_DIV;
-    localparam _MP_TOP_575533697 = 1'h0;
-    localparam _MP_UP_575533697 = 1'h1;
+    localparam _MP_SIZE_787656610 = 1'h1;
+    localparam _MP_DIV_787656610 = SLOW_CLOCK_DIV;
+    localparam _MP_TOP_787656610 = 1'h0;
+    localparam _MP_UP_787656610 = 1'h1;
     logic [0:0] M_game_timer_clock_value;
     
     counter #(
-        .SIZE(_MP_SIZE_575533697),
-        .DIV(_MP_DIV_575533697),
-        .TOP(_MP_TOP_575533697),
-        .UP(_MP_UP_575533697)
+        .SIZE(_MP_SIZE_787656610),
+        .DIV(_MP_DIV_787656610),
+        .TOP(_MP_TOP_787656610),
+        .UP(_MP_UP_787656610)
     ) game_timer_clock (
         .rst(rst),
         .clk(clk),
@@ -86,27 +70,13 @@ module game_datapath #(
     );
     
     
-    localparam _MP_RISE_2055111148 = 1'h1;
-    localparam _MP_FALL_2055111148 = 1'h0;
-    logic M_edge_detector_variable_timer_out;
-    
-    edge_detector #(
-        .RISE(_MP_RISE_2055111148),
-        .FALL(_MP_FALL_2055111148)
-    ) edge_detector_variable_timer (
-        .in(M_variable_timer_clock_out),
-        .clk(clk),
-        .out(M_edge_detector_variable_timer_out)
-    );
-    
-    
-    localparam _MP_RISE_1035776925 = 1'h1;
-    localparam _MP_FALL_1035776925 = 1'h0;
+    localparam _MP_RISE_393084896 = 1'h1;
+    localparam _MP_FALL_393084896 = 1'h0;
     logic M_edge_detector_game_timer_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_1035776925),
-        .FALL(_MP_FALL_1035776925)
+        .RISE(_MP_RISE_393084896),
+        .FALL(_MP_FALL_393084896)
     ) edge_detector_game_timer (
         .in(M_game_timer_clock_value),
         .clk(clk),
@@ -133,6 +103,7 @@ module game_datapath #(
         .p2_button_right(p2_button_right),
         .p2_button_flip(p2_button_flip),
         .rst(rst),
+        .decrease_timer(M_edge_detector_game_timer_out),
         .clk(clk),
         .regfile_rd2(M_game_cu_regfile_rd2),
         .alufn(M_game_cu_alufn),
