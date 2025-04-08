@@ -191,7 +191,7 @@ module alchitry_top (
         
         //update 7segments
         seg.values = 4x{{4b0}} // default to all 0 first
-        bin_to_dec_converter.value = game_datapath.lane_1_color_out[1:0]
+        bin_to_dec_converter.value = game_datapath.timer_out[13:0]
         seg.values = bin_to_dec_converter.digits
         
         /*

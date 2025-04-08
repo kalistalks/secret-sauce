@@ -38,11 +38,11 @@ module game_datapath#(
     alu game_alu
     
     .clk(clk){
-        variable_timer variable_timer_clock(#FAST_CLOCK_DIV(FAST_CLOCK_DIV), .rst(rst))
+        // variable_timer variable_timer_clock(#FAST_CLOCK_DIV(FAST_CLOCK_DIV), .rst(rst))
         counter game_timer_clock(#SIZE(1),#DIV(SLOW_CLOCK_DIV), .rst(rst)) 
         
         // edge detector declaration & connection with counters
-        edge_detector edge_detector_variable_timer (#RISE(1), #FALL(0), .in(variable_timer_clock.out))
+        // edge_detector edge_detector_variable_timer (#RISE(1), #FALL(0), .in(variable_timer_clock.out))
         edge_detector edge_detector_game_timer(#RISE(1), #FALL(0), .in(game_timer_clock.value))
         
         game_cu game_cu(
@@ -52,8 +52,8 @@ module game_datapath#(
             .p2_button_left(p2_button_left),
             .p2_button_right(p2_button_right),
             .p2_button_flip(p2_button_flip),
-            .rst(rst)
-            // .decrease_timer(edge_detector_game_timer.out)
+            .rst(rst),
+            .decrease_timer(edge_detector_game_timer.out)
             
         )
         

@@ -1,7 +1,7 @@
 module game_cu (
     input clk,  // clock
     input rst,  // reset
-    // input decrease_timer,
+    input decrease_timer,
     input regfile_rd2[32], //direct reading of regfile data from rd2
     
     input p1_button_left,
@@ -24,6 +24,25 @@ module game_cu (
     
     enum GameStates {
         IDLE_GAME,
+        
+        // Game Timer
+        CHECK_GAMETIMER,
+        BRANCH_GAMETIMER,
+        DECREASE_GAMETIMER, 
+        
+        // Win/Draw/Lose
+        CHECK_DRAW,
+        BRANCH_DRAW,
+        DRAW,
+        CHECK_WINNER,
+        BRANCH_WINNER,
+        P1_WIN,
+        P2_WIN,
+        P1_LOSE,
+        P2_LOSE,
+        END,
+        
+        // Player 1 Move/Flip lane
         CHECK_P1_POS,
         CHECK_P1_LEFT,
         BRANCH_P1_LEFT,
@@ -44,6 +63,7 @@ module game_cu (
         BRANCH_P1_LANE_4,
         FLIP_P1_LANE_4,
         
+        // Player 2 Move/Flip lane
         CHECK_P2_POS,
         CHECK_P2_LEFT,
         BRANCH_P2_LEFT,
@@ -62,19 +82,70 @@ module game_cu (
         FLIP_P2_LANE_3,
         CHECK_P2_LANE_4,
         BRANCH_P2_LANE_4,
-        FLIP_P2_LANE_4
+        FLIP_P2_LANE_4,
+        
+        // Check/Update/Spawn Sushi Lane 1
+        CHECK_LANE_1_DIRECTION,
+        BRANCH_LANE_1_DIRECTION,
+        UPDATE_LANE_1_SUSHI_POS_P1,
+        UPDATE_LANE_1_SUSHI_POS_P2,
+        CHECK_LANE_1_SUSHI_END_P1,
+        BRANCH_LANE_1_SUSHI_END_P1,
+        CHECK_LANE_1_SUSHI_END_P2,
+        BRANCH_LANE_1_SUSHI_END_P2,
+        UPDATE_LANE_1_POINTS_P1,
+        UPDATE_LANE_1_POINTS_P2,
+        SPAWN_LANE_1_SUSHI,
+        
+        // Check/Update/Spawn Sushi Lane 2
+        CHECK_LANE_2_DIRECTION,
+        BRANCH_LANE_2_DIRECTION,
+        UPDATE_LANE_2_SUSHI_POS_P1,
+        UPDATE_LANE_2_SUSHI_POS_P2,
+        CHECK_LANE_2_SUSHI_END_P1,
+        BRANCH_LANE_2_SUSHI_END_P1,
+        CHECK_LANE_2_SUSHI_END_P2,
+        BRANCH_LANE_2_SUSHI_END_P2,
+        UPDATE_LANE_2_POINTS_P1,
+        UPDATE_LANE_2_POINTS_P2,
+        SPAWN_LANE_2_SUSHI,
+        
+        // Check/Update/Spawn Sushi Lane 3
+        CHECK_LANE_3_DIRECTION,
+        BRANCH_LANE_3_DIRECTION,
+        UPDATE_LANE_3_SUSHI_POS_P1,
+        UPDATE_LANE_3_SUSHI_POS_P2,
+        CHECK_LANE_3_SUSHI_END_P1,
+        BRANCH_LANE_3_SUSHI_END_P1,
+        CHECK_LANE_3_SUSHI_END_P2,
+        BRANCH_LANE_3_SUSHI_END_P2,
+        UPDATE_LANE_3_POINTS_P1,
+        UPDATE_LANE_3_POINTS_P2,
+        SPAWN_LANE_3_SUSHI,
+        
+        // Check/Update/Spawn Sushi Lane 4
+        CHECK_LANE_4_DIRECTION,
+        BRANCH_LANE_4_DIRECTION,
+        UPDATE_LANE_4_SUSHI_POS_P1,
+        UPDATE_LANE_4_SUSHI_POS_P2,
+        CHECK_LANE_4_SUSHI_END_P1,
+        BRANCH_LANE_4_SUSHI_END_P1,
+        CHECK_LANE_4_SUSHI_END_P2,
+        BRANCH_LANE_4_SUSHI_END_P2,
+        UPDATE_LANE_4_POINTS_P1,
+        UPDATE_LANE_4_POINTS_P2,
+        SPAWN_LANE_4_SUSHI
     }
     
     dff game_fsm[$width(GameStates)](#INIT(GameStates.IDLE_GAME), .clk(clk), .rst(rst))
     
     always {
-        
         // standard setting unless otherwise overwritten by each case 
         alufn = 0
         asel = 0 
         bsel = 0
         regfile_we = 0
-        regfile_wa = d6 
+        regfile_wa = d15
         regfile_ra1 = d0
         regfile_ra2 = d0
         alu_out_sel = 0
@@ -89,7 +160,10 @@ module game_cu (
         else{
             case(game_fsm.q){
                 GameStates.IDLE_GAME:
-                    if (p1_button_left){
+                    if (decrease_timer){
+                        game_fsm.d = GameStates.CHECK_GAMETIMER
+                    }
+                    else if (p1_button_left){
                         game_fsm.d = GameStates.CHECK_P1_LEFT
                     }
                     else if (p1_button_right){
@@ -106,6 +180,34 @@ module game_cu (
                     }
                     else if (~p1_button_flip && p2_button_flip){
                         game_fsm.d = GameStates.CHECK_P2_LANE_1
+                    }
+                    else{
+                        game_fsm.d = GameStates.IDLE_GAME
+                    }
+                
+                // Game Timer Logic
+                GameStates.DECREASE_GAMETIMER:
+                    alufn = b000001    //SUB
+                    regfile_ra1 = d2    // R5 = timer reg
+                    asel = b00    // pass through ra1 regfile
+                    bsel = b001    // constant 1
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d2    // R5 = timer reg
+                    game_fsm.d = GameStates.IDLE_GAME
+                
+                GameStates.CHECK_GAMETIMER:
+                    alufn = b110011    //CMPEQ
+                    regfile_ra1 = d2    // R5 = timer reg
+                    asel = b00    // pass through ra1 regfile
+                    bsel = b100    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    //temp reg
+                    game_fsm.d = GameStates.BRANCH_GAMETIMER
+                
+                GameStates.BRANCH_GAMETIMER:
+                    regfile_ra2 = d15    //temp reg
+                    if (~regfile_rd2[0]){    //if timer is not zero
+                        game_fsm.d = GameStates.DECREASE_GAMETIMER
                     }
                     else{
                         game_fsm.d = GameStates.IDLE_GAME
