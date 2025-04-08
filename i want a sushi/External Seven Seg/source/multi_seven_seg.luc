@@ -1,10 +1,10 @@
 module multi_seven_seg #(
-    DIGITS = 4 : DIGITS > 0,
+    DIGITS = 6 : DIGITS > 0,
     DIV = $is_sim() ? 0 : 16 : DIV >= 0
 )(
     input clk,                // clock
     input rst,                // reset
-    input values[DIGITS][4],  // values to show
+    input values[DIGITS][6],  // values to show
     output seg[7],            // LED segments
     output sel[DIGITS]        // Digit select
 ) {

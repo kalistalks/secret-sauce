@@ -56,38 +56,38 @@ PINOUT(V1), STANDARD(LVCMOS33) {
         pin io_button[3] B24
         pin io_button[4] C49
 
-        /*
-            pin io_select[0] A9
-            pin io_select[1] A8
-            pin io_select[2] A42
-            pin io_select[3] A43
+        pin io_select[0] A9
+        pin io_select[1] A8
+        pin io_select[2] A42
+        pin io_select[3] A43
 
-            pin io_segment[0] A5
-            pin io_segment[1] A6
-            pin io_segment[2] A48
-            pin io_segment[3] A46
-            pin io_segment[4] A45
-            pin io_segment[5] A3
-            pin io_segment[6] A2
-            pin io_segment[7] A49
-        */
-
+        pin io_segment[0] A5
+        pin io_segment[1] A6
+        pin io_segment[2] A48
+        pin io_segment[3] A46
+        pin io_segment[4] A45
+        pin io_segment[5] A3
+        pin io_segment[6] A2
+        pin io_segment[7] A49
+        
         pin ext_select[0] C9
         pin ext_select[1] C8
         pin ext_select[2] C42
         pin ext_select[3] C43
+        pin ext_select[4] C46 // is C6 spoilt??
+        pin ext_select[5] C5
 
-        pin ext_segment[0] C6
+        /*pin ext_segment[0] C6
         pin ext_segment[1] C5
         pin ext_segment[2] C45
         pin ext_segment[3] C46
         pin ext_segment[4] C3
         pin ext_segment[5] C2
         pin ext_segment[6] C48
-        pin ext_segment[7] D11 // Unused Decimal Point
+        pin ext_segment[7] D11 // Unused Decimal Point */
     }
 
-    pin io_select[0] A9
+    /*pin io_select[0] A9
     pin io_select[1] A8
     pin io_select[2] A42
     pin io_select[3] A43
@@ -99,5 +99,5 @@ PINOUT(V1), STANDARD(LVCMOS33) {
     pin io_segment[4] A45
     pin io_segment[5] A3
     pin io_segment[6] A2
-    pin io_segment[7] A49
+    pin io_segment[7] A49*/
 }

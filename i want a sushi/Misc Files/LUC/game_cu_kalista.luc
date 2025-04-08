@@ -1,0 +1,920 @@
+module game_cu (
+    input clk,  // clock
+    input rst,  // reset
+    input increase_counter,
+    input decrease_timer,
+    input regfile_rd2[32], //direct reading of regfile data from rd2
+    
+    // p1 and p2 buttons, 3 each
+    input p1_button_1,
+    input p1_button_2,
+    input p1_button_3,
+    input p2_button_1,
+    input p2_button_2,
+    input p2_button_3
+    
+    output alufn[6],
+    output asel[3],
+    output bsel[3],
+    output alu_out_sel[2],
+    output regfile_wa[3],
+    output regfile_ra1[3],
+    output regfile_ra2[3],
+    output regfile_we,
+    output debug[4]
+) {
+        
+    enum GameStates {
+        IDLE_MAIN,
+        WAIT_FOR_BUTTON_6,
+        START_SET_TIMER,
+        IDLE_GAME,
+        CHECK_GAME_TIMER,
+        DECREASE_GAME_TIMER,
+        TBC,
+        MOVE_P1_UP,
+        MOVE_P1_DOWN,
+        MOVE_P2_UP,
+        MOVE_P2_DOWN,
+        GET_CURRENT_P1_BELT,
+        CHECK_P1_LANE,
+        UPDATE_BELT_BLUE,
+        GET_CURRENT_P2_BELT,
+        CHECK_P2_LANE,
+        UPDATE_BELT_RED,
+        CHECK_DRAW,
+        // kalista added stuff
+        BRANCH_DRAW,
+        DRAW,
+        CHECK_WINNER,
+        // kalista added stuff 
+        BRANCH_WINNER,
+        P1_WIN,
+        P2_WIN,
+        P1_LOSE,
+        P2_LOSE,
+        END,
+
+        // kalista's new states 
+        CHECK_LANE_1_DIRECTION,
+        BRANCH_LANE_1_DIRECTION,
+        UPDATE_LANE_1_SUSHI_POS_P1,
+        UPDATE_LANE_1_SUSHI_POS_P2,
+        CHECK_LANE_1_SUSHI_END_P1,
+        BRANCH_LANE_1_SUSHI_END_P1,
+        CHECK_LANE_1_SUSHI_END_P2,
+        BRANCH_LANE_1_SUSHI_END_P2,
+        UPDATE_LANE_1_POINTS_P1,
+        UPDATE_LANE_1_POINTS_P2,
+        SPAWN_LANE_1_SUSHI,
+
+        CHECK_LANE_2_DIRECTION,
+        BRANCH_LANE_2_DIRECTION,
+        UPDATE_LANE_2_SUSHI_POS_P1,
+        UPDATE_LANE_2_SUSHI_POS_P2,
+        CHECK_LANE_2_SUSHI_END_P1,
+        BRANCH_LANE_2_SUSHI_END_P1,
+        CHECK_LANE_2_SUSHI_END_P2,
+        BRANCH_LANE_2_SUSHI_END_P2,
+        UPDATE_LANE_2_POINTS_P1,
+        UPDATE_LANE_2_POINTS_P2,
+        SPAWN_LANE_2_SUSHI,  
+
+        CHECK_LANE_3_DIRECTION,
+        BRANCH_LANE_3_DIRECTION,
+        UPDATE_LANE_3_SUSHI_POS_P1,
+        UPDATE_LANE_3_SUSHI_POS_P2,
+        CHECK_LANE_3_SUSHI_END_P1,
+        BRANCH_LANE_3_SUSHI_END_P1,
+        CHECK_LANE_3_SUSHI_END_P2,
+        BRANCH_LANE_3_SUSHI_END_P2,
+        UPDATE_LANE_3_POINTS_P1,
+        UPDATE_LANE_3_POINTS_P2,
+        SPAWN_LANE_3_SUSHI,
+
+        CHECK_LANE_4_DIRECTION,
+        BRANCH_LANE_4_DIRECTION,
+        UPDATE_LANE_4_SUSHI_POS_P1,
+        UPDATE_LANE_4_SUSHI_POS_P2,
+        CHECK_LANE_4_SUSHI_END_P1,
+        BRANCH_LANE_4_SUSHI_END_P1,
+        CHECK_LANE_4_SUSHI_END_P2,
+        BRANCH_LANE_4_SUSHI_END_P2,
+        UPDATE_LANE_4_POINTS_P1,
+        UPDATE_LANE_4_POINTS_P2,
+        SPAWN_LANE_4_SUSHI         
+    }
+
+    dff game_fsm[$width(GameStates)](#INIT(GameStates.IDLE_MAIN), .clk(clk), .rst(rst))
+    
+    always {
+        
+        // standard setting unless otherwise overwritten by each case 
+        alufn = 0
+        asel = 0 
+        bsel = 0
+        regfile_we = 0
+        regfile_wa = d15 // temp register
+        regfile_ra1 = d0
+        regfile_ra2 = d0
+        alu_out_sel = 0
+        
+        debug = b0000
+        
+        
+        game_fsm.d = game_fsm.q
+        if (rst){ // if we press the RESET button
+            game_fsm.d = GameStates.IDLE_MAIN
+        }
+        else{
+            
+            case (states.q){
+                // different states below
+                States.IDLE_MAIN:
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6                     
+                    states.d = States.WAIT_FOR_BUTTON_6
+                    
+                States.WAIT_FOR_BUTTON_6:
+                    // detect button 6 is pressed
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.START_SET_TIMER
+                    
+                States.START_SET_TIMER:
+                    // start 30 seconds timer 
+                    alufn = b000000                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.IDLE_GAME
+                    
+                States.IDLE_GAME:
+                    // decrease slow clock by 1
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.CHECK_GAME_TIMER        
+                    
+                    // if button 1 pressed
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.MOVE_P1_UP              // line 54              
+                    
+                    // if button 2 pressed
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6 
+                    states.d = States.MOVE_P1_DOWN
+                    
+                    // if button 3 pressed
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.GET_CURRENT_P1_BELT
+                    
+                    // if button 4 pressed
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.MOVE_P2_UP
+                    
+                    // if button 5 pressed
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.MOVE_P2_DOWN
+                    
+                    // if button 6 pressed
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.GET_CURRENT_P2_BELT
+                    
+                States.CHECK_GAME_TIMER:
+                    // check if game timer == 0
+                    // if game timer != 0
+                    alufn = b110101                             
+                    regfile_ra1 = d2
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.DECREASE_GAME_TIMER   // line 134
+                
+                    // else 
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.CHECK_DRAW        // line 98
+                    
+                States.MOVE_P1_UP:
+                    // change position of player 1 up by 1
+                    // update chef position
+                    alufn = b000000                             
+                    regfile_ra1 = d3             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d3
+                    states.d = States.IDLE_GAME
+                    
+                States.MOVE_P1_DOWN:
+                    // change position of player 1 down by 1
+                    // update chef position
+                    alufn = b000001                             
+                    regfile_ra1 = d3             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d3
+                    states.d = States.IDLE_GAME
+                
+                States.MOVE_P2_UP:
+                    // change position of player 2 up by 1
+                    // update chef position
+                    alufn = b000000                             
+                    regfile_ra1 = d4             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d4
+                    states.d = States.IDLE_GAME
+                    
+                States.MOVE_P2_DOWN:
+                    // change position of player 2 down by 1
+                    // update chef position
+                    alufn = b000001                             
+                    regfile_ra1 = d4             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d4
+                    states.d = States.IDLE_GAME
+                    
+                States.GET_CURRENT_P1_BELT:
+                    // get current P1 Lane
+                    alufn = b110101                             
+                    regfile_ra1 = d5            
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d5
+                    states.d = States.CHECK_P1_LANE
+                
+                States.CHECK_P1_LANE:
+                    // check lane is within 0-3
+                    alufn = b110101                             
+                    regfile_ra1 = d5             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d5
+                    states.d = States.UPDATE_BELT_BLUE
+                
+                States.UPDATE_BELT_BLUE:
+                    // update lane to blue then loop back to idle game
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.IDLE_GAME
+                
+                States.GET_CURRENT_P2_BELT:
+                    // get current P1 Lane
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.CHECK_P2_LANE
+                
+                States.CHECK_P2_LANE:
+                    // check lane is within 0-3
+                    alufn = b110101
+
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.UPDATE_BELT_RED
+                
+                States.UPDATE_BELT_RED:
+                    // update lane to red then loop back to idle game
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.IDLE_GAME
+
+                // kalista editted from here                 
+                States.CHECK_DRAW:
+                    // check draw or have winner and store result into temp register
+                    alufn = b110011                             
+                    regfile_ra1 = d0
+                    regfile_ra2 = d1             
+                    bsel = b00                             
+                    asel = b000 
+                    regfile_we = 1
+                    regfile_wa = d15
+                    states.d = States.BRANCH_DRAW
+
+                States.BRANCH_DRAW: 
+                    regfile_ra2 = d15
+                    if (regfile_ra2[0]) { 
+                        // if draw
+                        states.d = States.DRAW
+                    } 
+                    else { 
+                        // if winner
+                        states.d = States.CHECK_WINNER
+                    }
+                
+                States.DRAW: // not sure about this one
+                    // game is drawn, go to END
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.END
+                
+                States.CHECK_WINNER:
+                    // check winner and store into temp register
+                    alufn = b110101 // compare less than                            
+                    regfile_ra1 = d0
+                    regfile_ra2 = d1             
+                    bsel = b00                             
+                    asel = b000 
+                    regfile_we = 1
+                    regfile_wa = d15
+                    states.d = States.BRANCH_WINNER
+
+                States.BRANCH_WINNER: 
+                    regfile_ra2 = d15
+                    if (regfile_ra2[0]) { 
+                        // P1 wins
+                        states.d = States.P1_WIN
+                    } 
+                    else { 
+                        // P2 wins
+                        states.d = States.P2_WIN
+                    }
+ 
+                States.P1_WIN:
+                    // P1 winner
+                    regfile_we = 1
+                    regfile_wa = d0
+                    alu_out_sel = b01 
+                    states.d = States.P2_LOSE
+                
+                States.P2_LOSE:
+                    // go to end
+                    regfile_we = 1
+                    regfile_wa = d1
+                    alu_out_sel = b11
+                    states.d = States.END
+                
+                States.P2_WIN:
+                    // P2 winner
+                    regfile_we = 1
+                    regfile_wa = d1
+                    alu_out_sel = b01
+                    states.d = States.P1_LOSE
+                
+                States.P1_LOSE:
+                    // go to end
+                    regfile_we = 1
+                    regfile_wa = d0
+                    alu_out_sel = b01
+                    states.d = States.END
+
+                States.END: 
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.TBC
+                
+                // kalista stopped editting here 
+                    
+                States.DECREASE_GAME_TIMER:
+                    // decrease game timer by 1
+
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.TBC // uh
+
+                // kalista's changes start here :))
+
+                // LANE 1
+                States.CHECK_LANE_1_DIRECTION: 
+                    // get direction of sushi travel and store into temp register
+                    alufn = b110011 // CMPEQ with 2 which represents blue                           
+                    regfile_ra1 = d5 // RA          
+                    bsel = b011                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d15 // RC
+                    states.d = States.BRANCH_LANE_1_DIRECTION
+
+                States.BRANCH_LANE_1_DIRECTION:
+                    // if R15 == 1 then direction is in the blue side
+                    regfile_ra2 = d15 
+                    if (regfile_ra2[0]){
+                        states.d = States.UPDATE_LANE_1_SUSHI_POS_P1
+                    }
+                    else { 
+                        // if R15 != 1 then the direction is in the red side
+                        states.d = States.UPDATE_LANE_1_SUSHI_POS_P2
+                    }
+                    
+                States.UPDATE_LANE_1_SUSHI_POS_P1:
+                    // if lane direction = blue
+                        // sushi_pos (R9) - 1
+                    alufn = b000000                             
+                    regfile_ra1 = d9           
+                    bsel = b010                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d9
+                    states.d = States.CHECK_LANE_1_SUSHI_END_P1
+
+                States.CHECK_LANE_1_SUSHI_END_P1:
+                    // checks if position == 0 then stores result into R15
+                    alufn = b110011                             
+                    regfile_ra1 = d9             
+                    bsel = b100                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d15
+                    states.d = States.BRANCH_LANE_1_SUSHI_END_P1
+
+                States.BRANCH_LANE_1_SUSHI_END_P1:
+                    // if reached, R15 == 1
+                    regfile_ra2 = d15 
+                    if (regfile_ra2[0]){
+                        states.d = States.UPDATE_LANE_1_POINTS_P1
+                    }
+                    else {
+                        // not reached, R15 != 1
+                        states.d = States.CHECK_LANE_2_DIRECTION
+                    }                     
+                
+                States.UPDATE_LANE_1_POINTS_P1:
+                    // p1_points + 1
+                    alufn = b000000                             
+                    regfile_ra1 = d0             
+                    bsel = b001                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d0 
+                    states.d = States.SPAWN_LANE_1_SUSHI
+
+                States.UPDATE_LANE_1_SUSHI_POS_P2:
+                    // else lane direction = red
+                        // sushi-pos (R9) + 1
+                    alufn = b000000                             
+                    regfile_ra1 = d9             
+                    bsel = b001                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d9
+                    states.d = States.CHECK_LANE_1_SUSHI_END_P2
+
+                States.CHECK_LANE_1_SUSHI_END_P2:
+                    // checks if position == 9 then stores result into R15
+                    alufn = b110011                             
+                    regfile_ra1 = d9             
+                    bsel = b101                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d15
+                    states.d = States.BRANCH_LANE_1_SUSHI_END_P2
+                
+                States.BRANCH_LANE_1_SUSHI_END_P2:
+                    // if reached, R15 == 1 
+                    regfile_ra2 = d15 
+                    if (regfile_ra2[0]){
+                        states.d = States.UPDATE_LANE_1_POINTS_P2
+                    }
+                    else {
+                        // not reached, R15 != 1
+                        states.d = States.CHECK_LANE_2_DIRECTION
+                    }      
+                
+                States.UPDATE_LANE_1_POINTS_P2:
+                    // p2_points + 1
+                    alufn = b000000                             
+                    regfile_ra1 = d1             
+                    bsel = b001                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d1
+                    states.d = States.SPAWN_LANE_1_SUSHI  
+                
+                States.SPAWN_LANE_1_SUSHI:
+                    // spawn sushi in the middle
+                    alufn = b000000                                        
+                    bsel = b111                             
+                    asel = b01 
+                    regfile_we = 1
+                    regfile_wa = d9
+                    states.d = States.CHECK_LANE_2_DIRECTION
+
+                // LANE 2    
+                States.CHECK_LANE_2_DIRECTION: 
+                    // get direction of sushi travel and store into temp register
+                    alufn = b110011 // CMPEQ with 2 which represents blue                           
+                    regfile_ra1 = d6 // RA          
+                    bsel = b011                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d15 // RC
+                    states.d = States.BRANCH_LANE_2_DIRECTION
+
+                States.BRANCH_LANE_2_DIRECTION:
+                    // if R15 == 1 then direction is in the blue side
+                    regfile_ra2 = d15 
+                    if (regfile_ra2[0]){
+                        states.d = States.UPDATE_LANE_2_SUSHI_POS_P1
+                    }
+                    else { 
+                        // if R15 != 1 then the direction is in the red side
+                        states.d = States.UPDATE_LANE_2_SUSHI_POS_P2
+                    }
+                    
+                States.UPDATE_LANE_2_SUSHI_POS_P1:
+                    // if lane direction = blue
+                        // sushi_pos (R10) - 1
+                    alufn = b000000                             
+                    regfile_ra1 = d10           
+                    bsel = b010                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d10
+                    states.d = States.CHECK_LANE_2_SUSHI_END_P1
+
+                States.CHECK_LANE_2_SUSHI_END_P1:
+                    // checks if position == 0 then stores result into R15
+                    alufn = b110011                             
+                    regfile_ra1 = d10             
+                    bsel = b100                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d15
+                    states.d = States.BRANCH_LANE_2_SUSHI_END_P1
+
+                States.BRANCH_LANE_2_SUSHI_END_P1:
+                    // if reached, R15 == 1
+                    regfile_ra2 = d15 
+                    if (regfile_ra2[0]){
+                        states.d = States.UPDATE_LANE_2_POINTS_P1
+                    }
+                    else {
+                        // not reached, R15 != 1
+                        states.d = States.CHECK_LANE_3_DIRECTION
+                    }                     
+                
+                States.UPDATE_LANE_2_POINTS_P1:
+                    // p1_points + 1
+                    alufn = b000000                             
+                    regfile_ra1 = d0             
+                    bsel = b001                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d0 
+                    states.d = States.SPAWN_LANE_2_SUSHI
+
+                States.UPDATE_LANE_2_SUSHI_POS_P2:
+                    // else lane direction = red
+                        // sushi-pos (R10) + 1
+                    alufn = b000000                             
+                    regfile_ra1 = d10             
+                    bsel = b001                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d10
+                    states.d = States.CHECK_LANE_2_SUSHI_END_P2
+
+                States.CHECK_LANE_2_SUSHI_END_P2:
+                    // checks if position == 9 then stores result into R15
+                    alufn = b110011                             
+                    regfile_ra1 = d10             
+                    bsel = b101                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d15
+                    states.d = States.BRANCH_LANE_2_SUSHI_END_P2
+                
+                States.BRANCH_LANE_2_SUSHI_END_P2:
+                    // if reached, R15 == 1 
+                    regfile_ra2 = d15 
+                    if (regfile_ra2[0]){
+                        states.d = States.UPDATE_LANE_2_POINTS_P2
+                    }
+                    else {
+                        // not reached, R15 != 1
+                        states.d = States.CHECK_LANE_3_DIRECTION
+                    }      
+                
+                States.UPDATE_LANE_2_POINTS_P2:
+                    // p2_points + 1
+                    alufn = b000000                             
+                    regfile_ra1 = d1             
+                    bsel = b001                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d1
+                    states.d = States.SPAWN_LANE_2_SUSHI  
+                
+                States.SPAWN_LANE_2_SUSHI:
+                    // spawn sushi in the middle
+                    alufn = b000000                                        
+                    bsel = b111                             
+                    asel = b01 
+                    regfile_we = 1
+                    regfile_wa = d10
+                    states.d = States.CHECK_LANE_3_DIRECTION
+
+                // LANE 3    
+                States.CHECK_LANE_3_DIRECTION: 
+                    // get direction of sushi travel and store into temp register
+                    alufn = b110011 // CMPEQ with 2 which represents blue                           
+                    regfile_ra1 = d7 // RA          
+                    bsel = b011                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d15 // RC
+                    states.d = States.BRANCH_LANE_3_DIRECTION
+
+                States.BRANCH_LANE_3_DIRECTION:
+                    // if R15 == 1 then direction is in the blue side
+                    regfile_ra2 = d15 
+                    if (regfile_ra2[0]){
+                        states.d = States.UPDATE_LANE_3_SUSHI_POS_P1
+                    }
+                    else { 
+                        // if R15 != 1 then the direction is in the red side
+                        states.d = States.UPDATE_LANE_3_SUSHI_POS_P2
+                    }
+                    
+                States.UPDATE_LANE_3_SUSHI_POS_P1:
+                    // if lane direction = blue
+                        // sushi_pos (R11) - 1
+                    alufn = b000000                             
+                    regfile_ra1 = d11           
+                    bsel = b010                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d11
+                    states.d = States.CHECK_LANE_3_SUSHI_END_P1
+
+                States.CHECK_LANE_3_SUSHI_END_P1:
+                    // checks if position == 0 then stores result into R15
+                    alufn = b110011                             
+                    regfile_ra1 = d11             
+                    bsel = b100                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d15
+                    states.d = States.BRANCH_LANE_3_SUSHI_END_P1
+
+                States.BRANCH_LANE_3_SUSHI_END_P1:
+                    // if reached, R15 == 1
+                    regfile_ra2 = d15 
+                    if (regfile_ra2[0]){
+                        states.d = States.UPDATE_LANE_3_POINTS_P1
+                    }
+                    else {
+                        // not reached, R15 != 1
+                        states.d = States.CHECK_LANE_4_DIRECTION
+                    }                     
+                
+                States.UPDATE_LANE_3_POINTS_P1:
+                    // p1_points + 1
+                    alufn = b000000                             
+                    regfile_ra1 = d0             
+                    bsel = b001                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d0 
+                    states.d = States.SPAWN_LANE_3_SUSHI
+
+                States.UPDATE_LANE_3_SUSHI_POS_P2:
+                    // else lane direction = red
+                        // sushi-pos (R11) + 1
+                    alufn = b000000                             
+                    regfile_ra1 = d11             
+                    bsel = b001                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d11
+                    states.d = States.CHECK_LANE_3_SUSHI_END_P2
+
+                States.CHECK_LANE_3_SUSHI_END_P2:
+                    // checks if position == 9 then stores result into R15
+                    alufn = b110011                             
+                    regfile_ra1 = d11             
+                    bsel = b101                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d15
+                    states.d = States.BRANCH_LANE_3_SUSHI_END_P2
+                
+                States.BRANCH_LANE_3_SUSHI_END_P2:
+                    // if reached, R15 == 1 
+                    regfile_ra2 = d15 
+                    if (regfile_ra2[0]){
+                        states.d = States.UPDATE_LANE_3_POINTS_P2
+                    }
+                    else {
+                        // not reached, R15 != 1
+                        states.d = States.CHECK_LANE_4_DIRECTION
+                    }      
+                
+                States.UPDATE_LANE_3_POINTS_P2:
+                    // p2_points + 1
+                    alufn = b000000                             
+                    regfile_ra1 = d1             
+                    bsel = b001                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d1
+                    states.d = States.SPAWN_LANE_3_SUSHI  
+                
+                States.SPAWN_LANE_3_SUSHI:
+                    // spawn sushi in the middle
+                    alufn = b000000                                        
+                    bsel = b111                             
+                    asel = b01 
+                    regfile_we = 1
+                    regfile_wa = d11
+                    states.d = States.CHECK_LANE_4_DIRECTION
+
+                // LANE 4    
+                States.CHECK_LANE_4_DIRECTION: 
+                    // get direction of sushi travel and store into temp register
+                    alufn = b110011 // CMPEQ with 2 which represents blue                           
+                    regfile_ra1 = d8 // RA          
+                    bsel = b011                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d15 // RC
+                    states.d = States.BRANCH_LANE_4_DIRECTION
+
+                States.BRANCH_LANE_4_DIRECTION:
+                    // if R15 == 1 then direction is in the blue side
+                    regfile_ra2 = d15 
+                    if (regfile_ra2[0]){
+                        states.d = States.UPDATE_LANE_4_SUSHI_POS_P1
+                    }
+                    else { 
+                        // if R15 != 1 then the direction is in the red side
+                        states.d = States.UPDATE_LANE_4_SUSHI_POS_P2
+                    }
+                    
+                States.UPDATE_LANE_4_SUSHI_POS_P1:
+                    // if lane direction = blue
+                        // sushi_pos (R12) - 1
+                    alufn = b000000                             
+                    regfile_ra1 = d12           
+                    bsel = b010                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d12
+                    states.d = States.CHECK_LANE_4_SUSHI_END_P1
+
+                States.CHECK_LANE_4_SUSHI_END_P1:
+                    // checks if position == 0 then stores result into R15
+                    alufn = b110011                             
+                    regfile_ra1 = d12             
+                    bsel = b100                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d15
+                    states.d = States.BRANCH_LANE_4_SUSHI_END_P1
+
+                States.BRANCH_LANE_4_SUSHI_END_P1:
+                    // if reached, R15 == 1
+                    regfile_ra2 = d15 
+                    if (regfile_ra2[0]){
+                        states.d = States.UPDATE_LANE_4_POINTS_P1
+                    }
+                    else {
+                        // not reached, R15 != 1
+                        states.d = States.IDLE_GAME
+                    }                     
+                
+                States.UPDATE_LANE_4_POINTS_P1:
+                    // p1_points + 1
+                    alufn = b000000                             
+                    regfile_ra1 = d0             
+                    bsel = b001                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d0 
+                    states.d = States.SPAWN_LANE_4_SUSHI
+
+                States.UPDATE_LANE_4_SUSHI_POS_P2:
+                    // else lane direction = red
+                        // sushi-pos (R12) + 1
+                    alufn = b000000                             
+                    regfile_ra1 = d12             
+                    bsel = b001                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d12
+                    states.d = States.CHECK_LANE_4_SUSHI_END_P2
+
+                States.CHECK_LANE_4_SUSHI_END_P2:
+                    // checks if position == 9 then stores result into R15
+                    alufn = b110011                             
+                    regfile_ra1 = d12             
+                    bsel = b101                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d15
+                    states.d = States.BRANCH_LANE_4_SUSHI_END_P2
+                
+                States.BRANCH_LANE_4_SUSHI_END_P2:
+                    // if reached, R15 == 1 
+                    regfile_ra2 = d15 
+                    if (regfile_ra2[0]){
+                        states.d = States.UPDATE_LANE_4_POINTS_P2
+                    }
+                    else {
+                        // not reached, R15 != 1
+                        states.d = States.IDLE_GAME
+                    }      
+                
+                States.UPDATE_LANE_4_POINTS_P2:
+                    // p2_points + 1
+                    alufn = b000000                             
+                    regfile_ra1 = d1             
+                    bsel = b001                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d1
+                    states.d = States.SPAWN_LANE_4_SUSHI  
+                
+                States.SPAWN_LANE_4_SUSHI:
+                    // spawn sushi in the middle
+                    alufn = b000000                                        
+                    bsel = b111                             
+                    asel = b01 
+                    regfile_we = 1
+                    regfile_wa = d12
+                    states.d = States.IDLE_GAME                    
+            }
+        }
+    }
+}
