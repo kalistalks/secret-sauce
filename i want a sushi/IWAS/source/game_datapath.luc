@@ -15,13 +15,18 @@ module game_datapath#(
     // output to LEDs/7segments
     output p1_score_out[32],
     output p2_score_out[32],
-    output p1_button_press_out[32],
-    output p2_button_press_out[32],
-    output current_counter_out[32],
     output timer_out[32],
-    output slow_clock_out,
-    output variable_clock_out,
-        
+    output p1_chef_out[32],
+    output p2_chef_out[32],
+    output lane_1_color_out[32],
+    output lane_2_color_out[32],
+    output lane_3_color_out[32],
+    output lane_4_color_out[32],
+    output lane_1_sushi_out[32],
+    output lane_2_sushi_out[32],
+    output lane_3_sushi_out[32],
+    output lane_4_sushi_out[32],
+    
     // debug signals
     output debug_general[4]
 ) {
@@ -47,9 +52,8 @@ module game_datapath#(
             .p2_button_left(p2_button_left),
             .p2_button_right(p2_button_right),
             .p2_button_flip(p2_button_flip),
-            .rst(rst),
-            .increase_counter(edge_detector_variable_timer.out),
-            .decrease_timer(edge_detector_game_timer.out)
+            .rst(rst)
+            // .decrease_timer(edge_detector_game_timer.out)
             
         )
         
@@ -62,7 +66,7 @@ module game_datapath#(
         )
     }
     always {
-       
+        
         
         // bootstrap rd2 output to CU for convenient branching conditions
         game_cu.regfile_rd2 = game_regfiles.rd2
@@ -70,19 +74,24 @@ module game_datapath#(
         // asel mux
         case(game_cu.asel){
             b00  : input_alu_a = game_regfiles.rd1
-            b01  : input_alu_a = 1 
-            b11  : input_alu_a = 30
-            default : //b10 unused
+            b01  : input_alu_a = 1 // constant 1
+            b10  : input_alu_a = 0 // constant 0
+            b11  : input_alu_a = 30 // constant 30
+            default :
                 input_alu_a = 0
         }
         
         // bsel mux
         case(game_cu.bsel){
-            b00 : input_alu_b = game_regfiles.rd2
-            b01 : input_alu_b = 1
-            b11 : input_alu_b = 3
-            b10 : input_alu_b = 0
-            default: //necessary to init
+            b000 : input_alu_b = game_regfiles.rd2
+            b001 : input_alu_b = 1 // constant 1
+            b010 : input_alu_b = -1 // constant -1
+            b011 : input_alu_b = 2 // constant 2
+            b100 : input_alu_b = 0 // constant 0
+            b101 : input_alu_b = 8 // constant 8
+            b110 : input_alu_b = 3 // constant 3
+            b111 : input_alu_b = 4 // constant 4
+            default:
                 input_alu_b = 0
             
         }
@@ -101,16 +110,20 @@ module game_datapath#(
                 game_regfiles.data = game_alu.out
         }
         
-        current_counter_out = game_regfiles.counter_out
-        timer_out = game_regfiles.timer_out
         p1_score_out = game_regfiles.p1_score_out
         p2_score_out = game_regfiles.p2_score_out
-        p1_button_press_out = game_regfiles.p1_button_press_out
-        p2_button_press_out = game_regfiles.p2_button_press_out
-        variable_clock_out = variable_timer_clock.out
-        slow_clock_out = game_timer_clock.value
+        timer_out = game_regfiles.timer_out
+        p1_chef_out = game_regfiles.p1_chef_out
+        p2_chef_out = game_regfiles.p2_chef_out
+        lane_1_color_out = game_regfiles.lane_1_color_out
+        lane_2_color_out = game_regfiles.lane_2_color_out
+        lane_3_color_out = game_regfiles.lane_3_color_out
+        lane_4_color_out = game_regfiles.lane_4_color_out
+        lane_1_sushi_out = game_regfiles.lane_1_sushi_out
+        lane_2_sushi_out = game_regfiles.lane_2_sushi_out
+        lane_3_sushi_out = game_regfiles.lane_3_sushi_out
+        lane_4_sushi_out = game_regfiles.lane_4_sushi_out
         
         debug_general = game_cu.debug
-        
     }
 }

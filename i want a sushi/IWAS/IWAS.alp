@@ -172,6 +172,30 @@
                     "type": "DiskFile",
                     "path": "source/pn_gen.luc"
                 }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/ws2812b_driver.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/chef_rom.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/sushi_rom.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/lane_rom.luc"
+                }
             }
         ],
         "constraintFiles": [

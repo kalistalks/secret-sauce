@@ -1,8 +1,7 @@
 module game_cu (
     input clk,  // clock
     input rst,  // reset
-    input increase_counter,
-    input decrease_timer,
+    // input decrease_timer,
     input regfile_rd2[32], //direct reading of regfile data from rd2
     
     input p1_button_left,
@@ -16,17 +15,54 @@ module game_cu (
     output asel[3],
     output bsel[3],
     output alu_out_sel[2],
-    output regfile_wa[3],
-    output regfile_ra1[3],
-    output regfile_ra2[3],
+    output regfile_wa[4],
+    output regfile_ra1[4],
+    output regfile_ra2[4],
     output regfile_we,
     output debug[4]
 ) {
     
     enum GameStates {
         IDLE_GAME,
-        MOVE_P1_UP,
-        MOVE_P1_DOWN
+        CHECK_P1_POS,
+        CHECK_P1_LEFT,
+        BRANCH_P1_LEFT,
+        DECREASE_P1_CHEF,
+        CHECK_P1_RIGHT,
+        BRANCH_P1_RIGHT,
+        INCREASE_P1_CHEF,
+        CHECK_P1_LANE_1,
+        BRANCH_P1_LANE_1,
+        FLIP_P1_LANE_1,
+        CHECK_P1_LANE_2,
+        BRANCH_P1_LANE_2,
+        FLIP_P1_LANE_2,
+        CHECK_P1_LANE_3,
+        BRANCH_P1_LANE_3,
+        FLIP_P1_LANE_3,
+        CHECK_P1_LANE_4,
+        BRANCH_P1_LANE_4,
+        FLIP_P1_LANE_4,
+        
+        CHECK_P2_POS,
+        CHECK_P2_LEFT,
+        BRANCH_P2_LEFT,
+        DECREASE_P2_CHEF,
+        CHECK_P2_RIGHT,
+        BRANCH_P2_RIGHT,
+        INCREASE_P2_CHEF,
+        CHECK_P2_LANE_1,
+        BRANCH_P2_LANE_1,
+        FLIP_P2_LANE_1,
+        CHECK_P2_LANE_2,
+        BRANCH_P2_LANE_2,
+        FLIP_P2_LANE_2,
+        CHECK_P2_LANE_3,
+        BRANCH_P2_LANE_3,
+        FLIP_P2_LANE_3,
+        CHECK_P2_LANE_4,
+        BRANCH_P2_LANE_4,
+        FLIP_P2_LANE_4
     }
     
     dff game_fsm[$width(GameStates)](#INIT(GameStates.IDLE_GAME), .clk(clk), .rst(rst))
@@ -51,269 +87,379 @@ module game_cu (
             game_fsm.d = GameStates.IDLE_GAME
         }
         else{
-            
             case(game_fsm.q){
                 GameStates.IDLE_GAME:
-                    if (decrease_timer){
-                        game_fsm.d = GameStates.CHECK_GAMETIMER
+                    if (p1_button_left){
+                        game_fsm.d = GameStates.CHECK_P1_LEFT
                     }
-                    else if (increase_counter && ~p1_button && ~p2_button){
-                        game_fsm.d = GameStates.UPDATE_SUSHI
+                    else if (p1_button_right){
+                        game_fsm.d = GameStates.CHECK_P1_RIGHT
                     }
-                    else if (p1_button_left && ~p2_button){
-                        game_fsm.d = GameStates.CHECK_P1BUTTONCOUNT
+                    else if (p1_button_flip && ~p2_button_flip){
+                        game_fsm.d = GameStates.CHECK_P1_LANE_1
                     }
-                    else if (p2_button && ~p1_button){
-                        game_fsm.d = GameStates.CHECK_P2BUTTONCOUNT
+                    else if (p2_button_left){
+                        game_fsm.d = GameStates.CHECK_P2_LEFT
+                    }
+                    else if (p2_button_right){
+                        game_fsm.d = GameStates.CHECK_P2_RIGHT
+                    }
+                    else if (~p1_button_flip && p2_button_flip){
+                        game_fsm.d = GameStates.CHECK_P2_LANE_1
                     }
                     else{
                         game_fsm.d = GameStates.IDLE_GAME
                     }
-                GameStates.START_SET_TIMER: 
-                    alufn = b011010                             //A
-                    asel = b11                                  //30
-                    regfile_we = 1 
-                    regfile_wa = d5                     //timer reg
-                    regfile_ra2 = d5              //direct read (temp reg)
-                    //if counter is set
-                    if (regfile_rd2[4]){                      //direct read in
-                        game_fsm.d = GameStates.INC_COUNTER
-                    }
-                    else{
-                        game_fsm.d =  GameStates.START_SET_TIMER
-                    }
                 
-                GameStates.INC_COUNTER:
-                    //set output and next state
-                    alufn = b000000                             //ADD
-                    regfile_ra1 = d4              //counter reg
-                    bsel = b01                                  //constant 1 
-                    asel = b00                                  
-                    regfile_we = 1
-                    regfile_wa = d4                     //counter reg 
-                    game_fsm.d = GameStates.IDLE
-                
-                GameStates.CHECK_P1BUTTONCOUNT:
-                    alufn = b110101                             //CMPLT
-                    regfile_ra1 = d2              //p1 button count reg
-                    bsel = b11                                  //constant 3
-                    asel = b00 
-                    regfile_we = 1
-                    regfile_wa = d6                     //temp reg
-                    game_fsm.d = GameStates.BRANCH_P1BUTTON
-                
-                GameStates.BRANCH_P1BUTTON:
-                    regfile_ra2 = d6              //temp reg 
-                    if (regfile_rd2[0]){                      //direct read in
-                        game_fsm.d = GameStates.INCREASE_P1SCORE
+                // Check and Move Player 1 Chef Left
+                GameStates.CHECK_P1_LEFT:
+                    /*
+                    if !(p1_chef == 0) then
+                    p1_chef.d = p1_chef.q - 1
+                    */                    
+                    alufn = b110011    // CMPEQ
+                    regfile_ra1 = d3    // R3 = p1 chef pos
+                    bsel = b100    // constant 0
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    //temp reg
+                    game_fsm.d = GameStates.BRANCH_P1_LEFT
+                GameStates.BRANCH_P1_LEFT:
+                    regfile_ra2 = d15    //temp reg 
+                    if (regfile_rd2[0]){ // if p1_chef 0 == 0
+                        game_fsm.d = GameStates.IDLE_GAME
                     }
-                    else{
-                        game_fsm.d = GameStates.IDLE
+                    else{ // if p1_chef != 0
+                        game_fsm.d = GameStates.DECREASE_P1_CHEF
                     }
-                
-                GameStates.INCREASE_P1SCORE:
-                    alufn = b000000                           //ADD
-                    regfile_ra2 = d0            //P1 score reg 
-                    regfile_ra1 = d4            //counter reg 
-                    bsel = b00                                //P1 score reg 
-                    asel = b00                                //counter  reg
+                GameStates.DECREASE_P1_CHEF:
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d3    // R3 = p1 chef pos
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
                     regfile_we = 1                           
-                    regfile_wa = d0                   //P1 score reg
-                    game_fsm.d = GameStates.INCREASE_P1BUTTONCOUNT
+                    regfile_wa = d3    //P1 score reg
+                    game_fsm.d = GameStates.IDLE_GAME
                 
-                GameStates.INCREASE_P1BUTTONCOUNT:
-                    alufn = b000000
-                    regfile_ra2 = d2
-                    bsel = b00 // p1's button
-                    asel = b01 // plus 1 
-                    regfile_we = 1 
-                    regfile_wa = d2
-                    game_fsm.d = GameStates.RESET_COUNTER
                 
-                GameStates.CHECK_P2BUTTONCOUNT:
-                    alufn = b110101                           //CMPLT
-                    regfile_ra1 = d3            //P2 button count reg
-                    bsel = b11                                //constant 3
-                    asel = b00 
+                // Check and Move Player 1 Chef Right
+                GameStates.CHECK_P1_RIGHT:
+                    /*
+                    if !(p1_chef == 3) then
+                    p1_chef.d = p1_chef.q + 1
+                    */                    
+                    alufn = b110011    // CMPEQ
+                    regfile_ra1 = d3    // R3 = p1_chef
+                    bsel = b110    // constant 3
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    //temp reg
+                    game_fsm.d = GameStates.BRANCH_P1_RIGHT
+                GameStates.BRANCH_P1_RIGHT:
+                    regfile_ra2 = d15    //temp reg 
+                    if (regfile_rd2[0]){    // if p1_chef == 3
+                        game_fsm.d = GameStates.IDLE_GAME
+                    }
+                    else{ // if p1_chef != 3
+                        game_fsm.d = GameStates.INCREASE_P1_CHEF
+                    }
+                GameStates.INCREASE_P1_CHEF:
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d3    // R3 = p1 chef pos
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d3    // R3 = p1 chef pos
+                    game_fsm.d = GameStates.IDLE_GAME
+                
+                // Check and Update Player 1 Lanes
+                // P1 Lane 1
+                GameStates.CHECK_P1_LANE_1:
+                    /*
+                    if (p1_chef == 0) then
+                    lane_1_color_out.d = 0
+                    */                    
+                    alufn = b110011    // CMPEQ
+                    regfile_ra1 = d3    // R3 = p1_chef
+                    bsel = b100    // constant 0
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    //temp reg
+                    game_fsm.d = GameStates.BRANCH_P1_LANE_1
+                GameStates.BRANCH_P1_LANE_1:
+                    regfile_ra2 = d15    //temp reg 
+                    if (regfile_rd2[0]){    // if (p1_chef == 0)
+                        game_fsm.d = GameStates.FLIP_P1_LANE_1
+                    }
+                    else{ // if p1_chef != 0 check Lane 2
+                        game_fsm.d = GameStates.CHECK_P1_LANE_2
+                    }
+                GameStates.FLIP_P1_LANE_1:
+                    alufn = b000000    // ADD
+                    bsel = b001    // constant 1 (1 for Red, 2 for Blue)
+                    asel = b10   // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d5    // R5 = lane_1_color
+                    game_fsm.d = GameStates.IDLE_GAME
+                // P1 Lane 2
+                GameStates.CHECK_P1_LANE_2:
+                    /*
+                    if (p1_chef == 1) then
+                    lane_2_color_out.d = 0
+                    */                    
+                    alufn = b110011    // CMPEQ
+                    regfile_ra1 = d3    // R3 = p1_chef
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    // temp reg
+                    game_fsm.d = GameStates.BRANCH_P1_LANE_2
+                GameStates.BRANCH_P1_LANE_2:
+                    regfile_ra2 = d15    // temp reg 
+                    if (regfile_rd2[0]){    // if (p1_chef == 0)
+                        game_fsm.d = GameStates.FLIP_P1_LANE_2
+                    }
+                    else{ // if p1_chef != 1 check Lane 3
+                        game_fsm.d = GameStates.CHECK_P1_LANE_3
+                    }
+                GameStates.FLIP_P1_LANE_2:
+                    alufn = b000000    // ADD
+                    bsel = b001    // constant 1 (1 for Red, 2 for Blue)
+                    asel = b10   // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d6    // R6 = lane_2_color
+                    game_fsm.d = GameStates.IDLE_GAME
+                // P1 Lane 3
+                GameStates.CHECK_P1_LANE_3:
+                    /*
+                    if (p1_chef == 2) then
+                    lane_3_color_out.d = 0
+                    */                    
+                    alufn = b110011    // CMPEQ
+                    regfile_ra1 = d3    // R3 = p1_chef
+                    bsel = b011    // constant 2
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    // temp reg
+                    game_fsm.d = GameStates.BRANCH_P1_LANE_3
+                GameStates.BRANCH_P1_LANE_3:
+                    regfile_ra2 = d15    // temp reg 
+                    if (regfile_rd2[0]){    // if (p1_chef == 2)
+                        game_fsm.d = GameStates.FLIP_P1_LANE_3
+                    }
+                    else{ // if p1_chef != 2 check Lane 4
+                        game_fsm.d = GameStates.CHECK_P1_LANE_4
+                    }
+                GameStates.FLIP_P1_LANE_3:
+                    alufn = b000000    // ADD
+                    bsel = b001    // constant 1 (1 for Red, 2 for Blue)
+                    asel = b10   // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d7    // R7 = lane_3_color
+                    game_fsm.d = GameStates.IDLE_GAME
+                // P1 Lane 4
+                GameStates.CHECK_P1_LANE_4:
+                    /*
+                    if (p1_chef == 3) then
+                    lane_4_color_out.d = 0
+                    */                    
+                    alufn = b110011    // CMPEQ
+                    regfile_ra1 = d3    // R3 = p1_chef
+                    bsel = b110    // constant 3
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    // temp reg
+                    game_fsm.d = GameStates.BRANCH_P1_LANE_4
+                GameStates.BRANCH_P1_LANE_4:
+                    regfile_ra2 = d15    // temp reg 
+                    if (regfile_rd2[0]){    // if (p1_chef == 3)
+                        game_fsm.d = GameStates.FLIP_P1_LANE_4
+                    }
+                    else{ // if p1_chef != 3 return to IDLE
+                        game_fsm.d = GameStates.IDLE_GAME
+                    }
+                GameStates.FLIP_P1_LANE_4:
+                    alufn = b000000    // ADD
+                    bsel = b001    // constant 1 (1 for Red, 2 for Blue)
+                    asel = b10   // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d8    // R8 = lane_4_color
+                    game_fsm.d = GameStates.IDLE_GAME
+                
+                // Check and Move Player 2 Chef Left
+                GameStates.CHECK_P2_LEFT:
+                    /*
+                    if !(p2_chef == 0) then
+                    p2_chef.d = p2_chef.q - 1
+                    */                    
+                    alufn = b110011    // CMPEQ
+                    regfile_ra1 = d4    // R4 = p2 chef pos
+                    bsel = b100    // constant 0
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    //temp reg
+                    game_fsm.d = GameStates.BRANCH_P2_LEFT
+                GameStates.BRANCH_P2_LEFT:
+                    regfile_ra2 = d15    //temp reg
+                    if (regfile_rd2[0]){ // if p2_chef 0 == 0
+                        game_fsm.d = GameStates.IDLE_GAME
+                    }
+                    else{ // if p2_chef != 0
+                        game_fsm.d = GameStates.DECREASE_P2_CHEF
+                    }
+                GameStates.DECREASE_P2_CHEF:
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d4    // R4 = p2 chef pos
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
                     regfile_we = 1
-                    regfile_wa = d6                   //temp reg
-                    game_fsm.d = GameStates.BRANCH_P2BUTTON 
+                    regfile_wa = d4    // R4 = p2 chef pos
+                    game_fsm.d = GameStates.IDLE_GAME
                 
-                GameStates.BRANCH_P2BUTTON:
-                    regfile_ra2 = d6            //temp reg
-                    if (regfile_rd2[0]){                    //direct read
-                        game_fsm.d = GameStates.INCREASE_P2SCORE
+                
+                // Check and Move Player 2 Chef Right
+                GameStates.CHECK_P2_RIGHT:
+                    /*
+                    if !(p2_chef == 3) then
+                    p2_chef.d = p2_chef.q + 1
+                    */                    
+                    alufn = b110011    // CMPEQ
+                    regfile_ra1 = d4    // R4 = p2 chef pos
+                    bsel = b110    // constant 3
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    //temp reg
+                    game_fsm.d = GameStates.BRANCH_P2_RIGHT
+                GameStates.BRANCH_P2_RIGHT:
+                    regfile_ra2 = d15    //temp reg
+                    if (regfile_rd2[0]){    // if p2_chef == 3
+                        game_fsm.d = GameStates.IDLE_GAME
                     }
-                    else{
-                        game_fsm.d = GameStates.IDLE
+                    else{ // if p2_chef != 3
+                        game_fsm.d = GameStates.INCREASE_P2_CHEF
                     }
+                GameStates.INCREASE_P2_CHEF:
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d4    // R4 = p2 chef pos
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d4    // R4 = p2 chef pos
+                    game_fsm.d = GameStates.IDLE_GAME
                 
-                GameStates.INCREASE_P2SCORE:
-                    //set output and next state 
-                    alufn = b000000                          //ADD
-                    regfile_ra2 = d1           //P2 score reg 
-                    regfile_ra1 = d4           //counter reg
-                    bsel = b00 
-                    asel = b00 
-                    regfile_we = 1 
-                    regfile_wa = d1                 //P2 score reg
-                    game_fsm.d = GameStates.INCREASE_P2BUTTONCOUNT  
-                
-                GameStates.INCREASE_P2BUTTONCOUNT:
-                    alufn = b000000 // ADD
-                    regfile_ra2 = d3          //P2 button reg
-                    bsel = b00                         
-                    asel = b01                              //constant 1
-                    regfile_we = 1 
-                    regfile_wa = d3                 //P2 button reg
-                    game_fsm.d = GameStates.RESET_COUNTER
-                
-                GameStates.RESET_COUNTER:
-                    alu_out_sel = b11                       //constant 0
-                    regfile_we = 1
-                    regfile_wa = d4                 //counter reg
-                    game_fsm.d = GameStates.CHECK_P1P2BUTTONCOUNT 
-                
-                GameStates.DECREASE_GAMETIMER:
-                    alufn = b000001                         //SUB
-                    regfile_ra1 = d5          //timer reg
-                    asel = b00 
-                    bsel = b01                              //constant 1
-                    regfile_we = 1
-                    regfile_wa = d5
-                    game_fsm.d = GameStates.IDLE
-                
-                GameStates.CHECK_GAMETIMER:
-                    alufn = b110011                         //CMPEQ
-                    regfile_ra1 = d5          //timer reg
-                    asel = b00
-                    bsel = b10                              //constant 0
-                    regfile_we = 1
-                    regfile_wa = d6                 //temp eg 
-                    game_fsm.d = GameStates.BRANCH_GAMETIMER
-                
-                GameStates.BRANCH_GAMETIMER:
-                    regfile_ra2 = d6          //temp reg
-                    if (~regfile_rd2[0]){                 //if timer is not zero
-                        game_fsm.d = GameStates.DECREASE_GAMETIMER
+                // Check and Update Player 2 Lanes
+                // P2 Lane 1
+                GameStates.CHECK_P2_LANE_1:
+                    /*
+                    if (p2_chef == 0) then
+                    lane_1_color_out.d = 0
+                    */                    
+                    alufn = b110011    // CMPEQ
+                    regfile_ra1 = d4    // R4 = p2 chef pos
+                    bsel = b100    // constant 0
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    //temp reg
+                    game_fsm.d = GameStates.BRANCH_P2_LANE_1
+                GameStates.BRANCH_P2_LANE_1:
+                    regfile_ra2 = d15    //temp reg
+                    if (regfile_rd2[0]){    // if (p2_chef == 0)
+                        game_fsm.d = GameStates.FLIP_P2_LANE_1
                     }
-                    else{
-                        game_fsm.d = GameStates.CHECK_DRAW
+                    else{ // if p2_chef != 0 check Lane 2
+                        game_fsm.d = GameStates.CHECK_P2_LANE_2
                     }
-                
-                GameStates.CHECK_P1P2BUTTONCOUNT:
-                    alufn = b110011 //CMPEQ
-                    regfile_ra1 = d2         //P1 button reg
-                    regfile_ra2 = d3         //P2 button reg
-                    asel = b00
-                    bsel = b00
-                    regfile_we = 1
-                    regfile_wa = d6                //temp reg
-                    game_fsm.d = GameStates.BRANCHCHECK_P1P2BUTTONCOUNT
-                
-                GameStates.BRANCHCHECK_P1P2BUTTONCOUNT:
-                    regfile_ra2 = d6        //temp reg
-                    if(regfile_rd2[0]){  
-                        alufn = b110011                     //CMPEQ 
-                        regfile_ra1 = d2      //P1 button reg
-                        bsel = b11                          //constant 3
-                        regfile_we = 1
-                        regfile_wa = d6             //temp reg
-                        game_fsm.d = GameStates.BRANCH_P1BUTTONCOUNT  
+                GameStates.FLIP_P2_LANE_1:
+                    alufn = b000000    // ADD
+                    bsel = b011    // constant 2 (1 for Red, 2 for Blue)
+                    asel = b10   // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d5    // R5 = lane_1_color
+                    game_fsm.d = GameStates.IDLE_GAME
+                // P2 Lane 2
+                GameStates.CHECK_P2_LANE_2:
+                    /*
+                    if (p2_chef == 1) then
+                    lane_2_color_out.d = 0
+                    */                    
+                    alufn = b110011    // CMPEQ
+                    regfile_ra1 = d4    // R4 = p2 chef pos
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    // temp reg
+                    game_fsm.d = GameStates.BRANCH_P2_LANE_2
+                GameStates.BRANCH_P2_LANE_2:
+                    regfile_ra2 = d15    // temp reg
+                    if (regfile_rd2[0]){    // if (p2_chef == 0)
+                        game_fsm.d = GameStates.FLIP_P2_LANE_2
                     }
-                    else{
-                        game_fsm.d = GameStates.IDLE
+                    else{ // if p2_chef != 1 check Lane 3
+                        game_fsm.d = GameStates.CHECK_P2_LANE_3
                     }
-                
-                
-                GameStates.BRANCH_P1BUTTONCOUNT:
-                    regfile_ra2 = d6       //temp reg
-                    if(regfile_rd2[0]){
-                        game_fsm.d = GameStates.CHECK_DRAW   
+                GameStates.FLIP_P2_LANE_2:
+                    alufn = b000000    // ADD
+                    bsel = b011    // constant 2 (1 for Red, 2 for Blue)
+                    asel = b10   // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d6    // R6 = lane_2_color
+                    game_fsm.d = GameStates.IDLE_GAME
+                // P2 Lane 3
+                GameStates.CHECK_P2_LANE_3:
+                    /*
+                    if (p2_chef == 2) then
+                    lane_3_color_out.d = 0
+                    */                    
+                    alufn = b110011    // CMPEQ
+                    regfile_ra1 = d4    // R4 = p2 chef pos
+                    bsel = b011    // constant 2
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    // temp reg
+                    game_fsm.d = GameStates.BRANCH_P2_LANE_3
+                GameStates.BRANCH_P2_LANE_3:
+                    regfile_ra2 = d15    // temp reg
+                    if (regfile_rd2[0]){    // if (p2_chef == 2)
+                        game_fsm.d = GameStates.FLIP_P2_LANE_3
                     }
-                    
-                    else{
-                        game_fsm.d = GameStates.IDLE
+                    else{ // if p2_chef != 2 check Lane 4
+                        game_fsm.d = GameStates.CHECK_P2_LANE_4
                     }
-                
-                GameStates.CHECK_DRAW:
-                    alufn = b110011 //CMPEQ
-                    regfile_ra1 = d0      //P1 score reg
-                    regfile_ra2 = d1      //P2 score reg
-                    asel = b00
-                    bsel = b00
-                    regfile_we = 1
-                    regfile_wa = d6             //temp reg
-                    game_fsm.d = GameStates.BRANCH_DRAW
-                
-                GameStates.BRANCH_DRAW:
-                    regfile_ra2 = d6      //temp reg
-                    if (regfile_rd2[0]){
-                        //its draw
-                        alu_out_sel = b10                //draw signal
-                        regfile_we = 1
-                        regfile_wa = d0          //P1 score reg
-                        game_fsm.d = GameStates.DRAW
+                GameStates.FLIP_P2_LANE_3:
+                    alufn = b000000    // ADD
+                    bsel = b011    // constant 2 (1 for Red, 2 for Blue)
+                    asel = b10   // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d7    // R7 = lane_3_color
+                    game_fsm.d = GameStates.IDLE_GAME
+                // P2 Lane 4
+                GameStates.CHECK_P2_LANE_4:
+                    /*
+                    if (p2_chef == 3) then
+                    lane_4_color_out.d = 0
+                    */                    
+                    alufn = b110011    // CMPEQ
+                    regfile_ra1 = d4    // R4 = p2 chef pos
+                    bsel = b110    // constant 3
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    // temp reg
+                    game_fsm.d = GameStates.BRANCH_P2_LANE_4
+                GameStates.BRANCH_P2_LANE_4:
+                    regfile_ra2 = d15    // temp reg
+                    if (regfile_rd2[0]){    // if (p2_chef == 3)
+                        game_fsm.d = GameStates.FLIP_P2_LANE_4
                     }
-                    else{
-                        game_fsm.d = GameStates.CHECK_WINNER
+                    else{ // if p2_chef != 3 return to IDLE
+                        game_fsm.d = GameStates.IDLE_GAME
                     }
-                
-                GameStates.DRAW:
-                    alu_out_sel = b10                //draw signal
-                    regfile_we = 1 
-                    regfile_wa = d1          //P2 score reg
-                    game_fsm.d = GameStates.GAMEOVER  
-                
-                GameStates.CHECK_WINNER:
-                    alufn = b110101                 //CMPLT
-                    regfile_ra1 = d0  //P1 score reg 
-                    regfile_ra2 = d1  //P2 score reg
-                    asel = b00
-                    bsel = b00
-                    regfile_we = 1
-                    regfile_wa = d6         //temp reg
-                    game_fsm.d = GameStates.BRANCH_WINNER
-                
-                GameStates.BRANCH_WINNER:
-                    regfile_ra2 = d6 //temp reg
-                    if (regfile_rd2[0]){
-                        //P2 Wins
-                        game_fsm.d = GameStates.P2WINS 
-                    }
-                    else{
-                        //P1 Wins
-                        game_fsm.d = GameStates.P1WINS 
-                    }
-                
-                
-                GameStates.P2WINS:
-                    regfile_we = 1
-                    regfile_wa = d1     //P2 score reg
-                    alu_out_sel = b01           //P2 winning signal
-                    game_fsm.d = GameStates.P1LOSE 
-                
-                GameStates.P1WINS:
-                    regfile_we = 1
-                    regfile_wa = d0     //P1 score reg
-                    alu_out_sel = b01           //P1 winning signal
-                    game_fsm.d = GameStates.P2LOSE 
-                
-                GameStates.P1LOSE:
-                    regfile_we = 1
-                    regfile_wa = d0     //P1 score reg
-                    alu_out_sel = b11           //P1 losing signal
-                    game_fsm.d = GameStates.GAMEOVER 
-                
-                GameStates.P2LOSE:
-                    regfile_we = 1
-                    regfile_wa = d1     //P2 score reg
-                    alu_out_sel = b11           //P2 losing signal
-                    game_fsm.d = GameStates.GAMEOVER 
-                
-                
-                GameStates.GAMEOVER:
-                    game_fsm.d = GameStates.GAMEOVER           
+                GameStates.FLIP_P2_LANE_4:
+                    alufn = b000000    // ADD
+                    bsel = b011    // constant 2 (1 for Red, 2 for Blue)
+                    asel = b10   // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d8    // R8 = lane_4_color
+                    game_fsm.d = GameStates.IDLE_GAME
             }
         }
         

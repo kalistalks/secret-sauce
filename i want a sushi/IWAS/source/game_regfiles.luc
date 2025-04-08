@@ -1,19 +1,19 @@
 module game_regfiles (
     input clk,  // clock
     input rst,  // reset
-    input wa[3], // write address
+    input wa[4], // write address
     input we, // write enable
     input data[32], // data in
     
-    input ra1[3], // read address port 1
-    input ra2[3], // read address port 2
+    input ra1[4], // read address port 1
+    input ra2[4], // read address port 2
     output rd1[32], // read data port 1
     output rd2[32], // read data port 1
     
     // states
     output p1_score_out[32],
     output p2_score_out[32],
-    output current_timer_out[32],
+    output timer_out[32],
     output p1_chef_out[32],
     output p2_chef_out[32],
     output lane_1_color_out[32],
@@ -23,10 +23,7 @@ module game_regfiles (
     output lane_1_sushi_out[32],
     output lane_2_sushi_out[32],
     output lane_3_sushi_out[32],
-    output lane_4_sushi_out[32],
-    output p1_button_press_out[32],
-    output p2_button_press_out[32]    
-    
+    output lane_4_sushi_out[32]  
 ) {
     .clk(clk){
         .rst(rst){
@@ -35,14 +32,14 @@ module game_regfiles (
             dff current_timer[32](#INIT(0))
             dff p1_chef[32](#INIT(0))
             dff p2_chef[32](#INIT(0))
-            dff lane_1_color[32](#INIT(0))
-            dff lane_2_color[32](#INIT(0))
-            dff lane_3_color[32](#INIT(0))
-            dff lane_4_color[32](#INIT(0))
-            dff lane_1_sushi[32](#INIT(0))
-            dff lane_2_sushi[32](#INIT(0))
-            dff lane_3_sushi[32](#INIT(0))
-            dff lane_4_sushi[32](#INIT(0))
+            dff lane_1_color[32](#INIT(1))
+            dff lane_2_color[32](#INIT(2))
+            dff lane_3_color[32](#INIT(1))
+            dff lane_4_color[32](#INIT(2))
+            dff lane_1_sushi[32](#INIT(3))
+            dff lane_2_sushi[32](#INIT(3))
+            dff lane_3_sushi[32](#INIT(3))
+            dff lane_4_sushi[32](#INIT(3))
             dff p1_button_press[32](#INIT(0))
             dff p2_button_press[32](#INIT(0))
             dff temp_var[32](#INIT(0))         
@@ -117,7 +114,7 @@ module game_regfiles (
 
         p1_score_out = p1_score.q
         p2_score_out = p2_score.q
-        current_timer_out = current_timer.q
+        timer_out = current_timer.q
         p1_chef_out = p1_chef.q
         p2_chef_out = p2_chef.q
         lane_1_color_out = lane_1_color.q
@@ -128,8 +125,5 @@ module game_regfiles (
         lane_2_sushi_out = lane_2_sushi.q
         lane_3_sushi_out = lane_3_sushi.q
         lane_4_sushi_out = lane_4_sushi.q
-        p1_button_press_out = p1_button_press.q[1:0]
-        p2_button_press_out = p2_button_press.q[1:0]
-        
     }
 }

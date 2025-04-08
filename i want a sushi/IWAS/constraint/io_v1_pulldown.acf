@@ -55,21 +55,21 @@ PINOUT(V1), STANDARD(LVCMOS33) {
         pin io_button[2] B23
         pin io_button[3] B24
         pin io_button[4] C49
-        
+
         pin p1_button_left C43
         pin p1_button_right C46
         pin p1_button_flip C48
-        
+
         pin p2_button_left C42
         pin p2_button_right C45
         pin p2_button_flip C2
     }
-    
+
     pin io_select[0] A9
     pin io_select[1] A8
     pin io_select[2] A42
     pin io_select[3] A43
-    
+
     pin io_segment[0] A5
     pin io_segment[1] A6
     pin io_segment[2] A48
@@ -78,4 +78,17 @@ PINOUT(V1), STANDARD(LVCMOS33) {
     pin io_segment[5] A3
     pin io_segment[6] A2
     pin io_segment[7] A49
+
+    pin p1_chef_data C40
+    pin p2_chef_data C39
+
+    pin lane_1_sushi_data C28
+    pin lane_2_sushi_data C27
+    pin lane_3_sushi_data C23
+    pin lane_4_sushi_data C24
+
+    pin lane_1_color_data C31
+    pin lane_2_color_data C30
+    pin lane_3_color_data C20
+    pin lane_4_color_data C21
 }
