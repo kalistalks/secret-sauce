@@ -431,6 +431,15 @@ module game_cu (
                     alu_out_sel = b01
                     states.d = States.END
 
+                States.END: 
+                    alufn = b110101                             
+                    regfile_ra1 = d2             
+                    bsel = b11                             
+                    asel = b00 
+                    regfile_we = 1
+                    regfile_wa = d6
+                    states.d = States.TBC
+                
                 // kalista stopped editting here 
                     
                 States.DECREASE_GAME_TIMER:
