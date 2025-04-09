@@ -147,7 +147,7 @@ module game_cu (
         regfile_we = 0
         regfile_wa = d15
         regfile_ra1 = d0
-        regfile_ra2 = d0
+        regfile_ra2 = d15
         alu_out_sel = 0
         
         debug = b0000
@@ -646,6 +646,7 @@ module game_cu (
                 
                 
                 // Sushi Update Logic
+                // Sushi Update Logic
                 // LANE 1
                 GameStates.CHECK_LANE_1_DIRECTION:
                     // get direction of sushi travel and store into temp register
@@ -654,10 +655,10 @@ module game_cu (
                     bsel = b011    // constant 2
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d15    // R15 = temp reg
+                    regfile_wa = d14    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_1_DIRECTION
                 GameStates.BRANCH_LANE_1_DIRECTION:
-                    regfile_ra2 = d15    // R15 = temp reg
+                    regfile_ra2 = d14    // R14 = temp reg
                     if (regfile_rd2[0]){    // if R5 == 2 then direction is towards the blue side (lane_1_sushi + 1)
                         game_fsm.d = GameStates.UPDATE_LANE_1_SUSHI_POS_P1
                     }
@@ -678,17 +679,17 @@ module game_cu (
                 GameStates.CHECK_LANE_1_SUSHI_END_P1:
                     // check if sushi reach end of P1
                     // lane_1_sushi == 8
-                    // checks if position == 8 then stores result into R15
+                    // checks if position == 8 then stores result into R14
                     alufn = b110011    // CMPEQ
                     regfile_ra1 = d9    // R9 = lane_1_sushi
                     bsel = b101    // constant 8
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d15    // R15 = temp reg
+                    regfile_wa = d14    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_1_SUSHI_END_P1
                 GameStates.BRANCH_LANE_1_SUSHI_END_P1:
                     // if (lane_1_sushi == 8) then p1_score + 1
-                    regfile_ra2 = d15    // R15 = temp reg
+                    regfile_ra2 = d14    // R14 = temp reg
                     if (regfile_rd2[0]){
                         game_fsm.d = GameStates.UPDATE_LANE_1_POINTS_P1
                     }
@@ -724,11 +725,11 @@ module game_cu (
                     bsel = b100    // constant 0
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d15    // R15 = temp reg
+                    regfile_wa = d14    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_1_SUSHI_END_P2
                 GameStates.BRANCH_LANE_1_SUSHI_END_P2:
                     // if (lane_1_sushi == 0) then p2_score + 1
-                    regfile_ra2 = d15
+                    regfile_ra2 = d14
                     if (regfile_rd2[0]){
                         game_fsm.d = GameStates.UPDATE_LANE_1_POINTS_P2
                     }
@@ -761,14 +762,14 @@ module game_cu (
                 GameStates.CHECK_LANE_2_DIRECTION:
                     // get direction of sushi travel and store into temp register
                     alufn = b110011    // CMP/EQ with 2 which represents blue
-                    regfile_ra1 = d5    // R6 = lane_2_color
+                    regfile_ra1 = d6    // R6 = lane_2_color
                     bsel = b011    // constant 2
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d15    // R15 = temp reg
+                    regfile_wa = d14    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_2_DIRECTION
                 GameStates.BRANCH_LANE_2_DIRECTION:
-                    regfile_ra2 = d15    // R15 = temp reg
+                    regfile_ra2 = d14    // R14 = temp reg
                     if (regfile_rd2[0]){    // if R6 == 2 then direction is towards the blue side (lane_2_sushi + 1)
                         game_fsm.d = GameStates.UPDATE_LANE_2_SUSHI_POS_P1
                     }
@@ -794,18 +795,18 @@ module game_cu (
                     bsel = b101    // constant 8
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d15    // R15 = temp reg
+                    regfile_wa = d14    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_2_SUSHI_END_P1
                 GameStates.BRANCH_LANE_2_SUSHI_END_P1:
                     // if (lane_2_sushi == 8) then p1_score + 1
-                    regfile_ra2 = d15    // R15 = temp reg
+                    regfile_ra2 = d14    // R14 = temp reg
                     if (regfile_rd2[0]){
                         game_fsm.d = GameStates.UPDATE_LANE_2_POINTS_P1
                     }
                     else {
                         // else check lane 3
-                        // game_fsm.d = GameStates.CHECK_LANE_3_DIRECTION
-                        game_fsm.d = GameStates.IDLE_GAME
+                        game_fsm.d = GameStates.CHECK_LANE_3_DIRECTION
+                        // game_fsm.d = GameStates.IDLE_GAME
                     }
                 GameStates.UPDATE_LANE_2_POINTS_P1:
                     // p1_score + 1
@@ -834,18 +835,18 @@ module game_cu (
                     bsel = b100    // constant 0
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d15    // R15 = temp reg
+                    regfile_wa = d14    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_2_SUSHI_END_P2
                 GameStates.BRANCH_LANE_2_SUSHI_END_P2:
                     // if (lane_2_sushi == 0) then p2_score + 1
-                    regfile_ra2 = d15
+                    regfile_ra2 = d14
                     if (regfile_rd2[0]){
                         game_fsm.d = GameStates.UPDATE_LANE_2_POINTS_P2
                     }
                     else {
                         // else check lane 3
-                        // game_fsm.d = GameStates.CHECK_LANE_3_DIRECTION
-                        game_fsm.d = GameStates.IDLE_GAME
+                        game_fsm.d = GameStates.CHECK_LANE_3_DIRECTION
+                        // game_fsm.d = GameStates.IDLE_GAME
                     }
                 GameStates.UPDATE_LANE_2_POINTS_P2:
                     // p2_points + 1
@@ -863,6 +864,224 @@ module game_cu (
                     asel = b10    // constant 0
                     regfile_we = 1    // write_enable 1
                     regfile_wa = d10    // R10 = lane_2_sushi
+                    game_fsm.d = GameStates.IDLE_GAME
+                
+                
+                
+                // LANE 3
+                GameStates.CHECK_LANE_3_DIRECTION:
+                    // get direction of sushi travel and store into temp register
+                    alufn = b110011    // CMP/EQ with 2 which represents blue
+                    regfile_ra1 = d7    // R7 = lane_3_color
+                    bsel = b011    // constant 2
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d14    // R14 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_3_DIRECTION
+                GameStates.BRANCH_LANE_3_DIRECTION:
+                    regfile_ra2 = d14    // R14 = temp reg
+                    if (regfile_rd2[0]){    // if R7 == 2 then direction is towards the blue side (lane_3_sushi + 1)
+                        game_fsm.d = GameStates.UPDATE_LANE_3_SUSHI_POS_P1
+                    }
+                    else {
+                        // if R7 == 2 then the direction is in the red side (lane_3_sushi - 1)
+                        game_fsm.d = GameStates.UPDATE_LANE_3_SUSHI_POS_P2
+                    }
+                GameStates.UPDATE_LANE_3_SUSHI_POS_P1:
+                    // if lane direction = blue
+                    // lane_3_sushi (R11) + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d11    // R11 = lane_3_sushi
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d11    // R11 = lane_3_sushi
+                    game_fsm.d = GameStates.CHECK_LANE_3_SUSHI_END_P1
+                GameStates.CHECK_LANE_3_SUSHI_END_P1:
+                    // if (lane_3_sushi == 8) then p1_score + 1
+                    // else check lane 3
+                    alufn = b110011    // CMPEQ
+                    regfile_ra1 = d11    // R11 = lane_3_sushi
+                    bsel = b101    // constant 8
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d14    // R14 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_3_SUSHI_END_P1
+                GameStates.BRANCH_LANE_3_SUSHI_END_P1:
+                    // if (lane_3_sushi == 8) then p1_score + 1
+                    regfile_ra2 = d14    // R14 = temp reg
+                    if (regfile_rd2[0]){
+                        game_fsm.d = GameStates.UPDATE_LANE_3_POINTS_P1
+                    }
+                    else {
+                        // else check lane 4
+                        game_fsm.d = GameStates.CHECK_LANE_4_DIRECTION
+                        // game_fsm.d = GameStates.IDLE_GAME
+                    }
+                GameStates.UPDATE_LANE_3_POINTS_P1:
+                    // p1_score + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d0    // R0 = p1_score
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d0    // R0 = p1_score
+                    game_fsm.d = GameStates.SPAWN_LANE_3_SUSHI
+                GameStates.UPDATE_LANE_3_SUSHI_POS_P2:
+                    // else lane direction = red
+                    // lane_3_sushi (R11) - 1
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d11    // R11 = lane_3_sushi
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d11    // R11 = lane_3_sushi
+                    game_fsm.d = GameStates.CHECK_LANE_3_SUSHI_END_P2
+                GameStates.CHECK_LANE_3_SUSHI_END_P2:
+                    // if (lane_3_sushi == 0) then p2_score + 1
+                    // else check lane 3
+                    alufn = b110011    // CMPEQ
+                    regfile_ra1 = d11    // R11 = lane_3_sushi
+                    bsel = b100    // constant 0
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d14    // R14 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_3_SUSHI_END_P2
+                GameStates.BRANCH_LANE_3_SUSHI_END_P2:
+                    // if (lane_3_sushi == 0) then p2_score + 1
+                    regfile_ra2 = d14
+                    if (regfile_rd2[0]){
+                        game_fsm.d = GameStates.UPDATE_LANE_3_POINTS_P2
+                    }
+                    else {
+                        // else check lane 4
+                        game_fsm.d = GameStates.CHECK_LANE_4_DIRECTION
+                        // game_fsm.d = GameStates.IDLE_GAME
+                    }
+                GameStates.UPDATE_LANE_3_POINTS_P2:
+                    // p2_points + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d1    // R1 = p2_score
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d1    // R1 = p2_score
+                    game_fsm.d = GameStates.SPAWN_LANE_3_SUSHI
+                GameStates.SPAWN_LANE_3_SUSHI:
+                    // spawn sushi in the middle (Index 4)
+                    alufn = b000000    // ADD
+                    bsel = b111    // constant 4
+                    asel = b10    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d11    // R11 = lane_3_sushi
+                    game_fsm.d = GameStates.IDLE_GAME
+                
+                
+                
+                // LANE 4
+                GameStates.CHECK_LANE_4_DIRECTION:
+                    // get direction of sushi travel and store into temp register
+                    alufn = b110011    // CMP/EQ with 2 which represents blue
+                    regfile_ra1 = d8    // R8 = lane_4_color
+                    bsel = b011    // constant 2
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d14    // R14 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_4_DIRECTION
+                GameStates.BRANCH_LANE_4_DIRECTION:
+                    regfile_ra2 = d14    // R14 = temp reg
+                    if (regfile_rd2[0]){    // if R8 == 2 then direction is towards the blue side (lane_4_sushi + 1)
+                        game_fsm.d = GameStates.UPDATE_LANE_4_SUSHI_POS_P1
+                    }
+                    else {
+                        // if R8 == 2 then the direction is in the red side (lane_4_sushi - 1)
+                        game_fsm.d = GameStates.UPDATE_LANE_4_SUSHI_POS_P2
+                    }
+                GameStates.UPDATE_LANE_4_SUSHI_POS_P1:
+                    // if lane direction = blue
+                    // lane_4_sushi (R12) + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d12    // R12 = lane_4_sushi
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d12    // R12 = lane_4_sushi
+                    game_fsm.d = GameStates.CHECK_LANE_4_SUSHI_END_P1
+                GameStates.CHECK_LANE_4_SUSHI_END_P1:
+                    // if (lane_4_sushi == 8) then p1_score + 1
+                    // else check lane 4
+                    alufn = b110011    // CMPEQ
+                    regfile_ra1 = d12    // R12 = lane_4_sushi
+                    bsel = b101    // constant 8
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d14    // R14 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_4_SUSHI_END_P1
+                GameStates.BRANCH_LANE_4_SUSHI_END_P1:
+                    // if (lane_4_sushi == 8) then p1_score + 1
+                    regfile_ra2 = d14    // R14 = temp reg
+                    if (regfile_rd2[0]){
+                        game_fsm.d = GameStates.UPDATE_LANE_4_POINTS_P1
+                    }
+                    else {
+                        // else back to IDLE_GAME
+                        game_fsm.d = GameStates.IDLE_GAME
+                    }
+                GameStates.UPDATE_LANE_4_POINTS_P1:
+                    // p1_score + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d0    // R0 = p1_score
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d0    // R0 = p1_score
+                    game_fsm.d = GameStates.SPAWN_LANE_4_SUSHI
+                GameStates.UPDATE_LANE_4_SUSHI_POS_P2:
+                    // else lane direction = red
+                    // lane_4_sushi (R12) - 1
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d12    // R12 = lane_4_sushi
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d12    // R12 = lane_4_sushi
+                    game_fsm.d = GameStates.CHECK_LANE_4_SUSHI_END_P2
+                GameStates.CHECK_LANE_4_SUSHI_END_P2:
+                    // if (lane_4_sushi == 0) then p2_score + 1
+                    // else check lane 4
+                    alufn = b110011    // CMPEQ
+                    regfile_ra1 = d12    // R12 = lane_4_sushi
+                    bsel = b100    // constant 0
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d14    // R14 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_4_SUSHI_END_P2
+                GameStates.BRANCH_LANE_4_SUSHI_END_P2:
+                    // if (lane_4_sushi == 0) then p2_score + 1
+                    regfile_ra2 = d14
+                    if (regfile_rd2[0]){
+                        game_fsm.d = GameStates.UPDATE_LANE_4_POINTS_P2
+                    }
+                    else {
+                        // else back to IDLE_GAME
+                        game_fsm.d = GameStates.IDLE_GAME
+                    }
+                GameStates.UPDATE_LANE_4_POINTS_P2:
+                    // p2_points + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d1    // R1 = p2_score
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d1    // R1 = p2_score
+                    game_fsm.d = GameStates.SPAWN_LANE_4_SUSHI
+                GameStates.SPAWN_LANE_4_SUSHI:
+                    // spawn sushi in the middle (Index 4)
+                    alufn = b000000    // ADD
+                    bsel = b111    // constant 4
+                    asel = b10    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d12    // R12 = lane_4_sushi
                     game_fsm.d = GameStates.IDLE_GAME
             }
         }

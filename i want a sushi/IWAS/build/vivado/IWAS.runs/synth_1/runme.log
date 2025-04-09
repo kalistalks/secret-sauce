@@ -8,7 +8,7 @@
   **** SW Build 5239630 on Fri Nov 08 22:35:27 MST 2024
   **** IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
   **** SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
-  **** Start of session at: Thu Apr 10 01:57:49 2025
+  **** Start of session at: Thu Apr 10 03:07:54 2025
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
     ** Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 
@@ -20,9 +20,9 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t
 INFO: [Device 21-403] Loading part xc7a35tftg256-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 32024
+INFO: [Synth 8-7075] Helper process launched with PID 10144
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1025.297 ; gain = 467.758
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1024.711 ; gain = 468.102
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'alchitry_top' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alchitry_top.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'reset_conditioner' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/reset_conditioner.sv:7]
@@ -193,18 +193,18 @@ WARNING: [Synth 8-7129] Port io_dip[0][2] in module alchitry_top is either uncon
 WARNING: [Synth 8-7129] Port io_dip[0][1] in module alchitry_top is either unconnected or has no load
 WARNING: [Synth 8-7129] Port io_dip[0][0] in module alchitry_top is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1144.668 ; gain = 587.129
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1145.277 ; gain = 588.668
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1144.668 ; gain = 587.129
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1145.277 ; gain = 588.668
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1144.668 ; gain = 587.129
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1145.277 ; gain = 588.668
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.029 . Memory (MB): peak = 1144.668 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.029 . Memory (MB): peak = 1145.277 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -217,26 +217,26 @@ Parsing XDC File [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Struct
 Finished Parsing XDC File [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/constraint/au_props.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1235.211 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1237.012 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1235.211 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1237.012 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 1235.211 ; gain = 677.672
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 1237.012 ; gain = 680.402
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tftg256-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 1235.211 ; gain = 677.672
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 1237.012 ; gain = 680.402
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 1235.211 ; gain = 677.672
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 1237.012 ; gain = 680.402
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'D_game_fsm_q_reg' in module 'game_cu'
 INFO: [Synth 8-802] inferred FSM for state register 'D_state_q_reg' in module 'ws2812b_driver'
@@ -244,78 +244,100 @@ INFO: [Synth 8-802] inferred FSM for state register 'D_state_q_reg' in module 'w
 ---------------------------------------------------------------------------------------------------
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
-                iSTATE45 |                          0000000 |                          0000000
-                iSTATE41 |                          0000001 |                          0000010
-                iSTATE44 |                          0000010 |                          0000001
-                iSTATE40 |                          0000011 |                          0000011
-                iSTATE37 |                          0000100 |                          0000100
-                iSTATE36 |                          0000101 |                          0000101
-                iSTATE33 |                          0000110 |                          0000110
-                iSTATE31 |                          0000111 |                          0000111
-                iSTATE67 |                          0001000 |                          0001000
-                iSTATE66 |                          0001001 |                          0001001
-                iSTATE28 |                          0001010 |                          0110010
-                iSTATE26 |                          0001011 |                          0110011
-                iSTATE17 |                          0001100 |                          0110100
-                iSTATE12 |                          0001101 |                          0110110
-                iSTATE10 |                          0001110 |                          0110111
-                iSTATE47 |                          0001111 |                          0111010
-                iSTATE16 |                          0010000 |                          0110101
-                iSTATE51 |                          0010001 |                          0111000
-                iSTATE49 |                          0010010 |                          0111001
-                iSTATE46 |                          0010011 |                          0111011
-                iSTATE43 |                          0010100 |                          0111100
-                iSTATE42 |                          0010101 |                          0111101
-                iSTATE39 |                          0010110 |                          0111110
-                iSTATE38 |                          0010111 |                          0111111
-                iSTATE27 |                          0011000 |                          1000001
-                iSTATE23 |                          0011001 |                          1000010
-                iSTATE11 |                          0011010 |                          1000101
-                iSTATE29 |                          0011011 |                          1000000
-                iSTATE22 |                          0011100 |                          1000011
-                iSTATE13 |                          0011101 |                          1000100
-                 iSTATE7 |                          0011110 |                          1000110
-                 iSTATE6 |                          0011111 |                          1000111
-                iSTATE63 |                          0100000 |                          0001010
-                iSTATE62 |                          0100001 |                          0001011
-                iSTATE55 |                          0100010 |                          0001100
-                iSTATE54 |                          0100011 |                          0001101
-                iSTATE50 |                          0100100 |                          0001110
-                iSTATE69 |                          0100101 |                          0010000
-                iSTATE68 |                          0100110 |                          0010001
-                iSTATE48 |                          0100111 |                          0001111
-                iSTATE65 |                          0101000 |                          0010010
-                iSTATE64 |                          0101001 |                          0010011
-                iSTATE57 |                          0101010 |                          0010100
-                iSTATE56 |                          0101011 |                          0010101
-                iSTATE53 |                          0101100 |                          0010110
-                iSTATE52 |                          0101101 |                          0010111
-                iSTATE21 |                          0101110 |                          0011000
-                iSTATE20 |                          0101111 |                          0011001
-                iSTATE19 |                          0110000 |                          0011010
-                iSTATE18 |                          0110001 |                          0011011
-                 iSTATE5 |                          0110010 |                          0011100
-                 iSTATE4 |                          0110011 |                          0011101
-                 iSTATE3 |                          0110100 |                          0011110
-                 iSTATE2 |                          0110101 |                          0011111
-                 iSTATE1 |                          0110110 |                          0100000
-                 iSTATE0 |                          0110111 |                          0100001
-                  iSTATE |                          0111000 |                          0100010
-                iSTATE70 |                          0111001 |                          0100011
-                iSTATE61 |                          0111010 |                          0100100
-                iSTATE60 |                          0111011 |                          0100101
-                iSTATE59 |                          0111100 |                          0100110
-                iSTATE58 |                          0111101 |                          0100111
-                iSTATE32 |                          0111110 |                          0101000
-                iSTATE30 |                          0111111 |                          0101001
-                iSTATE25 |                          1000000 |                          0101010
-                iSTATE24 |                          1000001 |                          0101011
-                iSTATE15 |                          1000010 |                          0101100
-                iSTATE14 |                          1000011 |                          0101101
-                 iSTATE9 |                          1000100 |                          0101110
-                 iSTATE8 |                          1000101 |                          0101111
-                iSTATE35 |                          1000110 |                          0110000
-                iSTATE34 |                          1000111 |                          0110001
+                iSTATE57 |                          0000000 |                          0000000
+                iSTATE52 |                          0000001 |                          0000010
+                iSTATE56 |                          0000010 |                          0000001
+                iSTATE50 |                          0000011 |                          0000011
+                iSTATE41 |                          0000100 |                          0000100
+                iSTATE40 |                          0000101 |                          0000101
+                iSTATE37 |                          0000110 |                          0000110
+                iSTATE35 |                          0000111 |                          0000111
+                iSTATE89 |                          0001000 |                          0001000
+                iSTATE88 |                          0001001 |                          0001001
+                iSTATE32 |                          0001010 |                          0110010
+                iSTATE30 |                          0001011 |                          0110011
+                iSTATE21 |                          0001100 |                          0110100
+                iSTATE15 |                          0001101 |                          0110110
+                iSTATE14 |                          0001110 |                          0110111
+                iSTATE64 |                          0001111 |                          0111010
+                iSTATE20 |                          0010000 |                          0110101
+                iSTATE71 |                          0010001 |                          0111000
+                iSTATE68 |                          0010010 |                          0111001
+                iSTATE62 |                          0010011 |                          0111011
+                iSTATE55 |                          0010100 |                          0111100
+                iSTATE54 |                          0010101 |                          0111101
+                iSTATE48 |                          0010110 |                          0111110
+                iSTATE46 |                          0010111 |                          0111111
+                iSTATE31 |                          0011000 |                          1000001
+                iSTATE27 |                          0011001 |                          1000010
+                iSTATE16 |                          0011010 |                          1000101
+                iSTATE33 |                          0011011 |                          1000000
+                iSTATE26 |                          0011100 |                          1000011
+                iSTATE17 |                          0011101 |                          1000100
+                iSTATE11 |                          0011110 |                          1000110
+                iSTATE10 |                          0011111 |                          1000111
+                iSTATE65 |                          0100000 |                          1001000
+                iSTATE63 |                          0100001 |                          1001001
+                iSTATE59 |                          0100010 |                          1001010
+                iSTATE49 |                          0100011 |                          1001100
+                iSTATE47 |                          0100100 |                          1001101
+                iSTATE69 |                          0100101 |                          1010000
+                iSTATE58 |                          0100110 |                          1001011
+                iSTATE43 |                          0100111 |                          1001110
+                iSTATE42 |                          0101000 |                          1001111
+                iSTATE66 |                          0101001 |                          1010001
+                iSTATE61 |                          0101010 |                          1010010
+                iSTATE60 |                          0101011 |                          1010011
+                iSTATE53 |                          0101100 |                          1010100
+                iSTATE51 |                          0101101 |                          1010101
+                iSTATE44 |                          0101110 |                          1010111
+                 iSTATE5 |                          0101111 |                          1011000
+                 iSTATE0 |                          0110000 |                          1011011
+                iSTATE45 |                          0110001 |                          1010110
+                 iSTATE4 |                          0110010 |                          1011001
+                 iSTATE1 |                          0110011 |                          1011010
+                iSTATE86 |                          0110100 |                          1011100
+                iSTATE83 |                          0110101 |                          1011101
+                iSTATE84 |                          0110110 |                          0001010
+                iSTATE82 |                          0110111 |                          0001011
+                iSTATE75 |                          0111000 |                          0001100
+                iSTATE74 |                          0111001 |                          0001101
+                iSTATE70 |                          0111010 |                          0001110
+                iSTATE91 |                          0111011 |                          0010000
+                iSTATE90 |                          0111100 |                          0010001
+                iSTATE67 |                          0111101 |                          0001111
+                iSTATE87 |                          0111110 |                          0010010
+                iSTATE85 |                          0111111 |                          0010011
+                iSTATE77 |                          1000000 |                          0010100
+                iSTATE76 |                          1000001 |                          0010101
+                iSTATE73 |                          1000010 |                          0010110
+                iSTATE72 |                          1000011 |                          0010111
+                iSTATE25 |                          1000100 |                          0011000
+                iSTATE24 |                          1000101 |                          0011001
+                iSTATE23 |                          1000110 |                          0011010
+                iSTATE22 |                          1000111 |                          0011011
+                 iSTATE9 |                          1001000 |                          0011100
+                 iSTATE8 |                          1001001 |                          0011101
+                 iSTATE7 |                          1001010 |                          0011110
+                 iSTATE6 |                          1001011 |                          0011111
+                 iSTATE3 |                          1001100 |                          0100000
+                 iSTATE2 |                          1001101 |                          0100001
+                  iSTATE |                          1001110 |                          0100010
+                iSTATE92 |                          1001111 |                          0100011
+                iSTATE81 |                          1010000 |                          0100100
+                iSTATE80 |                          1010001 |                          0100101
+                iSTATE79 |                          1010010 |                          0100110
+                iSTATE78 |                          1010011 |                          0100111
+                iSTATE36 |                          1010100 |                          0101000
+                iSTATE34 |                          1010101 |                          0101001
+                iSTATE29 |                          1010110 |                          0101010
+                iSTATE28 |                          1010111 |                          0101011
+                iSTATE19 |                          1011000 |                          0101100
+                iSTATE18 |                          1011001 |                          0101101
+                iSTATE13 |                          1011010 |                          0101110
+                iSTATE12 |                          1011011 |                          0101111
+                iSTATE39 |                          1011100 |                          0110000
+                iSTATE38 |                          1011101 |                          0110001
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'D_game_fsm_q_reg' using encoding 'sequential' in module 'game_cu'
 ---------------------------------------------------------------------------------------------------
@@ -335,7 +357,7 @@ INFO: [Synth 8-3354] encoded FSM with state register 'D_state_q_reg' using encod
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'D_state_q_reg' using encoding 'sequential' in module 'ws2812b_driver__parameterized0'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:11 . Memory (MB): peak = 1235.211 ; gain = 677.672
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:12 . Memory (MB): peak = 1237.012 ; gain = 680.402
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -365,26 +387,26 @@ Detailed RTL Component Info :
 	   4 Input   32 Bit        Muxes := 2     
 	   8 Input   32 Bit        Muxes := 1     
 	   4 Input   17 Bit        Muxes := 10    
-	 102 Input    7 Bit        Muxes := 1     
+	 130 Input    7 Bit        Muxes := 1     
 	   2 Input    7 Bit        Muxes := 1     
-	  72 Input    6 Bit        Muxes := 1     
+	  94 Input    6 Bit        Muxes := 1     
 	   2 Input    6 Bit        Muxes := 1     
 	   2 Input    5 Bit        Muxes := 10    
 	   3 Input    5 Bit        Muxes := 8     
 	   4 Input    4 Bit        Muxes := 1     
-	  72 Input    4 Bit        Muxes := 3     
+	  94 Input    4 Bit        Muxes := 3     
 	   2 Input    4 Bit        Muxes := 3     
 	   3 Input    4 Bit        Muxes := 2     
-	  72 Input    3 Bit        Muxes := 1     
+	  94 Input    3 Bit        Muxes := 1     
 	   2 Input    3 Bit        Muxes := 1     
-	  72 Input    2 Bit        Muxes := 2     
+	  94 Input    2 Bit        Muxes := 2     
 	   2 Input    2 Bit        Muxes := 52    
 	   3 Input    2 Bit        Muxes := 10    
 	   4 Input    2 Bit        Muxes := 12    
 	  10 Input    2 Bit        Muxes := 28    
 	  12 Input    2 Bit        Muxes := 2     
 	  21 Input    2 Bit        Muxes := 8     
-	  72 Input    1 Bit        Muxes := 2     
+	  94 Input    1 Bit        Muxes := 2     
 	  16 Input    1 Bit        Muxes := 16    
 	   2 Input    1 Bit        Muxes := 130   
 	   3 Input    1 Bit        Muxes := 130   
@@ -491,7 +513,7 @@ WARNING: [Synth 8-7129] Port io_dip[2][5] in module alchitry_top is either uncon
 WARNING: [Synth 8-7129] Port io_dip[2][4] in module alchitry_top is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:25 . Memory (MB): peak = 1391.812 ; gain = 834.273
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:19 ; elapsed = 00:00:27 . Memory (MB): peak = 1416.766 ; gain = 860.156
 ---------------------------------------------------------------------------------
  Sort Area is  out_sig0_0 : 0 0 : 3101 5879 : Used 1 time 0
  Sort Area is  out_sig0_0 : 0 1 : 2778 5879 : Used 1 time 0
@@ -519,19 +541,19 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:21 ; elapsed = 00:00:30 . Memory (MB): peak = 1391.812 ; gain = 834.273
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:23 ; elapsed = 00:00:32 . Memory (MB): peak = 1416.766 ; gain = 860.156
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:27 ; elapsed = 00:00:38 . Memory (MB): peak = 1582.141 ; gain = 1024.602
+Finished Timing Optimization : Time (s): cpu = 00:00:32 ; elapsed = 00:00:44 . Memory (MB): peak = 1652.141 ; gain = 1095.531
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:27 ; elapsed = 00:00:38 . Memory (MB): peak = 1591.188 ; gain = 1033.648
+Finished Technology Mapping : Time (s): cpu = 00:00:33 ; elapsed = 00:00:45 . Memory (MB): peak = 1657.656 ; gain = 1101.047
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -549,37 +571,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:29 ; elapsed = 00:00:41 . Memory (MB): peak = 1675.098 ; gain = 1117.559
+Finished IO Insertion : Time (s): cpu = 00:00:34 ; elapsed = 00:00:47 . Memory (MB): peak = 1713.145 ; gain = 1156.535
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:29 ; elapsed = 00:00:41 . Memory (MB): peak = 1675.098 ; gain = 1117.559
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:34 ; elapsed = 00:00:47 . Memory (MB): peak = 1713.145 ; gain = 1156.535
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:30 ; elapsed = 00:00:41 . Memory (MB): peak = 1675.098 ; gain = 1117.559
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:35 ; elapsed = 00:00:47 . Memory (MB): peak = 1713.145 ; gain = 1156.535
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:30 ; elapsed = 00:00:41 . Memory (MB): peak = 1675.098 ; gain = 1117.559
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:35 ; elapsed = 00:00:47 . Memory (MB): peak = 1713.145 ; gain = 1156.535
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:30 ; elapsed = 00:00:41 . Memory (MB): peak = 1675.098 ; gain = 1117.559
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:35 ; elapsed = 00:00:48 . Memory (MB): peak = 1713.145 ; gain = 1156.535
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:30 ; elapsed = 00:00:41 . Memory (MB): peak = 1675.098 ; gain = 1117.559
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:35 ; elapsed = 00:00:48 . Memory (MB): peak = 1713.145 ; gain = 1156.535
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -608,40 +630,41 @@ Report Cell Usage:
 |1     |BUFG    |     1|
 |2     |CARRY4  |   109|
 |3     |DSP48E1 |     3|
-|4     |LUT1    |    88|
-|5     |LUT2    |   305|
-|6     |LUT3    |    73|
-|7     |LUT4    |   235|
-|8     |LUT5    |   328|
-|9     |LUT6    |   459|
-|10    |MUXF7   |    12|
-|11    |FDRE    |   862|
-|12    |FDSE    |    25|
-|13    |IBUF    |     9|
-|14    |OBUF    |    55|
+|4     |LUT1    |   112|
+|5     |LUT2    |   335|
+|6     |LUT3    |    71|
+|7     |LUT4    |   230|
+|8     |LUT5    |   208|
+|9     |LUT6    |   603|
+|10    |MUXF7   |    46|
+|11    |MUXF8   |     2|
+|12    |FDRE    |   983|
+|13    |FDSE    |    26|
+|14    |IBUF    |     9|
+|15    |OBUF    |    55|
 +------+--------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:30 ; elapsed = 00:00:41 . Memory (MB): peak = 1675.098 ; gain = 1117.559
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:35 ; elapsed = 00:00:48 . Memory (MB): peak = 1713.145 ; gain = 1156.535
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 94 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:25 ; elapsed = 00:00:40 . Memory (MB): peak = 1675.098 ; gain = 1027.016
-Synthesis Optimization Complete : Time (s): cpu = 00:00:30 ; elapsed = 00:00:42 . Memory (MB): peak = 1675.098 ; gain = 1117.559
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:31 ; elapsed = 00:00:46 . Memory (MB): peak = 1713.145 ; gain = 1064.801
+Synthesis Optimization Complete : Time (s): cpu = 00:00:35 ; elapsed = 00:00:48 . Memory (MB): peak = 1713.145 ; gain = 1156.535
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.020 . Memory (MB): peak = 1685.277 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 124 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.022 . Memory (MB): peak = 1722.328 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 160 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1688.938 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1726.023 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Synth Design complete | Checksum: 9ed204b7
+Synth Design complete | Checksum: 83be4fb8
 INFO: [Common 17-83] Releasing license: Synthesis
 72 Infos, 166 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:32 ; elapsed = 00:00:46 . Memory (MB): peak = 1688.938 ; gain = 1322.129
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1688.938 ; gain = 0.000
+synth_design: Time (s): cpu = 00:00:37 ; elapsed = 00:00:52 . Memory (MB): peak = 1726.023 ; gain = 1359.047
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1726.023 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.runs/synth_1/alchitry_top.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file alchitry_top_utilization_synth.rpt -pb alchitry_top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu Apr 10 01:58:37 2025...
+INFO: [Common 17-206] Exiting Vivado at Thu Apr 10 03:08:49 2025...
