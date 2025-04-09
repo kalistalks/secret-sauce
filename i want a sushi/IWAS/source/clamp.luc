@@ -1,0 +1,15 @@
+module clamp (
+    input a[32],
+    input b[32],
+    output out[32]
+) {
+    always {
+        if (a[31]) {
+            out = 32b0
+        } else if (a > b) {
+            out = b
+        } else {
+            out = a
+        }
+    }
+}

@@ -1,0 +1,116 @@
+module alu (
+    input a[32],
+    input b[32],
+    input alufn[7],
+    output out[32],
+    output z,
+    output v,
+    output n
+) {
+    sig muxout[32]
+    adder adder(#SIZE(32)) // instantiate adder
+    compare compare // instantiate compare
+    boolean boolean // instantiate boolean
+    compact_shifter shifter // instantiate shifter
+    multiplier multiplier // instantiate multiplier
+    mux_4 mux_4[32]
+    mux_4 mux_2[32]
+    
+    
+    // Extra functions
+    clamp clamp // instantiate clamp
+    // divider divider // instantiate clamp
+    
+    always {
+        // code from lab website to connect its input and output into adder
+        adder.a = a
+        adder.b = b
+        adder.alufn_signal = alufn[5:0]
+        
+        z = adder.z
+        v = adder.v
+        n = adder.n
+        
+        //compare
+        compare.z = adder.z
+        compare.v = adder.v
+        compare.n = adder.n
+        compare.alufn = alufn[5:0]
+        
+        //boolean
+        boolean.a = a
+        boolean.b = b
+        boolean.alufn = alufn[5:0]
+        
+        //shifter
+        shifter.a = a
+        shifter.b = b[4:0]
+        shifter.alufn = alufn[5:0]
+        
+        //multiplier
+        multiplier.a = a
+        multiplier.b = b
+        
+        
+        // Extra functions
+        // clamp
+        clamp.a = a
+        clamp.b = b
+        /*
+        // divider
+        divider.a = a
+        divider.b = b
+        */
+        
+        repeat(i, 32, 0, 1) {
+            // S[31:0] from adder into 0-input of 32xMux_2
+            mux_2.in[i][0] = adder.out[i]
+            mux_2.in[i][1] = adder.out[i]
+            
+            // MUL[31:0] from multiplier into 1-input of 32xMux_2
+            mux_2.in[i][2] = multiplier.mul[i]
+            
+            // special function CLAMP 
+            mux_2.in[i][3] = clamp.out[i]
+            
+            // 32x{ALUFN[1]} into S0 of 32xMux_2
+            mux_2.s0[i] = alufn[0]
+            mux_2.s1[i] = alufn[1]
+            
+            // Store output of 32xMux_2
+            muxout[i] = mux_2.out[i]      
+        }
+        
+        repeat(i, 32, 0, 1) {
+            // Output of 32xMux_2 into 0-input of 32xMux_4
+            mux_4.in[i][0] = muxout[i]
+            
+            // BOOL[31:0] of boolean into 1-input of 32xMux_4
+            mux_4.in[i][1] = boolean.bool[i]
+            
+            // SHIFT[31:0] of shifter into 2-input of 32xMux_4
+            mux_4.in[i][2] = shifter.shift[i]
+            
+            // c{31b0, CMP} of comparitor into 3-input of 32xMux_4
+            mux_4.in[i][3] = compare.cmp[i]
+            
+            // 32x{ALUFN[4]} into S0 of 32xMux_2
+            mux_4.s0[i] = alufn[4]
+            
+            // 32x{ALUFN[5]} into S0 of 32xMux_2
+            mux_4.s1[i] = alufn[5]
+            
+            // 32xMux_2 output to ALU[31:0] output
+            out[i] = mux_4.out[i]
+        }
+        /*
+        if (alufn[6]) {
+            if (alufn[0]) {
+                out = clamp.out
+            } else if (alufn[1]) {
+                out = divider.out
+            }
+        }
+        */
+    }
+}

@@ -1,5 +1,5 @@
 module lane_rom (
-    input pos[2],  // clock
+    input pos[3],  // clock
     output out[21][2]
 ) {
     always {

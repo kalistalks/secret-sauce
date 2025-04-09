@@ -1,0 +1,64 @@
+module pc_unit (
+    input clk,  // clock
+    input rst,  // reset
+    input slowclk, // slowclock to advance pc
+    input id[16],
+    input pcsel[3],
+    input reg_data_1[32],
+    output pc_4[32],
+    output pc_4_sxtc[32],
+    output pcsel_out[32], // for debug only, does not exist in pc_unit
+    output ia[32]
+) {
+    dff pc[32](#INIT(0),.clk(clk)) // PC Register (TASK 3)
+    
+    sig pcsel_out_sig[32] // output of pcsel unit
+    sig pc_4sxtc32_sig[32] // raw pc + 4 + 4*SXT(C)
+    sig pc_4sxtc_sig[32] // pc + 4 + 4*SXT(C) with bit 31 handled
+    sig pc_4sig[32] // pc + 4 with bit 32 handled
+    sig pc_4raw[32] // raw pc + 4
+    
+    always {
+        // default connections to silence errors
+        pc.d = pc.q 
+        pcsel_out_sig = 0
+        pc_4sxtc_sig = 0
+        
+        // increment pc by 4
+        pc_4raw = pc.q + 4
+        pc_4sig = c{pc.q[31], pc_4raw[30:0]}            
+        
+        // TASK 4
+        // shift-and-add pc by 4
+        // sign extend constant by doing 4 * SEXT(C)
+        // SEXT(c) = concatentate 16 * MSB and c
+        pc_4sxtc32_sig = pc.q + 4 + (4 * c{16x{id[15]}, id[15:0]})
+        pc_4sxtc32_sig = c{pc.q[31], pc_4sxtc32_sig[30:0]}
+        
+        // TASK 1 
+        // PCSEL mux 
+        case(pcsel) {
+            b000: pcsel_out_sig = pc_4sig
+            b001: pcsel_out_sig = pc_4sxtc32_sig
+            b010: pcsel_out_sig = c{pc.q[31] & reg_data_1[31], reg_data_1[30:0]} // TASK 5
+            b011: pcsel_out_sig = h80000004 // ILLOP
+            b100: pcsel_out_sig = h80000008 // IRQ
+            default: pcsel_out_sig = pc.q
+        }
+        // outside the mux: advance the PC only when slowclk is 1
+        if (slowclk) {
+            pc.d = c{pcsel_out_sig[31:2], b00} // Ensure that PC is a multiple of 4
+        }
+        // Task 2
+        // RESET mux
+        if (rst) {
+            pc.d = h80000000
+        }
+        
+        // output connections
+        ia = pc.q
+        pc_4 =  pc_4sig
+        pc_4_sxtc = pc_4sxtc_sig
+        pcsel_out = pcsel_out_sig
+    }
+}

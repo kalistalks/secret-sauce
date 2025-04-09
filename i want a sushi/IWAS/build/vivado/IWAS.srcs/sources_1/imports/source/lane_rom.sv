@@ -5,7 +5,7 @@
 */
 
 module lane_rom (
-        input wire [1:0] pos,
+        input wire [2:0] pos,
         output reg [20:0][1:0] out
     );
     always @* begin

@@ -1,0 +1,14 @@
+module bit_reverse #(
+    SIZE = 32  : SIZE > 0
+    )
+  (
+    input in[SIZE],
+    output reversed[SIZE]
+  ) 
+{
+  always {
+        repeat(i, SIZE){
+            reversed[i] = in[SIZE-1-i]
+        }
+  }
+}

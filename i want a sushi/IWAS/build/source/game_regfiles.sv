@@ -30,20 +30,20 @@ module game_regfiles (
     );
     logic [31:0] D_p1_score_d, D_p1_score_q = 1'h0;
     logic [31:0] D_p2_score_d, D_p2_score_q = 1'h0;
-    logic [31:0] D_current_timer_d, D_current_timer_q = 2'h2;
+    logic [31:0] D_current_timer_d, D_current_timer_q = 5'h1e;
     logic [31:0] D_p1_chef_d, D_p1_chef_q = 1'h0;
     logic [31:0] D_p2_chef_d, D_p2_chef_q = 1'h0;
-    logic [31:0] D_lane_1_color_d, D_lane_1_color_q = 1'h1;
-    logic [31:0] D_lane_2_color_d, D_lane_2_color_q = 2'h2;
-    logic [31:0] D_lane_3_color_d, D_lane_3_color_q = 1'h1;
-    logic [31:0] D_lane_4_color_d, D_lane_4_color_q = 2'h2;
-    logic [31:0] D_lane_1_sushi_d, D_lane_1_sushi_q = 2'h3;
-    logic [31:0] D_lane_2_sushi_d, D_lane_2_sushi_q = 2'h3;
-    logic [31:0] D_lane_3_sushi_d, D_lane_3_sushi_q = 2'h3;
-    logic [31:0] D_lane_4_sushi_d, D_lane_4_sushi_q = 2'h3;
-    logic [31:0] D_p1_button_press_d, D_p1_button_press_q = 1'h0;
-    logic [31:0] D_p2_button_press_d, D_p2_button_press_q = 1'h0;
-    logic [31:0] D_temp_var_d, D_temp_var_q = 1'h0;
+    logic [31:0] D_lane_1_color_d, D_lane_1_color_q = 2'h2;
+    logic [31:0] D_lane_2_color_d, D_lane_2_color_q = 1'h1;
+    logic [31:0] D_lane_3_color_d, D_lane_3_color_q = 2'h2;
+    logic [31:0] D_lane_4_color_d, D_lane_4_color_q = 1'h1;
+    logic [31:0] D_lane_1_sushi_d, D_lane_1_sushi_q = 3'h4;
+    logic [31:0] D_lane_2_sushi_d, D_lane_2_sushi_q = 3'h4;
+    logic [31:0] D_lane_3_sushi_d, D_lane_3_sushi_q = 3'h4;
+    logic [31:0] D_lane_4_sushi_d, D_lane_4_sushi_q = 3'h4;
+    logic [31:0] D_temp_var_1_d, D_temp_var_1_q = 1'h0;
+    logic [31:0] D_temp_var_2_d, D_temp_var_2_q = 1'h0;
+    logic [31:0] D_temp_var_3_d, D_temp_var_3_q = 1'h0;
     always @* begin
         D_p1_score_d = D_p1_score_q;
         D_p2_score_d = D_p2_score_q;
@@ -58,9 +58,9 @@ module game_regfiles (
         D_lane_2_sushi_d = D_lane_2_sushi_q;
         D_lane_3_sushi_d = D_lane_3_sushi_q;
         D_lane_4_sushi_d = D_lane_4_sushi_q;
-        D_p1_button_press_d = D_p1_button_press_q;
-        D_p2_button_press_d = D_p2_button_press_q;
-        D_temp_var_d = D_temp_var_q;
+        D_temp_var_1_d = D_temp_var_1_q;
+        D_temp_var_2_d = D_temp_var_2_q;
+        D_temp_var_3_d = D_temp_var_3_q;
         
         if (we) begin
             
@@ -105,13 +105,13 @@ module game_regfiles (
                     D_lane_4_sushi_d = data;
                 end
                 4'hd: begin
-                    D_p1_button_press_d = data;
+                    D_temp_var_1_d = data;
                 end
                 4'he: begin
-                    D_p2_button_press_d = data;
+                    D_temp_var_2_d = data;
                 end
                 4'hf: begin
-                    D_temp_var_d = data;
+                    D_temp_var_3_d = data;
                 end
             endcase
         end
@@ -157,13 +157,13 @@ module game_regfiles (
                 rd1 = D_lane_4_sushi_q;
             end
             4'hd: begin
-                rd1 = D_p1_button_press_q;
+                rd1 = D_temp_var_1_q;
             end
             4'he: begin
-                rd1 = D_p2_button_press_q;
+                rd1 = D_temp_var_2_q;
             end
             4'hf: begin
-                rd1 = D_temp_var_q;
+                rd1 = D_temp_var_3_q;
             end
             default: begin
                 rd1 = 1'h0;
@@ -211,13 +211,13 @@ module game_regfiles (
                 rd2 = D_lane_4_sushi_q;
             end
             4'hd: begin
-                rd2 = D_p1_button_press_q;
+                rd2 = D_temp_var_1_q;
             end
             4'he: begin
-                rd2 = D_p2_button_press_q;
+                rd2 = D_temp_var_2_q;
             end
             4'hf: begin
-                rd2 = D_temp_var_q;
+                rd2 = D_temp_var_3_q;
             end
             default: begin
                 rd2 = 1'h0;
@@ -243,20 +243,20 @@ module game_regfiles (
         if ((rst) == 1'b1) begin
             D_p1_score_q <= 1'h0;
             D_p2_score_q <= 1'h0;
-            D_current_timer_q <= 2'h2;
+            D_current_timer_q <= 5'h1e;
             D_p1_chef_q <= 1'h0;
             D_p2_chef_q <= 1'h0;
-            D_lane_1_color_q <= 1'h1;
-            D_lane_2_color_q <= 2'h2;
-            D_lane_3_color_q <= 1'h1;
-            D_lane_4_color_q <= 2'h2;
-            D_lane_1_sushi_q <= 2'h3;
-            D_lane_2_sushi_q <= 2'h3;
-            D_lane_3_sushi_q <= 2'h3;
-            D_lane_4_sushi_q <= 2'h3;
-            D_p1_button_press_q <= 1'h0;
-            D_p2_button_press_q <= 1'h0;
-            D_temp_var_q <= 1'h0;
+            D_lane_1_color_q <= 2'h2;
+            D_lane_2_color_q <= 1'h1;
+            D_lane_3_color_q <= 2'h2;
+            D_lane_4_color_q <= 1'h1;
+            D_lane_1_sushi_q <= 3'h4;
+            D_lane_2_sushi_q <= 3'h4;
+            D_lane_3_sushi_q <= 3'h4;
+            D_lane_4_sushi_q <= 3'h4;
+            D_temp_var_1_q <= 1'h0;
+            D_temp_var_2_q <= 1'h0;
+            D_temp_var_3_q <= 1'h0;
         end else begin
             D_p1_score_q <= D_p1_score_d;
             D_p2_score_q <= D_p2_score_d;
@@ -271,9 +271,9 @@ module game_regfiles (
             D_lane_2_sushi_q <= D_lane_2_sushi_d;
             D_lane_3_sushi_q <= D_lane_3_sushi_d;
             D_lane_4_sushi_q <= D_lane_4_sushi_d;
-            D_p1_button_press_q <= D_p1_button_press_d;
-            D_p2_button_press_q <= D_p2_button_press_d;
-            D_temp_var_q <= D_temp_var_d;
+            D_temp_var_1_q <= D_temp_var_1_d;
+            D_temp_var_2_q <= D_temp_var_2_d;
+            D_temp_var_3_q <= D_temp_var_3_d;
         end
     end
 endmodule

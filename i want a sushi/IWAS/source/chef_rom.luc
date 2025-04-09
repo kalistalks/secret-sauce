@@ -1,5 +1,5 @@
 module chef_rom (
-    input pos[3],  // clock
+    input pos[4],  // clock
     output out[12][2]
 ) {
     always {

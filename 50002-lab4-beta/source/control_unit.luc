@@ -1,0 +1,143 @@
+module control_unit (
+    input clk,
+    input irq, 
+    input z,
+    input rst,    
+    input opcode[6],
+    input slowclk,
+    input ia31,
+    output pcsel[3], 
+    output wasel,
+    output asel,
+    output ra2sel,
+    output bsel,
+    output alufn[6],
+    output wdsel[2], 
+    output werf,
+    output wr
+) {
+    
+    const CU_ROM = { 
+        b01110000000000010, // OPCODE 0x3F (ILLOP) [Index 63]
+        b00000011000110110, // OPCODE 0x3E SRAC
+        b00000011000010110, // OPCODE 0x3D SHRC
+        b00000011000000110, // OPCODE 0x3C SHLC
+        b01110000000000010, // OPCODE 0x3B (ILLOP)
+        b00000010101100110, // OPCODE 0x3A XORC
+        b00000010111100110, // OPCODE 0x39 ORC
+        b00000010110000110, // OPCODE 0x38 ANDC
+        b01110000000000010, // OPCODE 0x37 (ILLOP)
+        b00000011101110110, // OPCODE 0x36 CMPLEC
+        b00000011101010110, // OPCODE 0x35 CMPLTC
+        b00000011100110110, // OPCODE 0x34 CMPEQC
+        b01110000000000010, // OPCODE 0x33 DIVC
+        b01110000000000010, // OPCODE 0x32 MULC
+        b00000010000010110, // OPCODE 0x31 SUBC
+        b00000010000000110, // OPCODE 0x30 ADDC
+        b01110000000000010, // OPCODE 0x2F (ILLOP)
+        b00000001000110110, // OPCODE 0x2E SRA
+        b00000001000010110, // OPCODE 0x2D SHR
+        b00000001000000110, // OPCODE 0x2C SHL
+        b01110000000000010, // OPCODE 0x2B (ILLOP)
+        b00000000101100110, // OPCODE 0x2A XOR
+        b00000000111100110, // OPCODE 0x29 OR
+        b00000000110000110, // OPCODE 0x28 AND
+        b01110000000000010, // OPCODE 0x27 (ILLOP)
+        b00000001101110110, // OPCODE 0x26 CMPLE
+        b00000001101010110, // OPCODE 0x25 CMPLT
+        b00000001100110110, // OPCODE 0x24 CMPEQ
+        b01110000000000010, // OPCODE 0x23 DIV [NEED TO MODIFY THIS SIGNAL TO DIV]
+        b01110000000000010, // OPCODE 0x22 MUL [NEED TO MODIFY THIS SIGNAL TO MUL]
+        b00000000000010110, // OPCODE 0x21 SUB
+        b00000000000000110, // OPCODE 0x20 ADD
+        b00001000110101010, // OPCODE 0x1F LDR
+        b00001000110100010, // OPCODE 0x1E BNE
+        b00001000110100010, // OPCODE 0x1D BEQ
+        b01110000000000010, // OPCODE 0x1C (ILLOP)
+        b01001000110100010, // OPCODE 0x1B JMP
+        b01110000000000010, // OPCODE 0x1A (ILLOP)
+        b00000110000000001, // OPCODE 0x19 ST
+        b00000010000001010, // OPCODE 0x18 LD [Index 24 onwards is used]
+        b01110000000000010, // OPCODE 0x17 (ILLOP) [Index 23 and before is free]
+        b01110000000000010, // OPCODE 0x16 (ILLOP)
+        b01110000000000010, // OPCODE 0x15 (ILLOP)
+        b01110000000000010, // OPCODE 0x14 (ILLOP)
+        b01110000000000010, // OPCODE 0x13 (ILLOP)
+        b01110000000000010, // OPCODE 0x12 (ILLOP)
+        b01110000000000010, // OPCODE 0x11 (ILLOP)
+        b01110000000000010, // OPCODE 0x10 (ILLOP)
+        b01110000000000010, // OPCODE 0x0F (ILLOP)
+        b01110000000000010, // OPCODE 0x0E (ILLOP)
+        b01110000000000010, // OPCODE 0x0D (ILLOP)
+        b01110000000000010, // OPCODE 0x0C (ILLOP)
+        b01110000000000010, // OPCODE 0x0B (ILLOP)
+        b01110000000000010, // OPCODE 0x0A (ILLOP)
+        b01110000000000010, // OPCODE 0x09 (ILLOP)
+        b01110000000000010, // OPCODE 0x08 (ILLOP)
+        b01110000000000010, // OPCODE 0x07 (ILLOP)
+        b01110000000000010, // OPCODE 0x06 (ILLOP)
+        b01110000000000010, // OPCODE 0x05 (ILLOP)
+        b01110000000000010, // OPCODE 0x04 (ILLOP)
+        b01110000000000010, // OPCODE 0x03 (ILLOP)
+        b01110000000000010, // OPCODE 0x02 (ILLOP)
+        b01110000000000010, // OPCODE 0x01 (ILLOP) [NEED TO MODIFY SIGNAL TO CLAMP]
+        b01110000000000010  // OPCODE 0x00 (ILLOP) [Index 0]
+    }
+    
+    dff irq_sampler(#INIT(0), .clk(clk))
+    
+    always {
+        
+        // sample interrupt at the beginning of each cycle
+        if (~irq_sampler.q){
+            // sample only when interrupt bit is 0 (clear) 
+            irq_sampler.d = irq
+        }
+        
+        // control signal basic output connections
+        pcsel = CU_ROM[opcode][16:14] 
+        wasel = CU_ROM[opcode][13] 
+        asel = CU_ROM[opcode][12] 
+        ra2sel = CU_ROM[opcode][11] 
+        bsel = CU_ROM[opcode][10] 
+        alufn = CU_ROM[opcode][9:4] 
+        wdsel = CU_ROM[opcode][3:2]  
+        werf= CU_ROM[opcode][1]
+        wr = CU_ROM[opcode][0] 
+        
+        // Task 10
+        // PCSEL for BNE/BEQ
+        // Check of OPCODE == BEQ, and branch (PCSEL: 001) if z == 1
+        // Check of OPCODE == BNE, and branch (PCSEL: 001) if z != 1
+        // BEQ
+        if (opcode == b011101 && z == 1) {
+            pcsel = b001
+        }
+        // BNE
+        else if (opcode == b011110 && z == 0) {
+            pcsel = b001
+        }
+        
+        // Task 11
+        // IRQ handling
+        // IRQ can happen only in user mode (ia31 is 0)
+        // If IRQ happens during kernel mode, it will not be serviced until we return to user mode
+        if (irq_sampler.q && ~ia31 && slowclk) {
+            pcsel = b100
+            wasel = b1
+            werf = b1
+            wdsel = b00
+            wr = b0
+            
+            // clear interrupt
+            irq_sampler.d = 0
+        }
+        
+        
+        // force wr = 0 when reset == 1 
+        if (rst){
+            wr = 0
+        }
+        
+    }
+}

@@ -29,20 +29,20 @@ module game_regfiles (
         .rst(rst){
             dff p1_score[32](#INIT(0))
             dff p2_score[32](#INIT(0))
-            dff current_timer[32](#INIT(2))
+            dff current_timer[32](#INIT(30))
             dff p1_chef[32](#INIT(0))
             dff p2_chef[32](#INIT(0))
-            dff lane_1_color[32](#INIT(1))
-            dff lane_2_color[32](#INIT(2))
-            dff lane_3_color[32](#INIT(1))
-            dff lane_4_color[32](#INIT(2))
-            dff lane_1_sushi[32](#INIT(3))
-            dff lane_2_sushi[32](#INIT(3))
-            dff lane_3_sushi[32](#INIT(3))
-            dff lane_4_sushi[32](#INIT(3))
-            dff p1_button_press[32](#INIT(0))
-            dff p2_button_press[32](#INIT(0))
-            dff temp_var[32](#INIT(0))         
+            dff lane_1_color[32](#INIT(2))
+            dff lane_2_color[32](#INIT(1))
+            dff lane_3_color[32](#INIT(2))
+            dff lane_4_color[32](#INIT(1))
+            dff lane_1_sushi[32](#INIT(4))
+            dff lane_2_sushi[32](#INIT(4))
+            dff lane_3_sushi[32](#INIT(4))
+            dff lane_4_sushi[32](#INIT(4))
+            dff temp_var_1[32](#INIT(0))
+            dff temp_var_2[32](#INIT(0))
+            dff temp_var_3[32](#INIT(0))
         }
     }
     
@@ -64,9 +64,9 @@ module game_regfiles (
                 d10 : lane_2_sushi.d = data
                 d11 : lane_3_sushi.d = data
                 d12 : lane_4_sushi.d = data
-                d13 : p1_button_press.d = data
-                d14 : p2_button_press.d = data
-                d15 : temp_var.d = data
+                d13 : temp_var_1.d = data
+                d14 : temp_var_2.d = data
+                d15 : temp_var_3.d = data
             }
         }
         
@@ -85,9 +85,9 @@ module game_regfiles (
             d10 : rd1 = lane_2_sushi.q
             d11 : rd1 = lane_3_sushi.q
             d12 : rd1 = lane_4_sushi.q
-            d13 : rd1 = p1_button_press.q
-            d14 : rd1 = p2_button_press.q
-            d15 : rd1 = temp_var.q  
+            d13 : rd1 = temp_var_1.q
+            d14 : rd1 = temp_var_2.q
+            d15 : rd1 = temp_var_3.q  
             default : rd1 = 0
         }
         
@@ -106,9 +106,9 @@ module game_regfiles (
             d10 : rd2 = lane_2_sushi.q
             d11 : rd2 = lane_3_sushi.q
             d12 : rd2 = lane_4_sushi.q
-            d13 : rd2 = p1_button_press.q
-            d14 : rd2 = p2_button_press.q
-            d15 : rd2 = temp_var.q            
+            d13 : rd2 = temp_var_1.q
+            d14 : rd2 = temp_var_2.q
+            d15 : rd2 = temp_var_3.q            
             default : rd2 = 0
         }
 

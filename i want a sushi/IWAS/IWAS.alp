@@ -20,43 +20,7 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source/adder.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
                     "path": "source/alu.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
-                    "path": "source/bit_reverse.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
-                    "path": "source/boolean.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
-                    "path": "source/compact_shifter.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
-                    "path": "source/compare.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
-                    "path": "source/fa.luc"
                 }
             },
             {
@@ -68,43 +32,7 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source/multiplier.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
-                    "path": "source/mux_2.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
-                    "path": "source/mux_4.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
-                    "path": "source/rca.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
                     "path": "source/seven_seg.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
-                    "path": "source/shifter.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
-                    "path": "source/x_bit_left_shifter.luc"
                 }
             },
             {
@@ -184,19 +112,25 @@
                     "type": "DiskFile",
                     "path": "source/lane_rom.luc"
                 }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/clamp.luc"
+                }
             }
         ],
         "constraintFiles": [
             {
                 "file": {
-                    "type": "Component",
-                    "path": "Constraints/alchitry.acf"
+                    "type": "DiskFile",
+                    "path": "constraint/io_v1_pulldown.acf"
                 }
             },
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "constraint/io_v1_pulldown.acf"
+                    "path": "constraint/alchitry.acf"
                 }
             }
         ],

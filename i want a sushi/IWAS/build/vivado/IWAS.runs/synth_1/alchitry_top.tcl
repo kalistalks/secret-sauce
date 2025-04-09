@@ -70,35 +70,24 @@ set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib -sv {
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/adder.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alu.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/bin_to_dec.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/bit_reverse.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/boolean.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/button_conditioner.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/chef_rom.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/compact_shifter.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/compare.sv}
+  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/clamp.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/decoder.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/edge_detector.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/fa.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_cu.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_datapath.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/lane_rom.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/multi_seven_seg.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/multiplier.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/mux_2.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/mux_4.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/pipeline.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/rca.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/reset_conditioner.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/seven_seg.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/shifter.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/sushi_rom.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv}
-  {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/x_bit_left_shifter.sv}
   {C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alchitry_top.sv}
 }
 OPTRACE "Adding files" END { }
