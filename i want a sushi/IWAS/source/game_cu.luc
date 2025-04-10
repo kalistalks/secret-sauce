@@ -251,7 +251,7 @@ module game_cu (
                 
                 
                 
-                
+                // USE R14 AS TEMP REG
                 // Game Timer Logic
                 GameStates.DECREASE_GAMETIMER:
                     alufn = b000001    //SUB
@@ -267,10 +267,10 @@ module game_cu (
                     asel = b00    // pass through ra1 regfile
                     bsel = b100    // constant 0
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d12    //temp reg
+                    regfile_wa = d14    //temp reg
                     game_fsm.d = GameStates.BRANCH_GAMETIMER
                 GameStates.BRANCH_GAMETIMER:
-                    regfile_ra2 = d12    //temp reg
+                    regfile_ra2 = d14    //temp reg
                     if (~regfile_rd2[0]){    //if timer is not zero
                         game_fsm.d = GameStates.DECREASE_GAMETIMER
                     }
@@ -281,7 +281,7 @@ module game_cu (
                 
                 
                 
-                
+                // USE R15 AS TEMP REG
                 // Win/Draw/Lose Logic
                 GameStates.CHECK_DRAW:
                     // check draw or have winner and store result into temp register
@@ -364,7 +364,7 @@ module game_cu (
                 
                 
                 
-                
+                // USE R15 AS TEMP REG
                 // Move Player 1 Chef Left
                 GameStates.DECREASE_P1_CHEF:
                     alufn = b000001    // SUB
@@ -394,7 +394,7 @@ module game_cu (
                     game_fsm.d = GameStates.IDLE_GAME
                 
                 
-                
+                // USE R15 AS TEMP REG
                 // Check and Update Player 1 Lanes to Blue (1 for Red, 2 for Blue)
                 // P1 Lane 1
                 GameStates.CHECK_P1_LANE_1:
@@ -534,7 +534,7 @@ module game_cu (
                     game_fsm.d = GameStates.IDLE_GAME
                 
                 
-                
+                // USE R15 AS TEMP REG
                 // Check and Update Player 2 Lanes to 1 (1 for Red, 2 for Blue)
                 // P2 Lane 1
                 GameStates.CHECK_P2_LANE_1:
@@ -545,7 +545,7 @@ module game_cu (
                     bsel = b100    // constant 0
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d13    //temp reg
+                    regfile_wa = d15    //temp reg
                     game_fsm.d = GameStates.BRANCH_P2_LANE_1
                 GameStates.BRANCH_P2_LANE_1:
                     regfile_ra2 = d15    //temp reg
@@ -571,10 +571,10 @@ module game_cu (
                     bsel = b001    // constant 1
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d13    // temp reg
+                    regfile_wa = d15    // temp reg
                     game_fsm.d = GameStates.BRANCH_P2_LANE_2
                 GameStates.BRANCH_P2_LANE_2:
-                    regfile_ra2 = d13    // temp reg
+                    regfile_ra2 = d15    // temp reg
                     if (regfile_rd2[0]){    // if (p2_chef == 0)
                         game_fsm.d = GameStates.FLIP_P2_LANE_2
                     }
@@ -597,7 +597,7 @@ module game_cu (
                     bsel = b011    // constant 2
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d13    // temp reg
+                    regfile_wa = d15    // temp reg
                     game_fsm.d = GameStates.BRANCH_P2_LANE_3
                 GameStates.BRANCH_P2_LANE_3:
                     regfile_ra2 = d15    // temp reg
@@ -623,10 +623,10 @@ module game_cu (
                     bsel = b110    // constant 3
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d13    // temp reg
+                    regfile_wa = d15    // temp reg
                     game_fsm.d = GameStates.BRANCH_P2_LANE_4
                 GameStates.BRANCH_P2_LANE_4:
-                    regfile_ra2 = d13    // temp reg
+                    regfile_ra2 = d15    // temp reg
                     if (regfile_rd2[0]){    // if (p2_chef == 3)
                         game_fsm.d = GameStates.FLIP_P2_LANE_4
                     }
@@ -644,7 +644,7 @@ module game_cu (
                 
                 
                 
-                
+                // USE R13 AS TEMP REG
                 // Sushi Update Logic
                 // LANE 1
                 GameStates.CHECK_LANE_1_DIRECTION:
@@ -654,10 +654,10 @@ module game_cu (
                     bsel = b011    // constant 2
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d14    // R14 = temp reg
+                    regfile_wa = d13    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_1_DIRECTION
                 GameStates.BRANCH_LANE_1_DIRECTION:
-                    regfile_ra2 = d14    // R14 = temp reg
+                    regfile_ra2 = d13    // R14 = temp reg
                     if (regfile_rd2[0]){    // if R5 == 2 then direction is towards the blue side (lane_1_sushi + 1)
                         game_fsm.d = GameStates.UPDATE_LANE_1_SUSHI_POS_P1
                     }
@@ -684,11 +684,11 @@ module game_cu (
                     bsel = b101    // constant 8
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d14    // R14 = temp reg
+                    regfile_wa = d13    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_1_SUSHI_END_P1
                 GameStates.BRANCH_LANE_1_SUSHI_END_P1:
                     // if (lane_1_sushi == 8) then p1_score + 1
-                    regfile_ra2 = d14    // R14 = temp reg
+                    regfile_ra2 = d13    // R14 = temp reg
                     if (regfile_rd2[0]){
                         game_fsm.d = GameStates.UPDATE_LANE_1_POINTS_P1
                     }
@@ -724,11 +724,11 @@ module game_cu (
                     bsel = b100    // constant 0
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d14    // R14 = temp reg
+                    regfile_wa = d13    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_1_SUSHI_END_P2
                 GameStates.BRANCH_LANE_1_SUSHI_END_P2:
                     // if (lane_1_sushi == 0) then p2_score + 1
-                    regfile_ra2 = d14
+                    regfile_ra2 = d13
                     if (regfile_rd2[0]){
                         game_fsm.d = GameStates.UPDATE_LANE_1_POINTS_P2
                     }
@@ -765,10 +765,10 @@ module game_cu (
                     bsel = b011    // constant 2
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d14    // R14 = temp reg
+                    regfile_wa = d13    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_2_DIRECTION
                 GameStates.BRANCH_LANE_2_DIRECTION:
-                    regfile_ra2 = d14    // R14 = temp reg
+                    regfile_ra2 = d13    // R14 = temp reg
                     if (regfile_rd2[0]){    // if R6 == 2 then direction is towards the blue side (lane_2_sushi + 1)
                         game_fsm.d = GameStates.UPDATE_LANE_2_SUSHI_POS_P1
                     }
@@ -794,11 +794,11 @@ module game_cu (
                     bsel = b101    // constant 8
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d14    // R14 = temp reg
+                    regfile_wa = d13    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_2_SUSHI_END_P1
                 GameStates.BRANCH_LANE_2_SUSHI_END_P1:
                     // if (lane_2_sushi == 8) then p1_score + 1
-                    regfile_ra2 = d14    // R14 = temp reg
+                    regfile_ra2 = d13    // R14 = temp reg
                     if (regfile_rd2[0]){
                         game_fsm.d = GameStates.UPDATE_LANE_2_POINTS_P1
                     }
@@ -834,11 +834,11 @@ module game_cu (
                     bsel = b100    // constant 0
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d14    // R14 = temp reg
+                    regfile_wa = d13    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_2_SUSHI_END_P2
                 GameStates.BRANCH_LANE_2_SUSHI_END_P2:
                     // if (lane_2_sushi == 0) then p2_score + 1
-                    regfile_ra2 = d14
+                    regfile_ra2 = d13
                     if (regfile_rd2[0]){
                         game_fsm.d = GameStates.UPDATE_LANE_2_POINTS_P2
                     }
@@ -875,10 +875,10 @@ module game_cu (
                     bsel = b011    // constant 2
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d14    // R14 = temp reg
+                    regfile_wa = d13    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_3_DIRECTION
                 GameStates.BRANCH_LANE_3_DIRECTION:
-                    regfile_ra2 = d14    // R14 = temp reg
+                    regfile_ra2 = d13    // R14 = temp reg
                     if (regfile_rd2[0]){    // if R7 == 2 then direction is towards the blue side (lane_3_sushi + 1)
                         game_fsm.d = GameStates.UPDATE_LANE_3_SUSHI_POS_P1
                     }
@@ -904,11 +904,11 @@ module game_cu (
                     bsel = b101    // constant 8
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d14    // R14 = temp reg
+                    regfile_wa = d13    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_3_SUSHI_END_P1
                 GameStates.BRANCH_LANE_3_SUSHI_END_P1:
                     // if (lane_3_sushi == 8) then p1_score + 1
-                    regfile_ra2 = d14    // R14 = temp reg
+                    regfile_ra2 = d13    // R14 = temp reg
                     if (regfile_rd2[0]){
                         game_fsm.d = GameStates.UPDATE_LANE_3_POINTS_P1
                     }
@@ -944,11 +944,11 @@ module game_cu (
                     bsel = b100    // constant 0
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d14    // R14 = temp reg
+                    regfile_wa = d13    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_3_SUSHI_END_P2
                 GameStates.BRANCH_LANE_3_SUSHI_END_P2:
                     // if (lane_3_sushi == 0) then p2_score + 1
-                    regfile_ra2 = d14
+                    regfile_ra2 = d13
                     if (regfile_rd2[0]){
                         game_fsm.d = GameStates.UPDATE_LANE_3_POINTS_P2
                     }
@@ -985,10 +985,10 @@ module game_cu (
                     bsel = b011    // constant 2
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d14    // R14 = temp reg
+                    regfile_wa = d13    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_4_DIRECTION
                 GameStates.BRANCH_LANE_4_DIRECTION:
-                    regfile_ra2 = d14    // R14 = temp reg
+                    regfile_ra2 = d13    // R14 = temp reg
                     if (regfile_rd2[0]){    // if R8 == 2 then direction is towards the blue side (lane_4_sushi + 1)
                         game_fsm.d = GameStates.UPDATE_LANE_4_SUSHI_POS_P1
                     }
@@ -1014,11 +1014,11 @@ module game_cu (
                     bsel = b101    // constant 8
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d14    // R14 = temp reg
+                    regfile_wa = d13    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_4_SUSHI_END_P1
                 GameStates.BRANCH_LANE_4_SUSHI_END_P1:
                     // if (lane_4_sushi == 8) then p1_score + 1
-                    regfile_ra2 = d14    // R14 = temp reg
+                    regfile_ra2 = d13    // R14 = temp reg
                     if (regfile_rd2[0]){
                         game_fsm.d = GameStates.UPDATE_LANE_4_POINTS_P1
                     }
@@ -1053,11 +1053,11 @@ module game_cu (
                     bsel = b100    // constant 0
                     asel = b00    // pass through ra1 regfile
                     regfile_we = 1    // write_enable 1
-                    regfile_wa = d14    // R14 = temp reg
+                    regfile_wa = d13    // R14 = temp reg
                     game_fsm.d = GameStates.BRANCH_LANE_4_SUSHI_END_P2
                 GameStates.BRANCH_LANE_4_SUSHI_END_P2:
                     // if (lane_4_sushi == 0) then p2_score + 1
-                    regfile_ra2 = d14
+                    regfile_ra2 = d13
                     if (regfile_rd2[0]){
                         game_fsm.d = GameStates.UPDATE_LANE_4_POINTS_P2
                     }
