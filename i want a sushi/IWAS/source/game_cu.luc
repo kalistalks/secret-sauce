@@ -507,7 +507,7 @@ module game_cu (
                 
                 // Move Player 2 Chef Left
                 GameStates.DECREASE_P2_CHEF:
-                    alufn = b000001    // SUB
+                    alufn = b000000    // ADD
                     regfile_ra1 = d4    // R4 = p2 chef pos
                     bsel = b001    // constant 1
                     asel = b00    // pass through ra1 regfile
@@ -516,7 +516,7 @@ module game_cu (
                     game_fsm.d = GameStates.CLAMP_P2_CHEF
                 // Move Player 2 Chef Right
                 GameStates.INCREASE_P2_CHEF:
-                    alufn = b000000    // ADD
+                    alufn = b000001    // SUB
                     regfile_ra1 = d4    // R4 = p2 chef pos
                     bsel = b001    // constant 1
                     asel = b00    // pass through ra1 regfile
