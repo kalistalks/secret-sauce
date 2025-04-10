@@ -1,5 +1,5 @@
 module multi_seven_seg #(
-    DIGITS = 4 : DIGITS > 0,
+    DIGITS = 6 : DIGITS > 0,
     DIV = 16 : DIV >= 0
 )(
     input clk,                // clock

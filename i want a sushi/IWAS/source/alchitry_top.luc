@@ -4,11 +4,12 @@ module alchitry_top (
     output led[8],          // 8 user controllable LEDs
     input usb_rx,            // USB->Serial input
     output usb_tx,           // USB->Serial output
-    output io_led[3][8],     // LEDs on IO Shield
+    // output io_led[3][8],     // LEDs on IO Shield
     output io_segment[8],        // 7-segment LEDs on IO Shield
     output io_select[4],        // Digit select on IO Shield
     input io_button[5],      // 5 buttons on IO Shield
     input io_dip[3][8],       // DIP switches on IO Shield
+    output ext_select[6],
     input p1_button_left,
     input p1_button_right,
     input p1_button_flip,
@@ -84,9 +85,9 @@ module alchitry_top (
         }
         
     }
-    bin_to_dec p1_score_bin_to_dec_converter(#DIGITS(1))
     bin_to_dec timer_bin_to_dec_converter(#DIGITS(2))
-    bin_to_dec p2_score_bin_to_dec_converter(#DIGITS(1))
+    bin_to_dec p1_score_bin_to_dec_converter(#DIGITS(2))
+    bin_to_dec p2_score_bin_to_dec_converter(#DIGITS(2))
     
     // ROM
     chef_rom p1_chef_rom
@@ -110,7 +111,7 @@ module alchitry_top (
         
         led = 8h00             // turn LEDs off
         
-        io_led = 3x{{8h00}}    // turn LEDs off
+        // io_led = 3x{{8h00}}    // turn LEDs off
         io_segment = 8hff          // turn segments off
         io_select = 4hf           // select no digits
         
@@ -185,9 +186,9 @@ module alchitry_top (
         lane_4_sushi_data = lane_4_sushi_driver.data
         
         //update 7segments
-        seg.values = 4x{{4b0}} // default to all 0 first
-        p1_score_bin_to_dec_converter.value = game_datapath.p1_score_out[3:0]
-        p2_score_bin_to_dec_converter.value = game_datapath.lane_4_sushi_out[3:0]
+        seg.values = 6x{{4b0}} // default to all 0 first
+        p1_score_bin_to_dec_converter.value = game_datapath.p1_score_out[6:0]
+        p2_score_bin_to_dec_converter.value = game_datapath.p2_score_out[6:0]
         timer_bin_to_dec_converter.value = game_datapath.timer_out[6:0]
         
         // Timer | P1 Score | P2 Score
@@ -204,7 +205,8 @@ module alchitry_top (
         */        
         
         io_segment = ~seg.seg
-        io_select = ~seg.sel
+        // io_select = ~seg.sel
+        ext_select = seg.sel
         
     }
 }

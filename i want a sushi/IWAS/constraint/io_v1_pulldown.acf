@@ -70,6 +70,13 @@ PINOUT(V1), STANDARD(LVCMOS33) {
     pin io_select[2] A42
     pin io_select[3] A43
 
+    pin ext_select[0] D43
+    pin ext_select[1] D42
+    pin ext_select[2] D8
+    pin ext_select[3] D9
+    pin ext_select[4] D11
+    pin ext_select[5] D12
+
     pin io_segment[0] A5
     pin io_segment[1] A6
     pin io_segment[2] A48
