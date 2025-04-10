@@ -187,7 +187,7 @@ module alchitry_top (
         //update 7segments
         seg.values = 4x{{4b0}} // default to all 0 first
         p1_score_bin_to_dec_converter.value = game_datapath.p1_score_out[3:0]
-        p2_score_bin_to_dec_converter.value = game_datapath.p2_score_out[3:0]
+        p2_score_bin_to_dec_converter.value = game_datapath.lane_4_sushi_out[3:0]
         timer_bin_to_dec_converter.value = game_datapath.timer_out[6:0]
         
         // Timer | P1 Score | P2 Score

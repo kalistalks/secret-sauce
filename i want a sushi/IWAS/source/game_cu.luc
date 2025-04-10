@@ -646,7 +646,6 @@ module game_cu (
                 
                 
                 // Sushi Update Logic
-                // Sushi Update Logic
                 // LANE 1
                 GameStates.CHECK_LANE_1_DIRECTION:
                     // get direction of sushi travel and store into temp register
@@ -754,7 +753,7 @@ module game_cu (
                     asel = b10    // constant 0
                     regfile_we = 1    // write_enable 1
                     regfile_wa = d9    // R9 = lane_1_sushi
-                    game_fsm.d = GameStates.IDLE_GAME
+                    game_fsm.d = GameStates.CHECK_LANE_2_DIRECTION
                 
                 
                 
@@ -864,7 +863,7 @@ module game_cu (
                     asel = b10    // constant 0
                     regfile_we = 1    // write_enable 1
                     regfile_wa = d10    // R10 = lane_2_sushi
-                    game_fsm.d = GameStates.IDLE_GAME
+                    game_fsm.d = GameStates.CHECK_LANE_3_DIRECTION
                 
                 
                 
@@ -974,7 +973,7 @@ module game_cu (
                     asel = b10    // constant 0
                     regfile_we = 1    // write_enable 1
                     regfile_wa = d11    // R11 = lane_3_sushi
-                    game_fsm.d = GameStates.IDLE_GAME
+                    game_fsm.d = GameStates.CHECK_LANE_4_DIRECTION
                 
                 
                 

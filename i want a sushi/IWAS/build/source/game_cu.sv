@@ -664,7 +664,7 @@ module game_cu (
                     asel = 2'h2;
                     regfile_we = 1'h1;
                     regfile_wa = 4'h9;
-                    D_game_fsm_d = 7'h6;
+                    D_game_fsm_d = 7'h3d;
                 end
                 7'h3d: begin
                     alufn = 6'h33;
@@ -759,7 +759,7 @@ module game_cu (
                     asel = 2'h2;
                     regfile_we = 1'h1;
                     regfile_wa = 4'ha;
-                    D_game_fsm_d = 7'h6;
+                    D_game_fsm_d = 7'h48;
                 end
                 7'h48: begin
                     alufn = 6'h33;
@@ -854,7 +854,7 @@ module game_cu (
                     asel = 2'h2;
                     regfile_we = 1'h1;
                     regfile_wa = 4'hb;
-                    D_game_fsm_d = 7'h6;
+                    D_game_fsm_d = 7'h53;
                 end
                 7'h53: begin
                     alufn = 6'h33;
