@@ -3,16 +3,18 @@
     with args -log alchitry_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source alchitry_top.tcl
 
 
+ECHO is off.
+ECHO is off.
 
-****** Vivado v2024.2 (64-bit)
-  **** SW Build 5239630 on Fri Nov 08 22:35:27 MST 2024
-  **** IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
-  **** SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
-  **** Start of session at: Thu Apr 10 15:25:43 2025
+****** Vivado v2023.2 (64-bit)
+  **** SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
+  **** IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+  **** SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
-    ** Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 
 source alchitry_top.tcl -notrace
+create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 462.973 ; gain = 183.910
 Command: synth_design -top alchitry_top -part xc7a35tftg256-1
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
@@ -20,86 +22,82 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t
 INFO: [Device 21-403] Loading part xc7a35tftg256-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 10200
+INFO: [Synth 8-7075] Helper process launched with PID 23656
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 1025.422 ; gain = 465.383
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1295.094 ; gain = 438.527
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-6157] synthesizing module 'alchitry_top' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alchitry_top.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'reset_conditioner' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/reset_conditioner.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'alchitry_top' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alchitry_top.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'reset_conditioner' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/reset_conditioner.sv:7]
 	Parameter STAGES bound to: 3'b100 
-INFO: [Synth 8-6155] done synthesizing module 'reset_conditioner' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/reset_conditioner.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'edge_detector' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/edge_detector.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'reset_conditioner' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/reset_conditioner.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'edge_detector' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/edge_detector.sv:7]
 	Parameter RISE bound to: 1'b1 
 	Parameter FALL bound to: 1'b0 
-INFO: [Synth 8-6155] done synthesizing module 'edge_detector' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/edge_detector.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'button_conditioner' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/button_conditioner.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'edge_detector' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/edge_detector.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'button_conditioner' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/button_conditioner.sv:7]
 	Parameter CLK_FREQ bound to: 24'b100110001001011010000000 
 	Parameter MIN_DELAY bound to: 5'b10100 
 	Parameter NUM_SYNC bound to: 2'b10 
-INFO: [Synth 8-6157] synthesizing module 'pipeline' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/pipeline.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'pipeline' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/pipeline.sv:7]
 	Parameter DEPTH bound to: 2'b10 
-INFO: [Synth 8-6155] done synthesizing module 'pipeline' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/pipeline.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'button_conditioner' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/button_conditioner.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'multi_seven_seg' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/multi_seven_seg.sv:7]
-	Parameter DIGITS bound to: 3'b100 
+INFO: [Synth 8-6155] done synthesizing module 'pipeline' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/pipeline.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'button_conditioner' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/button_conditioner.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'multi_seven_seg' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/multi_seven_seg.sv:7]
+	Parameter DIGITS bound to: 3'b110 
 	Parameter DIV bound to: 5'b10000 
-INFO: [Synth 8-6157] synthesizing module 'counter' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
-	Parameter SIZE bound to: 2 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'counter' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
+	Parameter SIZE bound to: 3 - type: integer 
 	Parameter DIV bound to: 5'b10000 
-	Parameter TOP bound to: 3'b011 
+	Parameter TOP bound to: 3'b101 
 	Parameter UP bound to: 1'b1 
-INFO: [Synth 8-6155] done synthesizing module 'counter' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'seven_seg' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/seven_seg.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'seven_seg' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/seven_seg.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'decoder' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/decoder.sv:7]
-	Parameter WIDTH bound to: 2 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'decoder' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/decoder.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'multi_seven_seg' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/multi_seven_seg.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'game_datapath' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_datapath.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'counter' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'seven_seg' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/seven_seg.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'seven_seg' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/seven_seg.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'decoder' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/decoder.sv:7]
+	Parameter WIDTH bound to: 3 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'decoder' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/decoder.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'multi_seven_seg' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/multi_seven_seg.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'game_datapath' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_datapath.sv:7]
 	Parameter SLOW_CLOCK_DIV bound to: 5'b11010 
 	Parameter FAST_CLOCK_DIV bound to: 5'b10101 
-INFO: [Synth 8-6157] synthesizing module 'alu' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alu.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'clamp' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/clamp.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'clamp' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/clamp.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'alu' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alu.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'counter__parameterized0' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'alu' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alu.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'clamp' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/clamp.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'clamp' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/clamp.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'alu' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alu.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'counter__parameterized0' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
 	Parameter SIZE bound to: 1'b1 
 	Parameter DIV bound to: 5'b11010 
 	Parameter TOP bound to: 1'b0 
 	Parameter UP bound to: 1'b1 
-INFO: [Synth 8-6155] done synthesizing module 'counter__parameterized0' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'game_cu' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_cu.sv:7]
-INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_cu.sv:140]
-INFO: [Synth 8-6155] done synthesizing module 'game_cu' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_cu.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'game_regfiles' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv:7]
-INFO: [Synth 8-226] default block is never used [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv:119]
-INFO: [Synth 8-226] default block is never used [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv:173]
-INFO: [Synth 8-6155] done synthesizing module 'game_regfiles' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv:7]
-INFO: [Synth 8-226] default block is never used [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_datapath.sv:185]
-INFO: [Synth 8-6155] done synthesizing module 'game_datapath' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_datapath.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'ws2812b_driver' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'counter__parameterized0' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'game_cu' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_cu.sv:7]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_cu.sv:147]
+INFO: [Synth 8-6155] done synthesizing module 'game_cu' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_cu.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'game_regfiles' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv:7]
+INFO: [Synth 8-226] default block is never used [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv:119]
+INFO: [Synth 8-226] default block is never used [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv:173]
+INFO: [Synth 8-6155] done synthesizing module 'game_regfiles' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv:7]
+INFO: [Synth 8-226] default block is never used [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_datapath.sv:185]
+INFO: [Synth 8-6155] done synthesizing module 'game_datapath' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_datapath.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'ws2812b_driver' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:7]
 	Parameter PIXEL_COUNT bound to: 4'b1100 
-INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:59]
-INFO: [Synth 8-6155] done synthesizing module 'ws2812b_driver' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'ws2812b_driver__parameterized0' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:7]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'ws2812b_driver' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'ws2812b_driver__parameterized0' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:7]
 	Parameter PIXEL_COUNT bound to: 5'b10101 
-INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:59]
-INFO: [Synth 8-6155] done synthesizing module 'ws2812b_driver__parameterized0' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'bin_to_dec' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/bin_to_dec.sv:7]
-	Parameter DIGITS bound to: 1'b1 
-	Parameter LEADING_ZEROS bound to: 1'b0 
-INFO: [Synth 8-6155] done synthesizing module 'bin_to_dec' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/bin_to_dec.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'bin_to_dec__parameterized0' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/bin_to_dec.sv:7]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'ws2812b_driver__parameterized0' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'bin_to_dec' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/bin_to_dec.sv:7]
 	Parameter DIGITS bound to: 2'b10 
 	Parameter LEADING_ZEROS bound to: 1'b0 
-INFO: [Synth 8-6155] done synthesizing module 'bin_to_dec__parameterized0' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/bin_to_dec.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'chef_rom' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/chef_rom.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'chef_rom' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/chef_rom.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'lane_rom' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/lane_rom.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'lane_rom' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/lane_rom.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'sushi_rom' [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/sushi_rom.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'sushi_rom' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/sushi_rom.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'alchitry_top' (0#1) [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alchitry_top.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'bin_to_dec' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/bin_to_dec.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'chef_rom' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/chef_rom.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'chef_rom' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/chef_rom.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'lane_rom' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/lane_rom.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'lane_rom' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/lane_rom.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'sushi_rom' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/sushi_rom.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'sushi_rom' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/sushi_rom.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'alchitry_top' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alchitry_top.sv:7]
 WARNING: [Synth 8-3917] design alchitry_top has port led[7] driven by constant 0
 WARNING: [Synth 8-3917] design alchitry_top has port led[6] driven by constant 0
 WARNING: [Synth 8-3917] design alchitry_top has port led[5] driven by constant 0
@@ -132,6 +130,10 @@ WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][3] driven by cons
 WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][2] driven by constant 0
 WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][1] driven by constant 0
 WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][0] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_select[3] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_select[2] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_select[1] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_select[0] driven by constant 1
 WARNING: [Synth 8-7129] Port regfile_rd2[31] in module game_cu is either unconnected or has no load
 WARNING: [Synth 8-7129] Port regfile_rd2[30] in module game_cu is either unconnected or has no load
 WARNING: [Synth 8-7129] Port regfile_rd2[29] in module game_cu is either unconnected or has no load
@@ -193,50 +195,51 @@ WARNING: [Synth 8-7129] Port io_dip[0][2] in module alchitry_top is either uncon
 WARNING: [Synth 8-7129] Port io_dip[0][1] in module alchitry_top is either unconnected or has no load
 WARNING: [Synth 8-7129] Port io_dip[0][0] in module alchitry_top is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1145.461 ; gain = 585.422
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1417.164 ; gain = 560.598
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1145.461 ; gain = 585.422
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1417.164 ; gain = 560.598
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1145.461 ; gain = 585.422
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1417.164 ; gain = 560.598
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.030 . Memory (MB): peak = 1145.461 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.031 . Memory (MB): peak = 1417.164 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/constraint/alchitry.xdc]
-Finished Parsing XDC File [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/constraint/alchitry.xdc]
-INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/constraint/alchitry.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/alchitry_top_propImpl.xdc].
+Parsing XDC File [C:/Users/Kp293/Downloads/IWAS/build/constraint/alchitry.xdc]
+Finished Parsing XDC File [C:/Users/Kp293/Downloads/IWAS/build/constraint/alchitry.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/Kp293/Downloads/IWAS/build/constraint/alchitry.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/alchitry_top_propImpl.xdc].
 Resolution: To avoid this warning, move constraints listed in [.Xil/alchitry_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
-Parsing XDC File [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/constraint/au_props.xdc]
-Finished Parsing XDC File [C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/constraint/au_props.xdc]
+Parsing XDC File [C:/Users/Kp293/Downloads/IWAS/build/constraint/au_props.xdc]
+Finished Parsing XDC File [C:/Users/Kp293/Downloads/IWAS/build/constraint/au_props.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1233.363 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1506.715 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1233.363 ; gain = 0.000
+The system cannot find the path specified.
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 1506.715 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 1233.363 ; gain = 673.324
+Finished Constraint Validation : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1506.715 ; gain = 650.148
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tftg256-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 1233.363 ; gain = 673.324
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1506.715 ; gain = 650.148
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 1233.363 ; gain = 673.324
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1506.715 ; gain = 650.148
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'D_game_fsm_q_reg' in module 'game_cu'
 INFO: [Synth 8-802] inferred FSM for state register 'D_state_q_reg' in module 'ws2812b_driver'
@@ -250,69 +253,69 @@ INFO: [Synth 8-802] inferred FSM for state register 'D_state_q_reg' in module 'w
                 iSTATE50 |                          0000011 |                          0000011
                 iSTATE41 |                          0000100 |                          0000100
                 iSTATE40 |                          0000101 |                          0000101
-                iSTATE37 |                          0000110 |                          0000110
-                iSTATE35 |                          0000111 |                          0000111
-                iSTATE89 |                          0001000 |                          0001000
-                iSTATE88 |                          0001001 |                          0001001
-                iSTATE32 |                          0001010 |                          0110010
-                iSTATE30 |                          0001011 |                          0110011
-                iSTATE21 |                          0001100 |                          0110100
-                iSTATE15 |                          0001101 |                          0110110
-                iSTATE14 |                          0001110 |                          0110111
-                iSTATE64 |                          0001111 |                          0111010
-                iSTATE20 |                          0010000 |                          0110101
-                iSTATE71 |                          0010001 |                          0111000
-                iSTATE68 |                          0010010 |                          0111001
-                iSTATE62 |                          0010011 |                          0111011
-                iSTATE55 |                          0010100 |                          0111100
-                iSTATE54 |                          0010101 |                          0111101
-                iSTATE48 |                          0010110 |                          0111110
+                iSTATE38 |                          0000110 |                          0000110
+                iSTATE36 |                          0000111 |                          0000111
+                iSTATE96 |                          0001000 |                          0001000
+                iSTATE95 |                          0001001 |                          0001001
+                iSTATE90 |                          0001010 |                          0001010
+                iSTATE89 |                          0001011 |                          0001011
+                iSTATE77 |                          0001100 |                          0001100
+                iSTATE75 |                          0001101 |                          0001101
+                iSTATE71 |                          0001110 |                          0001110
+                iSTATE68 |                          0001111 |                          0001111
+                iSTATE70 |                          0010000 |                          0111001
+                iSTATE65 |                          0010001 |                          0111010
+                iSTATE63 |                          0010010 |                          0111011
+                iSTATE54 |                          0010011 |                          0111101
+                iSTATE47 |                          0010100 |                          0111110
+                iSTATE31 |                          0010101 |                          1000001
+                iSTATE55 |                          0010110 |                          0111100
                 iSTATE46 |                          0010111 |                          0111111
-                iSTATE31 |                          0011000 |                          1000001
+                iSTATE33 |                          0011000 |                          1000000
                 iSTATE27 |                          0011001 |                          1000010
-                iSTATE16 |                          0011010 |                          1000101
-                iSTATE33 |                          0011011 |                          1000000
-                iSTATE26 |                          0011100 |                          1000011
-                iSTATE17 |                          0011101 |                          1000100
-                iSTATE11 |                          0011110 |                          1000110
-                iSTATE10 |                          0011111 |                          1000111
-                iSTATE65 |                          0100000 |                          1001000
-                iSTATE63 |                          0100001 |                          1001001
-                iSTATE59 |                          0100010 |                          1001010
-                iSTATE49 |                          0100011 |                          1001100
-                iSTATE47 |                          0100100 |                          1001101
-                iSTATE69 |                          0100101 |                          1010000
-                iSTATE58 |                          0100110 |                          1001011
-                iSTATE43 |                          0100111 |                          1001110
-                iSTATE42 |                          0101000 |                          1001111
-                iSTATE66 |                          0101001 |                          1010001
-                iSTATE61 |                          0101010 |                          1010010
-                iSTATE60 |                          0101011 |                          1010011
-                iSTATE53 |                          0101100 |                          1010100
+                iSTATE26 |                          0011010 |                          1000011
+                iSTATE17 |                          0011011 |                          1000100
+                iSTATE15 |                          0011100 |                          1000101
+                iSTATE11 |                          0011101 |                          1000110
+                iSTATE66 |                          0011110 |                          1001000
+                iSTATE64 |                          0011111 |                          1001001
+                iSTATE49 |                          0100000 |                          1001100
+                iSTATE10 |                          0100001 |                          1000111
+                iSTATE60 |                          0100010 |                          1001010
+                iSTATE59 |                          0100011 |                          1001011
+                iSTATE48 |                          0100100 |                          1001101
+                iSTATE43 |                          0100101 |                          1001110
+                iSTATE42 |                          0100110 |                          1001111
+                iSTATE69 |                          0100111 |                          1010000
+                iSTATE67 |                          0101000 |                          1010001
+                iSTATE61 |                          0101001 |                          1010011
+                iSTATE53 |                          0101010 |                          1010100
+                iSTATE44 |                          0101011 |                          1010111
+                iSTATE62 |                          0101100 |                          1010010
                 iSTATE51 |                          0101101 |                          1010101
-                iSTATE44 |                          0101110 |                          1010111
+                iSTATE45 |                          0101110 |                          1010110
                  iSTATE5 |                          0101111 |                          1011000
-                 iSTATE0 |                          0110000 |                          1011011
-                iSTATE45 |                          0110001 |                          1010110
-                 iSTATE4 |                          0110010 |                          1011001
-                 iSTATE1 |                          0110011 |                          1011010
-                iSTATE86 |                          0110100 |                          1011100
-                iSTATE83 |                          0110101 |                          1011101
-                iSTATE84 |                          0110110 |                          0001010
-                iSTATE82 |                          0110111 |                          0001011
-                iSTATE75 |                          0111000 |                          0001100
-                iSTATE74 |                          0111001 |                          0001101
-                iSTATE70 |                          0111010 |                          0001110
-                iSTATE91 |                          0111011 |                          0010000
-                iSTATE90 |                          0111100 |                          0010001
-                iSTATE67 |                          0111101 |                          0001111
-                iSTATE87 |                          0111110 |                          0010010
-                iSTATE85 |                          0111111 |                          0010011
-                iSTATE77 |                          1000000 |                          0010100
-                iSTATE76 |                          1000001 |                          0010101
-                iSTATE73 |                          1000010 |                          0010110
-                iSTATE72 |                          1000011 |                          0010111
-                iSTATE25 |                          1000100 |                          0011000
+                 iSTATE4 |                          0110000 |                          1011001
+                 iSTATE2 |                          0110001 |                          1011010
+                 iSTATE0 |                          0110010 |                          1011011
+                iSTATE93 |                          0110011 |                          1011100
+                iSTATE86 |                          0110100 |                          1011110
+                iSTATE85 |                          0110101 |                          1011111
+                iSTATE78 |                          0110110 |                          1100010
+                iSTATE91 |                          0110111 |                          1011101
+                iSTATE82 |                          0111000 |                          1100000
+                iSTATE81 |                          0111001 |                          1100001
+                iSTATE76 |                          0111010 |                          1100011
+                iSTATE58 |                          0111011 |                          1100100
+                iSTATE98 |                          0111100 |                          0010000
+                iSTATE97 |                          0111101 |                          0010001
+                iSTATE94 |                          0111110 |                          0010010
+                iSTATE92 |                          0111111 |                          0010011
+                iSTATE80 |                          1000000 |                          0010100
+                iSTATE79 |                          1000001 |                          0010101
+                iSTATE73 |                          1000010 |                          0010111
+                iSTATE25 |                          1000011 |                          0011000
+                iSTATE74 |                          1000100 |                          0010110
                 iSTATE24 |                          1000101 |                          0011001
                 iSTATE23 |                          1000110 |                          0011010
                 iSTATE22 |                          1000111 |                          0011011
@@ -321,14 +324,14 @@ INFO: [Synth 8-802] inferred FSM for state register 'D_state_q_reg' in module 'w
                  iSTATE7 |                          1001010 |                          0011110
                  iSTATE6 |                          1001011 |                          0011111
                  iSTATE3 |                          1001100 |                          0100000
-                 iSTATE2 |                          1001101 |                          0100001
+                 iSTATE1 |                          1001101 |                          0100001
                   iSTATE |                          1001110 |                          0100010
-                iSTATE92 |                          1001111 |                          0100011
-                iSTATE81 |                          1010000 |                          0100100
-                iSTATE80 |                          1010001 |                          0100101
-                iSTATE79 |                          1010010 |                          0100110
-                iSTATE78 |                          1010011 |                          0100111
-                iSTATE36 |                          1010100 |                          0101000
+                iSTATE99 |                          1001111 |                          0100011
+                iSTATE88 |                          1010000 |                          0100100
+                iSTATE87 |                          1010001 |                          0100101
+                iSTATE84 |                          1010010 |                          0100110
+                iSTATE83 |                          1010011 |                          0100111
+                iSTATE35 |                          1010100 |                          0101000
                 iSTATE34 |                          1010101 |                          0101001
                 iSTATE29 |                          1010110 |                          0101010
                 iSTATE28 |                          1010111 |                          0101011
@@ -337,7 +340,14 @@ INFO: [Synth 8-802] inferred FSM for state register 'D_state_q_reg' in module 'w
                 iSTATE13 |                          1011010 |                          0101110
                 iSTATE12 |                          1011011 |                          0101111
                 iSTATE39 |                          1011100 |                          0110000
-                iSTATE38 |                          1011101 |                          0110001
+                iSTATE37 |                          1011101 |                          0110001
+                iSTATE32 |                          1011110 |                          0110010
+                iSTATE30 |                          1011111 |                          0110011
+                iSTATE21 |                          1100000 |                          0110100
+                iSTATE20 |                          1100001 |                          0110101
+                iSTATE16 |                          1100010 |                          0110110
+                iSTATE14 |                          1100011 |                          0110111
+                iSTATE72 |                          1100100 |                          0111000
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'D_game_fsm_q_reg' using encoding 'sequential' in module 'game_cu'
 ---------------------------------------------------------------------------------------------------
@@ -357,7 +367,7 @@ INFO: [Synth 8-3354] encoded FSM with state register 'D_state_q_reg' using encod
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'D_state_q_reg' using encoding 'sequential' in module 'ws2812b_driver__parameterized0'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:11 . Memory (MB): peak = 1233.363 ; gain = 673.324
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1506.715 ; gain = 650.148
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -367,7 +377,7 @@ Detailed RTL Component Info :
 	   2 Input   32 Bit       Adders := 1     
 	   3 Input   32 Bit       Adders := 1     
 	   2 Input    7 Bit       Adders := 10    
-	   3 Input    7 Bit       Adders := 1     
+	   3 Input    7 Bit       Adders := 3     
 	   2 Input    5 Bit       Adders := 18    
 	   2 Input    4 Bit       Adders := 2     
 +---XORs : 
@@ -377,38 +387,43 @@ Detailed RTL Component Info :
 	               32 Bit    Registers := 16    
 	                7 Bit    Registers := 10    
 	                5 Bit    Registers := 18    
-	                4 Bit    Registers := 3     
+	                4 Bit    Registers := 4     
 	                2 Bit    Registers := 6     
 	                1 Bit    Registers := 27    
 +---Multipliers : 
 	              32x32  Multipliers := 1     
 +---Muxes : 
 	   2 Input   32 Bit        Muxes := 3     
+	  15 Input   32 Bit        Muxes := 1     
 	   4 Input   32 Bit        Muxes := 2     
 	   8 Input   32 Bit        Muxes := 1     
 	   4 Input   17 Bit        Muxes := 10    
-	 130 Input    7 Bit        Muxes := 1     
-	   2 Input    7 Bit        Muxes := 1     
-	  94 Input    6 Bit        Muxes := 1     
+	 137 Input    7 Bit        Muxes := 1     
+	  10 Input    7 Bit        Muxes := 3     
+	   2 Input    7 Bit        Muxes := 3     
+	 101 Input    6 Bit        Muxes := 1     
 	   2 Input    6 Bit        Muxes := 1     
 	   2 Input    5 Bit        Muxes := 10    
 	   3 Input    5 Bit        Muxes := 8     
-	   4 Input    4 Bit        Muxes := 1     
-	  94 Input    4 Bit        Muxes := 3     
+	 101 Input    4 Bit        Muxes := 3     
 	   2 Input    4 Bit        Muxes := 3     
 	   3 Input    4 Bit        Muxes := 2     
-	  94 Input    3 Bit        Muxes := 1     
+	  11 Input    4 Bit        Muxes := 3     
+	  12 Input    4 Bit        Muxes := 3     
+	 101 Input    3 Bit        Muxes := 1     
 	   2 Input    3 Bit        Muxes := 1     
-	  94 Input    2 Bit        Muxes := 2     
-	   2 Input    2 Bit        Muxes := 52    
+	 101 Input    2 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 51    
 	   3 Input    2 Bit        Muxes := 10    
-	   4 Input    2 Bit        Muxes := 12    
+	   7 Input    2 Bit        Muxes := 8     
+	   4 Input    2 Bit        Muxes := 4     
 	  10 Input    2 Bit        Muxes := 28    
 	  12 Input    2 Bit        Muxes := 2     
 	  21 Input    2 Bit        Muxes := 8     
-	  94 Input    1 Bit        Muxes := 2     
+	  15 Input    1 Bit        Muxes := 3     
+	 101 Input    1 Bit        Muxes := 2     
 	  16 Input    1 Bit        Muxes := 16    
-	   2 Input    1 Bit        Muxes := 130   
+	   2 Input    1 Bit        Muxes := 180   
 	   3 Input    1 Bit        Muxes := 130   
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
@@ -471,6 +486,10 @@ WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][2] driven by cons
 WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][1] driven by constant 0
 WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][0] driven by constant 0
 WARNING: [Synth 8-3917] design alchitry_top has port io_segment[7] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_select[3] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_select[2] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_select[1] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_select[0] driven by constant 1
 WARNING: [Synth 8-7129] Port regfile_rd2[31] in module game_cu is either unconnected or has no load
 WARNING: [Synth 8-7129] Port regfile_rd2[30] in module game_cu is either unconnected or has no load
 WARNING: [Synth 8-7129] Port regfile_rd2[29] in module game_cu is either unconnected or has no load
@@ -513,7 +532,7 @@ WARNING: [Synth 8-7129] Port io_dip[2][5] in module alchitry_top is either uncon
 WARNING: [Synth 8-7129] Port io_dip[2][4] in module alchitry_top is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:27 . Memory (MB): peak = 1414.520 ; gain = 854.480
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:35 ; elapsed = 00:00:37 . Memory (MB): peak = 1506.715 ; gain = 650.148
 ---------------------------------------------------------------------------------
  Sort Area is  out_sig0_0 : 0 0 : 3101 5879 : Used 1 time 0
  Sort Area is  out_sig0_0 : 0 1 : 2778 5879 : Used 1 time 0
@@ -541,19 +560,19 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:20 ; elapsed = 00:00:32 . Memory (MB): peak = 1414.520 ; gain = 854.480
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1506.715 ; gain = 650.148
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:25 ; elapsed = 00:00:38 . Memory (MB): peak = 1617.605 ; gain = 1057.566
+Finished Timing Optimization : Time (s): cpu = 00:00:56 ; elapsed = 00:00:58 . Memory (MB): peak = 1670.363 ; gain = 813.797
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:25 ; elapsed = 00:00:39 . Memory (MB): peak = 1623.016 ; gain = 1062.977
+Finished Technology Mapping : Time (s): cpu = 00:00:58 ; elapsed = 00:01:00 . Memory (MB): peak = 1679.418 ; gain = 822.852
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -571,37 +590,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:27 ; elapsed = 00:00:42 . Memory (MB): peak = 1709.285 ; gain = 1149.246
+Finished IO Insertion : Time (s): cpu = 00:01:02 ; elapsed = 00:01:04 . Memory (MB): peak = 1679.418 ; gain = 822.852
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:27 ; elapsed = 00:00:42 . Memory (MB): peak = 1709.285 ; gain = 1149.246
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:02 ; elapsed = 00:01:04 . Memory (MB): peak = 1679.418 ; gain = 822.852
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:27 ; elapsed = 00:00:42 . Memory (MB): peak = 1709.285 ; gain = 1149.246
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:02 ; elapsed = 00:01:04 . Memory (MB): peak = 1679.418 ; gain = 822.852
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:27 ; elapsed = 00:00:42 . Memory (MB): peak = 1709.285 ; gain = 1149.246
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:02 ; elapsed = 00:01:04 . Memory (MB): peak = 1679.418 ; gain = 822.852
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:27 ; elapsed = 00:00:42 . Memory (MB): peak = 1709.285 ; gain = 1149.246
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:02 ; elapsed = 00:01:04 . Memory (MB): peak = 1679.418 ; gain = 822.852
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:27 ; elapsed = 00:00:42 . Memory (MB): peak = 1709.285 ; gain = 1149.246
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:02 ; elapsed = 00:01:04 . Memory (MB): peak = 1679.418 ; gain = 822.852
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -628,42 +647,44 @@ Report Cell Usage:
 |      |Cell    |Count |
 +------+--------+------+
 |1     |BUFG    |     1|
-|2     |CARRY4  |   109|
+|2     |CARRY4  |   113|
 |3     |DSP48E1 |     3|
-|4     |LUT1    |   127|
-|5     |LUT2    |   297|
-|6     |LUT3    |   128|
-|7     |LUT4    |   219|
-|8     |LUT5    |   214|
-|9     |LUT6    |   554|
-|10    |MUXF7   |    46|
-|11    |FDRE    |   983|
-|12    |FDSE    |    26|
-|13    |IBUF    |     9|
-|14    |OBUF    |    55|
+|4     |LUT1    |   108|
+|5     |LUT2    |   300|
+|6     |LUT3    |   152|
+|7     |LUT4    |   210|
+|8     |LUT5    |   238|
+|9     |LUT6    |   695|
+|10    |MUXF7   |     9|
+|11    |FDPE    |     8|
+|12    |FDRE    |   984|
+|13    |FDSE    |    22|
+|14    |IBUF    |    10|
+|15    |OBUF    |    61|
 +------+--------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:27 ; elapsed = 00:00:42 . Memory (MB): peak = 1709.285 ; gain = 1149.246
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:02 ; elapsed = 00:01:04 . Memory (MB): peak = 1679.418 ; gain = 822.852
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 94 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:22 ; elapsed = 00:00:41 . Memory (MB): peak = 1709.285 ; gain = 1061.344
-Synthesis Optimization Complete : Time (s): cpu = 00:00:27 ; elapsed = 00:00:42 . Memory (MB): peak = 1709.285 ; gain = 1149.246
+Synthesis finished with 0 errors, 0 critical warnings and 98 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:54 ; elapsed = 00:01:02 . Memory (MB): peak = 1679.418 ; gain = 733.301
+Synthesis Optimization Complete : Time (s): cpu = 00:01:02 ; elapsed = 00:01:04 . Memory (MB): peak = 1679.418 ; gain = 822.852
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.020 . Memory (MB): peak = 1718.457 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 158 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.029 . Memory (MB): peak = 1680.918 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 125 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1722.180 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1680.918 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Synth Design complete | Checksum: e88d687e
+The system cannot find the path specified.
+Synth Design complete | Checksum: c6e536f4
 INFO: [Common 17-83] Releasing license: Synthesis
-72 Infos, 166 Warnings, 0 Critical Warnings and 0 Errors encountered.
+70 Infos, 174 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:28 ; elapsed = 00:00:46 . Memory (MB): peak = 1722.180 ; gain = 1355.590
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1722.180 ; gain = 0.000
-INFO: [Common 17-1381] The checkpoint 'C:/Users/lolka/Downloads/SUTD/TERM 4/50.002 Computation Structures/Week 7/secret-sauce/i want a sushi/IWAS/build/vivado/IWAS.runs/synth_1/alchitry_top.dcp' has been generated.
-INFO: [Vivado 12-24828] Executing command : report_utilization -file alchitry_top_utilization_synth.rpt -pb alchitry_top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu Apr 10 15:26:32 2025...
+synth_design: Time (s): cpu = 00:01:07 ; elapsed = 00:01:09 . Memory (MB): peak = 1680.918 ; gain = 1217.945
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1680.918 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.runs/synth_1/alchitry_top.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file alchitry_top_utilization_synth.rpt -pb alchitry_top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Fri Apr 11 00:32:17 2025...

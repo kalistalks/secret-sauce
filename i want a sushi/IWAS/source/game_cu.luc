@@ -29,6 +29,12 @@ module game_cu (
         WAIT_FOR_P2,
         START_SET_P1_SCORE,
         START_SET_P2_SCORE,
+        START_SET_P1_CHEF,
+        START_SET_P2_CHEF,
+        START_SET_LANE_1_SUSHI,
+        START_SET_LANE_2_SUSHI,
+        START_SET_LANE_3_SUSHI,
+        START_SET_LANE_4_SUSHI,
         START_SET_TIMER,
         
         IDLE_GAME,
@@ -41,7 +47,8 @@ module game_cu (
         // Win/Draw/Lose
         CHECK_DRAW,
         BRANCH_DRAW,
-        DRAW,
+        P1_DRAW,
+        P2_DRAW,
         CHECK_WINNER,
         BRANCH_WINNER,
         P1_WIN,
@@ -203,6 +210,52 @@ module game_cu (
                     bsel = b100    // constant 0
                     regfile_we = 1    // write_enable 1
                     regfile_wa = d1    // R1 = p2_score
+                    game_fsm.d = GameStates.START_SET_P1_CHEF
+                GameStates.START_SET_P1_CHEF:
+                    alufn = b011010    // "A"
+                    asel = b10    // constant 0
+                    bsel = b100    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d3    // R3 = p1_chef
+                    game_fsm.d = GameStates.START_SET_P2_CHEF
+                GameStates.START_SET_P2_CHEF:
+                    alufn = b011010    // "A"
+                    asel = b10    // constant 0
+                    bsel = b100    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d4    // R4 = p2_chef
+                    game_fsm.d = GameStates.START_SET_LANE_1_SUSHI
+                GameStates.START_SET_LANE_1_SUSHI:
+                    // spawn sushi in the middle (Index 4)
+                    alufn = b000000    // ADD
+                    bsel = b111    // constant 4
+                    asel = b10    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d9    // R9 = lane_1_sushi
+                    game_fsm.d = GameStates.START_SET_LANE_2_SUSHI
+                GameStates.START_SET_LANE_2_SUSHI:
+                    // spawn sushi in the middle (Index 4)
+                    alufn = b000000    // ADD
+                    bsel = b111    // constant 4
+                    asel = b10    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d10    // R10 = lane_2_sushi
+                    game_fsm.d = GameStates.START_SET_LANE_3_SUSHI
+                GameStates.START_SET_LANE_3_SUSHI:
+                    // spawn sushi in the middle (Index 4)
+                    alufn = b000000    // ADD
+                    bsel = b111    // constant 4
+                    asel = b10    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d11    // R11 = lane_3_sushi
+                    game_fsm.d = GameStates.START_SET_LANE_4_SUSHI
+                GameStates.START_SET_LANE_4_SUSHI:
+                    // spawn sushi in the middle (Index 4)
+                    alufn = b000000    // ADD
+                    bsel = b111    // constant 4
+                    asel = b10    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d12    // R9 = lane_4_sushi
                     game_fsm.d = GameStates.START_SET_TIMER
                 // Set current_timer = 30
                 GameStates.START_SET_TIMER:
@@ -297,17 +350,26 @@ module game_cu (
                     regfile_ra2 = d15    // temp reg
                     if (regfile_rd2[0]) { // if (p1_score == p2_score)
                         // if draw
-                        game_fsm.d = GameStates.DRAW
+                        game_fsm.d = GameStates.P1_DRAW
                     }
                     else {
                         // check for winners
                         game_fsm.d = GameStates.CHECK_WINNER
                     }
-                GameStates.DRAW:
+                GameStates.P1_DRAW:
+                    alufn = b000000    // ADD
+                    asel = b10    // constant 0
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d3    // R3 = p1_chef (Store 4 into p1_chef, light up p1_chef BLUE)
+                    game_fsm.d = GameStates.P2_DRAW
+                GameStates.P2_DRAW:
                     // game is drawn, go to GAMEOVER
-                    alu_out_sel = b10    //draw signal
-                    regfile_we = 1
-                    regfile_wa = d1    //P2 score reg
+                    alufn = b000000    // ADD
+                    asel = b01    // constant 1
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d4    // R4 = p2_chef (Store 5 into p2_chef, light up p2_chef RED)
                     game_fsm.d = GameStates.GAMEOVER
                 GameStates.CHECK_WINNER:
                     // check winner and store into temp register
@@ -331,27 +393,47 @@ module game_cu (
                     }
                 GameStates.P1_WIN:
                     // P1 winner
-                    regfile_we = 1
-                    regfile_wa = d0     //P1 score reg
-                    alu_out_sel = b01           //P1 winning signal
+                    // regfile_we = 1
+                    // regfile_wa = d0     //P1 score reg
+                    // alu_out_sel = b01           //P1 winning signal            
+                    alufn = b000000    // ADD
+                    asel = b10    // constant 0
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d3    // R3 = p1_chef (Store 4 into p1_chef, light up p1_chef BLUE)
                     game_fsm.d = GameStates.P2_LOSE
                 GameStates.P2_LOSE:
                     // P2 loser
-                    regfile_we = 1
-                    regfile_wa = d1     //P2 score reg
-                    alu_out_sel = b11           //P2 losing signal
+                    // regfile_we = 1
+                    // regfile_wa = d1     //P2 score reg
+                    // alu_out_sel = b11           //P2 losing signal
+                    alufn = b000000    // ADD
+                    asel = b10    // constant 0
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d4    // R4 = p1_chef (Store 4 into p2_chef, light up p2_chef BLUE)
                     game_fsm.d = GameStates.GAMEOVER
                 GameStates.P2_WIN:
                     // P2 winner
-                    regfile_we = 1
-                    regfile_wa = d1     //P2 score reg
-                    alu_out_sel = b01           //P2 winning signal
+                    // regfile_we = 1
+                    // regfile_wa = d1     //P2 score reg
+                    // alu_out_sel = b01           //P2 winning signal
+                    alufn = b000000    // ADD
+                    asel = b01    // constant 1
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d4    // R4 = p2_chef (Store 5 into p2_chef, light up p2_chef RED)
                     game_fsm.d = GameStates.P1_LOSE
                 GameStates.P1_LOSE:
                     // P1 loser
-                    regfile_we = 1
-                    regfile_wa = d0     //P1 score reg
-                    alu_out_sel = b11           //P1 losing signal
+                    // regfile_we = 1
+                    // regfile_wa = d0     //P1 score reg
+                    // alu_out_sel = b11           //P1 losing signal
+                    alufn = b000000    // ADD
+                    asel = b01    // constant 1
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d3    // R3 = p1_chef (Store 5 into p1_chef, light up p1_chef RED)
                     game_fsm.d = GameStates.GAMEOVER
                 GameStates.GAMEOVER:
                     // Reset Timer

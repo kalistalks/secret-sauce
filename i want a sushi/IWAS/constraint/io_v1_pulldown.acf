@@ -25,6 +25,8 @@ PINOUT(V1), STANDARD(LVCMOS33) {
     pin io_led[2][7] A11
 
     PULL(DOWN) {
+        pin external_reset_button C9
+        
         pin io_dip[0][0] B30
         pin io_dip[0][1] B31
         pin io_dip[0][2] B33
