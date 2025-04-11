@@ -40,7 +40,7 @@ module alchitry_top (
     
     const CHEF_PIXEL_COUNT = d12 // how many LEDs in total?
     
-    const COLOR_ENCODING = {24h010101, 24hF00C96, 24h000100, 24h000000} // brg
+    const COLOR_ENCODING = {24h010101, 24h010000, 24h000100, 24h000000}
     
     const CLEAR = 0
     const UPDATE = 1
