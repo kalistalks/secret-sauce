@@ -1,0 +1,1164 @@
+module game_cu (
+    input clk,  // clock
+    input rst,  // reset
+    input decrease_timer,
+    input regfile_rd2[32], //direct reading of regfile data from rd2
+    
+    input p1_button_left,
+    input p1_button_right,
+    input p1_button_flip,
+    input p2_button_left,
+    input p2_button_right,
+    input p2_button_flip,
+    
+    output alufn[6],
+    output asel[3],
+    output bsel[3],
+    output alu_out_sel[2],
+    output regfile_wa[4],
+    output regfile_ra1[4],
+    output regfile_ra2[4],
+    output regfile_we,
+    output debug[4]
+) {
+    
+    enum GameStates {
+        // Start State and initialise all variables
+        IDLE_MAIN,
+        WAIT_FOR_P1,
+        WAIT_FOR_P2,
+        START_SET_P1_SCORE,
+        START_SET_P2_SCORE,
+        START_SET_P1_CHEF,
+        START_SET_P2_CHEF,
+        START_SET_LANE_1_SUSHI,
+        START_SET_LANE_2_SUSHI,
+        START_SET_LANE_3_SUSHI,
+        START_SET_LANE_4_SUSHI,
+        START_SET_TIMER,
+        
+        IDLE_GAME,
+        
+        // Game Timer
+        CHECK_GAMETIMER,
+        BRANCH_GAMETIMER,
+        DECREASE_GAMETIMER,
+        
+        // Win/Draw/Lose
+        CHECK_DRAW,
+        BRANCH_DRAW,
+        P1_DRAW,
+        P2_DRAW,
+        CHECK_WINNER,
+        BRANCH_WINNER,
+        P1_WIN,
+        P2_WIN,
+        P1_LOSE,
+        P2_LOSE,
+        GAMEOVER,
+        
+        // Player 1 Move/Flip lane
+        DECREASE_P1_CHEF,
+        INCREASE_P1_CHEF,
+        CLAMP_P1_CHEF,
+        CHECK_P1_LANE_1,
+        BRANCH_P1_LANE_1,
+        FLIP_P1_LANE_1,
+        CHECK_P1_LANE_2,
+        BRANCH_P1_LANE_2,
+        FLIP_P1_LANE_2,
+        CHECK_P1_LANE_3,
+        BRANCH_P1_LANE_3,
+        FLIP_P1_LANE_3,
+        CHECK_P1_LANE_4,
+        BRANCH_P1_LANE_4,
+        FLIP_P1_LANE_4,
+        
+        // Player 2 Move/Flip lane
+        DECREASE_P2_CHEF,
+        INCREASE_P2_CHEF,
+        CLAMP_P2_CHEF,
+        CHECK_P2_LANE_1,
+        BRANCH_P2_LANE_1,
+        FLIP_P2_LANE_1,
+        CHECK_P2_LANE_2,
+        BRANCH_P2_LANE_2,
+        FLIP_P2_LANE_2,
+        CHECK_P2_LANE_3,
+        BRANCH_P2_LANE_3,
+        FLIP_P2_LANE_3,
+        CHECK_P2_LANE_4,
+        BRANCH_P2_LANE_4,
+        FLIP_P2_LANE_4,
+        
+        // Check/Update/Spawn Sushi Lane 1
+        CHECK_LANE_1_DIRECTION,
+        BRANCH_LANE_1_DIRECTION,
+        UPDATE_LANE_1_SUSHI_POS_P1,
+        UPDATE_LANE_1_SUSHI_POS_P2,
+        CHECK_LANE_1_SUSHI_END_P1,
+        BRANCH_LANE_1_SUSHI_END_P1,
+        CHECK_LANE_1_SUSHI_END_P2,
+        BRANCH_LANE_1_SUSHI_END_P2,
+        UPDATE_LANE_1_POINTS_P1,
+        UPDATE_LANE_1_POINTS_P2,
+        SPAWN_LANE_1_SUSHI,
+        
+        // Check/Update/Spawn Sushi Lane 2
+        CHECK_LANE_2_DIRECTION,
+        BRANCH_LANE_2_DIRECTION,
+        UPDATE_LANE_2_SUSHI_POS_P1,
+        UPDATE_LANE_2_SUSHI_POS_P2,
+        CHECK_LANE_2_SUSHI_END_P1,
+        BRANCH_LANE_2_SUSHI_END_P1,
+        CHECK_LANE_2_SUSHI_END_P2,
+        BRANCH_LANE_2_SUSHI_END_P2,
+        UPDATE_LANE_2_POINTS_P1,
+        UPDATE_LANE_2_POINTS_P2,
+        SPAWN_LANE_2_SUSHI,
+        
+        // Check/Update/Spawn Sushi Lane 3
+        CHECK_LANE_3_DIRECTION,
+        BRANCH_LANE_3_DIRECTION,
+        UPDATE_LANE_3_SUSHI_POS_P1,
+        UPDATE_LANE_3_SUSHI_POS_P2,
+        CHECK_LANE_3_SUSHI_END_P1,
+        BRANCH_LANE_3_SUSHI_END_P1,
+        CHECK_LANE_3_SUSHI_END_P2,
+        BRANCH_LANE_3_SUSHI_END_P2,
+        UPDATE_LANE_3_POINTS_P1,
+        UPDATE_LANE_3_POINTS_P2,
+        SPAWN_LANE_3_SUSHI,
+        
+        // Check/Update/Spawn Sushi Lane 4
+        CHECK_LANE_4_DIRECTION,
+        BRANCH_LANE_4_DIRECTION,
+        UPDATE_LANE_4_SUSHI_POS_P1,
+        UPDATE_LANE_4_SUSHI_POS_P2,
+        CHECK_LANE_4_SUSHI_END_P1,
+        BRANCH_LANE_4_SUSHI_END_P1,
+        CHECK_LANE_4_SUSHI_END_P2,
+        BRANCH_LANE_4_SUSHI_END_P2,
+        UPDATE_LANE_4_POINTS_P1,
+        UPDATE_LANE_4_POINTS_P2,
+        SPAWN_LANE_4_SUSHI
+    }
+    
+    dff game_fsm[$width(GameStates)](#INIT(GameStates.IDLE_MAIN), .clk(clk), .rst(rst))
+    
+    always {
+        // standard setting unless otherwise overwritten by each case
+        alufn = 0
+        asel = 0
+        bsel = 0
+        regfile_we = 0
+        regfile_wa = d15
+        regfile_ra1 = d0
+        regfile_ra2 = d15
+        alu_out_sel = 0
+        
+        debug = b0000
+        
+        game_fsm.d = game_fsm.q
+        if (rst){
+            game_fsm.d = GameStates.IDLE_MAIN
+        }
+        else{
+            case(game_fsm.q){
+                // Wait to start
+                GameStates.IDLE_MAIN:
+                    if (p1_button_flip && ~p2_button_flip){
+                        game_fsm.d = GameStates.WAIT_FOR_P2
+                    }
+                    else if (~p1_button_flip && p2_button_flip){
+                        game_fsm.d = GameStates.WAIT_FOR_P1
+                    }
+                    else{
+                        game_fsm.d = GameStates.IDLE_MAIN
+                    }
+                GameStates.WAIT_FOR_P2:
+                    if (~p1_button_flip && p2_button_flip){
+                        game_fsm.d = GameStates.START_SET_P1_SCORE
+                    }
+                    else{
+                        game_fsm.d = GameStates.WAIT_FOR_P2
+                    }
+                GameStates.WAIT_FOR_P1:
+                    if (p1_button_flip && ~p2_button_flip){
+                        game_fsm.d = GameStates.START_SET_P1_SCORE
+                    }
+                    else{
+                        game_fsm.d = GameStates.WAIT_FOR_P1
+                    }
+                
+                
+                
+                
+                
+                // Initialise variables
+                // Set P1/P2 scores to 0
+                GameStates.START_SET_P1_SCORE:
+                    alufn = b011010    // "A"
+                    asel = b10    // constant 0
+                    bsel = b100    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d0    // R0 = p1_score
+                    game_fsm.d = GameStates.START_SET_P2_SCORE
+                GameStates.START_SET_P2_SCORE:
+                    alufn = b011010    // "A"
+                    asel = b10    // constant 0
+                    bsel = b100    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d1    // R1 = p2_score
+                    game_fsm.d = GameStates.START_SET_P1_CHEF
+                GameStates.START_SET_P1_CHEF:
+                    alufn = b011010    // "A"
+                    asel = b10    // constant 0
+                    bsel = b100    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d3    // R3 = p1_chef
+                    game_fsm.d = GameStates.START_SET_P2_CHEF
+                GameStates.START_SET_P2_CHEF:
+                    alufn = b011010    // "A"
+                    asel = b10    // constant 0
+                    bsel = b100    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d4    // R4 = p2_chef
+                    game_fsm.d = GameStates.START_SET_LANE_1_SUSHI
+                GameStates.START_SET_LANE_1_SUSHI:
+                    // spawn sushi in the middle (Index 4)
+                    alufn = b000000    // ADD
+                    bsel = b111    // constant 4
+                    asel = b10    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d9    // R9 = lane_1_sushi
+                    game_fsm.d = GameStates.START_SET_LANE_2_SUSHI
+                GameStates.START_SET_LANE_2_SUSHI:
+                    // spawn sushi in the middle (Index 4)
+                    alufn = b000000    // ADD
+                    bsel = b111    // constant 4
+                    asel = b10    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d10    // R10 = lane_2_sushi
+                    game_fsm.d = GameStates.START_SET_LANE_3_SUSHI
+                GameStates.START_SET_LANE_3_SUSHI:
+                    // spawn sushi in the middle (Index 4)
+                    alufn = b000000    // ADD
+                    bsel = b111    // constant 4
+                    asel = b10    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d11    // R11 = lane_3_sushi
+                    game_fsm.d = GameStates.START_SET_LANE_4_SUSHI
+                GameStates.START_SET_LANE_4_SUSHI:
+                    // spawn sushi in the middle (Index 4)
+                    alufn = b000000    // ADD
+                    bsel = b111    // constant 4
+                    asel = b10    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d12    // R9 = lane_4_sushi
+                    game_fsm.d = GameStates.START_SET_TIMER
+                // Set current_timer = 30
+                GameStates.START_SET_TIMER:
+                    alufn = b011010    // "A"
+                    asel = b11    // constant 30
+                    bsel = b100    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d2    // R2 = current_timer (Store 30 into current_timer)
+                    game_fsm.d = GameStates.IDLE_GAME
+                
+                
+                
+                
+                
+                // Game Logic
+                GameStates.IDLE_GAME:
+                    if (decrease_timer){
+                        game_fsm.d = GameStates.CHECK_GAMETIMER
+                    }
+                    else if (p1_button_left){
+                        // game_fsm.d = GameStates.CHECK_P1_LEFT
+                        game_fsm.d = GameStates.DECREASE_P1_CHEF
+                    }
+                    else if (p1_button_right){
+                        // game_fsm.d = GameStates.CHECK_P1_RIGHT
+                        game_fsm.d = GameStates.INCREASE_P1_CHEF
+                    }
+                    else if (p1_button_flip){
+                        game_fsm.d = GameStates.CHECK_P1_LANE_1
+                    }
+                    else if (p2_button_left){
+                        // game_fsm.d = GameStates.CHECK_P2_LEFT
+                        game_fsm.d = GameStates.DECREASE_P2_CHEF
+                    }
+                    else if (p2_button_right){
+                        // game_fsm.d = GameStates.CHECK_P2_RIGHT
+                        game_fsm.d = GameStates.INCREASE_P2_CHEF
+                    }
+                    else if (p2_button_flip){
+                        game_fsm.d = GameStates.CHECK_P2_LANE_1
+                    }
+                    else{
+                        game_fsm.d = GameStates.IDLE_GAME
+                    }
+                
+                
+                
+                
+                // USE R14 AS TEMP REG
+                // Game Timer Logic
+                GameStates.DECREASE_GAMETIMER:
+                    alufn = b000001    //SUB
+                    regfile_ra1 = d2    // R2 = timer reg
+                    asel = b00    // pass through ra1 regfile
+                    bsel = b001    // constant 1
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d2    // R2 = timer reg
+                    game_fsm.d = GameStates.CHECK_LANE_1_DIRECTION
+                GameStates.CHECK_GAMETIMER:
+                    alufn = b000001    //SUB
+                    regfile_ra1 = d2    // R2 = timer reg
+                    asel = b00    // pass through ra1 regfile
+                    bsel = b100    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d14    //temp reg
+                    game_fsm.d = GameStates.BRANCH_GAMETIMER
+                GameStates.BRANCH_GAMETIMER:
+                    regfile_ra2 = d14    //temp reg
+                    if (~regfile_rd2){    //if timer is not zero
+                        game_fsm.d = GameStates.DECREASE_GAMETIMER
+                    }
+                    else{
+                        game_fsm.d = GameStates.CHECK_DRAW
+                    }
+                
+                
+                
+                
+                // USE R15 AS TEMP REG
+                // Win/Draw/Lose Logic
+                GameStates.CHECK_DRAW:
+                    // check draw or have winner and store result into temp register
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d0    // R0 = p1_score
+                    regfile_ra2 = d1    // R1 = p2_score
+                    bsel = b00    // pass through ra1 regfile
+                    asel = b000    // pass through ra2 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    // temp reg
+                    game_fsm.d = GameStates.BRANCH_DRAW
+                GameStates.BRANCH_DRAW:
+                    regfile_ra2 = d15    // temp reg
+                    if (regfile_rd2) { // check for winners
+                        game_fsm.d = GameStates.CHECK_WINNER
+                    }
+                    else {
+                        // if (p1_score == p2_score)
+                        game_fsm.d = GameStates.P1_DRAW 
+                    }
+                GameStates.P1_DRAW:
+                    alufn = b000000    // ADD
+                    asel = b10    // constant 0
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d3    // R3 = p1_chef (Store 4 into p1_chef, light up p1_chef BLUE)
+                    game_fsm.d = GameStates.P2_DRAW
+                GameStates.P2_DRAW:
+                    // game is drawn, go to GAMEOVER
+                    alufn = b000000    // ADD
+                    asel = b01    // constant 1
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d4    // R4 = p2_chef (Store 5 into p2_chef, light up p2_chef RED)
+                    game_fsm.d = GameStates.GAMEOVER
+                GameStates.CHECK_WINNER:
+                    // check winner and store into temp register
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d0    // R0 = p1_score
+                    regfile_ra2 = d1    // R1 = p2_score
+                    bsel = b00    // pass through ra1 regfile
+                    asel = b000    // pass through ra2 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    // temp reg
+                    game_fsm.d = GameStates.BRANCH_WINNER
+                GameStates.BRANCH_WINNER:
+                    regfile_ra2 = d15
+                    if (regfile_rd2[31]) {    // if (p1_score > p2_score) then MSB is 0
+                        // P2 wins
+                        game_fsm.d = GameStates.P2_WIN
+                    }
+                    else {
+                        // P1 wins
+                        game_fsm.d = GameStates.P1_WIN
+                    }
+                GameStates.P1_WIN:
+                    // P1 winner
+                    // regfile_we = 1
+                    // regfile_wa = d0     //P1 score reg
+                    // alu_out_sel = b01           //P1 winning signal            
+                    alufn = b000000    // ADD
+                    asel = b10    // constant 0
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d3    // R3 = p1_chef (Store 4 into p1_chef, light up p1_chef BLUE)
+                    game_fsm.d = GameStates.P2_LOSE
+                GameStates.P2_LOSE:
+                    // P2 loser
+                    // regfile_we = 1
+                    // regfile_wa = d1     //P2 score reg
+                    // alu_out_sel = b11           //P2 losing signal
+                    alufn = b000000    // ADD
+                    asel = b10    // constant 0
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d4    // R4 = p1_chef (Store 4 into p2_chef, light up p2_chef BLUE)
+                    game_fsm.d = GameStates.GAMEOVER
+                GameStates.P2_WIN:
+                    // P2 winner
+                    // regfile_we = 1
+                    // regfile_wa = d1     //P2 score reg
+                    // alu_out_sel = b01           //P2 winning signal
+                    alufn = b000000    // ADD
+                    asel = b01    // constant 1
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d4    // R4 = p2_chef (Store 5 into p2_chef, light up p2_chef RED)
+                    game_fsm.d = GameStates.P1_LOSE
+                GameStates.P1_LOSE:
+                    // P1 loser
+                    // regfile_we = 1
+                    // regfile_wa = d0     //P1 score reg
+                    // alu_out_sel = b11           //P1 losing signal
+                    alufn = b000000    // ADD
+                    asel = b01    // constant 1
+                    bsel = b111    // constant 4
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d3    // R3 = p1_chef (Store 5 into p1_chef, light up p1_chef RED)
+                    game_fsm.d = GameStates.GAMEOVER
+                GameStates.GAMEOVER:
+                    // Reset Timer
+                    if (decrease_timer){
+                        game_fsm.d = GameStates.IDLE_MAIN
+                    } else {
+                        game_fsm.d = GameStates.GAMEOVER
+                    }
+                
+                
+                
+                
+                // USE R15 AS TEMP REG
+                // Move Player 1 Chef Left
+                GameStates.DECREASE_P1_CHEF:
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d3    // R3 = p1 chef pos
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1
+                    regfile_wa = d3    // R3 = p1 chef pos
+                    game_fsm.d = GameStates.CLAMP_P1_CHEF
+                // Move Player 1 Chef Right
+                GameStates.INCREASE_P1_CHEF:
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d3    // R3 = p1 chef pos
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d3    // R3 = p1 chef pos
+                    game_fsm.d = GameStates.CLAMP_P1_CHEF
+                // Check Player 1 Chef in bounds
+                GameStates.CLAMP_P1_CHEF:
+                    alufn = b000011    // CLAMP
+                    regfile_ra1 = d3    // R3 = p1 chef pos
+                    bsel = b110    // constant 3
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d3    // R3 = p1 chef pos
+                    game_fsm.d = GameStates.IDLE_GAME
+                
+                
+                // USE R15 AS TEMP REG
+                // Check and Update Player 1 Lanes to Blue (1 for Red, 2 for Blue)
+                // P1 Lane 1
+                GameStates.CHECK_P1_LANE_1:
+                    // if (p1_chef == 0) then
+                    // lane_1_color_out.d = 0
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d3    // R3 = p1_chef
+                    bsel = b100    // constant 0
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    //temp reg
+                    game_fsm.d = GameStates.BRANCH_P1_LANE_1
+                GameStates.BRANCH_P1_LANE_1:
+                    regfile_ra2 = d15    //temp reg
+                    if (regfile_rd2){    // if (p1_chef == 0)
+                        game_fsm.d = GameStates.CHECK_P1_LANE_2
+                    }
+                    else{ // if p1_chef != 0 check Lane 2
+                        game_fsm.d = GameStates.FLIP_P1_LANE_1 
+                    }
+                GameStates.FLIP_P1_LANE_1:
+                    alufn = b000000    // ADD
+                    bsel = b011    // constant 2 (1 for Red, 2 for Blue)
+                    asel = b10   // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d5    // R5 = lane_1_color
+                    game_fsm.d = GameStates.IDLE_GAME
+                // P1 Lane 2
+                GameStates.CHECK_P1_LANE_2:
+                    // if (p1_chef == 1) then
+                    // lane_2_color_out.d = 0
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d3    // R3 = p1_chef
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    // temp reg
+                    game_fsm.d = GameStates.BRANCH_P1_LANE_2
+                GameStates.BRANCH_P1_LANE_2:
+                    regfile_ra2 = d15    // temp reg
+                    if (regfile_rd2){    // if (p1_chef == 0)
+                        game_fsm.d = GameStates.CHECK_P1_LANE_3
+                    }
+                    else{ // if p1_chef != 1 check Lane 3
+                        game_fsm.d = GameStates.FLIP_P1_LANE_2 
+                    }
+                GameStates.FLIP_P1_LANE_2:
+                    alufn = b000000    // ADD
+                    bsel = b011    // constant 2 (1 for Red, 2 for Blue)
+                    asel = b10   // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d6    // R6 = lane_2_color
+                    game_fsm.d = GameStates.IDLE_GAME
+                // P1 Lane 3
+                GameStates.CHECK_P1_LANE_3:
+                    // if (p1_chef == 2) then
+                    // lane_3_color_out.d = 0
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d3    // R3 = p1_chef
+                    bsel = b011    // constant 2
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    // temp reg
+                    game_fsm.d = GameStates.BRANCH_P1_LANE_3
+                GameStates.BRANCH_P1_LANE_3:
+                    regfile_ra2 = d15    // temp reg
+                    if (regfile_rd2){    // if (p1_chef == 2)
+                        game_fsm.d = GameStates.CHECK_P1_LANE_4
+                    }
+                    else{ // if p1_chef != 2 check Lane 4
+                        game_fsm.d = GameStates.FLIP_P1_LANE_3 
+                    }
+                GameStates.FLIP_P1_LANE_3:
+                    alufn = b000000    // ADD
+                    bsel = b011    // constant 2 (1 for Red, 2 for Blue)
+                    asel = b10   // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d7    // R7 = lane_3_color
+                    game_fsm.d = GameStates.IDLE_GAME
+                // P1 Lane 4
+                GameStates.CHECK_P1_LANE_4:
+                    // if (p1_chef == 3) then
+                    // lane_4_color_out.d = 0
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d3    // R3 = p1_chef
+                    bsel = b110    // constant 3
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    // temp reg
+                    game_fsm.d = GameStates.BRANCH_P1_LANE_4
+                GameStates.BRANCH_P1_LANE_4:
+                    regfile_ra2 = d15    // temp reg
+                    if (regfile_rd2){    // if (p1_chef == 3)
+                        game_fsm.d = GameStates.IDLE_GAME
+                    }
+                    else{ // if p1_chef != 3 return to IDLE
+                        game_fsm.d = GameStates.FLIP_P1_LANE_4 
+                    }
+                GameStates.FLIP_P1_LANE_4:
+                    alufn = b000000    // ADD
+                    bsel = b011    // constant 2 (1 for Red, 2 for Blue)
+                    asel = b10   // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d8    // R8 = lane_4_color
+                    game_fsm.d = GameStates.IDLE_GAME
+                
+                
+                
+                
+                
+                // Move Player 2 Chef Left
+                GameStates.DECREASE_P2_CHEF:
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d4    // R4 = p2 chef pos
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1
+                    regfile_wa = d4    // R4 = p2 chef pos
+                    game_fsm.d = GameStates.CLAMP_P2_CHEF
+                // Move Player 2 Chef Right
+                GameStates.INCREASE_P2_CHEF:
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d4    // R4 = p2 chef pos
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d4    // R4 = p2 chef pos
+                    game_fsm.d = GameStates.CLAMP_P2_CHEF
+                // Check Player 2 Chef in bounds
+                GameStates.CLAMP_P2_CHEF:
+                    alufn = b000011    // CLAMP
+                    regfile_ra1 = d4    // R4 = p2 chef pos
+                    bsel = b110    // constant 3
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d4    // R4 = p2 chef pos
+                    game_fsm.d = GameStates.IDLE_GAME
+                
+                
+                // USE R15 AS TEMP REG
+                // Check and Update Player 2 Lanes to 1 (1 for Red, 2 for Blue)
+                // P2 Lane 1
+                GameStates.CHECK_P2_LANE_1:
+                    // if (p2_chef == 0) then
+                    // lane_1_color_out.d = 0
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d4    // R4 = p2 chef pos
+                    bsel = b100    // constant 0
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    //temp reg
+                    game_fsm.d = GameStates.BRANCH_P2_LANE_1
+                GameStates.BRANCH_P2_LANE_1:
+                    regfile_ra2 = d15    //temp reg
+                    if (regfile_rd2){    // if (p2_chef == 0)
+                        game_fsm.d = GameStates.CHECK_P2_LANE_2
+                    }
+                    else{ // if p2_chef != 0 check Lane 2
+                        game_fsm.d = GameStates.FLIP_P2_LANE_1 
+                    }
+                GameStates.FLIP_P2_LANE_1:
+                    alufn = b000000    // ADD
+                    bsel = b001    // constant 1 (1 for Red, 2 for Blue)
+                    asel = b10   // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d5    // R5 = lane_1_color
+                    game_fsm.d = GameStates.IDLE_GAME
+                // P2 Lane 2
+                GameStates.CHECK_P2_LANE_2:
+                    // if (p2_chef == 1) then
+                    // lane_2_color_out.d = 0
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d4    // R4 = p2 chef pos
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    // temp reg
+                    game_fsm.d = GameStates.BRANCH_P2_LANE_2
+                GameStates.BRANCH_P2_LANE_2:
+                    regfile_ra2 = d15    // temp reg
+                    if (regfile_rd2){    // if (p2_chef == 0)
+                        game_fsm.d = GameStates.CHECK_P2_LANE_3
+                    }
+                    else{ // if p2_chef != 1 check Lane 3
+                        game_fsm.d = GameStates.FLIP_P2_LANE_2 
+                    }
+                GameStates.FLIP_P2_LANE_2:
+                    alufn = b000000    // ADD
+                    bsel = b001    // constant 1 (1 for Red, 2 for Blue)
+                    asel = b10   // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d6    // R6 = lane_2_color
+                    game_fsm.d = GameStates.IDLE_GAME
+                // P2 Lane 3
+                GameStates.CHECK_P2_LANE_3:
+                    // if (p2_chef == 2) then
+                    // lane_3_color_out.d = 0
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d4    // R4 = p2 chef pos
+                    bsel = b011    // constant 2
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    // temp reg
+                    game_fsm.d = GameStates.BRANCH_P2_LANE_3
+                GameStates.BRANCH_P2_LANE_3:
+                    regfile_ra2 = d15    // temp reg
+                    if (regfile_rd2){    // if (p2_chef == 2)
+                        game_fsm.d = GameStates.CHECK_P2_LANE_4
+                    }
+                    else{ // if p2_chef != 2 check Lane 4
+                        game_fsm.d = GameStates.FLIP_P2_LANE_3 
+                    }
+                GameStates.FLIP_P2_LANE_3:
+                    alufn = b000000    // ADD
+                    bsel = b001    // constant 1 (1 for Red, 2 for Blue)
+                    asel = b10   // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d7    // R7 = lane_3_color
+                    game_fsm.d = GameStates.IDLE_GAME
+                // P2 Lane 4
+                GameStates.CHECK_P2_LANE_4:
+                    // if (p2_chef == 3) then
+                    // lane_4_color_out.d = 0
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d4    // R4 = p2 chef pos
+                    bsel = b110    // constant 3
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d15    // temp reg
+                    game_fsm.d = GameStates.BRANCH_P2_LANE_4
+                GameStates.BRANCH_P2_LANE_4:
+                    regfile_ra2 = d15    // temp reg
+                    if (regfile_rd2){    // if (p2_chef == 3)
+                        game_fsm.d = GameStates.IDLE_GAME
+                    }
+                    else{ // if p2_chef != 3 return to IDLE
+                        game_fsm.d = GameStates.FLIP_P2_LANE_4 
+                    }
+                GameStates.FLIP_P2_LANE_4:
+                    alufn = b000000    // ADD
+                    bsel = b001    // constant 1 (1 for Red, 2 for Blue)
+                    asel = b10   // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d8    // R8 = lane_4_color
+                    game_fsm.d = GameStates.IDLE_GAME
+                
+                
+                
+                
+                // USE R13 AS TEMP REG
+                // Sushi Update Logic
+                // LANE 1
+                GameStates.CHECK_LANE_1_DIRECTION:
+                    // get direction of sushi travel and store into temp register
+                    alufn = b000001    // SUB with 2 which represents blue
+                    regfile_ra1 = d5    // R5 = lane_1_color
+                    bsel = b011    // constant 2
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d13    // R13 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_1_DIRECTION
+                GameStates.BRANCH_LANE_1_DIRECTION:
+                    regfile_ra2 = d13    // R13 = temp reg
+                    if (regfile_rd2){    // if R5 == 2 then direction is towards the blue side (lane_1_sushi + 1)
+                        game_fsm.d = GameStates.UPDATE_LANE_1_SUSHI_POS_P2
+                    }
+                    else {
+                        // if R5 == 2 then the direction is in the red side (lane_1_sushi - 1)
+                        game_fsm.d = GameStates.UPDATE_LANE_1_SUSHI_POS_P1 
+                    }
+                GameStates.UPDATE_LANE_1_SUSHI_POS_P1:
+                    // if lane direction = blue
+                    // lane_1_sushi (R9) - 1
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d9    // R9 = lane_1_sushi
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d9    // R9 = lane_1_sushi
+                    game_fsm.d = GameStates.CHECK_LANE_1_SUSHI_END_P1
+                GameStates.CHECK_LANE_1_SUSHI_END_P1:
+                    // check if sushi reach end of P1
+                    // lane_1_sushi == 0
+                    // checks if position == 0 then stores result into R14
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d9    // R9 = lane_1_sushi
+                    bsel = b100    // constant 0
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d13    // R13 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_1_SUSHI_END_P1
+                GameStates.BRANCH_LANE_1_SUSHI_END_P1:
+                    // if (lane_1_sushi == 0) then p1_score + 1
+                    regfile_ra2 = d13    // R13 = temp reg
+                    if (regfile_rd2){
+                        game_fsm.d = GameStates.CHECK_LANE_2_DIRECTION
+                    }
+                    else {
+                        // else check lane 2
+                        game_fsm.d = GameStates.UPDATE_LANE_1_POINTS_P1 
+                    }
+                GameStates.UPDATE_LANE_1_POINTS_P1:
+                    // p1_score + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d0    // R0 = p1_score
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d0    // R0 = p1_score
+                    game_fsm.d = GameStates.SPAWN_LANE_1_SUSHI
+                GameStates.UPDATE_LANE_1_SUSHI_POS_P2:
+                    // else lane direction = red
+                    // lane_1_sushi (R9) + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d9    // R9 = lane_1_sushi
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d9    // R9 = lane_1_sushi
+                    game_fsm.d = GameStates.CHECK_LANE_1_SUSHI_END_P2
+                GameStates.CHECK_LANE_1_SUSHI_END_P2:
+                    // if (lane_1_sushi == 8) then p2_score + 1
+                    // else check lane 2
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d9    // R9 = lane_1_sushi
+                    bsel = b101    // constant 8
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d13    // R13 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_1_SUSHI_END_P2
+                GameStates.BRANCH_LANE_1_SUSHI_END_P2:
+                    // if (lane_1_sushi == 0) then p2_score + 1
+                    regfile_ra2 = d13
+                    if (regfile_rd2){
+                        game_fsm.d = GameStates.CHECK_LANE_2_DIRECTION
+                    }
+                    else {
+                        // else check lane 2
+                        game_fsm.d = GameStates.UPDATE_LANE_1_POINTS_P2 
+                    }
+                GameStates.UPDATE_LANE_1_POINTS_P2:
+                    // p2_points + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d1    // R1 = p2_score
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d1    // R1 = p2_score
+                    game_fsm.d = GameStates.SPAWN_LANE_1_SUSHI
+                GameStates.SPAWN_LANE_1_SUSHI:
+                    // spawn sushi in the middle (Index 4)
+                    alufn = b000000    // ADD
+                    bsel = b111    // constant 4
+                    asel = b10    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d9    // R9 = lane_1_sushi
+                    game_fsm.d = GameStates.CHECK_LANE_2_DIRECTION
+                
+                
+                
+                // LANE 2
+                GameStates.CHECK_LANE_2_DIRECTION:
+                    // get direction of sushi travel and store into temp register
+                    alufn = b000001    // SUB with 2 which represents blue
+                    regfile_ra1 = d6    // R6 = lane_2_color
+                    bsel = b011    // constant 2
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d13    // R13 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_2_DIRECTION
+                GameStates.BRANCH_LANE_2_DIRECTION:
+                    regfile_ra2 = d13    // R13 = temp reg
+                    if (regfile_rd2){    // if R6 == 2 then direction is towards the blue side (lane_2_sushi + 1)
+                        game_fsm.d = GameStates.UPDATE_LANE_2_SUSHI_POS_P2
+                    }
+                    else {
+                        // if R6 == 2 then the direction is in the red side (lane_2_sushi - 1)
+                        game_fsm.d = GameStates.UPDATE_LANE_2_SUSHI_POS_P1
+                    }
+                GameStates.UPDATE_LANE_2_SUSHI_POS_P1:
+                    // if lane direction = blue
+                    // lane_2_sushi (R10) - 1
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d10    // R10 = lane_2_sushi
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d10    // R10 = lane_2_sushi
+                    game_fsm.d = GameStates.CHECK_LANE_2_SUSHI_END_P1
+                GameStates.CHECK_LANE_2_SUSHI_END_P1:
+                    // if (lane_2_sushi == 0) then p1_score + 1
+                    // else check lane 3
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d10    // R10 = lane_2_sushi
+                    bsel = b100    // constant 0
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d13    // R13 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_2_SUSHI_END_P1
+                GameStates.BRANCH_LANE_2_SUSHI_END_P1:
+                    // if (lane_2_sushi == 0) then p1_score + 1
+                    regfile_ra2 = d13    // R13 = temp reg
+                    if (regfile_rd2){
+                        game_fsm.d = GameStates.CHECK_LANE_3_DIRECTION
+                    }
+                    else {
+                        // else check lane 3
+                        game_fsm.d = GameStates.UPDATE_LANE_2_POINTS_P1
+                    }
+                GameStates.UPDATE_LANE_2_POINTS_P1:
+                    // p1_score + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d0    // R0 = p1_score
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d0    // R0 = p1_score
+                    game_fsm.d = GameStates.SPAWN_LANE_2_SUSHI
+                GameStates.UPDATE_LANE_2_SUSHI_POS_P2:
+                    // else lane direction = red
+                    // lane_2_sushi (R10) + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d10    // R10 = lane_2_sushi
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d10    // R10 = lane_2_sushi
+                    game_fsm.d = GameStates.CHECK_LANE_2_SUSHI_END_P2
+                GameStates.CHECK_LANE_2_SUSHI_END_P2:
+                    // if (lane_2_sushi == 8) then p2_score + 1
+                    // else check lane 3
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d10    // R10 = lane_2_sushi
+                    bsel = b101    // constant 8
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d13    // R13 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_2_SUSHI_END_P2
+                GameStates.BRANCH_LANE_2_SUSHI_END_P2:
+                    // if (lane_2_sushi == 0) then p2_score + 1
+                    regfile_ra2 = d13
+                    if (regfile_rd2){
+                        game_fsm.d = GameStates.CHECK_LANE_3_DIRECTION
+                    }
+                    else {
+                        // else check lane 3
+                        game_fsm.d = GameStates.UPDATE_LANE_2_POINTS_P2 
+                    }
+                GameStates.UPDATE_LANE_2_POINTS_P2:
+                    // p2_points + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d1    // R1 = p2_score
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d1    // R1 = p2_score
+                    game_fsm.d = GameStates.SPAWN_LANE_2_SUSHI
+                GameStates.SPAWN_LANE_2_SUSHI:
+                    // spawn sushi in the middle (Index 4)
+                    alufn = b000000    // ADD
+                    bsel = b111    // constant 4
+                    asel = b10    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d10    // R10 = lane_2_sushi
+                    game_fsm.d = GameStates.CHECK_LANE_3_DIRECTION
+                
+                
+                
+                // LANE 3
+                GameStates.CHECK_LANE_3_DIRECTION:
+                    // get direction of sushi travel and store into temp register
+                    alufn = b000001    // SUB with 2 which represents blue
+                    regfile_ra1 = d7    // R7 = lane_3_color
+                    bsel = b011    // constant 2
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d13    // R13 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_3_DIRECTION
+                GameStates.BRANCH_LANE_3_DIRECTION:
+                    regfile_ra2 = d13    // R13 = temp reg
+                    if (regfile_rd2){    // if R7 == 2 then direction is towards the blue side (lane_3_sushi + 1)
+                        game_fsm.d = GameStates.UPDATE_LANE_3_SUSHI_POS_P2
+                    }
+                    else {
+                        // if R7 == 2 then the direction is in the red side (lane_3_sushi - 1)
+                        game_fsm.d = GameStates.UPDATE_LANE_3_SUSHI_POS_P1
+                    }
+                GameStates.UPDATE_LANE_3_SUSHI_POS_P1:
+                    // if lane direction = blue
+                    // lane_3_sushi (R11) - 1
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d11    // R11 = lane_3_sushi
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d11    // R11 = lane_3_sushi
+                    game_fsm.d = GameStates.CHECK_LANE_3_SUSHI_END_P1
+                GameStates.CHECK_LANE_3_SUSHI_END_P1:
+                    // if (lane_3_sushi == 0) then p1_score + 1
+                    // else check lane 3
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d11    // R11 = lane_3_sushi
+                    bsel = b100    // constant 0
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d13    // R13 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_3_SUSHI_END_P1
+                GameStates.BRANCH_LANE_3_SUSHI_END_P1:
+                    // if (lane_3_sushi == 0) then p1_score + 1
+                    regfile_ra2 = d13    // R13 = temp reg
+                    if (regfile_rd2){
+                        game_fsm.d = GameStates.CHECK_LANE_4_DIRECTION
+                    }
+                    else {
+                        // else check lane 4
+                        game_fsm.d = GameStates.UPDATE_LANE_3_POINTS_P1 
+                    }
+                GameStates.UPDATE_LANE_3_POINTS_P1:
+                    // p1_score + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d0    // R0 = p1_score
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d0    // R0 = p1_score
+                    game_fsm.d = GameStates.SPAWN_LANE_3_SUSHI
+                GameStates.UPDATE_LANE_3_SUSHI_POS_P2:
+                    // else lane direction = red
+                    // lane_3_sushi (R11) + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d11    // R11 = lane_3_sushi
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d11    // R11 = lane_3_sushi
+                    game_fsm.d = GameStates.CHECK_LANE_3_SUSHI_END_P2
+                GameStates.CHECK_LANE_3_SUSHI_END_P2:
+                    // if (lane_3_sushi == 8) then p2_score + 1
+                    // else check lane 3
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d11    // R11 = lane_3_sushi
+                    bsel = b101    // constant 8
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d13    // R13 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_3_SUSHI_END_P2
+                GameStates.BRANCH_LANE_3_SUSHI_END_P2:
+                    // if (lane_3_sushi == 0) then p2_score + 1
+                    regfile_ra2 = d13
+                    if (regfile_rd2){
+                        game_fsm.d = GameStates.CHECK_LANE_4_DIRECTION
+                    }
+                    else {
+                        // else check lane 4
+                        game_fsm.d = GameStates.UPDATE_LANE_3_POINTS_P2 
+                    }
+                GameStates.UPDATE_LANE_3_POINTS_P2:
+                    // p2_points + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d1    // R1 = p2_score
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d1    // R1 = p2_score
+                    game_fsm.d = GameStates.SPAWN_LANE_3_SUSHI
+                GameStates.SPAWN_LANE_3_SUSHI:
+                    // spawn sushi in the middle (Index 4)
+                    alufn = b000000    // ADD
+                    bsel = b111    // constant 4
+                    asel = b10    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d11    // R11 = lane_3_sushi
+                    game_fsm.d = GameStates.CHECK_LANE_4_DIRECTION
+                
+                
+                
+                // LANE 4
+                GameStates.CHECK_LANE_4_DIRECTION:
+                    // get direction of sushi travel and store into temp register
+                    alufn = b000001    // SUB with 2 which represents blue
+                    regfile_ra1 = d8    // R8 = lane_4_color
+                    bsel = b011    // constant 2
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d13    // R13 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_4_DIRECTION
+                GameStates.BRANCH_LANE_4_DIRECTION:
+                    regfile_ra2 = d13    // R13 = temp reg
+                    if (regfile_rd2){    // if R8 == 2 then direction is towards the blue side (lane_4_sushi + 1)
+                        game_fsm.d = GameStates.UPDATE_LANE_4_SUSHI_POS_P2
+                    }
+                    else {
+                        // if R8 == 2 then the direction is in the red side (lane_4_sushi - 1)
+                        game_fsm.d = GameStates.UPDATE_LANE_4_SUSHI_POS_P1
+                    }
+                GameStates.UPDATE_LANE_4_SUSHI_POS_P1:
+                    // if lane direction = blue
+                    // lane_4_sushi (R12) - 1
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d12    // R12 = lane_4_sushi
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d12    // R12 = lane_4_sushi
+                    game_fsm.d = GameStates.CHECK_LANE_4_SUSHI_END_P1
+                GameStates.CHECK_LANE_4_SUSHI_END_P1:
+                    // if (lane_4_sushi == 0) then p1_score + 1
+                    // else check lane 4
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d12    // R12 = lane_4_sushi
+                    bsel = b100    // constant 0
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d13    // R13 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_4_SUSHI_END_P1
+                GameStates.BRANCH_LANE_4_SUSHI_END_P1:
+                    // if (lane_4_sushi == 0) then p1_score + 1
+                    regfile_ra2 = d13    // R13 = temp reg
+                    if (regfile_rd2){
+                        game_fsm.d = GameStates.IDLE_GAME
+                    }
+                    else {
+                        // else back to IDLE_GAME
+                        game_fsm.d = GameStates.UPDATE_LANE_4_POINTS_P1 
+                    }
+                GameStates.UPDATE_LANE_4_POINTS_P1:
+                    // p1_score + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d0    // R0 = p1_score
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d0    // R0 = p1_score
+                    game_fsm.d = GameStates.SPAWN_LANE_4_SUSHI
+                GameStates.UPDATE_LANE_4_SUSHI_POS_P2:
+                    // else lane direction = red
+                    // lane_4_sushi (R12) + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d12    // R12 = lane_4_sushi
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d12    // R12 = lane_4_sushi
+                    game_fsm.d = GameStates.CHECK_LANE_4_SUSHI_END_P2
+                GameStates.CHECK_LANE_4_SUSHI_END_P2:
+                    // if (lane_4_sushi == 8) then p2_score + 1
+                    // else check lane 4
+                    alufn = b000001    // SUB
+                    regfile_ra1 = d12    // R12 = lane_4_sushi
+                    bsel = b101    // constant 8
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d13    // R13 = temp reg
+                    game_fsm.d = GameStates.BRANCH_LANE_4_SUSHI_END_P2
+                GameStates.BRANCH_LANE_4_SUSHI_END_P2:
+                    // if (lane_4_sushi == 0) then p2_score + 1
+                    regfile_ra2 = d13
+                    if (regfile_rd2){
+                        game_fsm.d = GameStates.IDLE_GAME
+                    }
+                    else {
+                        // else back to IDLE_GAME
+                        game_fsm.d = GameStates.UPDATE_LANE_4_POINTS_P2 
+                    }
+                GameStates.UPDATE_LANE_4_POINTS_P2:
+                    // p2_points + 1
+                    alufn = b000000    // ADD
+                    regfile_ra1 = d1    // R1 = p2_score
+                    bsel = b001    // constant 1
+                    asel = b00    // pass through ra1 regfile
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d1    // R1 = p2_score
+                    game_fsm.d = GameStates.SPAWN_LANE_4_SUSHI
+                GameStates.SPAWN_LANE_4_SUSHI:
+                    // spawn sushi in the middle (Index 4)
+                    alufn = b000000    // ADD
+                    bsel = b111    // constant 4
+                    asel = b10    // constant 0
+                    regfile_we = 1    // write_enable 1
+                    regfile_wa = d12    // R12 = lane_4_sushi
+                    game_fsm.d = GameStates.IDLE_GAME
+            }
+        }
+        
+    }
+}

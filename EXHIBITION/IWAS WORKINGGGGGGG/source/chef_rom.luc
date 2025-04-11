@@ -1,0 +1,16 @@
+module chef_rom (
+    input pos[4],  // clock
+    output out[12][2]
+) {
+    always {
+        case (pos) {
+            0: out = {2b11, 2b11, 2b11, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00} // chef_pos = Lane 1
+            1: out = {2b00, 2b00, 2b00, 2b11, 2b11, 2b11, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00} // chef_pos = Lane 2
+            2: out = {2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b11, 2b11, 2b11, 2b00, 2b00, 2b00} // chef_pos = Lane 3
+            3: out = {2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b11, 2b11, 2b11} // chef_pos = Lane 4
+            4: out = {2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10} // chef_pos = ALL BLUE
+            5: out = {2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01} // chef_pos = ALL RED
+            default: out = {2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00} // default all off
+        }
+    }
+}

@@ -1,0 +1,609 @@
+
+*** Running vivado
+    with args -log alchitry_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source alchitry_top.tcl
+
+
+ECHO is off.
+ECHO is off.
+
+****** Vivado v2023.2 (64-bit)
+  **** SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
+  **** IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+  **** SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source alchitry_top.tcl -notrace
+create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 462.527 ; gain = 184.277
+Command: synth_design -top alchitry_top -part xc7a35tftg256-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Device 21-403] Loading part xc7a35tftg256-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 14488
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1294.820 ; gain = 439.617
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'alchitry_top' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alchitry_top.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'reset_conditioner' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/reset_conditioner.sv:7]
+	Parameter STAGES bound to: 3'b100 
+INFO: [Synth 8-6155] done synthesizing module 'reset_conditioner' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/reset_conditioner.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'edge_detector' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/edge_detector.sv:7]
+	Parameter RISE bound to: 1'b1 
+	Parameter FALL bound to: 1'b0 
+INFO: [Synth 8-6155] done synthesizing module 'edge_detector' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/edge_detector.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'button_conditioner' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/button_conditioner.sv:7]
+	Parameter CLK_FREQ bound to: 27'b101111101011110000100000000 
+	Parameter MIN_DELAY bound to: 5'b10100 
+	Parameter NUM_SYNC bound to: 2'b10 
+INFO: [Synth 8-6157] synthesizing module 'pipeline' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/pipeline.sv:7]
+	Parameter DEPTH bound to: 2'b10 
+INFO: [Synth 8-6155] done synthesizing module 'pipeline' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/pipeline.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'button_conditioner' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/button_conditioner.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'multi_seven_seg' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/multi_seven_seg.sv:7]
+	Parameter DIGITS bound to: 3'b110 
+	Parameter DIV bound to: 5'b10000 
+INFO: [Synth 8-6157] synthesizing module 'counter' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
+	Parameter SIZE bound to: 3 - type: integer 
+	Parameter DIV bound to: 5'b10000 
+	Parameter TOP bound to: 3'b101 
+	Parameter UP bound to: 1'b1 
+INFO: [Synth 8-6155] done synthesizing module 'counter' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'seven_seg' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/seven_seg.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'seven_seg' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/seven_seg.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'decoder' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/decoder.sv:7]
+	Parameter WIDTH bound to: 3 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'decoder' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/decoder.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'multi_seven_seg' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/multi_seven_seg.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'game_datapath' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_datapath.sv:7]
+	Parameter SLOW_CLOCK_DIV bound to: 5'b11010 
+	Parameter FAST_CLOCK_DIV bound to: 5'b10101 
+INFO: [Synth 8-6157] synthesizing module 'alu' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alu.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'rca' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/rca.sv:7]
+	Parameter BITS bound to: 6'b100000 
+INFO: [Synth 8-6157] synthesizing module 'fa' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/fa.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'fa' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/fa.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'rca' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/rca.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'boolean' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/boolean.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6157] synthesizing module 'bool_mux' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/bool_mux.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'bool_mux' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/bool_mux.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'boolean' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/boolean.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'clamp' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/clamp.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'clamp' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/clamp.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'alu' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alu.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'counter__parameterized0' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
+	Parameter SIZE bound to: 1'b1 
+	Parameter DIV bound to: 5'b11010 
+	Parameter TOP bound to: 1'b0 
+	Parameter UP bound to: 1'b1 
+INFO: [Synth 8-6155] done synthesizing module 'counter__parameterized0' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/counter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'game_cu' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_cu.sv:7]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_cu.sv:147]
+INFO: [Synth 8-6155] done synthesizing module 'game_cu' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_cu.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'game_regfiles' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv:7]
+INFO: [Synth 8-226] default block is never used [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv:119]
+INFO: [Synth 8-226] default block is never used [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv:173]
+INFO: [Synth 8-6155] done synthesizing module 'game_regfiles' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_regfiles.sv:7]
+INFO: [Synth 8-226] default block is never used [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_datapath.sv:185]
+INFO: [Synth 8-6155] done synthesizing module 'game_datapath' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/game_datapath.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'ws2812b_driver' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:7]
+	Parameter PIXEL_COUNT bound to: 4'b1100 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'ws2812b_driver' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'ws2812b_driver__parameterized0' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:7]
+	Parameter PIXEL_COUNT bound to: 5'b10101 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'ws2812b_driver__parameterized0' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/ws2812b_driver.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'bin_to_dec' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/bin_to_dec.sv:7]
+	Parameter DIGITS bound to: 2'b10 
+	Parameter LEADING_ZEROS bound to: 1'b0 
+INFO: [Synth 8-6155] done synthesizing module 'bin_to_dec' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/bin_to_dec.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'chef_rom' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/chef_rom.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'chef_rom' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/chef_rom.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'lane_rom' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/lane_rom.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'lane_rom' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/lane_rom.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'sushi_rom' [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/sushi_rom.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'sushi_rom' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/sushi_rom.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'alchitry_top' (0#1) [C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.srcs/sources_1/imports/source/alchitry_top.sv:7]
+WARNING: [Synth 8-3917] design alchitry_top has port led[7] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port led[6] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port led[5] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port led[4] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port led[3] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port led[2] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port led[1] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port led[0] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][7] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][6] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][5] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][4] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][3] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][2] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][1] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][0] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][7] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][6] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][5] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][4] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][3] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][2] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][1] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][0] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][7] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][6] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][5] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][4] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][3] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][2] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][1] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][0] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_select[3] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_select[2] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_select[1] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_select[0] driven by constant 1
+WARNING: [Synth 8-7129] Port alufn[5] in module boolean is either unconnected or has no load
+WARNING: [Synth 8-7129] Port alufn[4] in module boolean is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_button[4] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_button[3] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_button[2] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_button[1] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_button[0] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][7] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][6] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][5] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][4] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][3] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][2] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][1] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][0] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][7] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][6] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][5] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][4] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][3] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][2] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][1] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][0] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][7] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][6] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][5] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][4] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][3] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][2] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][1] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][0] in module alchitry_top is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1420.266 ; gain = 565.062
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1420.266 ; gain = 565.062
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1420.266 ; gain = 565.062
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.035 . Memory (MB): peak = 1420.266 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [C:/Users/Kp293/Downloads/IWAS/build/constraint/alchitry.xdc]
+Finished Parsing XDC File [C:/Users/Kp293/Downloads/IWAS/build/constraint/alchitry.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/Kp293/Downloads/IWAS/build/constraint/alchitry.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/alchitry_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/alchitry_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [C:/Users/Kp293/Downloads/IWAS/build/constraint/au_props.xdc]
+Finished Parsing XDC File [C:/Users/Kp293/Downloads/IWAS/build/constraint/au_props.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1522.152 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+The system cannot find the path specified.
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 1522.152 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1522.152 ; gain = 666.949
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tftg256-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1522.152 ; gain = 666.949
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1522.152 ; gain = 666.949
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'D_game_fsm_q_reg' in module 'game_cu'
+INFO: [Synth 8-802] inferred FSM for state register 'D_state_q_reg' in module 'ws2812b_driver'
+INFO: [Synth 8-802] inferred FSM for state register 'D_state_q_reg' in module 'ws2812b_driver__parameterized0'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                iSTATE57 |                          0000000 |                          0000000
+                iSTATE52 |                          0000001 |                          0000010
+                iSTATE56 |                          0000010 |                          0000001
+                iSTATE50 |                          0000011 |                          0000011
+                iSTATE41 |                          0000100 |                          0000100
+                iSTATE40 |                          0000101 |                          0000101
+                iSTATE38 |                          0000110 |                          0000110
+                iSTATE36 |                          0000111 |                          0000111
+                iSTATE96 |                          0001000 |                          0001000
+                iSTATE95 |                          0001001 |                          0001001
+                iSTATE90 |                          0001010 |                          0001010
+                iSTATE89 |                          0001011 |                          0001011
+                iSTATE77 |                          0001100 |                          0001100
+                iSTATE75 |                          0001101 |                          0001101
+                iSTATE71 |                          0001110 |                          0001110
+                iSTATE68 |                          0001111 |                          0001111
+                iSTATE70 |                          0010000 |                          0111001
+                iSTATE65 |                          0010001 |                          0111010
+                iSTATE55 |                          0010010 |                          0111100
+                iSTATE46 |                          0010011 |                          0111111
+                iSTATE33 |                          0010100 |                          1000000
+                iSTATE27 |                          0010101 |                          1000010
+                iSTATE63 |                          0010110 |                          0111011
+                iSTATE54 |                          0010111 |                          0111101
+                iSTATE47 |                          0011000 |                          0111110
+                iSTATE31 |                          0011001 |                          1000001
+                iSTATE26 |                          0011010 |                          1000011
+                iSTATE17 |                          0011011 |                          1000100
+                iSTATE15 |                          0011100 |                          1000101
+                iSTATE10 |                          0011101 |                          1000111
+                iSTATE60 |                          0011110 |                          1001010
+                iSTATE59 |                          0011111 |                          1001011
+                iSTATE48 |                          0100000 |                          1001101
+                iSTATE11 |                          0100001 |                          1000110
+                iSTATE66 |                          0100010 |                          1001000
+                iSTATE64 |                          0100011 |                          1001001
+                iSTATE49 |                          0100100 |                          1001100
+                iSTATE43 |                          0100101 |                          1001110
+                iSTATE42 |                          0100110 |                          1001111
+                iSTATE69 |                          0100111 |                          1010000
+                iSTATE62 |                          0101000 |                          1010010
+                iSTATE51 |                          0101001 |                          1010101
+                iSTATE45 |                          0101010 |                          1010110
+                 iSTATE5 |                          0101011 |                          1011000
+                iSTATE67 |                          0101100 |                          1010001
+                iSTATE61 |                          0101101 |                          1010011
+                iSTATE53 |                          0101110 |                          1010100
+                iSTATE44 |                          0101111 |                          1010111
+                 iSTATE4 |                          0110000 |                          1011001
+                 iSTATE2 |                          0110001 |                          1011010
+                 iSTATE0 |                          0110010 |                          1011011
+                iSTATE91 |                          0110011 |                          1011101
+                iSTATE82 |                          0110100 |                          1100000
+                iSTATE81 |                          0110101 |                          1100001
+                iSTATE76 |                          0110110 |                          1100011
+                iSTATE93 |                          0110111 |                          1011100
+                iSTATE86 |                          0111000 |                          1011110
+                iSTATE85 |                          0111001 |                          1011111
+                iSTATE78 |                          0111010 |                          1100010
+                iSTATE58 |                          0111011 |                          1100100
+                iSTATE98 |                          0111100 |                          0010000
+                iSTATE97 |                          0111101 |                          0010001
+                iSTATE80 |                          0111110 |                          0010100
+                iSTATE79 |                          0111111 |                          0010101
+                iSTATE73 |                          1000000 |                          0010111
+                iSTATE25 |                          1000001 |                          0011000
+                iSTATE74 |                          1000010 |                          0010110
+                iSTATE24 |                          1000011 |                          0011001
+                iSTATE94 |                          1000100 |                          0010010
+                iSTATE92 |                          1000101 |                          0010011
+                iSTATE23 |                          1000110 |                          0011010
+                iSTATE22 |                          1000111 |                          0011011
+                 iSTATE9 |                          1001000 |                          0011100
+                 iSTATE8 |                          1001001 |                          0011101
+                 iSTATE7 |                          1001010 |                          0011110
+                 iSTATE6 |                          1001011 |                          0011111
+                 iSTATE1 |                          1001100 |                          0100001
+                  iSTATE |                          1001101 |                          0100010
+                iSTATE88 |                          1001110 |                          0100100
+                iSTATE87 |                          1001111 |                          0100101
+                iSTATE83 |                          1010000 |                          0100111
+                iSTATE35 |                          1010001 |                          0101000
+                iSTATE34 |                          1010010 |                          0101001
+                iSTATE84 |                          1010011 |                          0100110
+                iSTATE99 |                          1010100 |                          0100011
+                 iSTATE3 |                          1010101 |                          0100000
+                iSTATE29 |                          1010110 |                          0101010
+                iSTATE28 |                          1010111 |                          0101011
+                iSTATE19 |                          1011000 |                          0101100
+                iSTATE18 |                          1011001 |                          0101101
+                iSTATE13 |                          1011010 |                          0101110
+                iSTATE39 |                          1011011 |                          0110000
+                iSTATE37 |                          1011100 |                          0110001
+                iSTATE30 |                          1011101 |                          0110011
+                iSTATE21 |                          1011110 |                          0110100
+                iSTATE16 |                          1011111 |                          0110110
+                iSTATE14 |                          1100000 |                          0110111
+                iSTATE72 |                          1100001 |                          0111000
+                iSTATE20 |                          1100010 |                          0110101
+                iSTATE32 |                          1100011 |                          0110010
+                iSTATE12 |                          1100100 |                          0101111
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'D_game_fsm_q_reg' using encoding 'sequential' in module 'game_cu'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  iSTATE |                               00 |                               01
+                 iSTATE1 |                               01 |                               10
+                 iSTATE0 |                               10 |                               00
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'D_state_q_reg' using encoding 'sequential' in module 'ws2812b_driver'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  iSTATE |                               00 |                               01
+                 iSTATE1 |                               01 |                               10
+                 iSTATE0 |                               10 |                               00
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'D_state_q_reg' using encoding 'sequential' in module 'ws2812b_driver__parameterized0'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1522.152 ; gain = 666.949
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input    7 Bit       Adders := 10    
+	   3 Input    7 Bit       Adders := 3     
+	   2 Input    5 Bit       Adders := 18    
+	   2 Input    4 Bit       Adders := 2     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
+	   3 Input      1 Bit         XORs := 32    
+	   2 Input      1 Bit         XORs := 32    
++---Registers : 
+	               32 Bit    Registers := 16    
+	                7 Bit    Registers := 10    
+	                5 Bit    Registers := 18    
+	                4 Bit    Registers := 4     
+	                2 Bit    Registers := 6     
+	                1 Bit    Registers := 27    
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 4     
+	   4 Input   32 Bit        Muxes := 3     
+	   8 Input   32 Bit        Muxes := 1     
+	   4 Input   17 Bit        Muxes := 10    
+	 137 Input    7 Bit        Muxes := 1     
+	  10 Input    7 Bit        Muxes := 3     
+	   2 Input    7 Bit        Muxes := 3     
+	 101 Input    5 Bit        Muxes := 1     
+	   2 Input    5 Bit        Muxes := 11    
+	   3 Input    5 Bit        Muxes := 8     
+	 101 Input    4 Bit        Muxes := 3     
+	   2 Input    4 Bit        Muxes := 3     
+	   3 Input    4 Bit        Muxes := 2     
+	  11 Input    4 Bit        Muxes := 3     
+	  12 Input    4 Bit        Muxes := 3     
+	 101 Input    3 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 1     
+	   5 Input    2 Bit        Muxes := 1     
+	 101 Input    2 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 51    
+	   3 Input    2 Bit        Muxes := 10    
+	   7 Input    2 Bit        Muxes := 8     
+	   4 Input    2 Bit        Muxes := 4     
+	  10 Input    2 Bit        Muxes := 28    
+	  12 Input    2 Bit        Muxes := 2     
+	  21 Input    2 Bit        Muxes := 8     
+	 101 Input    1 Bit        Muxes := 2     
+	  16 Input    1 Bit        Muxes := 16    
+	   2 Input    1 Bit        Muxes := 180   
+	   3 Input    1 Bit        Muxes := 130   
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-3917] design alchitry_top has port led[7] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port led[6] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port led[5] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port led[4] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port led[3] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port led[2] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port led[1] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port led[0] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][7] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][6] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][5] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][4] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][3] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][2] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][1] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[2][0] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][7] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][6] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][5] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][4] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][3] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][2] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][1] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[1][0] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][7] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][6] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][5] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][4] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][3] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][2] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][1] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_led[0][0] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port io_segment[7] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_select[3] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_select[2] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_select[1] driven by constant 1
+WARNING: [Synth 8-3917] design alchitry_top has port io_select[0] driven by constant 1
+WARNING: [Synth 8-7129] Port io_button[4] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_button[3] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_button[2] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_button[1] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_button[0] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][7] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][6] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][5] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][4] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][3] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][2] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][1] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][0] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][7] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][6] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][5] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][4] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][3] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][2] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][1] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][0] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][7] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][6] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][5] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][4] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][3] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][2] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][1] in module alchitry_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][0] in module alchitry_top is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:46 ; elapsed = 00:00:49 . Memory (MB): peak = 1522.152 ; gain = 666.949
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:50 ; elapsed = 00:00:54 . Memory (MB): peak = 1522.152 ; gain = 666.949
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:01:16 ; elapsed = 00:01:20 . Memory (MB): peak = 1648.781 ; gain = 793.578
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:01:18 ; elapsed = 00:01:21 . Memory (MB): peak = 1654.246 ; gain = 799.043
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:01:21 ; elapsed = 00:01:25 . Memory (MB): peak = 1654.246 ; gain = 799.043
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:21 ; elapsed = 00:01:25 . Memory (MB): peak = 1654.246 ; gain = 799.043
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:22 ; elapsed = 00:01:25 . Memory (MB): peak = 1654.246 ; gain = 799.043
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:22 ; elapsed = 00:01:25 . Memory (MB): peak = 1654.246 ; gain = 799.043
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:22 ; elapsed = 00:01:25 . Memory (MB): peak = 1654.246 ; gain = 799.043
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:22 ; elapsed = 00:01:25 . Memory (MB): peak = 1654.246 ; gain = 799.043
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |BUFG   |     1|
+|2     |CARRY4 |    92|
+|3     |LUT1   |    30|
+|4     |LUT2   |   230|
+|5     |LUT3   |    95|
+|6     |LUT4   |   203|
+|7     |LUT5   |   236|
+|8     |LUT6   |   619|
+|9     |MUXF7  |    66|
+|10    |FDPE   |     8|
+|11    |FDRE   |  1002|
+|12    |FDSE   |    22|
+|13    |IBUF   |    10|
+|14    |OBUF   |    61|
++------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:22 ; elapsed = 00:01:25 . Memory (MB): peak = 1654.246 ; gain = 799.043
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 67 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:14 ; elapsed = 00:01:23 . Memory (MB): peak = 1654.246 ; gain = 697.156
+Synthesis Optimization Complete : Time (s): cpu = 00:01:22 ; elapsed = 00:01:25 . Memory (MB): peak = 1654.246 ; gain = 799.043
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.019 . Memory (MB): peak = 1666.164 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 158 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1669.812 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+The system cannot find the path specified.
+Synth Design complete | Checksum: 1edf7d8f
+INFO: [Common 17-83] Releasing license: Synthesis
+77 Infos, 134 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:01:27 ; elapsed = 00:01:44 . Memory (MB): peak = 1669.812 ; gain = 1207.285
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1669.812 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/Kp293/Downloads/IWAS/build/vivado/IWAS.runs/synth_1/alchitry_top.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file alchitry_top_utilization_synth.rpt -pb alchitry_top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Fri Apr 11 22:26:13 2025...

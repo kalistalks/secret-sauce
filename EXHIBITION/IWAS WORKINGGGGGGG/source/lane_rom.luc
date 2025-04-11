@@ -1,0 +1,13 @@
+module lane_rom (
+    input pos[3],  // clock
+    output out[21][2]
+) {
+    always {
+        case (pos) {
+            0: out = {2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00} // default all off
+            1: out = {2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01, 2b01} // all red
+            2: out = {2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10, 2b10} // all blue
+            default: out = {2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00, 2b00} // default all off
+        }
+    }
+}

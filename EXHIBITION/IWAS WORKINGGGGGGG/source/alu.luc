@@ -1,0 +1,50 @@
+module alu (
+    input a[32],
+    input b[32],
+    input alufn[6],
+    output out[32],
+    output z[4],
+    output v[4],
+    output n[4]
+) {
+    const SIZE = 32
+    sig out_sig[32]
+    //implement logic devices
+    rca adder(#BITS(32))
+    boolean boolean(#SIZE(SIZE))
+    clamp clamp
+    
+    always {
+        //adder
+        adder.a = a
+        adder.b = b
+        adder.alufn = alufn[0]
+        
+        z = adder.z
+        v = adder.v
+        n = adder.n
+        
+        //boolean
+        boolean.a = a
+        boolean.b = b
+        boolean.alufn = alufn
+        
+        //divider
+        clamp.a = a
+        clamp.b = b
+        
+        case(alufn){
+            6h00: // ADD
+                out_sig = adder.s
+            6h01: // SUB
+                out_sig = adder.s
+            6h03: // CLAMP
+                out_sig = clamp.out
+            6h1A: // "A"
+                out_sig = boolean.bool
+            default:
+                out_sig = 0
+        }
+        out = out_sig
+    }
+}

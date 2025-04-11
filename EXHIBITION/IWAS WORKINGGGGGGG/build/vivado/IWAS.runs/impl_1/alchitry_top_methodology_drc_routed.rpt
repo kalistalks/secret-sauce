@@ -1,0 +1,901 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Fri Apr 11 22:28:09 2025
+| Host         : LAPTOP-Q7AGJJ08 running 64-bit major release  (build 9200)
+| Command      : report_methodology -file alchitry_top_methodology_drc_routed.rpt -pb alchitry_top_methodology_drc_routed.pb -rpx alchitry_top_methodology_drc_routed.rpx
+| Design       : alchitry_top
+| Device       : xc7a35tftg256-1
+| Speed File   : -1
+| Design State : Fully Routed
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+             Max violations: <unlimited>
+             Violations found: 173
++-----------+----------+-------------------------------+------------+
+| Rule      | Severity | Description                   | Violations |
++-----------+----------+-------------------------------+------------+
+| TIMING-16 | Warning  | Large setup violation         | 141        |
+| TIMING-18 | Warning  | Missing input or output delay | 32         |
++-----------+----------+-------------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+TIMING-16#1 Warning
+Large setup violation  
+There is a large setup violation of -1.000 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p2_chef_q_reg[20]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#2 Warning
+Large setup violation  
+There is a large setup violation of -1.007 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_color_q_reg[21]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#3 Warning
+Large setup violation  
+There is a large setup violation of -1.011 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_3_color_q_reg[26]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#4 Warning
+Large setup violation  
+There is a large setup violation of -1.012 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_color_q_reg[26]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#5 Warning
+Large setup violation  
+There is a large setup violation of -1.013 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_sushi_q_reg[24]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#6 Warning
+Large setup violation  
+There is a large setup violation of -1.020 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p2_score_q_reg[25]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#7 Warning
+Large setup violation  
+There is a large setup violation of -1.021 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_color_q_reg[26]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#8 Warning
+Large setup violation  
+There is a large setup violation of -1.029 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_3_sushi_q_reg[25]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#9 Warning
+Large setup violation  
+There is a large setup violation of -1.029 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_color_q_reg[30]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#10 Warning
+Large setup violation  
+There is a large setup violation of -1.041 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_color_q_reg[29]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#11 Warning
+Large setup violation  
+There is a large setup violation of -1.042 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_score_q_reg[26]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#12 Warning
+Large setup violation  
+There is a large setup violation of -1.053 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_3_q_reg[25]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#13 Warning
+Large setup violation  
+There is a large setup violation of -1.058 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_sushi_q_reg[25]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#14 Warning
+Large setup violation  
+There is a large setup violation of -1.059 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_sushi_q_reg[20]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#15 Warning
+Large setup violation  
+There is a large setup violation of -1.059 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_color_q_reg[22]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#16 Warning
+Large setup violation  
+There is a large setup violation of -1.063 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_3_color_q_reg[25]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#17 Warning
+Large setup violation  
+There is a large setup violation of -1.068 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_score_q_reg[22]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#18 Warning
+Large setup violation  
+There is a large setup violation of -1.070 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_sushi_q_reg[22]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#19 Warning
+Large setup violation  
+There is a large setup violation of -1.070 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_3_q_reg[24]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#20 Warning
+Large setup violation  
+There is a large setup violation of -1.083 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_1_q_reg[25]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#21 Warning
+Large setup violation  
+There is a large setup violation of -1.084 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_sushi_q_reg[25]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#22 Warning
+Large setup violation  
+There is a large setup violation of -1.086 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_sushi_q_reg[22]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#23 Warning
+Large setup violation  
+There is a large setup violation of -1.090 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_sushi_q_reg[24]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#24 Warning
+Large setup violation  
+There is a large setup violation of -1.092 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p2_chef_q_reg[21]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#25 Warning
+Large setup violation  
+There is a large setup violation of -1.099 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_color_q_reg[25]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#26 Warning
+Large setup violation  
+There is a large setup violation of -1.100 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_2_q_reg[24]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#27 Warning
+Large setup violation  
+There is a large setup violation of -1.101 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_1_q_reg[21]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#28 Warning
+Large setup violation  
+There is a large setup violation of -1.102 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_current_timer_q_reg[25]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#29 Warning
+Large setup violation  
+There is a large setup violation of -1.108 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_3_q_reg[21]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#30 Warning
+Large setup violation  
+There is a large setup violation of -1.109 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_3_color_q_reg[21]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#31 Warning
+Large setup violation  
+There is a large setup violation of -1.113 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_sushi_q_reg[22]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#32 Warning
+Large setup violation  
+There is a large setup violation of -1.116 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_sushi_q_reg[21]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#33 Warning
+Large setup violation  
+There is a large setup violation of -1.120 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_sushi_q_reg[21]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#34 Warning
+Large setup violation  
+There is a large setup violation of -1.122 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_sushi_q_reg[21]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#35 Warning
+Large setup violation  
+There is a large setup violation of -1.124 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_color_q_reg[24]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#36 Warning
+Large setup violation  
+There is a large setup violation of -1.138 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p2_score_q_reg[21]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#37 Warning
+Large setup violation  
+There is a large setup violation of -1.144 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_3_q_reg[23]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#38 Warning
+Large setup violation  
+There is a large setup violation of -1.148 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_color_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#39 Warning
+Large setup violation  
+There is a large setup violation of -1.156 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_score_q_reg[29]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#40 Warning
+Large setup violation  
+There is a large setup violation of -1.156 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_2_q_reg[30]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#41 Warning
+Large setup violation  
+There is a large setup violation of -1.160 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_color_q_reg[21]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#42 Warning
+Large setup violation  
+There is a large setup violation of -1.160 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_sushi_q_reg[29]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#43 Warning
+Large setup violation  
+There is a large setup violation of -1.165 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_sushi_q_reg[30]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#44 Warning
+Large setup violation  
+There is a large setup violation of -1.165 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_score_q_reg[24]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#45 Warning
+Large setup violation  
+There is a large setup violation of -1.168 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_score_q_reg[21]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#46 Warning
+Large setup violation  
+There is a large setup violation of -1.173 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_1_q_reg[30]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#47 Warning
+Large setup violation  
+There is a large setup violation of -1.181 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_3_sushi_q_reg[29]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#48 Warning
+Large setup violation  
+There is a large setup violation of -1.182 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_chef_q_reg[29]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#49 Warning
+Large setup violation  
+There is a large setup violation of -1.183 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_1_q_reg[24]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#50 Warning
+Large setup violation  
+There is a large setup violation of -1.185 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p2_chef_q_reg[29]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#51 Warning
+Large setup violation  
+There is a large setup violation of -1.186 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_current_timer_q_reg[22]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#52 Warning
+Large setup violation  
+There is a large setup violation of -1.187 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_3_color_q_reg[29]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#53 Warning
+Large setup violation  
+There is a large setup violation of -1.188 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_3_color_q_reg[24]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#54 Warning
+Large setup violation  
+There is a large setup violation of -1.190 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_current_timer_q_reg[29]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#55 Warning
+Large setup violation  
+There is a large setup violation of -1.191 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_sushi_q_reg[29]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#56 Warning
+Large setup violation  
+There is a large setup violation of -1.191 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_color_q_reg[29]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#57 Warning
+Large setup violation  
+There is a large setup violation of -1.193 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_color_q_reg[30]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#58 Warning
+Large setup violation  
+There is a large setup violation of -1.197 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_3_q_reg[29]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#59 Warning
+Large setup violation  
+There is a large setup violation of -1.202 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_color_q_reg[25]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#60 Warning
+Large setup violation  
+There is a large setup violation of -1.205 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_sushi_q_reg[29]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#61 Warning
+Large setup violation  
+There is a large setup violation of -1.207 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_sushi_q_reg[23]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#62 Warning
+Large setup violation  
+There is a large setup violation of -1.212 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_2_q_reg[29]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#63 Warning
+Large setup violation  
+There is a large setup violation of -1.238 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_color_q_reg[22]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#64 Warning
+Large setup violation  
+There is a large setup violation of -1.242 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_sushi_q_reg[30]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#65 Warning
+Large setup violation  
+There is a large setup violation of -1.252 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_chef_q_reg[24]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#66 Warning
+Large setup violation  
+There is a large setup violation of -1.265 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_current_timer_q_reg[21]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#67 Warning
+Large setup violation  
+There is a large setup violation of -1.266 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p2_score_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#68 Warning
+Large setup violation  
+There is a large setup violation of -1.279 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_color_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#69 Warning
+Large setup violation  
+There is a large setup violation of -1.281 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p2_chef_q_reg[30]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#70 Warning
+Large setup violation  
+There is a large setup violation of -1.286 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_chef_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#71 Warning
+Large setup violation  
+There is a large setup violation of -1.293 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_sushi_q_reg[25]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#72 Warning
+Large setup violation  
+There is a large setup violation of -1.298 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_1_q_reg[26]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#73 Warning
+Large setup violation  
+There is a large setup violation of -1.305 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_score_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#74 Warning
+Large setup violation  
+There is a large setup violation of -1.309 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_2_q_reg[26]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#75 Warning
+Large setup violation  
+There is a large setup violation of -1.312 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_current_timer_q_reg[30]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#76 Warning
+Large setup violation  
+There is a large setup violation of -1.313 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_color_q_reg[26]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#77 Warning
+Large setup violation  
+There is a large setup violation of -1.314 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_color_q_reg[23]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#78 Warning
+Large setup violation  
+There is a large setup violation of -1.319 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_sushi_q_reg[30]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#79 Warning
+Large setup violation  
+There is a large setup violation of -1.319 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p2_score_q_reg[30]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#80 Warning
+Large setup violation  
+There is a large setup violation of -1.324 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_3_sushi_q_reg[26]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#81 Warning
+Large setup violation  
+There is a large setup violation of -1.327 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p2_score_q_reg[29]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#82 Warning
+Large setup violation  
+There is a large setup violation of -1.329 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_3_q_reg[26]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#83 Warning
+Large setup violation  
+There is a large setup violation of -1.331 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_2_q_reg[25]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#84 Warning
+Large setup violation  
+There is a large setup violation of -1.334 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_sushi_q_reg[26]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#85 Warning
+Large setup violation  
+There is a large setup violation of -1.337 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_current_timer_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#86 Warning
+Large setup violation  
+There is a large setup violation of -1.342 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_color_q_reg[27]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#87 Warning
+Large setup violation  
+There is a large setup violation of -1.356 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_1_q_reg[29]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#88 Warning
+Large setup violation  
+There is a large setup violation of -1.357 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_current_timer_q_reg[26]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#89 Warning
+Large setup violation  
+There is a large setup violation of -1.367 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p2_score_q_reg[27]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#90 Warning
+Large setup violation  
+There is a large setup violation of -1.373 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_sushi_q_reg[26]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#91 Warning
+Large setup violation  
+There is a large setup violation of -1.384 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_3_q_reg[30]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#92 Warning
+Large setup violation  
+There is a large setup violation of -1.385 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_sushi_q_reg[27]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#93 Warning
+Large setup violation  
+There is a large setup violation of -1.385 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_3_color_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#94 Warning
+Large setup violation  
+There is a large setup violation of -1.386 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_3_q_reg[27]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#95 Warning
+Large setup violation  
+There is a large setup violation of -1.396 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_sushi_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#96 Warning
+Large setup violation  
+There is a large setup violation of -1.397 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_color_q_reg[27]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#97 Warning
+Large setup violation  
+There is a large setup violation of -1.399 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_3_sushi_q_reg[30]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#98 Warning
+Large setup violation  
+There is a large setup violation of -1.404 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_score_q_reg[25]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#99 Warning
+Large setup violation  
+There is a large setup violation of -1.418 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p2_score_q_reg[26]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#100 Warning
+Large setup violation  
+There is a large setup violation of -1.421 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_chef_q_reg[26]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#101 Warning
+Large setup violation  
+There is a large setup violation of -1.424 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_2_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#102 Warning
+Large setup violation  
+There is a large setup violation of -1.427 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_sushi_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#103 Warning
+Large setup violation  
+There is a large setup violation of -1.429 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_chef_q_reg[25]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#104 Warning
+Large setup violation  
+There is a large setup violation of -1.433 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_score_q_reg[30]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#105 Warning
+Large setup violation  
+There is a large setup violation of -1.435 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p2_chef_q_reg[28]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#106 Warning
+Large setup violation  
+There is a large setup violation of -1.442 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_3_color_q_reg[30]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#107 Warning
+Large setup violation  
+There is a large setup violation of -1.451 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p2_chef_q_reg[26]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#108 Warning
+Large setup violation  
+There is a large setup violation of -1.453 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_1_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#109 Warning
+Large setup violation  
+There is a large setup violation of -1.464 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_3_sushi_q_reg[28]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#110 Warning
+Large setup violation  
+There is a large setup violation of -1.471 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_3_q_reg[28]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#111 Warning
+Large setup violation  
+There is a large setup violation of -1.473 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_color_q_reg[28]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#112 Warning
+Large setup violation  
+There is a large setup violation of -1.476 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_1_q_reg[28]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#113 Warning
+Large setup violation  
+There is a large setup violation of -1.479 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_3_color_q_reg[28]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#114 Warning
+Large setup violation  
+There is a large setup violation of -1.479 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_2_q_reg[27]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#115 Warning
+Large setup violation  
+There is a large setup violation of -1.491 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_sushi_q_reg[28]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#116 Warning
+Large setup violation  
+There is a large setup violation of -1.498 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_chef_q_reg[30]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#117 Warning
+Large setup violation  
+There is a large setup violation of -1.502 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_score_q_reg[27]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#118 Warning
+Large setup violation  
+There is a large setup violation of -1.506 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_2_q_reg[28]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#119 Warning
+Large setup violation  
+There is a large setup violation of -1.520 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_color_q_reg[28]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#120 Warning
+Large setup violation  
+There is a large setup violation of -1.520 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_color_q_reg[28]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#121 Warning
+Large setup violation  
+There is a large setup violation of -1.524 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_sushi_q_reg[28]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#122 Warning
+Large setup violation  
+There is a large setup violation of -1.524 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p2_chef_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#123 Warning
+Large setup violation  
+There is a large setup violation of -1.529 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_1_q_reg[27]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#124 Warning
+Large setup violation  
+There is a large setup violation of -1.532 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_sushi_q_reg[27]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#125 Warning
+Large setup violation  
+There is a large setup violation of -1.535 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_2_sushi_q_reg[27]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#126 Warning
+Large setup violation  
+There is a large setup violation of -1.536 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_sushi_q_reg[26]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#127 Warning
+Large setup violation  
+There is a large setup violation of -1.543 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_chef_q_reg[27]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#128 Warning
+Large setup violation  
+There is a large setup violation of -1.546 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_4_color_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#129 Warning
+Large setup violation  
+There is a large setup violation of -1.549 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_temp_var_3_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#130 Warning
+Large setup violation  
+There is a large setup violation of -1.559 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_3_sushi_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#131 Warning
+Large setup violation  
+There is a large setup violation of -1.564 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_current_timer_q_reg[27]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#132 Warning
+Large setup violation  
+There is a large setup violation of -1.570 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_chef_q_reg[28]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#133 Warning
+Large setup violation  
+There is a large setup violation of -1.601 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p2_score_q_reg[28]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#134 Warning
+Large setup violation  
+There is a large setup violation of -1.602 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_sushi_q_reg[28]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#135 Warning
+Large setup violation  
+There is a large setup violation of -1.607 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p1_score_q_reg[28]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#136 Warning
+Large setup violation  
+There is a large setup violation of -1.637 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_current_timer_q_reg[28]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#137 Warning
+Large setup violation  
+There is a large setup violation of -1.643 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_3_color_q_reg[27]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#138 Warning
+Large setup violation  
+There is a large setup violation of -1.660 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_p2_chef_q_reg[27]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#139 Warning
+Large setup violation  
+There is a large setup violation of -1.693 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_color_q_reg[27]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#140 Warning
+Large setup violation  
+There is a large setup violation of -1.702 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_1_sushi_q_reg[31]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#141 Warning
+Large setup violation  
+There is a large setup violation of -1.742 ns between external_reset_cond/D_stage_q_reg[3]/C (clocked by clk_0) and game_datapath/game_regfiles/D_lane_3_sushi_q_reg[27]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-18#1 Warning
+Missing input or output delay  
+An input delay is missing on external_reset_button relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#2 Warning
+Missing input or output delay  
+An input delay is missing on p1_button_flip relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#3 Warning
+Missing input or output delay  
+An input delay is missing on p1_button_left relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#4 Warning
+Missing input or output delay  
+An input delay is missing on p1_button_right relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#5 Warning
+Missing input or output delay  
+An input delay is missing on p2_button_flip relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#6 Warning
+Missing input or output delay  
+An input delay is missing on p2_button_left relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#7 Warning
+Missing input or output delay  
+An input delay is missing on p2_button_right relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#8 Warning
+Missing input or output delay  
+An input delay is missing on rst_n relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#9 Warning
+Missing input or output delay  
+An output delay is missing on ext_select[0] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#10 Warning
+Missing input or output delay  
+An output delay is missing on ext_select[1] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#11 Warning
+Missing input or output delay  
+An output delay is missing on ext_select[2] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#12 Warning
+Missing input or output delay  
+An output delay is missing on ext_select[3] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#13 Warning
+Missing input or output delay  
+An output delay is missing on ext_select[4] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#14 Warning
+Missing input or output delay  
+An output delay is missing on ext_select[5] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#15 Warning
+Missing input or output delay  
+An output delay is missing on io_segment[0] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#16 Warning
+Missing input or output delay  
+An output delay is missing on io_segment[1] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#17 Warning
+Missing input or output delay  
+An output delay is missing on io_segment[2] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#18 Warning
+Missing input or output delay  
+An output delay is missing on io_segment[3] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#19 Warning
+Missing input or output delay  
+An output delay is missing on io_segment[4] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#20 Warning
+Missing input or output delay  
+An output delay is missing on io_segment[5] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#21 Warning
+Missing input or output delay  
+An output delay is missing on io_segment[6] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#22 Warning
+Missing input or output delay  
+An output delay is missing on io_segment[7] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#23 Warning
+Missing input or output delay  
+An output delay is missing on lane_1_color_data relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#24 Warning
+Missing input or output delay  
+An output delay is missing on lane_1_sushi_data relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#25 Warning
+Missing input or output delay  
+An output delay is missing on lane_2_color_data relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#26 Warning
+Missing input or output delay  
+An output delay is missing on lane_2_sushi_data relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#27 Warning
+Missing input or output delay  
+An output delay is missing on lane_3_color_data relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#28 Warning
+Missing input or output delay  
+An output delay is missing on lane_3_sushi_data relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#29 Warning
+Missing input or output delay  
+An output delay is missing on lane_4_color_data relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#30 Warning
+Missing input or output delay  
+An output delay is missing on lane_4_sushi_data relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#31 Warning
+Missing input or output delay  
+An output delay is missing on p1_chef_data relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#32 Warning
+Missing input or output delay  
+An output delay is missing on p2_chef_data relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+

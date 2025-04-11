@@ -1,0 +1,35 @@
+module boolean #(
+    SIZE = 32 : SIZE > 0
+)(
+    input a[SIZE],     
+    input b[SIZE],   
+    input alufn[6],  
+    output bool[SIZE]   
+) {
+    bool_mux mux_4_32[32]  // Instantiate 32 mux_4 multiplexers
+
+    sig mux_inputs[32][6]  // 2D array for the 6 possible operations
+
+    always {
+        repeat(i, SIZE, 0, 1) {  // Iterate from i = 0 to SIZE-1
+            // Define the 4 Boolean function inputs per bit
+            mux_inputs[i][0] = a[i] & b[i]  // AND operation
+            mux_inputs[i][1] = a[i] | b[i]  // OR operation
+            mux_inputs[i][2] = a[i] ^ b[i] // XOR operation
+            mux_inputs[i][3] = a[i]        // no operation
+            mux_inputs[i][4] = ~(a[i] | b[i] ) //NOR operation
+            mux_inputs[i][5] = ~(a[i] & b[i] ) //NAND operation
+
+            // Connect each multiplexer to its respective inputs
+            mux_4_32.s0[i] = alufn[0]  // Select input S0 from ALUFN[0]
+            mux_4_32.s1[i] = alufn[1]  // Select input S1 from ALUFN[1]
+            mux_4_32.s2[i] = alufn[2]  // Select input S1 from ALUFN[2]
+            mux_4_32.s3[i] = alufn[3]  // Select input S1 from ALUFN[3]
+            
+            mux_4_32.in[i] = mux_inputs[i]  // Connect operation inputs
+
+            // Assign output from each multiplexer to `bool[i]`
+            bool[i] = mux_4_32.out[i];
+        }
+    }
+}

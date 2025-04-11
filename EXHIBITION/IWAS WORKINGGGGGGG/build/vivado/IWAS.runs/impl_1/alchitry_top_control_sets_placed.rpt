@@ -1,0 +1,146 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Fri Apr 11 22:27:15 2025
+| Host         : LAPTOP-Q7AGJJ08 running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file alchitry_top_control_sets_placed.rpt
+| Design       : alchitry_top
+| Device       : xc7a35t
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    68 |
+|    Minimum number of control sets                        |    68 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |   168 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    68 |
+| >= 0 to < 4        |     0 |
+| >= 4 to < 6        |    22 |
+| >= 6 to < 8        |    11 |
+| >= 8 to < 10       |     0 |
+| >= 10 to < 12      |     0 |
+| >= 12 to < 14      |    10 |
+| >= 14 to < 16      |     0 |
+| >= 16              |    25 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              19 |           12 |
+| No           | No                    | Yes                    |               8 |            5 |
+| No           | Yes                   | No                     |              86 |           31 |
+| Yes          | No                    | No                     |               0 |            0 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |             919 |          315 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++----------------+----------------------------------------------------------------+-------------------------------------------------+------------------+----------------+--------------+
+|  Clock Signal  |                          Enable Signal                         |                 Set/Reset Signal                | Slice Load Count | Bel Load Count | Bels / Slice |
++----------------+----------------------------------------------------------------+-------------------------------------------------+------------------+----------------+--------------+
+|  clk_IBUF_BUFG |                                                                | external_reset_button_IBUF                      |                3 |              4 |         1.33 |
+|  clk_IBUF_BUFG |                                                                | reset_cond/M_reset_cond_in                      |                2 |              4 |         2.00 |
+|  clk_IBUF_BUFG | p1_chef_driver/D_pixel_address_ctr_d                           | reset_cond/rst                                  |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG | p2_chef_driver/D_pixel_address_ctr_d                           | reset_cond/rst                                  |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG | p2_chef_driver/D_bit_ctr_d                                     | reset_cond/rst                                  |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | lane_1_color_driver/D_pixel_address_ctr_d                      | reset_cond/rst                                  |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | lane_3_color_driver/D_bit_ctr_d                                | reset_cond/rst                                  |                1 |              5 |         5.00 |
+|  clk_IBUF_BUFG | lane_2_sushi_driver/D_pixel_address_ctr_d                      | reset_cond/rst                                  |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | lane_2_sushi_driver/D_bit_ctr_d                                | reset_cond/rst                                  |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | p1_chef_driver/D_bit_ctr_d                                     | reset_cond/rst                                  |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | lane_3_sushi_driver/D_bit_ctr_d                                | reset_cond/rst                                  |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | lane_3_sushi_driver/D_pixel_address_ctr_d                      | reset_cond/rst                                  |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | lane_3_color_driver/D_pixel_address_ctr_d                      | reset_cond/rst                                  |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | lane_4_color_driver/D_bit_ctr_d                                | reset_cond/rst                                  |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | lane_4_color_driver/D_pixel_address_ctr_d                      | reset_cond/rst                                  |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | lane_4_sushi_driver/D_pixel_address_ctr_d                      | reset_cond/rst                                  |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | lane_4_sushi_driver/D_bit_ctr_d                                | reset_cond/rst                                  |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | lane_2_color_driver/D_bit_ctr_d                                | reset_cond/rst                                  |                1 |              5 |         5.00 |
+|  clk_IBUF_BUFG | lane_2_color_driver/D_pixel_address_ctr_d                      | reset_cond/rst                                  |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | lane_1_color_driver/D_bit_ctr_d                                | reset_cond/rst                                  |                1 |              5 |         5.00 |
+|  clk_IBUF_BUFG | lane_1_sushi_driver/D_bit_ctr_d                                | reset_cond/rst                                  |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | lane_1_sushi_driver/D_pixel_address_ctr_d                      | reset_cond/rst                                  |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | lane_4_sushi_driver/D_ctr_d                                    | reset_cond/rst                                  |                3 |              7 |         2.33 |
+|  clk_IBUF_BUFG | lane_3_color_driver/D_ctr_d                                    | reset_cond/rst                                  |                2 |              7 |         3.50 |
+|  clk_IBUF_BUFG | lane_3_sushi_driver/D_ctr_d                                    | reset_cond/rst                                  |                3 |              7 |         2.33 |
+|  clk_IBUF_BUFG | p2_chef_driver/D_ctr_d                                         | reset_cond/rst                                  |                2 |              7 |         3.50 |
+|  clk_IBUF_BUFG | lane_4_color_driver/D_ctr_d                                    | reset_cond/rst                                  |                2 |              7 |         3.50 |
+|  clk_IBUF_BUFG | lane_1_color_driver/D_ctr_d                                    | reset_cond/rst                                  |                3 |              7 |         2.33 |
+|  clk_IBUF_BUFG | lane_2_sushi_driver/D_ctr_d                                    | reset_cond/rst                                  |                2 |              7 |         3.50 |
+|  clk_IBUF_BUFG | p1_chef_driver/D_ctr_d                                         | reset_cond/rst                                  |                2 |              7 |         3.50 |
+|  clk_IBUF_BUFG | lane_1_sushi_driver/D_ctr_d                                    | reset_cond/rst                                  |                2 |              7 |         3.50 |
+|  clk_IBUF_BUFG | lane_2_color_driver/D_ctr_d                                    | reset_cond/rst                                  |                3 |              7 |         2.33 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/FSM_sequential_D_game_fsm_q[6]_i_2_n_0   | reset_cond/rst                                  |                2 |              7 |         3.50 |
+|  clk_IBUF_BUFG | p1_chef_driver/D_rst_ctr_d                                     | reset_cond/rst                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG | lane_3_sushi_driver/D_rst_ctr_d                                | reset_cond/rst                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG | p2_chef_driver/D_rst_ctr_d                                     | reset_cond/rst                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG | lane_1_color_driver/D_rst_ctr_d                                | reset_cond/rst                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG | lane_2_sushi_driver/D_rst_ctr_d                                | reset_cond/rst                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG | lane_3_color_driver/D_rst_ctr_d                                | reset_cond/rst                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG | lane_4_color_driver/D_rst_ctr_d                                | reset_cond/rst                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG | lane_1_sushi_driver/D_rst_ctr_d                                | reset_cond/rst                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG | lane_4_sushi_driver/D_rst_ctr_d                                | reset_cond/rst                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG | lane_2_color_driver/D_rst_ctr_d                                | reset_cond/rst                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG | btn_cond_p1_button_flip/D_ctr_q[0]_i_2__3_n_0                  | btn_cond_p1_button_flip/sync/D_pipe_q_reg[1]_0  |                5 |             17 |         3.40 |
+|  clk_IBUF_BUFG | btn_cond_p1_button_left/sel                                    | btn_cond_p1_button_left/sync/clear              |                5 |             17 |         3.40 |
+|  clk_IBUF_BUFG | btn_cond_p1_button_right/D_ctr_q[0]_i_2__2_n_0                 | btn_cond_p1_button_right/sync/D_pipe_q_reg[1]_0 |                5 |             17 |         3.40 |
+|  clk_IBUF_BUFG | btn_cond_p2_button_flip/D_ctr_q[0]_i_2__5_n_0                  | btn_cond_p2_button_flip/sync/D_pipe_q_reg[1]_0  |                5 |             17 |         3.40 |
+|  clk_IBUF_BUFG | btn_cond_p2_button_left/D_ctr_q[0]_i_2__4_n_0                  | btn_cond_p2_button_left/sync/D_pipe_q_reg[1]_0  |                5 |             17 |         3.40 |
+|  clk_IBUF_BUFG | btn_cond_p2_button_right/D_ctr_q[0]_i_2__0_n_0                 | btn_cond_p2_button_right/sync/D_pipe_q_reg[1]_0 |                5 |             17 |         3.40 |
+|  clk_IBUF_BUFG |                                                                |                                                 |               12 |             19 |         1.58 |
+|  clk_IBUF_BUFG |                                                                | seg/ctr/D_ctr_q[0]_i_1_n_0                      |                5 |             19 |         3.80 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/FSM_sequential_D_game_fsm_q_reg[0]_13[0] | reset_cond/rst                                  |               15 |             32 |         2.13 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/FSM_sequential_D_game_fsm_q_reg[0]_1[0]  | reset_cond/rst                                  |               11 |             32 |         2.91 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/FSM_sequential_D_game_fsm_q_reg[0]_3[0]  | reset_cond/rst                                  |               11 |             32 |         2.91 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/FSM_sequential_D_game_fsm_q_reg[0]_9[0]  | reset_cond/rst                                  |               13 |             32 |         2.46 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/FSM_sequential_D_game_fsm_q_reg[0]_5[0]  | reset_cond/rst                                  |               11 |             32 |         2.91 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/FSM_sequential_D_game_fsm_q_reg[0]_0[0]  | reset_cond/rst                                  |               10 |             32 |         3.20 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/FSM_sequential_D_game_fsm_q_reg[0]_7[0]  | reset_cond/rst                                  |               11 |             32 |         2.91 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/FSM_sequential_D_game_fsm_q_reg[0]_4[0]  | reset_cond/rst                                  |               13 |             32 |         2.46 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/FSM_sequential_D_game_fsm_q_reg[0]_10[0] | reset_cond/rst                                  |               10 |             32 |         3.20 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/FSM_sequential_D_game_fsm_q_reg[0]_12[0] | reset_cond/rst                                  |               10 |             32 |         3.20 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/FSM_sequential_D_game_fsm_q_reg[0]_11[0] | reset_cond/rst                                  |               13 |             32 |         2.46 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/FSM_sequential_D_game_fsm_q_reg[0]_14[0] | reset_cond/rst                                  |               12 |             32 |         2.67 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/FSM_sequential_D_game_fsm_q_reg[0]_2[0]  | reset_cond/rst                                  |               11 |             32 |         2.91 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/FSM_sequential_D_game_fsm_q_reg[0]_6[0]  | reset_cond/rst                                  |               11 |             32 |         2.91 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/FSM_sequential_D_game_fsm_q_reg[0]_8[0]  | reset_cond/rst                                  |               11 |             32 |         2.91 |
+|  clk_IBUF_BUFG | game_datapath/game_cu/E[0]                                     | reset_cond/rst                                  |               11 |             32 |         2.91 |
+|  clk_IBUF_BUFG |                                                                | reset_cond/rst                                  |               26 |             67 |         2.58 |
++----------------+----------------------------------------------------------------+-------------------------------------------------+------------------+----------------+--------------+
+
+
