@@ -17,8 +17,8 @@ Players battle to eat more sushi in 30 seconds by toggling conveyor belt directi
 
 ## 📸 Prototype
 
-![Prototype Photo](https://github.com/kalistalks/secret-sauce/i want a sushi/Images/I Want A Sushi.png)
-![Prototype Photo Top View](https://github.com/kalistalks/secret-sauce/i want a sushi/Images/I Want A Sushi Top View.jpg)
+![Prototype Photo](https://github.com/kalistalks/secret-sauce/blob/main/i%20want%20a%20sushi/Images/I%20Want%20A%20Sushi.png)
+![Prototype Photo Top View](https://github.com/kalistalks/secret-sauce/blob/main/i%20want%20a%20sushi/Images/I%20Want%20A%20Sushi%20Top%20View.jpg)
 
 ## ⚙️ Built With
 
@@ -29,4 +29,4 @@ Players battle to eat more sushi in 30 seconds by toggling conveyor belt directi
 
 ## 🕹️ How to Play
 
-![Poster](https://github.com/kalistalks/secret-sauce/i want a sushi/Images/IWAS A4 Poster.png)
+![Poster](https://github.com/kalistalks/secret-sauce/blob/main/i%20want%20a%20sushi/Images/IWAS%20A4%20Poster.png)
